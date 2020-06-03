@@ -16,6 +16,10 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* poetryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* poetryTests.m */; };
+		D985B045AD514D4BBA0FC623 /* Courgette-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 657ABEC162FF4EAE87CE2DF9 /* Courgette-Regular.ttf */; };
+		EFB1168D88EC41319ED2DE23 /* SourceSerifPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BC1810FFF65446186A97FEB /* SourceSerifPro-Bold.ttf */; };
+		F47ABDBC9BF646CC80105314 /* SourceSerifPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0A524E115D284DD2B534CE88 /* SourceSerifPro-Regular.ttf */; };
+		0CC6E12F331B4D51AF71C741 /* SourceSerifPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 004DDBC23B264D93B0CC6CAD /* SourceSerifPro-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,10 @@
 		2D02E4901E0B4A5D006451C7 /* poetry-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "poetry-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		657ABEC162FF4EAE87CE2DF9 /* Courgette-Regular.ttf */ = {isa = PBXFileReference; name = "Courgette-Regular.ttf"; path = "../src/assets/fonts/Courgette-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0BC1810FFF65446186A97FEB /* SourceSerifPro-Bold.ttf */ = {isa = PBXFileReference; name = "SourceSerifPro-Bold.ttf"; path = "../src/assets/fonts/SourceSerifPro-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0A524E115D284DD2B534CE88 /* SourceSerifPro-Regular.ttf */ = {isa = PBXFileReference; name = "SourceSerifPro-Regular.ttf"; path = "../src/assets/fonts/SourceSerifPro-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		004DDBC23B264D93B0CC6CAD /* SourceSerifPro-SemiBold.ttf */ = {isa = PBXFileReference; name = "SourceSerifPro-SemiBold.ttf"; path = "../src/assets/fonts/SourceSerifPro-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +148,7 @@
 				00E356EF1AD99517003FC87E /* poetryTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				70615C2D46484C9B8E0DA7F3 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -156,6 +165,18 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		70615C2D46484C9B8E0DA7F3 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				657ABEC162FF4EAE87CE2DF9 /* Courgette-Regular.ttf */,
+				0BC1810FFF65446186A97FEB /* SourceSerifPro-Bold.ttf */,
+				0A524E115D284DD2B534CE88 /* SourceSerifPro-Regular.ttf */,
+				004DDBC23B264D93B0CC6CAD /* SourceSerifPro-SemiBold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -295,6 +316,10 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				D985B045AD514D4BBA0FC623 /* Courgette-Regular.ttf in Resources */,
+				EFB1168D88EC41319ED2DE23 /* SourceSerifPro-Bold.ttf in Resources */,
+				F47ABDBC9BF646CC80105314 /* SourceSerifPro-Regular.ttf in Resources */,
+				0CC6E12F331B4D51AF71C741 /* SourceSerifPro-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
