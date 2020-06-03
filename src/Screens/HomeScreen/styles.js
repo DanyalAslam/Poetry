@@ -10,11 +10,17 @@ const styles = StyleSheet.create({
         paddingTop: 4 * vh
     },
     innerContainer: {
-        height: 30 * vh,
-        width: 90 * vw, 
+        //ny hur
+        // height: 30 * vh,
+        // width: 90 * vw, 
+
+        height: 100 * vh,
+        width: 100 * vw, 
+       
     },
     textStyle: {
-        fontSize: 3 * vh
+        fontSize: 3 * vh,
+        marginTop:vh*1
     }
 })
 
