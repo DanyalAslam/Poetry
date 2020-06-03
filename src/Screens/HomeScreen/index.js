@@ -8,7 +8,10 @@ class HomeScreen extends React.Component{
     render(){
         return(
             <View style={styles.container}>
-                <Text>Home Screen</Text>
+                <Text style={styles.textStyle}>Home Screen</Text>
+                <View style={styles.innerContainer}>
+
+                </View>
             </View>
         )
     }

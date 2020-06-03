@@ -14,10 +14,9 @@ import MainNavigator from './src/Navigator';
  
 
 const App = ()  => {
-  return ( 
-      <SafeAreaView>
+  return (  
         <MainNavigator/>
-      </SafeAreaView> 
+     
   );
 };
 
