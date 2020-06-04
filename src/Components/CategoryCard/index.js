@@ -7,7 +7,7 @@ import RippleTouch from '../RippleTouch/index.js'
 const CategoryCard = (props) => {
 
 
-    return (<RippleTouch style={styles.ripple} rippleColor="black" onPress={props.onPress}>
+    return (<RippleTouch style={[styles.ripple,props.style]} rippleColor="black" onPress={props.onPress}>
         <ImageBackground
             style={styles.Container}
             imageStyle={styles.imageStyle}

@@ -9,7 +9,7 @@ const PoetCard = (props) => {
 
 
     return (
-        <RippleTouch style={styles.ripple} rippleColor="black" onPress={props.onPress}>
+        <RippleTouch style={[styles.ripple, props.style]} rippleColor="black" onPress={props.onPress}>
 
             <Image source={props.source} style={styles.imageStyle} />
 

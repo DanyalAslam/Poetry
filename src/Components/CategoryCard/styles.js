@@ -14,7 +14,7 @@ export default Styles = StyleSheet.create({
         shadowColor: 'black'
     },
     Container: {
-        height: 18 * vh,
+        height: '100%',
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',

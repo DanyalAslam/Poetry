@@ -175,6 +175,8 @@ const PoetStackNavigator = () => {
           }
         }
       />
+
+      
     </PoetStack.Navigator>
   )
 }
