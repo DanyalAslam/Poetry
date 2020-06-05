@@ -14,6 +14,7 @@ import CategoryDetailsScreen from '../Screens/CategoryDetailsScreen';
 import PoetPoemsScreen from '../Screens/PoetPoemsScreen';
 import WishListScreen from '../Screens/WishListScreen';
 import RippleTouch from '../Components/RippleTouch';
+import PoetPoemDetailScreen from '../Components/PoetPoemDetailScreen'
 import { Image } from 'react-native';
 import allImages from '../assets/images';
 
@@ -132,13 +133,24 @@ const getHeaderTitle = props => {
 const HomeStackNavigator = () => {
 
   return (
+  //old
+    // <HomeStack.Navigator
+    //   screenOptions={_renderHeaderWithSearch}
+    //   headerMode="screen"
+    // >
+    //   <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+   
+    // </HomeStack.Navigator>
+
+
     <HomeStack.Navigator
-      screenOptions={_renderHeaderWithSearch}
-      headerMode="screen"
+   
     >
-      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+      <HomeStack.Screen name="HomeScreen" component={PoetPoemDetailScreen} />
+   
     </HomeStack.Navigator>
-  )
+
+)
 }
 
 const CategoryStackNavigator = () => {

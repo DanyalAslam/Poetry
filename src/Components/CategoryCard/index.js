@@ -13,6 +13,7 @@ const CategoryCard = (props) => {
             imageStyle={styles.imageStyle}
             source={props.source}
         >
+            
             <Text style={styles.title}>
                 {props.title}
             </Text>
