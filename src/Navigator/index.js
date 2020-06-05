@@ -2,7 +2,7 @@ import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import HomeScreen from '../Screens/HomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import styles from './styles';
 import ExtendedHeader from '../Components/ExtendedHeader';
 import { appTheme } from '../Utils';
@@ -10,7 +10,7 @@ import TabBarItem from '../Components/TabBarItem'
 import MoreScreen from '../Screens/MoreScreen';
 import PoetsScreen from '../Screens/PoetsScreen';
 import CategoriesScreen from '../Screens/CategoriesScreen';
-import { vh } from '../Units';
+import CategoryDetailsScreen from '../Screens/CategoryDetailsScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -28,9 +28,22 @@ const _DefaultHeaderOptions = (props) => {
     headerShown: true,
     title: getHeaderTitle(props),
     headerTitleAlign: 'center',
-    headerTitleStyle: styles.headerTitle,
+    headerTitleStyle: _pickHeaderStyle(props),
     headerStyle: styles.header,
   }
+}
+
+const _pickHeaderStyle = (props) => {
+
+  const routeName = props.route.name
+
+  let _styles = styles.headerTitle
+
+  if (routeName == "MoreScreen" || routeName == "CategoryDetailsScreen") {
+    _styles = styles.headerTitle_1
+  }
+ 
+  return _styles
 }
 
 
@@ -46,6 +59,7 @@ const getHeaderTitle = props => {
 
   const routeName = props.route.name
 
+
   switch (routeName) {
 
     case 'HomeScreen': {
@@ -55,6 +69,12 @@ const getHeaderTitle = props => {
     case 'CategoriesScreen': {
       return 'Categories'
     }
+
+    case 'CategoryDetailsScreen': {
+
+      return props.route.params.title
+    }
+
 
     case 'PoetsScreen': {
       return 'Poets'
@@ -90,9 +110,32 @@ const CategoryStackNavigator = () => {
   return (
     <CategoryStack.Navigator
       screenOptions={_renderHeaderWithSearch}
+
       headerMode="screen"
     >
-      <CategoryStack.Screen name="CategoriesScreen" component={CategoriesScreen} />
+      <CategoryStack.Screen
+        name="CategoriesScreen"
+        component={CategoriesScreen}
+        options={
+          {
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureEnabled: true,
+            gestureDirection: 'horizontal'
+          }
+        }
+      />
+
+      <CategoryStack.Screen
+        name="CategoryDetailsScreen"
+        component={CategoryDetailsScreen}
+        options={
+          {
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureEnabled: true,
+            gestureDirection: 'horizontal'
+          }
+        }
+      />
     </CategoryStack.Navigator>
   )
 }
@@ -137,7 +180,7 @@ const TabNavigator = () => {
         tabStyle: styles.tabStyle,
         style: styles.tabBarStyle,
         iconStyle: styles.iconStyle,
-        bounces: true, 
+        bounces: true,
         indicatorStyle: styles.indicatorStyle
       }}
       swipeEnabled={true}

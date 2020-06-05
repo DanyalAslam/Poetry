@@ -3,15 +3,11 @@ import { View, Image, Text,StyleSheet } from 'react-native'
 // import styles from './styles.js'
 import allImages from '../../assets/images/index.js'
 import { appTheme } from '../../Utils/index.js'
-
-
-
-
 import React, { Component } from 'react';
 import { vh,vw } from '../../Units/index.js';
 
 
-class CategoryCard extends Component{
+class HomeCategoryCard extends Component{
     render(){
     return(
 
@@ -28,7 +24,7 @@ class CategoryCard extends Component{
     )
 }
 }
-export default CategoryCard
+export default HomeCategoryCard
 
 const styles = StyleSheet.create({
     container:{

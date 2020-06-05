@@ -15,12 +15,18 @@ export default Styles = StyleSheet.create({
     headerTitle: {
         color: appTheme.white,
         fontSize: 3.3 * vh,
-        fontFamily: fonts.CR, 
+        fontFamily: fonts.CR,
     },
-    
+    headerTitle_1: {
+        color: appTheme.white,
+        fontSize: 3.3 * vh,
+        fontFamily: fonts.CR,
+        marginTop: 3 * vh
+    },
+
     tabStyle: {
         paddingTop: 0,
-        paddingLeft: 0, 
+        paddingLeft: 0,
         height: 7.5 * vh,
 
     },
@@ -29,19 +35,19 @@ export default Styles = StyleSheet.create({
         height: 8.7 * vh,
         elevation: 14,
         borderTopWidth: 0.3 * vw,
-        borderColor: appTheme.lightGray, 
+        borderColor: appTheme.lightGray,
         shadowColor: appTheme.darkGray,
         shadowOffset: {
             width: 1 * vw,
             height: 1 * vw
         },
-        shadowOpacity: 0.2, 
+        shadowOpacity: 0.2,
     },
     iconStyle: {
         width: 10 * vw,
     },
-    indicatorStyle:{
+    indicatorStyle: {
         height: 0.4 * vh,
-         backgroundColor: appTheme.lightGray 
+        backgroundColor: appTheme.lightGray
     }
 });

@@ -9,8 +9,11 @@ export default ExtendedHeader = (props) => {
 
 
     const renderExtendedHeader = () => {
+ 
 
-        if (props.scene.route.name != 'MoreScreen') {
+        if (props.scene.route.name != 'MoreScreen'
+            && props.scene.route.name != 'CategoryDetailsScreen') {
+
             return <SearchInput />
         }
 

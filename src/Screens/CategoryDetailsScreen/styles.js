@@ -7,11 +7,11 @@ const styles = StyleSheet.create({
         backgroundColor: appTheme.white,
         flex: 1,
         alignItems: 'center',
-        paddingTop: 4 * vh,
+        paddingTop: 1 * vh,
       
     },
     scrollView: {
-        width: '90%', 
+        width: '100%', 
     },
 })
 
