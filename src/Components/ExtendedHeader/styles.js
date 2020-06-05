@@ -4,7 +4,7 @@ import { vw, vh } from '../../Units';
 export default Styles = StyleSheet.create({
 
     Container: {
-        paddingHorizontal: 6 * vw,  
+        paddingHorizontal: 5 * vw,  
         height: 13.5*vh
     },
     personImage: {

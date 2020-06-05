@@ -3,6 +3,7 @@ import { View, Text, ScrollView } from 'react-native'
 import styles from './styles.js'
 import CategoryCard from '../../Components/CategoryCard/index.js'
 import allImages from '../../assets/images/index.js'
+import { vh } from '../../Units/index.js'
 
 
 class CategoriesScreen extends React.Component {
@@ -56,6 +57,7 @@ class CategoriesScreen extends React.Component {
                 <ScrollView
                     style={styles.scrollView}
                     showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{paddingVertical: 1*vh}}
                 >
                     {
                         this._renderCategories()

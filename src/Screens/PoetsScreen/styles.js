@@ -7,15 +7,11 @@ const styles = StyleSheet.create({
         backgroundColor: appTheme.white,
         flex: 1,
         alignItems: 'center',
-        paddingTop: 4 * vh
+        paddingTop: 3 * vh
     },
-    innerContainer: {
-        height: 30 * vh,
-        width: 90 * vw, 
+    scrollView: {
+        width: '100%', 
     },
-    textStyle: {
-        fontSize: 3 * vh
-    }
 })
 
 export default styles

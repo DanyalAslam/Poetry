@@ -5,7 +5,7 @@ import PoemCard from '../../Components/PoemCard/index.js'
 import { vh } from '../../Units/index.js'
 
 
-class CategoryDetailsScreen extends React.Component {
+class PoetPoemsScreen extends React.Component {
 
     state = {
         mockData: [
@@ -74,7 +74,7 @@ class CategoryDetailsScreen extends React.Component {
                 <FlatList
                     data={this.state.mockData}
                     style={styles.scrollView}
-                    contentContainerStyle={{ alignItems: 'center', paddingVertical: 1*vh }}
+                    contentContainerStyle={{ alignItems: 'center', paddingTop: 3.5*vh,paddingBottom: 1*vh }}
                     showsVerticalScrollIndicator={false}
                     renderItem={this._renderPoems}
                     numColumns={2}
@@ -86,4 +86,4 @@ class CategoryDetailsScreen extends React.Component {
     }
 }
 
-export default CategoryDetailsScreen
+export default PoetPoemsScreen

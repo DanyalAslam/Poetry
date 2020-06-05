@@ -11,6 +11,7 @@ import MoreScreen from '../Screens/MoreScreen';
 import PoetsScreen from '../Screens/PoetsScreen';
 import CategoriesScreen from '../Screens/CategoriesScreen';
 import CategoryDetailsScreen from '../Screens/CategoryDetailsScreen';
+import PoetPoemsScreen from '../Screens/PoetPoemsScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -42,7 +43,7 @@ const _pickHeaderStyle = (props) => {
   if (routeName == "MoreScreen" || routeName == "CategoryDetailsScreen") {
     _styles = styles.headerTitle_1
   }
- 
+
   return _styles
 }
 
@@ -78,6 +79,10 @@ const getHeaderTitle = props => {
 
     case 'PoetsScreen': {
       return 'Poets'
+    }
+
+    case 'PoetPoemsScreen': {
+      return props.route.params.title
     }
 
     case 'MoreScreen': {
@@ -147,7 +152,29 @@ const PoetStackNavigator = () => {
       screenOptions={_renderHeaderWithSearch}
       headerMode="screen"
     >
-      <PoetStack.Screen name="PoetsScreen" component={PoetsScreen} />
+      <PoetStack.Screen
+        name="PoetsScreen"
+        component={PoetsScreen}
+        options={
+          {
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureEnabled: true,
+            gestureDirection: 'horizontal'
+          }
+        }
+      />
+
+      <PoetStack.Screen
+        name="PoetPoemsScreen"
+        component={PoetPoemsScreen}
+        options={
+          {
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureEnabled: true,
+            gestureDirection: 'horizontal'
+          }
+        }
+      />
     </PoetStack.Navigator>
   )
 }
