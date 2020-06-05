@@ -1,38 +1,36 @@
 
-import { View, Image, Text,StyleSheet } from 'react-native'
-// import styles from './styles.js'
-import allImages from '../../assets/images/index.js'
-import { appTheme } from '../../Utils/index.js'
-
-
-
+import { View, Image, Text, StyleSheet } from 'react-native'
 import React, { Component } from 'react';
+import styles from './styles';
+import RippleTouch from '../RippleTouch';
 
 
-class ArtistCard extends Component{
-    render(){
-    return(
+class ArtistCard extends Component {
+    render() {
 
-        <View style={{height:140,width:80,marginLeft:12,marginTop:0}}>
-        <View style={{flex:3}}>
-        <Image source={{uri:this.props.imageUrii }}
-       
-            style={{flex:1,borderRadius:16}} />
-        </View>
-        <View style={{flex:1,justifyContent:"center",paddingLeft:5}}>
-    <Text>{this.props.name}</Text>
-    
-        </View>
-    </View>
-    )
-}
+        let props = this.props
+
+        return (
+            <View style={[styles.ripple]}>
+                <RippleTouch rippleColor="black" onPress={props.onPress}>
+
+
+                    <Image source={props.source} style={styles.imageStyle} />
+
+                </RippleTouch>
+
+                <Text style={styles.title} numberOfLines={1}>
+                    Poet:
+                </Text>
+
+                <Text style={styles.text} numberOfLines={2}>
+                    {props.poet}
+                </Text>
+
+
+            </View>
+        )
+    }
 }
 export default ArtistCard
 
-const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        alignItems:"center",
-        justifyContent:"center"
-    }
-})

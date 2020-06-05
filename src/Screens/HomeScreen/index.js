@@ -1,11 +1,12 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, FlatList } from 'react-native'
 import styles from './styles.js'
 import CategoryCard from '../../../src/Components/CategoryCard'
 import { ScrollView } from 'react-native-gesture-handler'
-import PoetCard from '../../Components/PoetCard/index.js'
 import { vw, vh } from '../../Units/index.js'
 import allImages from '../../assets/images/index.js'
+import ArtistCard from '../../Components/ArtistCard/index.js'
+import PoemCard from '../../Components/PoemCard/index.js'
 
 
 
@@ -37,6 +38,30 @@ class HomeScreen extends React.Component {
                 poet: 'Samuel',
                 picture: 'https://www.biography.com/.image/t_share/MTIwNjA4NjMzNzc1OTQ5MzI0/samuel-taylor-coleridge-9253238-1-402.jpg'
             },
+        ],
+        mockDataPoems: [
+            {
+                poet: "Shakespeare",
+                title: "Love is in the wind",
+                verses: "lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum"
+            },
+            {
+                poet: "Shakespeare",
+                title: "Love is in the wind",
+                verses: "lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum"
+            },
+            {
+                poet: "Shakespeare",
+                title: "Love is in the wind",
+                verses: "lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum"
+            },
+            {
+                poet: "Shakespeare",
+                title: "Love is in the wind",
+                verses: "lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum"
+            },
+
+
         ]
     }
 
@@ -44,11 +69,11 @@ class HomeScreen extends React.Component {
     _renderPoetCards = () => {
 
         return this.state.mockData.map((_poet, index) => {
-            return <PoetCard
+
+            return <ArtistCard
                 poet={_poet.poet}
                 source={{ uri: _poet.picture }}
                 key={{ index }}
-                style={{ width: 35 * vw }}
             />
         })
 
@@ -61,9 +86,19 @@ class HomeScreen extends React.Component {
 
                 <View style={styles.topCardChildRow}>
 
-                    <Text style={styles.Heading}>
-                        Poets
-                </Text>
+                    <View>
+                        <Text style={styles.Heading}>
+                            Poets
+                    </Text>
+
+                        <Text style={[styles.HeadingSeeAll,
+                        { fontSize: 1.85 * vh, marginTop: 0.5 * vh }
+                        ]}
+                            numberOfLines={1}>
+                            Browse through the collection of historical poets.
+                     </Text>
+
+                    </View>
 
                     <Text style={styles.HeadingSeeAll}>
                         See All
@@ -84,55 +119,112 @@ class HomeScreen extends React.Component {
         </View>
     }
 
+
+    _renderCategoryArea = () => {
+
+        return <>
+            <View style={[styles.topCardChildRow, { marginTop: 5 * vh, marginLeft: 3 * vw, marginRight: 6 * vw, }]}>
+
+                <Text style={styles.Heading}>
+                    Categories
+                </Text>
+
+                <Text style={styles.HeadingSeeAll}>
+                    See All
+                </Text>
+            </View>
+
+            <View
+                style={styles.categroyScroll}
+            >
+
+
+                <CategoryCard
+                    source={allImages.generalImages.loveImage}
+                    title='Love'
+                    style={styles.categoryCardStyle}
+                />
+
+                <CategoryCard
+                    source={allImages.generalImages.sadImage}
+                    title='Sad'
+                    style={styles.categoryCardStyle}
+                />
+
+                <CategoryCard
+                    source={allImages.generalImages.friendImage}
+                    title='Friend'
+                    style={styles.categoryCardStyle}
+                />
+
+
+            </View>
+
+        </>
+    }
+
+
+    _renderPoems = ({ item }) => {
+
+        let _poem = item
+
+        return <PoemCard
+            poet={_poem.poet}
+            title={_poem.title}
+            verses={_poem.verses}
+        />
+
+    }
+
+
+
+    _renderTrending = () => {
+
+        return <View style={{ width: 100 * vw }}>
+            <View style={{
+                flexDirection: 'row', justifyContent: 'space-between',
+                marginHorizontal: 5 * vw, alignItems: 'baseline'
+            }}>
+                <Text style={styles.Heading}>
+                    Trending
+                </Text>
+
+            </View>
+            <FlatList
+                data={this.state.mockDataPoems}
+                style={styles.scrollView}
+                contentContainerStyle={{ alignItems: 'center', paddingTop: 3.5 * vh, paddingBottom: 1 * vh }}
+                showsVerticalScrollIndicator={false}
+                renderItem={this._renderPoems}
+                numColumns={2}
+                keyExtractor={(item, ind) => String(ind)}
+            />
+
+        </View>
+    }
+
     render() {
         return (
             <View style={styles.container}>
 
-                <ScrollView>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ paddingTop: 2 * vh }}
+                >
+
                     {
                         this._renderTopCards()
                     }
 
 
-                    <View style={[styles.topCardChildRow,{ marginTop: 5*vh, marginLeft: 3*vw}]}>
-
-                        <Text style={styles.Heading}>
-                            Categories
-                     </Text>
-
-                        <Text style={styles.HeadingSeeAll}>
-                            See All
-                  </Text>
-                    </View>
-
-                    <ScrollView
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        style={{marginTop: 2*vh}}
-                        contentContainerStyle={styles.categroyScroll}
-                    >
+                    {
+                        this._renderCategoryArea()
+                    }
 
 
-                        <CategoryCard
-                            source={allImages.generalImages.loveImage}
-                            title='Love'
-                            style={styles.categoryCardStyle}
-                        />
-
-                        <CategoryCard
-                            source={allImages.generalImages.sadImage}
-                            title='Sad'
-                            style={styles.categoryCardStyle}
-                        />
-
-                        <CategoryCard
-                            source={allImages.generalImages.friendImage}
-                            title='Friend'
-                            style={styles.categoryCardStyle}
-                        />
-
-
-                    </ScrollView>
+                    {
+                        this._renderTrending()
+                    }
 
 
                 </ScrollView>

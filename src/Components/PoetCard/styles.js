@@ -5,10 +5,10 @@ import fonts from '../../assets/fonts';
 
 export default Styles = StyleSheet.create({
     ripple: {
-        height: 30 * vh,
+        height: 25 * vh,
         width: 40 * vw,
-        marginVertical: 1 * vh,
-        marginHorizontal: 2 * vw,
+        marginVertical: 1.5 * vh,
+        marginHorizontal: 3 * vw,
         elevation: 4,
         backgroundColor: 'white',
         borderRadius: 3 * vw,
@@ -28,7 +28,7 @@ export default Styles = StyleSheet.create({
         color: appTheme.darkGray,
         fontSize: 1.8 * vh,
         fontFamily: fonts.SSB,
-        marginTop: 2*vh,
+        marginTop: 1.5*vh,
         
         
 
