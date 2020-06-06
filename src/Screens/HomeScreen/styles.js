@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
          
         borderTopLeftRadius: 5 * vw,
         borderBottomLeftRadius: 5 * vw,
-        paddingLeft: 4 * vw,
+        paddingLeft: 2 * vw,
         paddingTop: 2 * vh,
         paddingBottom: 4 * vh,
         elevation: 3,

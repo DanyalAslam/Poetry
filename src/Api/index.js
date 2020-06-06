@@ -22,7 +22,7 @@ const Api = {
                 }
             })
             .catch(_err => {
-                return error(_jsonResponse.error)
+                return error(_err)
             })
     }
 }

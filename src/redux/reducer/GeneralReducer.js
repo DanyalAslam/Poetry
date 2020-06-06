@@ -1,16 +1,28 @@
+import actionTypes from "../actions/actionTypes"
+
 const INITIAL_STATE = {
-    homeData: []
+
+    poets: [],
+    categories: []
+
 }
 
 
- const GeneralReducer = (state = INITIAL_STATE, action) => {
+const GeneralReducer = (state = INITIAL_STATE, action) => {
 
     switch (action.type) {
 
-        default: {
+        case actionTypes.POETS: {
+
             return {
-                state
+                ...state,
+                poets: action.payload
             }
+            
+        }
+
+        default: {
+            return state
         }
     }
 

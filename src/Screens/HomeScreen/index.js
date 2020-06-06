@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, RefreshControl } from 'react-native'
 import styles from './styles.js'
 import CategoryCard from '../../../src/Components/CategoryCard'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -10,6 +10,7 @@ import PoemCard from '../../Components/PoemCard/index.js'
 import Carousel from 'react-native-snap-carousel';
 import { connect } from 'react-redux'
 import actions from '../../redux/actions/index.js'
+import { appTheme } from '../../Utils/index.js'
 
 
 
@@ -66,15 +67,27 @@ class HomeScreen extends React.Component {
             },
 
 
-        ]
+        ],
+        refreshing: false
     }
 
 
-    componentDidMount(){
+    componentDidMount() {
 
-        this.props.getHomeData(3, success => {
+        this._getHomeData()
+
+    }
+
+
+    _getHomeData = () => {
+
+        this.props.getHomeData(1, success => {
+
+
 
         }, error => {
+
+
 
         })
 
@@ -86,8 +99,8 @@ class HomeScreen extends React.Component {
         let _poet = item
 
         return <ArtistCard
-            poet={_poet.poet}
-            source={{ uri: _poet.picture }}
+            poet={_poet.name}
+            source={{ uri: _poet.image }}
             key={{ index }}
         />
 
@@ -139,19 +152,18 @@ class HomeScreen extends React.Component {
 
                 <Carousel
                     ref={(c) => { this._carousel = c; }}
-                    data={this.state.mockData}
+                    data={this.props.poets}
                     renderItem={this._renderPoetCard}
                     sliderWidth={100 * vw}
                     itemWidth={30 * vw}
                     autoplay={true}
                     loop={true}
-                    autoplayInterval={1500}
+                    autoplayInterval={2000}
                     horizontal={true}
                     inactiveSlideScale={1}
                     activeSlideAlignment="start"
                     slideStyle={{ marginHorizontal: 2 * vw }}
                     inactiveSlideOpacity={1}
-
                 />
 
             </View>
@@ -214,6 +226,7 @@ class HomeScreen extends React.Component {
             poet={_poem.poet}
             title={_poem.title}
             verses={_poem.verses}
+            onPress={this._navigateToCategories}
         />
 
     }
@@ -252,6 +265,13 @@ class HomeScreen extends React.Component {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ paddingTop: 2 * vh }}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            colors={[appTheme.lightGray]}
+                            onRefresh={this._getHomeData}
+                        />
+                    }
                 >
 
                     {
@@ -276,10 +296,14 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
+ 
 
     return {
 
+        poets: state.GeneralReducer.poets
+
     }
+
 }
 
 const mapDispatchToProps = dispatch => {
@@ -287,6 +311,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getHomeData: (page, success, error) => dispatch(actions.getHomeData(page, success, error))
     }
+
 }
 
 

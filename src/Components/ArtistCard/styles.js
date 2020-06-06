@@ -8,7 +8,7 @@ export default Styles = StyleSheet.create({
         width: 30 * vw, 
         height: 25 * vh ,
         marginVertical: 1 * vh,
-        marginHorizontal: 2 * vw, 
+        // marginHorizontal: 2 * vw, 
         backgroundColor: 'white',  
         // alignItems: 'center'
     },
