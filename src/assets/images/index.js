@@ -1,7 +1,9 @@
 
 const allImages = {
-    headerIcons: {
-        searchIcon: require('./generalIcons/searchIcon.png')
+    generalIcons: {
+        searchIcon: require('./generalIcons/searchIcon.png'),
+        rightArrow: require('./generalIcons/rightArrow.png'),
+        wishIcon: require('./generalIcons/wishIcon.png')
     },
     tabBarIcons:{
         homeActive: require('./tabBarIcons/homeActive.png'),

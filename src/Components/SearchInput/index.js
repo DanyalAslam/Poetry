@@ -9,7 +9,7 @@ const SearchInput = (props) => {
 
     return (
         <View style={styles.container}>
-            <Image source={allImages.headerIcons.searchIcon} style={styles.imageStyle} />
+            <Image source={allImages.generalIcons.searchIcon} style={styles.imageStyle} />
             <TextInput
                 placeholder="Search "
                 placeholderTextColor={appTheme.lightGray}

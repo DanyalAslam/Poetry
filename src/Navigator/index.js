@@ -12,6 +12,7 @@ import PoetsScreen from '../Screens/PoetsScreen';
 import CategoriesScreen from '../Screens/CategoriesScreen';
 import CategoryDetailsScreen from '../Screens/CategoryDetailsScreen';
 import PoetPoemsScreen from '../Screens/PoetPoemsScreen';
+import WishListScreen from '../Screens/WishListScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -40,7 +41,8 @@ const _pickHeaderStyle = (props) => {
 
   let _styles = styles.headerTitle
 
-  if (routeName == "MoreScreen" || routeName == "CategoryDetailsScreen") {
+  if (routeName == "MoreScreen" || routeName == "CategoryDetailsScreen"
+        || routeName == 'WishListScreen') {
     _styles = styles.headerTitle_1
   }
 
@@ -89,6 +91,10 @@ const getHeaderTitle = props => {
       return 'More'
     }
 
+    case 'WishListScreen': {
+      return 'WishList'
+    }
+
 
     default: {
       return routeName
@@ -121,13 +127,6 @@ const CategoryStackNavigator = () => {
       <CategoryStack.Screen
         name="CategoriesScreen"
         component={CategoriesScreen}
-        options={
-          {
-            ...TransitionPresets.SlideFromRightIOS,
-            gestureEnabled: true,
-            gestureDirection: 'horizontal'
-          }
-        }
       />
 
       <CategoryStack.Screen
@@ -155,13 +154,6 @@ const PoetStackNavigator = () => {
       <PoetStack.Screen
         name="PoetsScreen"
         component={PoetsScreen}
-        options={
-          {
-            ...TransitionPresets.SlideFromRightIOS,
-            gestureEnabled: true,
-            gestureDirection: 'horizontal'
-          }
-        }
       />
 
       <PoetStack.Screen
@@ -176,7 +168,7 @@ const PoetStackNavigator = () => {
         }
       />
 
-      
+
     </PoetStack.Navigator>
   )
 }
@@ -188,7 +180,23 @@ const MoreStackNavigator = () => {
       screenOptions={_renderHeaderWithSearch}
       headerMode="screen"
     >
-      <MoreStack.Screen name="MoreScreen" component={MoreScreen} />
+      <MoreStack.Screen
+        name="MoreScreen"
+        component={MoreScreen}
+      />
+
+      <MoreStack.Screen
+        name="WishListScreen"
+        component={WishListScreen}
+        options={
+          {
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureEnabled: true,
+            gestureDirection: 'horizontal'
+          }
+        }
+      />
+
     </MoreStack.Navigator>
   )
 }

@@ -48,6 +48,6 @@ export default Styles = StyleSheet.create({
     },
     indicatorStyle: {
         height: 0.4 * vh,
-        backgroundColor: appTheme.lightGray
+        backgroundColor: appTheme.black
     }
 });

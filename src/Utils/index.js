@@ -6,5 +6,6 @@ export const appTheme = {
     lightGray: '#6E7FAA',
     skyWhite: '#F6F7FF',
     blue: '#5663FF',
-    black: '#000000'
+    black: '#000000',
+    grayish: '#cccccc'
 }
