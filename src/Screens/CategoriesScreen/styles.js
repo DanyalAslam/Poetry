@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         backgroundColor: appTheme.white,
         flex: 1,
         alignItems: 'center',
-        paddingTop: 2 * vh,
+        paddingTop: 3.5 * vh,
       
     },
     scrollView: {

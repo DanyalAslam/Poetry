@@ -7,6 +7,8 @@ import { vw, vh } from '../../Units/index.js'
 import allImages from '../../assets/images/index.js'
 import ArtistCard from '../../Components/ArtistCard/index.js'
 import PoemCard from '../../Components/PoemCard/index.js'
+import Carousel from 'react-native-snap-carousel';
+
 
 
 
@@ -66,16 +68,16 @@ class HomeScreen extends React.Component {
     }
 
 
-    _renderPoetCards = () => {
+    _renderPoetCard = ({ item, index }) => {
 
-        return this.state.mockData.map((_poet, index) => {
+        let _poet = item
 
-            return <ArtistCard
-                poet={_poet.poet}
-                source={{ uri: _poet.picture }}
-                key={{ index }}
-            />
-        })
+        return <ArtistCard
+            poet={_poet.poet}
+            source={{ uri: _poet.picture }}
+            key={{ index }}
+        />
+ 
 
     }
 
@@ -104,15 +106,23 @@ class HomeScreen extends React.Component {
                         See All
                      </Text>
                 </View>
-
-                <ScrollView
+ 
+                <Carousel
+                    ref={(c) => { this._carousel = c; }}
+                    data={this.state.mockData}
+                    renderItem={this._renderPoetCard}
+                    sliderWidth={100 * vw}
+                    itemWidth={30 * vw} 
+                    autoplay={true}
+                    loop={true}
+                    autoplayInterval={1500}
                     horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                >
-                    {
-                        this._renderPoetCards()
-                    }
-                </ScrollView>
+                    inactiveSlideScale={1}
+                    activeSlideAlignment="start"
+                    slideStyle={{ marginHorizontal: 2 * vw }}
+                    inactiveSlideOpacity={1}
+                    
+                />
 
             </View>
 
