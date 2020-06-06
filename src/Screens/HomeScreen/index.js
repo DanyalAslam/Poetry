@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import styles from './styles.js'
 import CategoryCard from '../../../src/Components/CategoryCard'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -77,9 +77,24 @@ class HomeScreen extends React.Component {
             source={{ uri: _poet.picture }}
             key={{ index }}
         />
- 
+
 
     }
+
+    _navigateToPoets = () => {
+
+        this.props.navigation.navigate('PoetStack',{
+            screen: 'PoetsScreen',
+        })
+    }
+
+    _navigateToCategories = () => {
+
+        this.props.navigation.navigate('CategoryStack',{
+            screen: 'CategoriesScreen',
+        })
+    }
+
 
     _renderTopCards = () => {
 
@@ -102,17 +117,19 @@ class HomeScreen extends React.Component {
 
                     </View>
 
-                    <Text style={styles.HeadingSeeAll}>
-                        See All
+                    <TouchableOpacity onPress={this._navigateToPoets}>
+                        <Text style={styles.HeadingSeeAll}>
+                            See All
                      </Text>
+                    </TouchableOpacity>
                 </View>
- 
+
                 <Carousel
                     ref={(c) => { this._carousel = c; }}
                     data={this.state.mockData}
                     renderItem={this._renderPoetCard}
                     sliderWidth={100 * vw}
-                    itemWidth={30 * vw} 
+                    itemWidth={30 * vw}
                     autoplay={true}
                     loop={true}
                     autoplayInterval={1500}
@@ -121,7 +138,7 @@ class HomeScreen extends React.Component {
                     activeSlideAlignment="start"
                     slideStyle={{ marginHorizontal: 2 * vw }}
                     inactiveSlideOpacity={1}
-                    
+
                 />
 
             </View>
@@ -139,9 +156,11 @@ class HomeScreen extends React.Component {
                     Categories
                 </Text>
 
-                <Text style={styles.HeadingSeeAll}>
-                    See All
-                </Text>
+                <TouchableOpacity onPress={this._navigateToCategories}>
+                        <Text style={styles.HeadingSeeAll}>
+                            See All
+                     </Text>
+                    </TouchableOpacity>
             </View>
 
             <View
