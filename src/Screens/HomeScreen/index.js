@@ -174,6 +174,7 @@ class HomeScreen extends React.Component {
 
     _renderCategoryArea = () => {
 
+ 
         return <>
             <View style={[styles.topCardChildRow, { marginTop: 5 * vh, marginLeft: 3 * vw, marginRight: 6 * vw, }]}>
 
@@ -194,20 +195,20 @@ class HomeScreen extends React.Component {
 
 
                 <CategoryCard
-                    source={allImages.generalImages.loveImage}
-                    title='Love'
+                    source={{uri: this.props.categories[0].image}}
+                    title={ this.props.categories[0].title}
                     style={styles.categoryCardStyle}
                 />
 
                 <CategoryCard
-                    source={allImages.generalImages.sadImage}
-                    title='Sad'
+                    source={{uri: this.props.categories[1].image}}
+                    title={ this.props.categories[1].title}
                     style={styles.categoryCardStyle}
                 />
 
                 <CategoryCard
-                    source={allImages.generalImages.friendImage}
-                    title='Friend'
+                    source={{uri: this.props.categories[2].image}}
+                    title={ this.props.categories[2].title}
                     style={styles.categoryCardStyle}
                 />
 
@@ -296,11 +297,13 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
- 
+  
 
     return {
 
-        poets: state.GeneralReducer.poets
+        poets: state.GeneralReducer.poets,
+
+        categories:state.GeneralReducer.categories
 
     }
 

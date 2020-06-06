@@ -1,5 +1,6 @@
 const actionTypes = {
-    POETS: 'POETS'
+    POETS: 'POETS',
+    CATEGORIES:'CATEGORIES'
 }
 
 export default actionTypes
