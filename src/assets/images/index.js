@@ -3,7 +3,8 @@ const allImages = {
     generalIcons: {
         searchIcon: require('./generalIcons/searchIcon.png'),
         rightArrow: require('./generalIcons/rightArrow.png'),
-        wishIcon: require('./generalIcons/wishIcon.png')
+        wishIcon: require('./generalIcons/wishIcon.png'),
+        leftArrow: require('./generalIcons/leftArrow.png'),
     },
     tabBarIcons:{
         homeActive: require('./tabBarIcons/homeActive.png'),

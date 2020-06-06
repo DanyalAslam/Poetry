@@ -13,6 +13,9 @@ import CategoriesScreen from '../Screens/CategoriesScreen';
 import CategoryDetailsScreen from '../Screens/CategoryDetailsScreen';
 import PoetPoemsScreen from '../Screens/PoetPoemsScreen';
 import WishListScreen from '../Screens/WishListScreen';
+import RippleTouch from '../Components/RippleTouch';
+import { Image } from 'react-native';
+import allImages from '../assets/images';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -32,6 +35,8 @@ const _DefaultHeaderOptions = (props) => {
     headerTitleAlign: 'center',
     headerTitleStyle: _pickHeaderStyle(props),
     headerStyle: styles.header,
+    headerLeft: () => _renderHeaderLeft(props),
+    headerLeftContainerStyle: styles.leftContainer
   }
 }
 
@@ -42,11 +47,31 @@ const _pickHeaderStyle = (props) => {
   let _styles = styles.headerTitle
 
   if (routeName == "MoreScreen" || routeName == "CategoryDetailsScreen"
-        || routeName == 'WishListScreen') {
+    || routeName == 'WishListScreen') {
     _styles = styles.headerTitle_1
   }
 
   return _styles
+}
+
+
+const _renderHeaderLeft = (props) => {
+
+  const routeName = props.route.name
+
+  if (routeName == 'CategoryDetailsScreen' || routeName == 'PoetPoemsScreen'
+    || routeName == 'WishListScreen') {
+
+    return <RippleTouch
+      onPress={() => props.navigation.pop()} 
+    >
+      <Image style={styles.imageStyle} source={allImages.generalIcons.leftArrow} />
+    </RippleTouch>
+
+  }
+
+  return null
+
 }
 
 

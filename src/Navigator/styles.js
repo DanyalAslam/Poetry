@@ -10,7 +10,7 @@ export default Styles = StyleSheet.create({
         borderBottomWidth: 0.4 * vw,
         borderBottomColor: appTheme.lightGray,
         height: 10 * vh,
-        backgroundColor: appTheme.black
+        backgroundColor: appTheme.black,
     },
     headerTitle: {
         color: appTheme.white,
@@ -49,5 +49,15 @@ export default Styles = StyleSheet.create({
     indicatorStyle: {
         height: 0.4 * vh,
         backgroundColor: appTheme.black
+    },
+    imageStyle: {
+        width: 6 * vw,
+        height: 6 * vw,
+        resizeMode: 'contain',
+
+    },
+    leftContainer: {
+        marginLeft: 0.5 * vw,
+        marginTop: 2.5 * vh
     }
 });
