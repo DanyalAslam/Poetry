@@ -22,7 +22,7 @@ export default class AnimatedWish extends Component {
         return (
             // <View style={{ flex: 1, }}>
 
-                <TouchableOpacity style={styles.wishImageCon}
+                <TouchableOpacity style={[styles.wishImageCon,this.props.style]}
 
                     onPress={this.props.onWishPress}>
                     {

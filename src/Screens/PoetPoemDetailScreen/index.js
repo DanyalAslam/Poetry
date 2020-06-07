@@ -1,42 +1,64 @@
-import React from 'react'
-import { Text, View, Image } from 'react-native'
-import { vw, vh } from '../../Units'
+import React, { useState } from 'react'
+import { Text, View, ScrollView } from 'react-native'
 import styles from './style.js'
-import { appTheme } from '../../Utils'
+import AnimatedWish from '../../Components/AnimatedWish/index.js'
 
-const PoetPoemDetailCard = () => {
+const PoetPoemDetailCard = (props) => {
+
+
+    const [isWish, setWish] = useState('unwish')
+
+    const toggleWish = () => {
+
+        if (isWish == 'wish') {
+            setWish('unwish')
+        }
+        else {
+            setWish('wish')
+        }
+    }
+
+
+
+
+    let _details = props.route.params.poem
+
+    let _lines = _details.lines.map((line, index) => {
+        return line + "\n"
+    })
+
     return (
 
-        <View style={styles.parentContainer}>
+        <ScrollView style={styles.parentContainer} showsVerticalScrollIndicator={false}>
 
-            <View style={{
-                marginHorizontal: 3 * vw,
-                marginVertical: 1.5 * vh,
-                backgroundColor: appTheme.white,
-                flex: 1,
-                elevation: 5,
-                borderRadius: 4 * vw,
-                padding: 2 * vw
-            }}>
+ 
+            <View style={styles.firstChildContainer}>
+
+            <AnimatedWish
+             onWishPress={toggleWish}
+             wish={isWish}
+            />
 
                 <View style={styles.textContainer}>
                     <Text style={styles.title}>Title:</Text>
-                    <Text style={styles.text}>asdasds</Text>
+                    <Text style={styles.text}>{_details.title}</Text>
                 </View>
 
                 <View style={styles.textContainer}>
                     <Text style={styles.title}>Poet:</Text>
-                    <Text style={styles.text}>asdasds</Text>
+                    <Text style={styles.text}>{_details.author}</Text>
                 </View>
 
                 <View style={styles.textContainer}>
                     <Text style={styles.title}>Lines:</Text>
-                    <Text style={styles.lines}>asdasds</Text>
+
                 </View>
+
+                <Text style={styles.lines}>{_lines}</Text>
 
             </View>
 
-        </View>
+        </ScrollView>
     )
 
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { View, RefreshControl, FlatList } from 'react-native'
 import styles from './styles.js'
 import PoemCard from '../../Components/PoemCard/index.js'
-import { vh } from '../../Units/index.js'
+import { vh, vw } from '../../Units/index.js'
 import { connect } from 'react-redux'
 import actions from '../../redux/actions/index.js'
 import Toast from 'react-native-simple-toast'
@@ -84,7 +84,7 @@ class PoetPoemsScreen extends React.Component {
                 <FlatList
                     data={this.state.poems}
                     style={styles.scrollView}
-                    contentContainerStyle={{ alignItems: 'center', paddingTop: 3.5 * vh, paddingBottom: 1 * vh }}
+                    contentContainerStyle={{ paddingTop: 3.5 * vh, paddingBottom: 1 * vh, paddingHorizontal: 4 * vw }}
                     showsVerticalScrollIndicator={false}
                     renderItem={this._renderPoems}
                     numColumns={2}
