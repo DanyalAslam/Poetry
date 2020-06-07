@@ -46,7 +46,7 @@ const PoemCard = (props) => {
                     <Text style={styles.heading}>
                         Title:
                 </Text>
-                    <Text style={styles.text} numberOfLines={1}>
+                    <Text style={[styles.text, { fontSize: 1.65 * vh }]} numberOfLines={2}>
                         {props.title}
                     </Text>
                 </View>
@@ -55,7 +55,7 @@ const PoemCard = (props) => {
                     <Text style={styles.heading}>
                         Verses:
                 </Text>
-                    <Text style={[styles.text, { width: '90%' }]} numberOfLines={2}>
+                    <Text style={[styles.text, { width: '100%', fontSize: 1.4 * vh }]} numberOfLines={2}>
                         {props.verses}
                     </Text>
                 </View>

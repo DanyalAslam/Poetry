@@ -32,7 +32,16 @@ const actions = {
 
                 dispatch(actions.getCategories(categSuccess => {
 
-                    return success(categSuccess)
+                    dispatch(actions.getTrendingPoems(trendingSuccess => {
+
+                        return success(trendingSuccess)
+
+                    }, trendingError => {
+
+                        return error(trendingError)
+
+                    }))
+                    
 
                 }, categError => {
 
@@ -57,6 +66,28 @@ const actions = {
                 dispatch({
                     type: actionTypes.POETS,
                     payload: apiSuccess.poets
+                })
+
+                return success(true)
+
+            }, apiError => {
+
+                return error(apiError)
+
+            })
+        }
+    },
+
+
+    getTrendingPoems: ( success, error) => {
+
+        return dispatch => {
+            Api.get('/trending', apiSuccess => {
+
+
+                dispatch({
+                    type: actionTypes.HOME_POEMS,
+                    payload: apiSuccess.poems
                 })
 
                 return success(true)

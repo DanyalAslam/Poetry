@@ -15,12 +15,12 @@ export default Styles = StyleSheet.create({
     headerTitle: {
         color: appTheme.white,
         fontSize: 3.3 * vh,
-        fontFamily: fonts.CR,
+        fontFamily: fonts.SSR,
     },
     headerTitle_1: {
         color: appTheme.white,
         fontSize: 3.3 * vh,
-        fontFamily: fonts.CR,
+        fontFamily: fonts.SSR,
         marginTop: 3 * vh
     },
 

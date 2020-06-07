@@ -18,56 +18,6 @@ import { appTheme } from '../../Utils/index.js'
 class HomeScreen extends React.Component {
 
     state = {
-        mockData: [
-            {
-                poet: 'William Shakespeare',
-                picture: 'https://i1.wp.com/www.brainpickings.org/wp-content/uploads/2013/04/williamwordsworth.jpg?fit=600%2C315&ssl=1'
-            },
-            {
-                poet: 'Samuel',
-                picture: 'https://www.biography.com/.image/t_share/MTIwNjA4NjMzNzc1OTQ5MzI0/samuel-taylor-coleridge-9253238-1-402.jpg'
-            },
-            {
-                poet: 'William Shakespeare',
-                picture: 'https://i1.wp.com/www.brainpickings.org/wp-content/uploads/2013/04/williamwordsworth.jpg?fit=600%2C315&ssl=1'
-            },
-            {
-                poet: 'Samuel',
-                picture: 'https://www.biography.com/.image/t_share/MTIwNjA4NjMzNzc1OTQ5MzI0/samuel-taylor-coleridge-9253238-1-402.jpg'
-            },
-            {
-                poet: 'William Shakespeare',
-                picture: 'https://i1.wp.com/www.brainpickings.org/wp-content/uploads/2013/04/williamwordsworth.jpg?fit=600%2C315&ssl=1'
-            },
-            {
-                poet: 'Samuel',
-                picture: 'https://www.biography.com/.image/t_share/MTIwNjA4NjMzNzc1OTQ5MzI0/samuel-taylor-coleridge-9253238-1-402.jpg'
-            },
-        ],
-        mockDataPoems: [
-            {
-                poet: "Shakespeare",
-                title: "Love is in the wind",
-                verses: "lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum"
-            },
-            {
-                poet: "Shakespeare",
-                title: "Love is in the wind",
-                verses: "lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum"
-            },
-            {
-                poet: "Shakespeare",
-                title: "Love is in the wind",
-                verses: "lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum"
-            },
-            {
-                poet: "Shakespeare",
-                title: "Love is in the wind",
-                verses: "lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum lorem epsum"
-            },
-
-
-        ],
         refreshing: false
     }
 
@@ -81,13 +31,15 @@ class HomeScreen extends React.Component {
 
     _getHomeData = () => {
 
+        this.setState({ refreshing: true })
+
         this.props.getHomeData(1, success => {
 
-
+            this.setState({ refreshing: false })
 
         }, error => {
 
-
+            this.setState({ refreshing: false })
 
         })
 
@@ -174,7 +126,7 @@ class HomeScreen extends React.Component {
 
     _renderCategoryArea = () => {
 
- 
+
         return <>
             <View style={[styles.topCardChildRow, { marginTop: 5 * vh, marginLeft: 3 * vw, marginRight: 6 * vw, }]}>
 
@@ -195,20 +147,20 @@ class HomeScreen extends React.Component {
 
 
                 <CategoryCard
-                    source={{uri: this.props.categories[0].image}}
-                    title={ this.props.categories[0].title}
+                    source={{ uri: this.props.categories[0].image }}
+                    title={this.props.categories[0].title}
                     style={styles.categoryCardStyle}
                 />
 
                 <CategoryCard
-                    source={{uri: this.props.categories[1].image}}
-                    title={ this.props.categories[1].title}
+                    source={{ uri: this.props.categories[1].image }}
+                    title={this.props.categories[1].title}
                     style={styles.categoryCardStyle}
                 />
 
                 <CategoryCard
-                    source={{uri: this.props.categories[2].image}}
-                    title={ this.props.categories[2].title}
+                    source={{ uri: this.props.categories[2].image }}
+                    title={this.props.categories[2].title}
                     style={styles.categoryCardStyle}
                 />
 
@@ -223,10 +175,12 @@ class HomeScreen extends React.Component {
 
         let _poem = item
 
+        let _lines = _poem.lines.trim()
+
         return <PoemCard
-            poet={_poem.poet}
+            poet={_poem.author}
             title={_poem.title}
-            verses={_poem.verses}
+            verses={_lines}
             onPress={this._navigateToCategories}
         />
 
@@ -247,7 +201,7 @@ class HomeScreen extends React.Component {
 
             </View>
             <FlatList
-                data={this.state.mockDataPoems}
+                data={this.props.homePoems}
                 style={styles.scrollView}
                 contentContainerStyle={{ alignItems: 'center', paddingTop: 3.5 * vh, paddingBottom: 1 * vh }}
                 showsVerticalScrollIndicator={false}
@@ -258,6 +212,41 @@ class HomeScreen extends React.Component {
 
         </View>
     }
+
+
+    _renderSection = () => {
+
+        if (this.props.poets.length > 0) {
+
+            return <>
+                {
+                    this._renderTopCards()
+                }
+
+
+                {
+                    this.props.categories.length > 0 && this._renderCategoryArea()
+                }
+
+
+                {
+                    this._renderTrending()
+                }
+            </>
+        }
+
+        else {
+
+            if (!this.state.refreshing) {
+                // empty component
+                return
+            }
+            else {
+                return null
+            }
+        }
+    }
+
 
     render() {
         return (
@@ -275,20 +264,10 @@ class HomeScreen extends React.Component {
                     }
                 >
 
-                    {
-                        this._renderTopCards()
-                    }
-
 
                     {
-                        this._renderCategoryArea()
+                        this._renderSection()
                     }
-
-
-                    {
-                        this._renderTrending()
-                    }
-
 
                 </ScrollView>
             </View>
@@ -297,13 +276,14 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
-  
+
+    console.log('state  ',state.GeneralReducer)
 
     return {
 
         poets: state.GeneralReducer.poets,
-
-        categories:state.GeneralReducer.categories
+        categories: state.GeneralReducer.categories,
+        homePoems: state.GeneralReducer.homePoems,
 
     }
 
