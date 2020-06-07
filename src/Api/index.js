@@ -13,6 +13,7 @@ const Api = {
         })
             .then(_response => _response.json())
             .then(_jsonResponse => {
+
               
                 if (_jsonResponse.message == "success") {
                     return success(_jsonResponse)

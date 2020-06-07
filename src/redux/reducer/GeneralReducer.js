@@ -19,10 +19,20 @@ const GeneralReducer = (state = INITIAL_STATE, action) => {
             if (action.payload.length > 0) {
                 LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
             }
-            return {
-                ...state,
-                poets: action.payload
+
+            if (action.page == 1) {
+                return {
+                    ...state,
+                    poets: action.payload
+                }
             }
+            else {
+                return {
+                    ...state,
+                    poets: [...state.poets, ...action.payload]
+                }
+            }
+
 
         }
 

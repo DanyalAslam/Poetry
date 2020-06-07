@@ -11,5 +11,5 @@ if (Platform.OS == "android") {
         UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-
+console.disableYellowBox = true
 AppRegistry.registerComponent(appName, () => App);

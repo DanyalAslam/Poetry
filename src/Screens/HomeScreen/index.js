@@ -276,9 +276,7 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
-
-    console.log('state  ',state.GeneralReducer)
-
+ 
     return {
 
         poets: state.GeneralReducer.poets,

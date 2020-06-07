@@ -9,8 +9,8 @@ const actions = {
             Api.get('/categories', apiSuccess => {
                 // console.log(apiSuccess)
                 dispatch({
-                    type:actionTypes.CATEGORIES,
-                    payload:apiSuccess.categories 
+                    type: actionTypes.CATEGORIES,
+                    payload: apiSuccess.categories
                 })
 
                 return success(true)
@@ -28,7 +28,7 @@ const actions = {
 
         return dispatch => {
 
-            dispatch(actions.getPoets(1,poetSuccess => {
+            dispatch(actions.getPoets(1, poetSuccess => {
 
                 dispatch(actions.getCategories(categSuccess => {
 
@@ -41,7 +41,7 @@ const actions = {
                         return error(trendingError)
 
                     }))
-                    
+
 
                 }, categError => {
 
@@ -65,13 +65,21 @@ const actions = {
 
                 dispatch({
                     type: actionTypes.POETS,
-                    payload: apiSuccess.poets
+                    payload: apiSuccess.poets,
+                    page
                 })
+ 
 
-                return success(true)
+                if (apiSuccess.poets.length > 0) {
+
+                    return success(true)
+                } else {
+                    return success(false)
+                }
+
 
             }, apiError => {
-
+ 
                 return error(apiError)
 
             })
@@ -79,7 +87,7 @@ const actions = {
     },
 
 
-    getTrendingPoems: ( success, error) => {
+    getTrendingPoems: (success, error) => {
 
         return dispatch => {
             Api.get('/trending', apiSuccess => {
