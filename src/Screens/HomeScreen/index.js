@@ -8,6 +8,8 @@ import allImages from '../../assets/images/index.js'
 import ArtistCard from '../../Components/ArtistCard/index.js'
 import PoemCard from '../../Components/PoemCard/index.js'
 import Carousel from 'react-native-snap-carousel';
+import { connect } from 'react-redux'
+import actions from '../../redux/actions/index.js'
 
 
 
@@ -68,6 +70,17 @@ class HomeScreen extends React.Component {
     }
 
 
+    componentDidMount(){
+
+        this.props.getHomeData(3, success => {
+
+        }, error => {
+
+        })
+
+    }
+
+
     _renderPoetCard = ({ item, index }) => {
 
         let _poet = item
@@ -83,14 +96,14 @@ class HomeScreen extends React.Component {
 
     _navigateToPoets = () => {
 
-        this.props.navigation.navigate('PoetStack',{
+        this.props.navigation.navigate('PoetStack', {
             screen: 'PoetsScreen',
         })
     }
 
     _navigateToCategories = () => {
 
-        this.props.navigation.navigate('CategoryStack',{
+        this.props.navigation.navigate('CategoryStack', {
             screen: 'CategoriesScreen',
         })
     }
@@ -157,10 +170,10 @@ class HomeScreen extends React.Component {
                 </Text>
 
                 <TouchableOpacity onPress={this._navigateToCategories}>
-                        <Text style={styles.HeadingSeeAll}>
-                            See All
+                    <Text style={styles.HeadingSeeAll}>
+                        See All
                      </Text>
-                    </TouchableOpacity>
+                </TouchableOpacity>
             </View>
 
             <View
@@ -262,4 +275,19 @@ class HomeScreen extends React.Component {
     }
 }
 
-export default HomeScreen
+const mapStateToProps = state => {
+
+    return {
+
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+
+    return {
+        getHomeData: (page, success, error) => dispatch(actions.getHomeData(page, success, error))
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

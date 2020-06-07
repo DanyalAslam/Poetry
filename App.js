@@ -8,18 +8,33 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {
-  SafeAreaView, 
-} from 'react-native'; 
+  StatusBar,
+} from 'react-native';
 import MainNavigator from './src/Navigator';
- 
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from "./src/redux";
+import { appTheme } from './src/Utils';
 
-const App = ()  => {
-  return (  
-        <MainNavigator/>
-     
+
+
+const App = () => {
+  return (
+
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <StatusBar
+          translucent={true}
+          backgroundColor={appTheme.black}
+          animated={true}
+          barStyle='light-content'
+        />
+        <MainNavigator />
+      </PersistGate>
+    </Provider>
   );
 };
 
- 
+
 
 export default App;
