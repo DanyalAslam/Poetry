@@ -8,10 +8,12 @@ const styles = StyleSheet.create({
         backgroundColor: appTheme.white,
         flex: 1,
         alignItems: 'center',
-        paddingTop: 3 * vh
+        paddingTop: 3 * vh,
+       
     },
     scrollView: {
         width: '100%',
+        
     },
     loadMore: {
         paddingHorizontal: 2.3 * vw,

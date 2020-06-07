@@ -8,7 +8,7 @@ import {
 
 import emptyAnimation from './empty.json';
 import LottieView from 'lottie-react-native';
-import Styles from './Styles' 
+import Styles from './Styles'
 import { appTheme } from '../../Utils';
 
 
@@ -20,19 +20,26 @@ export default class EmptyComponent extends Component {
     }
 
     componentDidMount() {
+        this._startAnimation()
+    }
+
+    _startAnimation = () => {
+
+        this.progress.setValue(0)
         Animated.timing(this.progress, {
             toValue: 0.5,
             duration: 3000,
             easing: Easing.linear,
             useNativeDriver: true
         })
-            .start()
+            .start(this._startAnimation)
+
     }
 
     render() {
 
         return (
-            <View style={[Styles.container,this.props.style]}>
+            <View style={[Styles.container, this.props.style]}>
                 <LottieView
                     ref={animation => {
                         this.animation = animation;
@@ -41,7 +48,7 @@ export default class EmptyComponent extends Component {
                     progress={this.progress}
                     style={Styles.emptyAnim}
                 />
-                <Text style={{ color: appTheme.black, textAlign:'center' }}>
+                <Text style={Styles.text}>
                     {this.props.message}
                 </Text>
             </View>

@@ -1,5 +1,6 @@
 import config from './config'
 
+
 const Api = {
     get: (endPoint, success, error) => {
 
@@ -23,7 +24,8 @@ const Api = {
                 }
             })
             .catch(_err => {
-                return error(_err)
+                
+                return error(_err.message)
             })
     }
 }

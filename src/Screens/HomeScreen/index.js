@@ -4,14 +4,14 @@ import styles from './styles.js'
 import CategoryCard from '../../../src/Components/CategoryCard'
 import { ScrollView } from 'react-native-gesture-handler'
 import { vw, vh } from '../../Units/index.js'
-import allImages from '../../assets/images/index.js'
 import ArtistCard from '../../Components/ArtistCard/index.js'
 import PoemCard from '../../Components/PoemCard/index.js'
 import Carousel from 'react-native-snap-carousel';
 import { connect } from 'react-redux'
 import actions from '../../redux/actions/index.js'
 import { appTheme } from '../../Utils/index.js'
-
+import EmptyComponent from '../../Components/EmptyComponent/index.js'
+import Toast from 'react-native-simple-toast'
 
 
 
@@ -33,13 +33,15 @@ class HomeScreen extends React.Component {
 
         this.setState({ refreshing: true })
 
-        this.props.getHomeData(1, success => {
+        this.props.getHomeData(success => {
 
             this.setState({ refreshing: false })
 
         }, error => {
 
             this.setState({ refreshing: false })
+
+            Toast.show(error)
 
         })
 
@@ -239,7 +241,7 @@ class HomeScreen extends React.Component {
 
             if (!this.state.refreshing) {
                 // empty component
-                return
+                return <EmptyComponent message="No data found" style={{marginTop: 5*vh}} />
             }
             else {
                 return null
@@ -254,14 +256,14 @@ class HomeScreen extends React.Component {
 
                 <ScrollView
                     showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ paddingTop: 2 * vh }}
+                    contentContainerStyle={{ paddingTop: 2 * vh,  }}
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.refreshing}
                             colors={[appTheme.lightGray]}
                             onRefresh={this._getHomeData}
                         />
-                    }
+                    } 
                 >
 
 
@@ -276,7 +278,7 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
- 
+
     return {
 
         poets: state.GeneralReducer.poets,
@@ -290,7 +292,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 
     return {
-        getHomeData: (page, success, error) => dispatch(actions.getHomeData(page, success, error))
+        getHomeData: (success, error) => dispatch(actions.getHomeData( success, error))
     }
 
 }

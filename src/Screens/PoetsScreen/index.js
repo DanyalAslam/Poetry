@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { appTheme } from '../../Utils/index.js'
 import RippleTouch from '../../Components/RippleTouch/index.js'
 import Toast from 'react-native-simple-toast'
+import EmptyComponent from '../../Components/EmptyComponent/index.js'
 
 
 class PoetsScreen extends React.Component {
@@ -47,10 +48,10 @@ class PoetsScreen extends React.Component {
     componentDidMount() {
 
         this.props.navigation.addListener("focus", () => {
-            if (this.props.poets.length <= 10){
+            if (this.props.poets.length <= 10) {
                 this.setState({ page: 1 })
             }
-                
+
         })
     }
 
@@ -75,7 +76,7 @@ class PoetsScreen extends React.Component {
         }, error => {
 
             this.setState({ refreshing: false })
-
+            Toast.show(error)
         })
 
     }
@@ -98,15 +99,29 @@ class PoetsScreen extends React.Component {
     }
 
     _renderLoadMore = () => {
-        return <RippleTouch style={styles.loadMore} onPress={this._onLoadMorePress}>
-            <Text style={styles.loadMoreText}>Load More</Text>
-        </RippleTouch>
+        if (this.props.poets.length > 0) {
+            return <RippleTouch style={styles.loadMore} onPress={this._onLoadMorePress}>
+                <Text style={styles.loadMoreText}>Load More</Text>
+            </RippleTouch>
+        }
+        else {
+            return null
+        }
     }
 
     _onLoadMorePress = () => {
 
         this.setState({ page: this.state.page + 1 }, this._getPoets)
 
+    }
+
+    _renderEmpty = () => {
+
+        if (!this.state.refreshing) {
+            return <EmptyComponent message="No data found" />
+        }
+
+        return null
     }
 
 
@@ -116,7 +131,7 @@ class PoetsScreen extends React.Component {
                 <FlatList
                     data={this.props.poets}
                     style={styles.scrollView}
-                    contentContainerStyle={{ alignItems: 'center', paddingVertical: 1 * vh }}
+                    contentContainerStyle={{ alignItems: 'center', paddingVertical: 1 * vh, }}
                     showsVerticalScrollIndicator={false}
                     renderItem={this._renderPoets}
                     numColumns={2}
@@ -129,6 +144,7 @@ class PoetsScreen extends React.Component {
                         />
                     }
                     ListFooterComponent={this._renderLoadMore}
+                    ListEmptyComponent={this._renderEmpty}
                 />
             </View>
         )
