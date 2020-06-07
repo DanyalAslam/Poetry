@@ -13,8 +13,9 @@ import CategoriesScreen from '../Screens/CategoriesScreen';
 import CategoryDetailsScreen from '../Screens/CategoryDetailsScreen';
 import PoetPoemsScreen from '../Screens/PoetPoemsScreen';
 import WishListScreen from '../Screens/WishListScreen';
+import PoetPoemDetailScreen from '../Screens/PoetPoemDetailScreen'
+
 import RippleTouch from '../Components/RippleTouch';
-import PoetPoemDetailScreen from '../Components/PoetPoemDetailScreen'
 import { Image } from 'react-native';
 import allImages from '../assets/images';
 
@@ -48,7 +49,7 @@ const _pickHeaderStyle = (props) => {
   let _styles = styles.headerTitle
 
   if (routeName == "MoreScreen" || routeName == "CategoryDetailsScreen"
-    || routeName == 'WishListScreen') {
+    || routeName == 'WishListScreen' || routeName == 'PoetPoemDetailScreen') {
     _styles = styles.headerTitle_1
   }
 
@@ -61,10 +62,10 @@ const _renderHeaderLeft = (props) => {
   const routeName = props.route.name
 
   if (routeName == 'CategoryDetailsScreen' || routeName == 'PoetPoemsScreen'
-    || routeName == 'WishListScreen') {
+    || routeName == 'WishListScreen' || routeName == 'PoetPoemDetailScreen') {
 
     return <RippleTouch
-      onPress={() => props.navigation.pop()} 
+      onPress={() => props.navigation.pop()}
     >
       <Image style={styles.imageStyle} source={allImages.generalIcons.leftArrow} />
     </RippleTouch>
@@ -113,6 +114,10 @@ const getHeaderTitle = props => {
       return props.route.params.title
     }
 
+    case 'PoetPoemDetailScreen':{
+        return 'Details'
+    }
+
     case 'MoreScreen': {
       return 'More'
     }
@@ -133,24 +138,16 @@ const getHeaderTitle = props => {
 const HomeStackNavigator = () => {
 
   return (
-  //old
-    // <HomeStack.Navigator
-    //   screenOptions={_renderHeaderWithSearch}
-    //   headerMode="screen"
-    // >
-    //   <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
-   
-    // </HomeStack.Navigator>
-
 
     <HomeStack.Navigator
-   
+      screenOptions={_renderHeaderWithSearch}
+      headerMode="screen"
     >
-      <HomeStack.Screen name="HomeScreen" component={PoetPoemDetailScreen} />
-   
+      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+
     </HomeStack.Navigator>
 
-)
+  )
 }
 
 const CategoryStackNavigator = () => {
@@ -204,6 +201,19 @@ const PoetStackNavigator = () => {
           }
         }
       />
+
+      <PoetStack.Screen
+        name="PoetPoemDetailScreen"
+        component={PoetPoemDetailScreen}
+        options={
+          {
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureEnabled: true,
+            gestureDirection: 'horizontal'
+          }
+        }
+      />
+
 
 
     </PoetStack.Navigator>

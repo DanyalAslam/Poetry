@@ -62,6 +62,7 @@ class PoetPoemsScreen extends React.Component {
             poet={_poem.poet}
             title={_poem.title}
             verses={_poem.verses}
+            onPress={()=>this.props.navigation.navigate('PoetPoemDetailScreen')}
         />
 
     }

@@ -15,6 +15,7 @@ export default ExtendedHeader = (props) => {
         if (_routeName != 'MoreScreen'
             && _routeName != 'CategoryDetailsScreen'
             && _routeName != 'WishListScreen'
+            && _routeName != "PoetPoemDetailScreen"
         ) {
 
             return <SearchInput />
