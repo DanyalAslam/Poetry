@@ -50,7 +50,7 @@ const actions = {
                 }))
 
             }, poetError => {
-                
+
                 return error(poetError)
 
             }))
@@ -68,7 +68,7 @@ const actions = {
                     payload: apiSuccess.poets,
                     page
                 })
- 
+
 
                 if (apiSuccess.poets.length > 0) {
 
@@ -79,7 +79,7 @@ const actions = {
 
 
             }, apiError => {
-  
+
                 return error(apiError)
 
             })
@@ -105,6 +105,24 @@ const actions = {
                 return error(apiError)
 
             })
+        }
+    },
+
+
+    getPoetPoems: (poet, success, error) => {
+
+        return dispatch => {
+
+            Api.getPoetDB(`/author/${poet}`, apiSuccess => {
+
+                return success(apiSuccess)
+
+            }, apiError => {
+
+                return error(apiError)
+                
+            })
+
         }
     }
 }

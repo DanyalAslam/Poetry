@@ -15,7 +15,7 @@ const Api = {
             .then(_response => _response.json())
             .then(_jsonResponse => {
 
-              
+
                 if (_jsonResponse.message == "success") {
                     return success(_jsonResponse)
                 }
@@ -24,7 +24,31 @@ const Api = {
                 }
             })
             .catch(_err => {
-                
+
+                return error(_err.message)
+            })
+    },
+
+
+    getPoetDB: (endPoint, success, error) => {
+
+        let url = config.poetDBurl + endPoint
+
+        fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(_response => _response.json())
+            .then(_jsonResponse => {
+
+
+                return success(_jsonResponse)
+
+            })
+            .catch(_err => {
+
                 return error(_err.message)
             })
     }

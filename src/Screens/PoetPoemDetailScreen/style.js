@@ -7,8 +7,7 @@ export default Styles = StyleSheet.create({
 
    parentContainer: {
       backgroundColor: 'white',
-      height: 100 * vh,
-      width: 100 * vw
+      flex: 1
    },
    firstChildContainer: {
       height: 12 * vh,
@@ -19,10 +18,24 @@ export default Styles = StyleSheet.create({
       borderBottomColor: 'gray',
       borderBottomWidth: 0.5 * vw,
    },
-   imageStyle: {
-      width: 15 * vw,
-      height: 15 * vw,
-      borderRadius: 7.5 * vw,
-      marginTop: -6 * vh
+   textContainer: {
+      marginTop: 2 * vh,
+      marginLeft: 3 * vw
+   },
+
+   title: {
+      fontSize: 2.8*vh,
+      fontFamily: fonts.SSB
+   },
+
+   text: {
+      fontSize: 2.4*vh,
+      fontFamily: fonts.SSR,
+      marginTop: 0.5*vh
+   },
+   lines:{
+      fontSize: 2.0*vh,
+      fontFamily: fonts.SSR,
+      marginTop: 0.5*vh
    }
 });
