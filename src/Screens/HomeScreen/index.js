@@ -12,6 +12,7 @@ import actions from '../../redux/actions/index.js'
 import { appTheme } from '../../Utils/index.js'
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import Toast from 'react-native-simple-toast'
+import SearchModal from '../../Components/SearchModal/index.js'
 
 
 
@@ -265,6 +266,8 @@ class HomeScreen extends React.Component {
         return (
             <View style={styles.container}>
 
+                <SearchModal />
+                
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ paddingTop: 2 * vh, }}
