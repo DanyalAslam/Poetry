@@ -1,5 +1,7 @@
 import Api from '../../Api'
 import actionTypes from './actionTypes'
+import { getStoredState } from 'redux-persist'
+import { persistConfig } from '..'
 
 const actions = {
 
@@ -120,8 +122,36 @@ const actions = {
             }, apiError => {
 
                 return error(apiError)
-                
+
             })
+
+        }
+    },
+
+
+    addToWishList: (poem, success) => {
+
+        return dispatch => {
+
+            getStoredState(persistConfig)
+                .then(_state => {
+
+                    let ifExist = _state.GeneralReducer.wishList.findIndex(_element => _element.title == poem.title)
+
+                    if (ifExist == -1){
+
+                        dispatch({
+                            type: actionTypes.ADD_TO_WISHLIST,
+                            payload: poem
+                        })
+
+                        return success("Added to wishlist")
+
+                    }
+                    else{
+                        return success("Remove from wishlist")
+                    }
+                })
 
         }
     }

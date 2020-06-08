@@ -241,7 +241,7 @@ class HomeScreen extends React.Component {
 
             if (!this.state.refreshing) {
                 // empty component
-                return <EmptyComponent message="No data found" style={{marginTop: 5*vh}} />
+                return <EmptyComponent message="No data found" style={{ marginTop: 5 * vh }} />
             }
             else {
                 return null
@@ -256,14 +256,14 @@ class HomeScreen extends React.Component {
 
                 <ScrollView
                     showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ paddingTop: 2 * vh,  }}
+                    contentContainerStyle={{ paddingTop: 2 * vh, }}
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.refreshing}
                             colors={[appTheme.lightGray]}
                             onRefresh={this._getHomeData}
                         />
-                    } 
+                    }
                 >
 
 
@@ -292,7 +292,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 
     return {
-        getHomeData: (success, error) => dispatch(actions.getHomeData( success, error))
+        getHomeData: (success, error) => dispatch(actions.getHomeData(success, error)),
+        addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success))
     }
 
 }

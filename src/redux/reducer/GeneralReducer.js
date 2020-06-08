@@ -5,7 +5,8 @@ const INITIAL_STATE = {
 
     poets: [],
     categories: [],
-    homePoems: []
+    homePoems: [],
+    wishList: []
 
 }
 
@@ -59,6 +60,24 @@ const GeneralReducer = (state = INITIAL_STATE, action) => {
                 homePoems: action.payload
             }
 
+        }
+
+
+        case actionTypes.ADD_TO_WISHLIST: {
+
+            if (state.wishList.length > 0) {
+                return {
+                    ...state,
+                    wishList: [...state.wishList, action.payload]
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    wishList: [action.payload]
+                }
+            }
+            
         }
 
         default: {
