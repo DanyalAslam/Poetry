@@ -266,7 +266,7 @@ class HomeScreen extends React.Component {
         return (
             <View style={styles.container}>
 
-                <SearchModal />
+                {/* <SearchModal /> */}
                 
                 <ScrollView
                     showsVerticalScrollIndicator={false}
