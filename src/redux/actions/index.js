@@ -149,7 +149,17 @@ const actions = {
 
                     }
                     else{
-                        return success("Remove from wishlist")
+
+                     let wishList = _state.GeneralReducer.wishList
+
+                     wishList.splice(ifExist,1)
+
+                     dispatch({
+                        type: actionTypes.SET_WISHLIST,
+                        payload: wishList
+                    })
+
+                        return success("Removed from wishlist")
                     }
                 })
 

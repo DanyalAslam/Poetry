@@ -77,6 +77,15 @@ const GeneralReducer = (state = INITIAL_STATE, action) => {
                     wishList: [action.payload]
                 }
             }
+
+        }
+
+        case actionTypes.SET_WISHLIST: {
+
+            return {
+                ...state,
+                wishList: action.payload
+            }
             
         }
 

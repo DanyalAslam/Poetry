@@ -2,22 +2,24 @@ import React, { useState } from 'react'
 import { Text, View, ScrollView } from 'react-native'
 import styles from './style.js'
 import AnimatedWish from '../../Components/AnimatedWish/index.js'
+import { connect } from 'react-redux'
+import actions from '../../redux/actions/index.js'
+import Toast from 'react-native-simple-toast'
+
+
 
 const PoetPoemDetailCard = (props) => {
 
 
-    const [isWish, setWish] = useState('unwish')
+ const   _onPressWish = (poem) => {
 
-    const toggleWish = () => {
+        props.addToWishList(poem, success => {
 
-        if (isWish == 'wish') {
-            setWish('unwish')
-        }
-        else {
-            setWish('wish')
-        }
+            Toast.show(success)
+
+        })
+
     }
-
 
 
 
@@ -31,13 +33,14 @@ const PoetPoemDetailCard = (props) => {
 
         <ScrollView style={styles.parentContainer} showsVerticalScrollIndicator={false}>
 
- 
+
             <View style={styles.firstChildContainer}>
 
-            <AnimatedWish
-             onWishPress={toggleWish}
-             wish={isWish}
-            />
+                <AnimatedWish
+                    onWishPress={() => _onPressWish(_details)}
+                    wish={props.wishList.findIndex(_element => _element.title == _details.title) == -1
+                        ? 'unwish' : 'wish'}
+                />
 
                 <View style={styles.textContainer}>
                     <Text style={styles.title}>Title:</Text>
@@ -63,4 +66,25 @@ const PoetPoemDetailCard = (props) => {
 
 
 }
-export default PoetPoemDetailCard
+
+const mapStateToProps = state => {
+
+    return {
+
+        wishList: state.GeneralReducer.wishList,
+
+    }
+
+}
+
+const mapDispatchToProps = dispatch => {
+
+    return {
+        addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success))
+    }
+
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(PoetPoemDetailCard)

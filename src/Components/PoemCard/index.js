@@ -4,28 +4,19 @@ import styles from './styles.js'
 import RippleTouch from '../RippleTouch/index.js'
 import { vh } from '../../Units/index.js'
 import AnimatedWish from '../AnimatedWish/index.js'
+import { connect } from 'react-redux'
 
 
 const PoemCard = (props) => {
 
-    const [isWish, setWish] = useState('unwish')
-
-    const toggleWish = () => {
-
-        if (isWish == 'wish') {
-            setWish('unwish')
-        }
-        else {
-            setWish('wish')
-        }
-    }
-
+   
 
     return (
         <View>
             <AnimatedWish
-                onWishPress={toggleWish}
-                wish={isWish}
+                onWishPress={props.onWishPress}
+                wish={props.wishList.findIndex(_element => _element.title == props.title) == -1
+                    ? 'unwish': 'wish'}
             />
 
 
@@ -66,4 +57,14 @@ const PoemCard = (props) => {
     )
 }
 
-export default PoemCard
+const mapStateToProps = state => { 
+
+    return {
+
+        wishList: state.GeneralReducer.wishList,
+
+    }
+
+}
+
+export default connect(mapStateToProps, null)(PoemCard)

@@ -61,9 +61,22 @@ class PoetPoemsScreen extends React.Component {
             title={_poem.title}
             verses={_poem.lines}
             onPress={() => this.props.navigation.navigate('PoetPoemDetailScreen', { poem: item })}
+            onWishPress={() => this._onPressWish(_poem)}
         />
 
     }
+
+
+    _onPressWish = (poem) => {
+
+        this.props.addToWishList(poem, success => {
+
+            Toast.show(success)
+
+        })
+
+    }
+
 
 
     _renderEmpty = () => {
@@ -109,7 +122,8 @@ class PoetPoemsScreen extends React.Component {
 const mapDispatchToProps = dispatch => {
 
     return {
-        getPoetPoems: (poet, success, error) => dispatch(actions.getPoetPoems(poet, success, error))
+        getPoetPoems: (poet, success, error) => dispatch(actions.getPoetPoems(poet, success, error)),
+        addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success))
     }
 
 }

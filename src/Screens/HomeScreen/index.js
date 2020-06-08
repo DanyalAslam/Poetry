@@ -184,7 +184,18 @@ class HomeScreen extends React.Component {
             title={_poem.title}
             verses={_lines}
             onPress={this._navigateToCategories}
+            onWishPress={() => this._onPressWish(_poem)}
         />
+
+    }
+
+    _onPressWish = (poem) => {
+
+        this.props.addToWishList(poem, success => {
+
+            Toast.show(success)
+
+        })
 
     }
 
