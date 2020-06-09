@@ -27,6 +27,10 @@ const SearchInput = (props) => {
                 placeholder="Search "
                 placeholderTextColor={appTheme.lightGray}
                 style={styles.inputField}
+                value={props.value}
+                onChangeText={props.onChangeText}
+                onSubmitEditing={props.onSubmitEditing}
+                returnKeyType="next"
             />
         </View>
     }

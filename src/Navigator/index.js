@@ -115,8 +115,8 @@ const getHeaderTitle = props => {
       return props.route.params.title
     }
 
-    case 'PoetPoemDetailScreen':{
-        return 'Details'
+    case 'PoetPoemDetailScreen': {
+      return 'Details'
     }
 
     case 'MoreScreen': {
@@ -251,85 +251,90 @@ const MoreStackNavigator = () => {
 
 
 
-const TabNavigator = () => {
-  return (
-    <Tabs.Navigator
-      tabBarPosition="bottom"
-      // lazy={true}
-      tabBarOptions={{
-        activeTintColor: appTheme.black,
-        inactiveTintColor: appTheme.lightGray,
-        showIcon: true,
-        pressColor: appTheme.lightGray,
-        showLabel: false,
-        tabStyle: styles.tabStyle,
-        style: styles.tabBarStyle,
-        iconStyle: styles.iconStyle,
-        bounces: true,
-        indicatorStyle: styles.indicatorStyle
-      }}
-      swipeEnabled={true}
-    >
-      <Tabs.Screen
-        name="HomeStack"
-        component={HomeStackNavigator}
-        options={{
-          tabBarIcon: (params) => {
-            return (
-              <TabBarItem params={params} name='HomeStack' />
-            )
-          },
+const TabNavigator = (props) => {
 
+
+  
+
+  return (  
+      <Tabs.Navigator
+        tabBarPosition="bottom"
+        // lazy={true}
+        tabBarOptions={{
+          activeTintColor: appTheme.black,
+          inactiveTintColor: appTheme.lightGray,
+          showIcon: true,
+          pressColor: appTheme.lightGray,
+          showLabel: false,
+          tabStyle: styles.tabStyle,
+          style: styles.tabBarStyle,
+          iconStyle: styles.iconStyle,
+          bounces: true,
+          indicatorStyle: styles.indicatorStyle
         }}
-      />
+        swipeEnabled={true}
+      >
+        <Tabs.Screen
+          name="HomeStack"
+          component={HomeStackNavigator}
+          options={{
+            tabBarIcon: (params) => {
+              return (
+                <TabBarItem params={params} name='HomeStack' />
+              )
+            },
 
-      <Tabs.Screen
-        name="CategoryStack"
-        component={CategoryStackNavigator}
-        options={{
-          tabBarIcon: (params) => {
-            return (
-              <TabBarItem params={params} name='CategoryStack' />
-            )
-          },
+          }}
+        />
 
-        }}
-      />
+        <Tabs.Screen
+          name="CategoryStack"
+          component={CategoryStackNavigator}
+          options={{
+            tabBarIcon: (params) => {
+              return (
+                <TabBarItem params={params} name='CategoryStack' />
+              )
+            },
 
-      <Tabs.Screen
-        name="PoetStack"
-        component={PoetStackNavigator}
-        options={{
-          tabBarIcon: (params) => {
-            return (
-              <TabBarItem params={params} name='PoetStack' />
-            )
-          },
+          }}
+        />
 
-        }}
-      />
+        <Tabs.Screen
+          name="PoetStack"
+          component={PoetStackNavigator}
+          options={{
+            tabBarIcon: (params) => {
+              return (
+                <TabBarItem params={params} name='PoetStack' />
+              )
+            },
 
-      <Tabs.Screen
-        name="MoreStack"
-        component={MoreStackNavigator}
-        options={{
-          tabBarIcon: (params) => {
-            return (
-              <TabBarItem params={params} name='MoreStack' />
-            )
-          },
+          }}
+        />
 
-        }}
-      />
-    </Tabs.Navigator>
+        <Tabs.Screen
+          name="MoreStack"
+          component={MoreStackNavigator}
+          options={{
+            tabBarIcon: (params) => {
+              return (
+                <TabBarItem params={params} name='MoreStack' />
+              )
+            },
+
+          }}
+        />
+      </Tabs.Navigator>
+ 
   );
 }
 
-const MainNavigator = () => {
+const MainNavigator = (props) => {
   return (
 
     <NavigationContainer>
-      <TabNavigator />
+      <TabNavigator {...props} />
       <SearchModal />
     </NavigationContainer>
 

@@ -182,7 +182,25 @@ const actions = {
                 type: actionTypes.HIDE_SEARCH
              })
         }
-    }
+    },
+
+
+    getPoems: (keyword, success, error) => {
+
+        return dispatch => {
+
+            Api.getPoetDB(`/title/${keyword}`, apiSuccess => {
+
+                return success(apiSuccess)
+
+            }, apiError => {
+
+                return error(apiError)
+
+            })
+
+        }
+    },
 }
 
 export default actions
