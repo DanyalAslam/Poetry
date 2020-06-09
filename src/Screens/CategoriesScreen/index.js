@@ -33,17 +33,24 @@ class CategoriesScreen extends React.Component {
             }
         ]
     }
-    componentDidMount(){
-        this.props.getCategories()
+    componentDidMount() {
+        this.props.getCategories(success => {
+
+        },
+        error => {
+
+        }   )
     }
 
     _renderCategories = () => {
-        return this.state.mockData.map((_categroy, index) => {
+        
+        return this.props.categories.map((_categroy, index) => {
+            
             return <CategoryCard
-                source={_categroy.source}
+                source= {{uri:_categroy.image}}
                 title={_categroy.title}
                 key={index}
-                onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title : _categroy.title})}
+                onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: _categroy.title })}
             />
         })
     }
@@ -53,7 +60,7 @@ class CategoriesScreen extends React.Component {
                 <ScrollView
                     style={styles.scrollView}
                     showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{paddingVertical: 1*vh}}
+                    contentContainerStyle={{ paddingVertical: 1 * vh }}
                 >
                     {
                         this._renderCategories()
@@ -68,13 +75,13 @@ const mapDispatchToProps = dispatch => {
     return {
         // getHomeData: (success, error) => dispatch(actions.getHomeData(success, error)),
         // addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success))
-        getCategories:(success, error) =>dispatch(actions.getCategories(success, error))   
+        getCategories: (success, error) => dispatch(actions.getCategories(success, error))
     }
 }
 
 const mapStateToProps = state => {
     return {
-      categories: state.GeneralReducer.categories,
+        categories: state.GeneralReducer.categories,
     }
 }
 
