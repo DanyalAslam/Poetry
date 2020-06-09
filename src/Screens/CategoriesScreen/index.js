@@ -4,10 +4,11 @@ import styles from './styles.js'
 import CategoryCard from '../../Components/CategoryCard/index.js'
 import allImages from '../../assets/images/index.js'
 import { vh } from '../../Units/index.js'
+import { connect } from 'react-redux'
+import actions from '../../redux/actions/index.js'
 
 
 class CategoriesScreen extends React.Component {
-
     state = {
         mockData: [
             {
@@ -32,12 +33,12 @@ class CategoriesScreen extends React.Component {
             }
         ]
     }
-
+    componentDidMount(){
+        this.props.getCategories()
+    }
 
     _renderCategories = () => {
-
         return this.state.mockData.map((_categroy, index) => {
-
             return <CategoryCard
                 source={_categroy.source}
                 title={_categroy.title}
@@ -46,14 +47,9 @@ class CategoriesScreen extends React.Component {
             />
         })
     }
-
-
-
-
     render() {
         return (
             <View style={styles.container}>
-
                 <ScrollView
                     style={styles.scrollView}
                     showsVerticalScrollIndicator={false}
@@ -68,4 +64,20 @@ class CategoriesScreen extends React.Component {
     }
 }
 
-export default CategoriesScreen
+const mapDispatchToProps = dispatch => {
+    return {
+        // getHomeData: (success, error) => dispatch(actions.getHomeData(success, error)),
+        // addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success))
+        getCategories:(success, error) =>dispatch(actions.getCategories(success, error))   
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+      categories: state.GeneralReducer.categories,
+    }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesScreen)
