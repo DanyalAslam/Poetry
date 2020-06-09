@@ -138,7 +138,7 @@ const actions = {
 
                     let ifExist = _state.GeneralReducer.wishList.findIndex(_element => _element.title == poem.title)
 
-                    if (ifExist == -1){
+                    if (ifExist == -1) {
 
                         dispatch({
                             type: actionTypes.ADD_TO_WISHLIST,
@@ -148,21 +148,39 @@ const actions = {
                         return success("Added to wishlist")
 
                     }
-                    else{
+                    else {
 
-                     let wishList = _state.GeneralReducer.wishList
+                        let wishList = _state.GeneralReducer.wishList
 
-                     wishList.splice(ifExist,1)
+                        wishList.splice(ifExist, 1)
 
-                     dispatch({
-                        type: actionTypes.SET_WISHLIST,
-                        payload: wishList
-                    })
+                        dispatch({
+                            type: actionTypes.SET_WISHLIST,
+                            payload: wishList
+                        })
 
                         return success("Removed from wishlist")
                     }
                 })
 
+        }
+    },
+
+
+    showSearch: () => {
+        return dispatch => {
+            dispatch({
+                type: actionTypes.SHOW_SEARCH
+             })
+        }
+    },
+
+
+    hideSearch: () => {
+        return dispatch => {
+            dispatch({
+                type: actionTypes.HIDE_SEARCH
+             })
         }
     }
 }

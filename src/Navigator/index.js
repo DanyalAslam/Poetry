@@ -18,6 +18,7 @@ import PoetPoemDetailScreen from '../Screens/PoetPoemDetailScreen'
 import RippleTouch from '../Components/RippleTouch';
 import { Image } from 'react-native';
 import allImages from '../assets/images';
+import SearchModal from '../Components/SearchModal';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -329,6 +330,7 @@ const MainNavigator = () => {
 
     <NavigationContainer>
       <TabNavigator />
+      <SearchModal />
     </NavigationContainer>
 
   )

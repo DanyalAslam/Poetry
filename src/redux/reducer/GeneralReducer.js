@@ -6,7 +6,8 @@ const INITIAL_STATE = {
     poets: [],
     categories: [],
     homePoems: [],
-    wishList: []
+    wishList: [],
+    searchModal: false
 
 }
 
@@ -86,8 +87,30 @@ const GeneralReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 wishList: action.payload
             }
+
+        }
+
+        case actionTypes.SHOW_SEARCH: {
+ 
+
+            return {
+                ...state,
+                searchModal: true 
+            }
+
+        }
+
+
+        case actionTypes.HIDE_SEARCH: {
+
+            return {
+                ...state,
+                searchModal: false 
+            }
             
         }
+
+
 
         default: {
             return state

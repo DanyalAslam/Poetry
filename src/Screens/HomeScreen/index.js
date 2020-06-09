@@ -266,7 +266,6 @@ class HomeScreen extends React.Component {
         return (
             <View style={styles.container}>
 
-                {/* <SearchModal /> */}
                 
                 <ScrollView
                     showsVerticalScrollIndicator={false}
@@ -292,7 +291,7 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
-
+ 
     return {
 
         poets: state.GeneralReducer.poets,

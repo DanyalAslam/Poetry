@@ -18,7 +18,7 @@ export default ExtendedHeader = (props) => {
             && _routeName != "PoetPoemDetailScreen"
         ) {
 
-            return <SearchInput />
+            return <SearchInput mode="touchable"/>
         }
 
         return null

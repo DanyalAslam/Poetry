@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { vw, vh } from '../../Units';
 import { appTheme } from '../../Utils';
+import fonts from '../../assets/fonts';
 
 export default Styles = StyleSheet.create({
     container: {
@@ -22,7 +23,17 @@ export default Styles = StyleSheet.create({
     inputField: {
         width: '87%',
         marginLeft: 2 * vw,
-        // fontFamily: fonts.JR,
+        fontFamily: fonts.JR,
         fontSize: 2.3 * vh
+    },
+    textField: {
+        width: '87%',
+        marginLeft: 2 * vw,
+        paddingVertical: 2*vh
+    },
+    text:{
+        fontFamily: fonts.JR,
+        fontSize: 2.3 * vh,
+        color: appTheme.lightGray
     }
 });

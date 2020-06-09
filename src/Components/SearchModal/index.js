@@ -5,6 +5,9 @@ import { appTheme } from '../../Utils/index.js'
 import { vw, vh } from '../../Units/index.js'
 import RippleTouch from '../RippleTouch/index.js'
 import allImages from '../../assets/images/index.js'
+import SearchInput from '../SearchInput'
+import { connect } from 'react-redux'
+import actions from '../../redux/actions/index.js'
 
 
 class SearchModal extends React.Component {
@@ -13,7 +16,7 @@ class SearchModal extends React.Component {
     _renderBackButton = () => {
 
         return <RippleTouch
-            onPress={() => props.navigation.pop()}
+            onPress={this.props.hideSearchModal}
             style={styles.backContainer}
         >
             <Image style={styles.backImage} source={allImages.generalIcons.leftArrow} />
@@ -24,27 +27,16 @@ class SearchModal extends React.Component {
     render() {
         return (
             <Modal
-                visible={true}
+                visible={this.props.searchModal}
                 transparent={true}
-                animationType="slide"
+                animationType="fade"
+                key="searchModal"
             >
                 <View style={styles.container}>
 
-                    <View style={{
-                        elevation: 5,
-                        borderBottomWidth: 0.4 * vw,
-                        borderBottomColor: appTheme.lightGray,
-                        height: 10 * vh,
-                        backgroundColor: appTheme.black, 
-                    }}>
+                    <View style={styles.header}>
 
-                        <View style={{
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            flexDirection: 'row',
-                            marginTop: 2 * vh,
-                            width: '60%'
-                        }}>
+                        <View style={styles.headerRow}>
                             {
                                 this._renderBackButton()
                             }
@@ -53,6 +45,9 @@ class SearchModal extends React.Component {
                                 Search
                             </Text>
                         </View>
+
+                        <SearchInput style={{ marginHorizontal: 5 * vw, marginTop: 1.5 * vh }} />
+
 
                     </View>
 
@@ -64,4 +59,19 @@ class SearchModal extends React.Component {
 
 }
 
-export default SearchModal
+const mapStateToProps = state => {
+
+    return {
+        searchModal: state.GeneralReducer.searchModal
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+
+    return {
+        hideSearchModal: () => dispatch(actions.hideSearch())
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchModal)
