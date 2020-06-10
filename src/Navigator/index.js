@@ -136,18 +136,22 @@ const getHeaderTitle = props => {
 }
 
 
-const HomeStackNavigator = () => {
+const HomeStackNavigator = (props) => {
+
 
   return (
+    <>
+      <HomeStack.Navigator
+        screenOptions={_renderHeaderWithSearch}
+        headerMode="screen"
+      >
 
-    <HomeStack.Navigator
-      screenOptions={_renderHeaderWithSearch}
-      headerMode="screen"
-    >
-      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+        <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
 
-    </HomeStack.Navigator>
+      </HomeStack.Navigator>
 
+      <SearchModal navigation={props.navigation} />
+    </>
   )
 }
 
@@ -254,79 +258,80 @@ const MoreStackNavigator = () => {
 const TabNavigator = (props) => {
 
 
-  
 
-  return (  
-      <Tabs.Navigator
-        tabBarPosition="bottom"
-        // lazy={true}
-        tabBarOptions={{
-          activeTintColor: appTheme.black,
-          inactiveTintColor: appTheme.lightGray,
-          showIcon: true,
-          pressColor: appTheme.lightGray,
-          showLabel: false,
-          tabStyle: styles.tabStyle,
-          style: styles.tabBarStyle,
-          iconStyle: styles.iconStyle,
-          bounces: true,
-          indicatorStyle: styles.indicatorStyle
+
+  return (
+    <Tabs.Navigator
+      tabBarPosition="bottom"
+      // lazy={true}
+      tabBarOptions={{
+        activeTintColor: appTheme.black,
+        inactiveTintColor: appTheme.lightGray,
+        showIcon: true,
+        pressColor: appTheme.lightGray,
+        showLabel: false,
+        tabStyle: styles.tabStyle,
+        style: styles.tabBarStyle,
+        iconStyle: styles.iconStyle,
+        bounces: true,
+        indicatorStyle: styles.indicatorStyle
+      }}
+      swipeEnabled={true}
+    >
+      <Tabs.Screen
+        name="HomeStack"
+        component={HomeStackNavigator}
+        options={{
+          tabBarIcon: (params) => {
+            return (
+              <TabBarItem params={params} name='HomeStack' />
+            )
+          },
+
         }}
-        swipeEnabled={true}
-      >
-        <Tabs.Screen
-          name="HomeStack"
-          component={HomeStackNavigator}
-          options={{
-            tabBarIcon: (params) => {
-              return (
-                <TabBarItem params={params} name='HomeStack' />
-              )
-            },
+      />
 
-          }}
-        />
+      <Tabs.Screen
+        name="CategoryStack"
+        component={CategoryStackNavigator}
+        options={{
+          tabBarIcon: (params) => {
+            return (
+              <TabBarItem params={params} name='CategoryStack' />
+            )
+          },
 
-        <Tabs.Screen
-          name="CategoryStack"
-          component={CategoryStackNavigator}
-          options={{
-            tabBarIcon: (params) => {
-              return (
-                <TabBarItem params={params} name='CategoryStack' />
-              )
-            },
+        }}
+      />
 
-          }}
-        />
+      <Tabs.Screen
+        name="PoetStack"
+        component={PoetStackNavigator}
+        options={{
+          tabBarIcon: (params) => {
 
-        <Tabs.Screen
-          name="PoetStack"
-          component={PoetStackNavigator}
-          options={{
-            tabBarIcon: (params) => {
-              return (
-                <TabBarItem params={params} name='PoetStack' />
-              )
-            },
+            return (
+              <TabBarItem params={params} name='PoetStack' />
+            )
+          },
 
-          }}
-        />
+        }}
+      />
 
-        <Tabs.Screen
-          name="MoreStack"
-          component={MoreStackNavigator}
-          options={{
-            tabBarIcon: (params) => {
-              return (
-                <TabBarItem params={params} name='MoreStack' />
-              )
-            },
+      <Tabs.Screen
+        name="MoreStack"
+        component={MoreStackNavigator}
+        options={{
+          tabBarIcon: (params) => {
+            return (
+              <TabBarItem params={params} name='MoreStack' />
+            )
+          },
 
-          }}
-        />
-      </Tabs.Navigator>
- 
+        }}
+      />
+    </Tabs.Navigator>
+
   );
 }
 
@@ -335,7 +340,6 @@ const MainNavigator = (props) => {
 
     <NavigationContainer>
       <TabNavigator {...props} />
-      <SearchModal />
     </NavigationContainer>
 
   )

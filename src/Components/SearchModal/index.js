@@ -70,6 +70,12 @@ class SearchModal extends React.Component {
 
     }
 
+    _navigate = (item) => {
+     
+        this.props.hideSearchModal()
+        this.props.navigation.navigate('PoetPoemDetailScreen', { poem: item })
+        this.setState({ search: '', results: [], message: '' })
+    }
 
     _renderPoems = ({ item }) => {
 
@@ -79,7 +85,7 @@ class SearchModal extends React.Component {
             poet={_poem.author}
             title={_poem.title}
             verses={_poem.lines}
-            onPress={() => this.props.navigation.navigate('PoetPoemDetailScreen', { poem: item })}
+            onPress={() => this._navigate(item)}
             onWishPress={() => this._onPressWish(_poem)}
         />
 

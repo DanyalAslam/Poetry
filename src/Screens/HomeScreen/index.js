@@ -48,6 +48,15 @@ class HomeScreen extends React.Component {
 
     }
 
+    _navigateToPoetDetails = (author) => {
+
+        this.props.navigation.navigate('PoetStack', {
+            screen: 'PoetPoemsScreen',
+            params: {
+                title: author
+            }
+        })
+    }
 
     _renderPoetCard = ({ item, index }) => {
 
@@ -57,6 +66,7 @@ class HomeScreen extends React.Component {
             poet={_poet.name}
             source={{ uri: _poet.image }}
             key={{ index }}
+            onPress={() => this._navigateToPoetDetails(_poet.name)}
         />
 
 
@@ -266,7 +276,7 @@ class HomeScreen extends React.Component {
         return (
             <View style={styles.container}>
 
-                
+
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ paddingTop: 2 * vh, }}
@@ -291,7 +301,7 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
- 
+
     return {
 
         poets: state.GeneralReducer.poets,
