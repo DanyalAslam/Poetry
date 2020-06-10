@@ -19,6 +19,7 @@ import RippleTouch from '../Components/RippleTouch';
 import { Image } from 'react-native';
 import allImages from '../assets/images';
 import SearchModal from '../Components/SearchModal';
+import CategoryPoemDetailsScreen from '../Screens/CategoryPoemDetailsScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -46,12 +47,16 @@ const _DefaultHeaderOptions = (props) => {
 const _pickHeaderStyle = (props) => {
 
   const routeName = props.route.name
+ 
 
   let _styles = styles.headerTitle
 
   if (routeName == "MoreScreen" || routeName == "CategoryDetailsScreen"
+    || routeName == "CategoryPoemDetailsScreen" || routeName == 'PoetPoemsScreen'
     || routeName == 'WishListScreen' || routeName == 'PoetPoemDetailScreen') {
+      
     _styles = styles.headerTitle_1
+
   }
 
   return _styles
@@ -61,8 +66,10 @@ const _pickHeaderStyle = (props) => {
 const _renderHeaderLeft = (props) => {
 
   const routeName = props.route.name
+  
 
   if (routeName == 'CategoryDetailsScreen' || routeName == 'PoetPoemsScreen'
+    || routeName == "CategoryPoemDetailsScreen"
     || routeName == 'WishListScreen' || routeName == 'PoetPoemDetailScreen') {
 
     return <RippleTouch
@@ -104,6 +111,10 @@ const getHeaderTitle = props => {
     case 'CategoryDetailsScreen': {
 
       return props.route.params.title
+    }
+
+    case 'CategoryPoemDetailsScreen': {
+      return "Details"
     }
 
 
@@ -179,6 +190,19 @@ const CategoryStackNavigator = () => {
           }
         }
       />
+
+      <CategoryStack.Screen
+        name="CategoryPoemDetailsScreen"
+        component={CategoryPoemDetailsScreen}
+        options={
+          {
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureEnabled: true,
+            gestureDirection: 'horizontal'
+          }
+        }
+      />
+
     </CategoryStack.Navigator>
   )
 }

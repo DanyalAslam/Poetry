@@ -37,23 +37,24 @@ class CategoriesScreen extends React.Component {
         this.props.getCategories(success => {
 
         },
-        error => {
+            error => {
 
-        }   )
+            })
     }
 
     _renderCategories = () => {
-        
+
         return this.props.categories.map((_categroy, index) => {
-            
+
             return <CategoryCard
-                source= {{uri:_categroy.image}}
+                source={{ uri: _categroy.image }}
                 title={_categroy.title}
                 key={index}
                 onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: _categroy.title })}
             />
         })
     }
+    
     render() {
         return (
             <View style={styles.container}>
@@ -72,9 +73,7 @@ class CategoriesScreen extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        // getHomeData: (success, error) => dispatch(actions.getHomeData(success, error)),
-        // addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success))
+    return { 
         getCategories: (success, error) => dispatch(actions.getCategories(success, error))
     }
 }

@@ -16,9 +16,11 @@ export default ExtendedHeader = (props) => {
             && _routeName != 'CategoryDetailsScreen'
             && _routeName != 'WishListScreen'
             && _routeName != "PoetPoemDetailScreen"
+            && _routeName != "CategoryPoemDetailsScreen"
+            && _routeName != 'PoetPoemsScreen'
         ) {
 
-            return <SearchInput mode="touchable"/>
+            return <SearchInput mode="touchable" />
         }
 
         return null

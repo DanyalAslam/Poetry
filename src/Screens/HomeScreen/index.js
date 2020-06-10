@@ -163,18 +163,21 @@ class HomeScreen extends React.Component {
                     source={{ uri: this.props.categories[0].image }}
                     title={this.props.categories[0].title}
                     style={styles.categoryCardStyle}
+                    onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[0].title})}
                 />
 
                 <CategoryCard
                     source={{ uri: this.props.categories[1].image }}
                     title={this.props.categories[1].title}
                     style={styles.categoryCardStyle}
+                    onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[1].title})}
                 />
 
                 <CategoryCard
                     source={{ uri: this.props.categories[2].image }}
                     title={this.props.categories[2].title}
                     style={styles.categoryCardStyle}
+                    onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[2].title})}
                 />
 
 
