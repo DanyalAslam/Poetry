@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, ScrollView, RefreshControl } from 'react-native'
+import { Text, View, ScrollView, RefreshControl, BackHandler } from 'react-native'
 import styles from './style.js'
 import AnimatedWish from '../../Components/AnimatedWish/index.js'
 import { connect } from 'react-redux'
@@ -8,9 +8,7 @@ import Toast from 'react-native-simple-toast'
 import {
     AdMobInterstitial,
     AdMobBanner
-} from 'react-native-admob';
-import { vh } from '../../Units/index.js'
-import { log } from 'react-native-reanimated'
+} from 'react-native-admob';  
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import { appTheme } from '../../Utils/index.js'
 
@@ -24,8 +22,10 @@ class PoetPoemDetailScreen extends React.Component {
 
     componentDidMount() {
 
+        this.backHandler = BackHandler.addEventListener("hardwareBackPress", this.backAction);
+
         this.props.navigation.addListener("focus", () => {
-            this.setState({poemDetails: null})
+            this.setState({ poemDetails: null })
 
             if (this.props.route?.params?.makeApiCall) {
                 this._getPoem()
@@ -62,10 +62,27 @@ class PoetPoemDetailScreen extends React.Component {
 
     }
 
+    backAction = () => {
+
+        if(this.props.route?.params?.fromSearch){
+            this.props.showSearchModal()
+            this.props.navigation.popToTop()
+           
+        }
+
+        else{
+            this.props.navigation.pop()
+        }
+
+        return true;
+        
+    }
+
 
     componentWillUnmount() {
         AdMobInterstitial.removeAllListeners();
         this.props.navigation.removeListener("focus")
+        this.backHandler.remove();
     }
 
     _getPoem = () => {
@@ -76,7 +93,7 @@ class PoetPoemDetailScreen extends React.Component {
 
         this.props.getPoems(_poemName, success => {
 
-           
+
             this.setState({ refreshing: false, poemDetails: success[0] })
 
         }, error => {
@@ -154,7 +171,7 @@ class PoetPoemDetailScreen extends React.Component {
         }
         else if (!this.state.refreshing) {
 
-            return <EmptyComponent message="No details found"/>
+            return <EmptyComponent message="No details found" />
         }
 
         return null
@@ -162,13 +179,7 @@ class PoetPoemDetailScreen extends React.Component {
 
 
     render() {
-
-
-
-
-
-
-
+ 
         return (
 
             <ScrollView
@@ -177,7 +188,7 @@ class PoetPoemDetailScreen extends React.Component {
                 refreshControl={
                     <RefreshControl
                         refreshing={this.state.refreshing}
-                        colors={[appTheme.lightGray]} 
+                        colors={[appTheme.lightGray]}
                     />
                 }
             >
@@ -218,7 +229,8 @@ const mapDispatchToProps = dispatch => {
 
     return {
         getPoems: (title, success, error) => dispatch(actions.getPoems(title, success, error)),
-        addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success))
+        addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success)),
+        showSearchModal: () => dispatch(actions.showSearch())
     }
 
 }

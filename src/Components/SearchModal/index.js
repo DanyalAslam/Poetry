@@ -22,6 +22,19 @@ class SearchModal extends React.Component {
         message: ''
     }
 
+    
+
+
+    backAction = () => {
+       
+        this.props.hideSearchModal()
+
+        return true;
+        
+    }
+
+ 
+
 
     _renderBackButton = () => {
 
@@ -73,8 +86,8 @@ class SearchModal extends React.Component {
     _navigate = (item) => {
      
         this.props.hideSearchModal()
-        this.props.navigation.navigate('PoetPoemDetailScreen', { poem: item })
-        this.setState({ search: '', results: [], message: '' })
+        this.props.navigation.navigate('PoetPoemDetailScreen', { poem: item, fromSearch: true })
+        // this.setState({ search: '', results: [], message: '' })
     }
 
     _renderPoems = ({ item }) => {
@@ -122,6 +135,7 @@ class SearchModal extends React.Component {
                 transparent={true}
                 animationType="fade"
                 key="searchModal"
+                onRequestClose={this.backAction}
             >
                 <View style={styles.container}>
 

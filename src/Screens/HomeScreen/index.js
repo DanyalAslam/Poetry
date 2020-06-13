@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, TouchableOpacity, RefreshControl } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, RefreshControl,BackHandler } from 'react-native'
 import styles from './styles.js'
 import CategoryCard from '../../../src/Components/CategoryCard'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -11,8 +11,7 @@ import { connect } from 'react-redux'
 import actions from '../../redux/actions/index.js'
 import { appTheme } from '../../Utils/index.js'
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
-import Toast from 'react-native-simple-toast'
-import SearchModal from '../../Components/SearchModal/index.js'
+import Toast from 'react-native-simple-toast' 
 
 
 
@@ -25,8 +24,33 @@ class HomeScreen extends React.Component {
 
     componentDidMount() {
 
+        this.backHandler = BackHandler.addEventListener("hardwareBackPress", this.backAction);
+
+
         this._getHomeData()
 
+    }
+
+
+    backAction = () => {
+     
+        console.log(this.props.searchModal);
+        
+
+    //     if(this.props.searchModal){
+    //         this.props.hideSearchModal()
+    //     }
+    //   else{
+    //       BackHandler.exitApp()
+    //   }
+
+        return true;
+        
+    }
+
+
+    componentWillUnmount() { 
+        this.backHandler.remove();
     }
 
 
@@ -315,6 +339,7 @@ const mapStateToProps = state => {
         poets: state.GeneralReducer.poets,
         categories: state.GeneralReducer.categories,
         homePoems: state.GeneralReducer.homePoems,
+        searchModal: state.GeneralReducer.searchModal
 
     }
 
@@ -324,7 +349,8 @@ const mapDispatchToProps = dispatch => {
 
     return {
         getHomeData: (success, error) => dispatch(actions.getHomeData(success, error)),
-        addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success))
+        addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success)),
+        hideSearchModal: () => dispatch(actions.hideSearch()),
     }
 
 }
