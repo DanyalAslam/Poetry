@@ -20,6 +20,8 @@ import { Image } from 'react-native';
 import allImages from '../assets/images';
 import SearchModal from '../Components/SearchModal';
 import CategoryPoemDetailsScreen from '../Screens/CategoryPoemDetailsScreen';
+import actions from '../redux/actions';
+import { connect } from 'react-redux';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -30,31 +32,33 @@ const PoetStack = createStackNavigator();
 const MoreStack = createStackNavigator();
 
 
+class MainNavigator extends React.Component {
 
-const _DefaultHeaderOptions = (props) => {
+
+ _DefaultHeaderOptions = (props) => {
 
   return {
     headerShown: true,
-    title: getHeaderTitle(props),
+    title: this.getHeaderTitle(props),
     headerTitleAlign: 'center',
-    headerTitleStyle: _pickHeaderStyle(props),
+    headerTitleStyle: this._pickHeaderStyle(props),
     headerStyle: styles.header,
-    headerLeft: () => _renderHeaderLeft(props),
+    headerLeft: () => this._renderHeaderLeft(props),
     headerLeftContainerStyle: styles.leftContainer
   }
 }
 
-const _pickHeaderStyle = (props) => {
+ _pickHeaderStyle = (props) => {
 
   const routeName = props.route.name
- 
+
 
   let _styles = styles.headerTitle
 
   if (routeName == "MoreScreen" || routeName == "CategoryDetailsScreen"
     || routeName == "CategoryPoemDetailsScreen" || routeName == 'PoetPoemsScreen'
     || routeName == 'WishListScreen' || routeName == 'PoetPoemDetailScreen') {
-      
+
     _styles = styles.headerTitle_1
 
   }
@@ -63,17 +67,41 @@ const _pickHeaderStyle = (props) => {
 }
 
 
-const _renderHeaderLeft = (props) => {
+ _onBackPress = (props) => {
 
   const routeName = props.route.name
-  
+
+  console.log(routeName,'  ',props.route?.params?.fromSearch)
+
+  if (routeName == 'PoetPoemDetailScreen') {
+    if (props.route?.params?.fromSearch) {
+
+      props.navigation.popToTop()
+      this.props.showSearchModal()
+
+    }
+    else{
+      props.navigation.pop()
+    }
+  }
+  else{
+    props.navigation.pop()
+  }
+
+}
+
+
+ _renderHeaderLeft = (props) => {
+
+  const routeName = props.route.name
+
 
   if (routeName == 'CategoryDetailsScreen' || routeName == 'PoetPoemsScreen'
     || routeName == "CategoryPoemDetailsScreen"
     || routeName == 'WishListScreen' || routeName == 'PoetPoemDetailScreen') {
 
     return <RippleTouch
-      onPress={() => props.navigation.pop()}
+      onPress={()=>this._onBackPress(props)}
     >
       <Image style={styles.imageStyle} source={allImages.generalIcons.leftArrow} />
     </RippleTouch>
@@ -85,15 +113,15 @@ const _renderHeaderLeft = (props) => {
 }
 
 
-const _renderHeaderWithSearch = (props) => {
+ _renderHeaderWithSearch = (props) => {
   return {
-    ..._DefaultHeaderOptions(props),
+    ...this._DefaultHeaderOptions(props),
     header: (props) => <ExtendedHeader {...props} />
   }
 }
 
 
-const getHeaderTitle = props => {
+ getHeaderTitle = (props) => {
 
   const routeName = props.route.name
 
@@ -101,7 +129,7 @@ const getHeaderTitle = props => {
   switch (routeName) {
 
     case 'HomeScreen': {
-      return 'Mobile App'
+      return 'Poetry'
     }
 
     case 'CategoriesScreen': {
@@ -147,13 +175,13 @@ const getHeaderTitle = props => {
 }
 
 
-const HomeStackNavigator = (props) => {
+ HomeStackNavigator = (props) => {
 
 
   return (
     <>
       <HomeStack.Navigator
-        screenOptions={_renderHeaderWithSearch}
+        screenOptions={this._renderHeaderWithSearch}
         headerMode="screen"
       >
 
@@ -166,11 +194,11 @@ const HomeStackNavigator = (props) => {
   )
 }
 
-const CategoryStackNavigator = () => {
+ CategoryStackNavigator = () => {
 
   return (
     <CategoryStack.Navigator
-      screenOptions={_renderHeaderWithSearch}
+      screenOptions={this._renderHeaderWithSearch}
 
       headerMode="screen"
     >
@@ -207,11 +235,11 @@ const CategoryStackNavigator = () => {
   )
 }
 
-const PoetStackNavigator = () => {
+ PoetStackNavigator = () => {
 
   return (
     <PoetStack.Navigator
-      screenOptions={_renderHeaderWithSearch}
+      screenOptions={this._renderHeaderWithSearch}
       headerMode="screen"
     >
       <PoetStack.Screen
@@ -249,11 +277,11 @@ const PoetStackNavigator = () => {
   )
 }
 
-const MoreStackNavigator = () => {
+ MoreStackNavigator = () => {
 
   return (
     <MoreStack.Navigator
-      screenOptions={_renderHeaderWithSearch}
+      screenOptions={this._renderHeaderWithSearch}
       headerMode="screen"
     >
       <MoreStack.Screen
@@ -279,10 +307,8 @@ const MoreStackNavigator = () => {
 
 
 
-const TabNavigator = (props) => {
-
-
-
+TabNavigator = (props) => {
+ 
 
   return (
     <Tabs.Navigator
@@ -304,7 +330,7 @@ const TabNavigator = (props) => {
     >
       <Tabs.Screen
         name="HomeStack"
-        component={HomeStackNavigator}
+        component={this.HomeStackNavigator}
         options={{
           tabBarIcon: (params) => {
             return (
@@ -317,7 +343,7 @@ const TabNavigator = (props) => {
 
       <Tabs.Screen
         name="CategoryStack"
-        component={CategoryStackNavigator}
+        component={this.CategoryStackNavigator}
         options={{
           tabBarIcon: (params) => {
             return (
@@ -330,7 +356,7 @@ const TabNavigator = (props) => {
 
       <Tabs.Screen
         name="PoetStack"
-        component={PoetStackNavigator}
+        component={this.PoetStackNavigator}
         options={{
           tabBarIcon: (params) => {
 
@@ -344,7 +370,7 @@ const TabNavigator = (props) => {
 
       <Tabs.Screen
         name="MoreStack"
-        component={MoreStackNavigator}
+        component={this.MoreStackNavigator}
         options={{
           tabBarIcon: (params) => {
             return (
@@ -359,15 +385,30 @@ const TabNavigator = (props) => {
   );
 }
 
-const MainNavigator = (props) => {
+ render(){
+
   return (
 
     <NavigationContainer>
-      <TabNavigator {...props} />
+      <this.TabNavigator {...this.props} />
     </NavigationContainer>
 
   )
 
+ }
+ 
+ 
 }
 
-export default MainNavigator
+const mapDispatchToProps = dispatch => {
+
+  return { 
+    showSearchModal: () => dispatch(actions.showSearch())
+  }
+
+}
+
+
+
+export default connect(null, mapDispatchToProps)(MainNavigator)
+ 
