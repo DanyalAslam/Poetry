@@ -36,9 +36,16 @@ class CategoryDetailsScreen extends React.Component {
         this.setState({ refreshing: true })
 
         this.props.getPoems(_poetName, success => {
+ 
 
+            if(success?.status == 404){
+                this.setState({ refreshing: false, poems: [] })
 
-            this.setState({ refreshing: false, poems: success })
+            }else{
+                this.setState({ refreshing: false, poems: success })
+
+            }
+
 
         }, error => {
 

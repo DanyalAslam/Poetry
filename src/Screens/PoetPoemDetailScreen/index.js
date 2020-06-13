@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Text, View, ScrollView } from 'react-native'
+import React from 'react'
+import { Text, View, ScrollView, RefreshControl } from 'react-native'
 import styles from './style.js'
 import AnimatedWish from '../../Components/AnimatedWish/index.js'
 import { connect } from 'react-redux'
@@ -10,12 +10,32 @@ import {
     AdMobBanner
 } from 'react-native-admob';
 import { vh } from '../../Units/index.js'
+import { log } from 'react-native-reanimated'
+import EmptyComponent from '../../Components/EmptyComponent/index.js'
+import { appTheme } from '../../Utils/index.js'
 
 
-class PoetPoemDetailCard extends React.Component {
+class PoetPoemDetailScreen extends React.Component {
 
+    state = {
+        poemDetails: null,
+        refreshing: false
+    }
 
     componentDidMount() {
+
+        this.props.navigation.addListener("focus", () => {
+            this.setState({poemDetails: null})
+
+            if (this.props.route?.params?.makeApiCall) {
+                this._getPoem()
+            }
+            else {
+                this.setState({ poemDetails: this.props.route.params.poem })
+            }
+        })
+
+
         // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
         AdMobInterstitial.setAdUnitID('ca-app-pub-9997053501259124/4859045713');
 
@@ -45,6 +65,26 @@ class PoetPoemDetailCard extends React.Component {
 
     componentWillUnmount() {
         AdMobInterstitial.removeAllListeners();
+        this.props.navigation.removeListener("focus")
+    }
+
+    _getPoem = () => {
+
+        let _poemName = this.props.route?.params?.poem?.title
+
+        this.setState({ refreshing: true })
+
+        this.props.getPoems(_poemName, success => {
+
+           
+            this.setState({ refreshing: false, poemDetails: success[0] })
+
+        }, error => {
+
+            this.setState({ refreshing: false })
+            Toast.show(error)
+        })
+
     }
 
 
@@ -72,18 +112,77 @@ class PoetPoemDetailCard extends React.Component {
     }
 
 
-    render() {
-        let _details = this.props.route.params.poem
+    _renderSection = () => {
 
-        let _lines = _details.lines.map((line, index) => {
-            return line + "\n"
-        })
+        if (this.state.poemDetails) {
+
+
+            let _details = this.state.poemDetails
+
+            let _lines = _details.lines.map((line, index) => {
+                return line + "\n"
+            })
+
+            return <View style={styles.firstChildContainer}>
+
+                <AnimatedWish
+                    onWishPress={() => this._onPressWish(_details)}
+                    wish={this.props.wishList.findIndex(_element => _element.title == _details.title) == -1
+                        ? 'unwish' : 'wish'}
+                />
+
+                <View style={styles.textContainer}>
+                    <Text style={styles.title}>Title:</Text>
+                    <Text style={styles.text}>{_details.title}</Text>
+                </View>
+
+                <View style={styles.textContainer}>
+                    <Text style={styles.title}>Poet:</Text>
+                    <Text style={styles.text}>{_details.author}</Text>
+                </View>
+
+                <View style={styles.textContainer}>
+                    <Text style={styles.title}>Lines:</Text>
+
+                </View>
+
+                <Text style={styles.lines}>{_lines}</Text>
+
+            </View>
+
+
+        }
+        else if (!this.state.refreshing) {
+
+            return <EmptyComponent message="No details found"/>
+        }
+
+        return null
+    }
+
+
+    render() {
+
+
+
+
+
+
 
         return (
 
-            <ScrollView style={styles.parentContainer} showsVerticalScrollIndicator={false}>
+            <ScrollView
+                style={styles.parentContainer}
+                showsVerticalScrollIndicator={false}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        colors={[appTheme.lightGray]} 
+                    />
+                }
+            >
 
-                <AdMobBanner
+                {/* <AdMobBanner
                     style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100,}}
                     adSize="banner"
                     adUnitID="ca-app-pub-9997053501259124/3315219127"
@@ -93,34 +192,11 @@ class PoetPoemDetailCard extends React.Component {
                     adViewWillPresentScreen={add => console.log("ad receive ", add)}
                     adViewWillLeaveApplication={() => console.log("tap")}
                     adViewDidDismissScreen={() => console.log('closed')}
-                />
+                /> */}
 
-                <View style={styles.firstChildContainer}>
-
-                    <AnimatedWish
-                        onWishPress={() => this._onPressWish(_details)}
-                        wish={this.props.wishList.findIndex(_element => _element.title == _details.title) == -1
-                            ? 'unwish' : 'wish'}
-                    />
-
-                    <View style={styles.textContainer}>
-                        <Text style={styles.title}>Title:</Text>
-                        <Text style={styles.text}>{_details.title}</Text>
-                    </View>
-
-                    <View style={styles.textContainer}>
-                        <Text style={styles.title}>Poet:</Text>
-                        <Text style={styles.text}>{_details.author}</Text>
-                    </View>
-
-                    <View style={styles.textContainer}>
-                        <Text style={styles.title}>Lines:</Text>
-
-                    </View>
-
-                    <Text style={styles.lines}>{_lines}</Text>
-
-                </View>
+                {
+                    this._renderSection()
+                }
 
             </ScrollView>
         )
@@ -141,6 +217,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 
     return {
+        getPoems: (title, success, error) => dispatch(actions.getPoems(title, success, error)),
         addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success))
     }
 
@@ -148,4 +225,4 @@ const mapDispatchToProps = dispatch => {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(PoetPoemDetailCard)
+export default connect(mapStateToProps, mapDispatchToProps)(PoetPoemDetailScreen)
