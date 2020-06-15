@@ -11,6 +11,7 @@ import {
 } from 'react-native-admob';  
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import { appTheme } from '../../Utils/index.js'
+import { vh } from '../../Units/index.js'
 
 
 class PoetPoemDetailScreen extends React.Component {
@@ -37,14 +38,12 @@ class PoetPoemDetailScreen extends React.Component {
 
 
         // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-        AdMobInterstitial.setAdUnitID('ca-app-pub-9997053501259124/4859045713');
+        AdMobInterstitial.setAdUnitID('ca-app-pub-9997053501259124/4331490154');
 
         AdMobInterstitial.addEventListener('adLoaded', () =>
             console.log('AdMobInterstitial adLoaded'),
         );
-        AdMobInterstitial.addEventListener('adFailedToLoad', error =>
-            console.warn(error),
-        );
+      
         AdMobInterstitial.addEventListener('adOpened', () =>
             console.log('AdMobInterstitial => adOpened'),
         );
@@ -54,9 +53,7 @@ class PoetPoemDetailScreen extends React.Component {
             // AdMobInterstitial.requestAd().catch(error => console.warn(error));
         });
 
-        AdMobInterstitial.addEventListener('adLeftApplication', () =>
-            console.log('AdMobInterstitial => adLeftApplication'),
-        );
+         
 
 
 
@@ -108,17 +105,22 @@ class PoetPoemDetailScreen extends React.Component {
     showInterstitial = () => {
 
         AdMobInterstitial.requestAd()
-            .then(() => AdMobInterstitial.isReady((data) => {
-                if (data)
-                    AdMobInterstitial.showAd()
-                console.log(data)
-            }))
+            .then((_d) => {
+                console.log('**  ',_d)
+                // AdMobInterstitial.isReady((data) => {
+                //     if (data)
+                //         AdMobInterstitial.showAd()
+                //     console.log(data)
+                // }
+            })
+            .catch(_err => console.log('err ',_err))
+            
 
     }
 
     _onPressWish = (poem) => {
 
-        // this.showInterstitial()
+        this.showInterstitial()
 
         this.props.addToWishList(poem, success => {
 
@@ -193,17 +195,18 @@ class PoetPoemDetailScreen extends React.Component {
                 }
             >
 
-                {/* <AdMobBanner
-                    style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100,}}
+                <AdMobBanner
+                    style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100,alignSelf: 'center'}}
                     adSize="banner"
-                    adUnitID="ca-app-pub-9997053501259124/3315219127"
+                    // adUnitID="ca-app-pub-9997053501259124/3313921953" //my ad
+                    adUnitID="ca-app-pub-3940256099942544/6300978111"
                     // testDeviceID="EMULATOR"
                     didFailToReceiveAdWithError={error => console.log("ad error ", error)}
                     adViewDidReceiveAd={add => console.log("ad receive ", add)}
                     adViewWillPresentScreen={add => console.log("ad receive ", add)}
                     adViewWillLeaveApplication={() => console.log("tap")}
                     adViewDidDismissScreen={() => console.log('closed')}
-                /> */}
+                />
 
                 {
                     this._renderSection()
