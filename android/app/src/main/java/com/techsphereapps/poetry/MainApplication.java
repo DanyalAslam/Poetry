@@ -1,4 +1,4 @@
-package com.poetry;
+package com.techsphereapps.poetry;
 
 import android.app.Application;
 import android.content.Context;
