@@ -47,11 +47,11 @@ public class Splash {
 
         Feather = new ImageView(applicationContext);
         Feather.setImageDrawable(getDrawable(applicationContext,R.drawable.leaf));
-//        Feather.setScaleType(ImageView.ScaleType.);
+        Feather.setScaleType(ImageView.ScaleType.FIT_XY);
 
         Poetry = new ImageView(applicationContext);
         Poetry.setImageDrawable(getDrawable(applicationContext,R.drawable.poetry));
-        Poetry.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        Poetry.setScaleType(ImageView.ScaleType.FIT_XY);
 
 
 
@@ -70,8 +70,8 @@ public class Splash {
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 
         relativeLayout.addView(Feather, layoutParams);
-        Feather.getLayoutParams().width = 30*vw;
-        Feather.getLayoutParams().height = 40*vh;
+        Feather.getLayoutParams().width = 55*vw;
+        Feather.getLayoutParams().height = 35*vh;
         Feather.requestLayout();
         Feather.setVisibility(View.INVISIBLE);
 
@@ -85,36 +85,22 @@ public class Splash {
         Book.getLayoutParams().height = 40*vh;
         Book.requestLayout();
         Book.setVisibility(View.INVISIBLE);
-        Book.setY(55*vh);
+        Book.setY(30*vh);
 
 
 
 
 
-//        layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-//
-//
-//        relativeLayout.addView(leftArrow, layoutParams);
-//        leftArrow.getLayoutParams().width = 8*vw;
-//        leftArrow.getLayoutParams().height = 8*vh;
-//        leftArrow.requestLayout();
-//        leftArrow.setVisibility(View.INVISIBLE);
-//        leftArrow.setY(51.5f*vh);
-//        leftArrow.setX(22f*vw);
-//
-//
-//
-//
-//        layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-//
-//
-//        relativeLayout.addView(rightArrow, layoutParams);
-//        rightArrow.getLayoutParams().width = 8*vw;
-//        rightArrow.getLayoutParams().height = 8*vh;
-//        rightArrow.requestLayout();
-//        rightArrow.setVisibility(View.INVISIBLE);
-//        rightArrow.setY(51.5f*vh);
-//        rightArrow.setX(70f*vw);
+        layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+
+        relativeLayout.addView(Poetry, layoutParams);
+        Poetry.getLayoutParams().width = 85*vw;
+        Poetry.getLayoutParams().height = 40*vh;
+        Poetry.requestLayout();
+        Poetry.setVisibility(View.INVISIBLE);
+        Poetry.setY(31f*vh);
+        Poetry.setX(15f*vw);
 
 
 
@@ -124,21 +110,22 @@ public class Splash {
 
         dialog.show();
 
-//        startAnimation(vw,vh);
 
         startFadeAnimation(Book, 2000, vw, "Book");
 
         Log.d("SPLASH SHOW ", "show:  hiii");
     }
 
-    public static void startAnimation( float vw, float vh){
+    public static void startAnimation( float vw){
 
 
-        TranslateAnimation translateAnimation = new TranslateAnimation(0,0,110*vh,0);
+        TranslateAnimation translateAnimation = new TranslateAnimation(60*vw,0*vw,0,0);
 
         translateAnimation.setDuration(2200);
 
-//        Logo.startAnimation(translateAnimation);
+        Poetry.setVisibility(View.VISIBLE);
+
+        Poetry.startAnimation(translateAnimation);
 
         translateAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -152,7 +139,8 @@ public class Splash {
 
                 Log.d("ANIMATION ", "onAnimationEnd:  ended");
 
-//                startFadeAnimation(title,"", 1800,vw);
+                shouldHide = true;
+                 hide();
             }
 
             @Override
@@ -191,6 +179,7 @@ public class Splash {
                 }
                 else{
 
+                    startAnimation(vw);
                 }
 
 
@@ -204,37 +193,6 @@ public class Splash {
 
     }
 
-    public static void startArrowAnimation( float vw){
-
-
-//        Animator leftArrowAnimation = ObjectAnimator.ofFloat(leftArrow,View.TRANSLATION_X,-50*vw,22f*vw ).setDuration(2000);
-//
-//        leftArrow.setVisibility(View.VISIBLE);
-//
-//
-//
-//        Animator rightArrowAnimation = ObjectAnimator.ofFloat(rightArrow,View.TRANSLATION_X,155*vw,76f*vw ).setDuration(2000);
-//
-//        rightArrow.setVisibility(View.VISIBLE);
-//
-//
-//
-//        AnimatorSet animatorSet = new AnimatorSet();
-//
-//        animatorSet.play(leftArrowAnimation).with(rightArrowAnimation);
-//
-//        animatorSet.addListener(new AnimatorListenerAdapter() {
-//            @Override
-//            public void onAnimationEnd(Animator animation) {
-//                super.onAnimationEnd(animation);
-//
-//                startFadeAnimation(trueWell,"trueWell", 1300,vw);
-//            }
-//        });
-//
-//        animatorSet.start();
-
-    }
 
 
 }
