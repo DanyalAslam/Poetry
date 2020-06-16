@@ -37,21 +37,21 @@ class PoetPoemDetailScreen extends React.Component {
         })
 
 
-        AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-        AdMobInterstitial.setAdUnitID('ca-app-pub-9997053501259124/7829195116');
+        // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+        // AdMobInterstitial.setAdUnitID('ca-app-pub-9997053501259124/7829195116');
 
-        AdMobInterstitial.addEventListener('adLoaded', () =>
-            console.log('AdMobInterstitial adLoaded'),
-        );
+        // AdMobInterstitial.addEventListener('adLoaded', () =>
+        //     console.log('AdMobInterstitial adLoaded'),
+        // );
       
-        AdMobInterstitial.addEventListener('adOpened', () =>
-            console.log('AdMobInterstitial => adOpened'),
-        );
+        // AdMobInterstitial.addEventListener('adOpened', () =>
+        //     console.log('AdMobInterstitial => adOpened'),
+        // );
 
-        AdMobInterstitial.addEventListener('adClosed', () => {
-            console.log('AdMobInterstitial => adClosed');
-            // AdMobInterstitial.requestAd().catch(error => console.warn(error));
-        });
+        // AdMobInterstitial.addEventListener('adClosed', () => {
+        //     console.log('AdMobInterstitial => adClosed');
+        //     // AdMobInterstitial.requestAd().catch(error => console.warn(error));
+        // });
 
          
 
@@ -77,7 +77,7 @@ class PoetPoemDetailScreen extends React.Component {
 
 
     componentWillUnmount() {
-        AdMobInterstitial.removeAllListeners();
+        // AdMobInterstitial.removeAllListeners();
         this.props.navigation.removeListener("focus")
         this.backHandler.remove();
     }
@@ -104,23 +104,23 @@ class PoetPoemDetailScreen extends React.Component {
 
     showInterstitial = () => {
 
-        AdMobInterstitial.requestAd()
-            .then((_d) => {
-                console.log('**  ',_d)
+        // AdMobInterstitial.requestAd()
+        //     .then((_d) => {
+        //         console.log('**  ',_d)
                 // AdMobInterstitial.isReady((data) => {
                 //     if (data)
                 //         AdMobInterstitial.showAd()
                 //     console.log(data)
                 // }
-            })
-            .catch(_err => console.log('err ',_err))
+            // })
+            // .catch(_err => console.log('err ',_err))
             
 
     }
 
     _onPressWish = (poem) => {
 
-        this.showInterstitial()
+        // this.showInterstitial()
 
         this.props.addToWishList(poem, success => {
 
