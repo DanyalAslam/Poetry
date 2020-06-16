@@ -12,10 +12,13 @@ const styles = StyleSheet.create({
     imageContainer: {
         height: 30 * vh,
         width: 100 * vw,
+        backgroundColor: appTheme.black, 
     },
     imageStyle: {
-        width: '100%',
-        height: '100%'
+        width: 40*vw,
+        height: 20*vh, 
+        alignSelf: 'center',
+        marginTop: 3*vh
     },
     iconStyle: {
         height: 6 * vw,

@@ -17,11 +17,7 @@ const allImages = {
         poetInActive: require('./tabBarIcons/poetInActive.png'),
     },
     generalImages:{
-        loveImage: require('./generalImages/love1.jpg'),
-        friendImage: require('./generalImages/friend1.jpg'),
-        sadImage: require('./generalImages/sad1.jpg'), 
-        happyImage: require('./generalImages/happy1.jpg'), 
-        enemyImage: require('./generalImages/enemy1.jpg'),   
+        logo: require('./generalImages/logo.png'),  
     }
 }
 

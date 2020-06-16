@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ImageBackground, Image } from 'react-native'
+import { View, Text,Image } from 'react-native'
 import styles from './styles.js'
 import allImages from '../../assets/images'
 import RippleTouch from '../../Components/RippleTouch'
@@ -11,15 +11,16 @@ class MoreScreen extends React.Component {
         return (
             <View style={styles.container}>
 
-                <ImageBackground
+                <View
                     style={styles.imageContainer}
-                    imageStyle={styles.imageStyle}
-                    source={allImages.generalImages.loveImage}
                 >
+                    <Image
+                        style={styles.imageStyle}
+                        source={allImages.generalImages.logo}
+                    />
+                </View>
 
-                </ImageBackground>
-
-                <RippleTouch style={styles.row} onPress={()=>this.props.navigation.navigate('WishListScreen')}>
+                <RippleTouch style={styles.row} onPress={() => this.props.navigation.navigate('WishListScreen')}>
                     <View style={styles.row_1}>
                         <View style={styles.innerRow}>
                             <Image
