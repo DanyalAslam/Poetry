@@ -7,6 +7,7 @@ import actions from '../../redux/actions/index.js'
 import { connect } from 'react-redux'
 import { appTheme } from '../../Utils/index.js'
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
+import Toast from 'react-native-simple-toast'
 
 
 class CategoryDetailsScreen extends React.Component {

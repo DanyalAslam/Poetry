@@ -175,7 +175,7 @@ public class Splash {
 
                 if( key == "Book"){
 
-                    startFadeAnimation(Feather,1500,vw,"");
+                    startFadeAnimation(Feather,2000,vw,"");
                 }
                 else{
 

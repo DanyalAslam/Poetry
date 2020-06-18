@@ -15,6 +15,7 @@ const Api = {
             .then(_response => _response.json())
             .then(_jsonResponse => {
 
+            
 
                 if (_jsonResponse.message == "success") {
                     return success(_jsonResponse)
@@ -24,6 +25,7 @@ const Api = {
                 }
             })
             .catch(_err => {
+             
 
                 return error(_err.message)
             })
@@ -43,11 +45,17 @@ const Api = {
             .then(_response => _response.json())
             .then(_jsonResponse => {
 
-
+                // console.log('json resp ', _jsonResponse);
+ 
                 return success(_jsonResponse)
 
             })
             .catch(_err => {
+                // console.log('erro ',_err.message);
+                
+                if(_err.message.includes("Unexpected end of input")){
+                    return error('No internet')
+                }
 
                 return error(_err.message)
             })
