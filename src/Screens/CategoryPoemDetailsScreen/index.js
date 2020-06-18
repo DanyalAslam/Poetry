@@ -5,6 +5,8 @@ import AnimatedWish from '../../Components/AnimatedWish/index.js'
 import { connect } from 'react-redux'
 import actions from '../../redux/actions/index.js'
 import Toast from 'react-native-simple-toast'
+import AdMobBanner from 'react-native-admob/RNAdMobBanner'
+import { vh } from '../../Units/index.js'
 
 
 
@@ -32,6 +34,15 @@ const CategoryPoemDetailsScreen = (props) => {
     return (
 
         <ScrollView style={styles.parentContainer} showsVerticalScrollIndicator={false}>
+
+
+            <AdMobBanner
+                style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
+                adSize="banner"
+                adUnitID="ca-app-pub-3940256099942544/6300978111"
+                testDeviceID="EMULATOR"
+
+            />
 
 
             <View style={styles.firstChildContainer}>

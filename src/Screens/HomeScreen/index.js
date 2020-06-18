@@ -288,13 +288,9 @@ class HomeScreen extends React.Component {
                 {/* <AdMobBanner
                     style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
                     adSize="banner"
-                    adUnitID="ca-app-pub-9997053501259124/2213427427" //my ad 
+                    adUnitID="ca-app-pub-3940256099942544/6300978111"  
                     testDeviceID="EMULATOR"
-                    didFailToReceiveAdWithError={error => console.log("ad error ", error)}
-                    adViewDidReceiveAd={add => console.log("ad receive ", add)}
-                    adViewWillPresentScreen={add => console.log("ad receive ", add)}
-                    adViewWillLeaveApplication={() => console.log("tap")}
-                    adViewDidDismissScreen={() => console.log('closed')}
+                
                 /> */}
 
 
