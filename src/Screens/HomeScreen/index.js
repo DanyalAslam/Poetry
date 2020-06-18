@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, TouchableOpacity, RefreshControl,BackHandler } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, RefreshControl, BackHandler } from 'react-native'
 import styles from './styles.js'
 import CategoryCard from '../../../src/Components/CategoryCard'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -11,7 +11,8 @@ import { connect } from 'react-redux'
 import actions from '../../redux/actions/index.js'
 import { appTheme } from '../../Utils/index.js'
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
-import Toast from 'react-native-simple-toast' 
+import Toast from 'react-native-simple-toast'
+import AdMobBanner from 'react-native-admob/RNAdMobBanner'
 
 
 
@@ -33,23 +34,23 @@ class HomeScreen extends React.Component {
 
 
     backAction = () => {
-     
-        console.log(this.props.searchModal);
-        
 
-    //     if(this.props.searchModal){
-    //         this.props.hideSearchModal()
-    //     }
-    //   else{
-    //       BackHandler.exitApp()
-    //   }
+        console.log(this.props.searchModal);
+
+
+        //     if(this.props.searchModal){
+        //         this.props.hideSearchModal()
+        //     }
+        //   else{
+        //       BackHandler.exitApp()
+        //   }
 
         return true;
-        
+
     }
 
 
-    componentWillUnmount() { 
+    componentWillUnmount() {
         this.backHandler.remove();
     }
 
@@ -187,21 +188,21 @@ class HomeScreen extends React.Component {
                     source={{ uri: this.props.categories[0].image }}
                     title={this.props.categories[0].title}
                     style={styles.categoryCardStyle}
-                    onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[0].title})}
+                    onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[0].title })}
                 />
 
                 <CategoryCard
                     source={{ uri: this.props.categories[1].image }}
                     title={this.props.categories[1].title}
                     style={styles.categoryCardStyle}
-                    onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[1].title})}
+                    onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[1].title })}
                 />
 
                 <CategoryCard
                     source={{ uri: this.props.categories[2].image }}
                     title={this.props.categories[2].title}
                     style={styles.categoryCardStyle}
-                    onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[2].title})}
+                    onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[2].title })}
                 />
 
 
@@ -211,8 +212,8 @@ class HomeScreen extends React.Component {
     }
 
     _navigateToPoemDetails = (poem) => {
-      
-        this.props.navigation.navigate('PoetPoemDetailScreen', { poem, makeApiCall: true  })
+
+        this.props.navigation.navigate('PoetPoemDetailScreen', { poem, makeApiCall: true })
     }
 
 
@@ -226,7 +227,7 @@ class HomeScreen extends React.Component {
             poet={_poem.author}
             title={_poem.title}
             verses={_lines}
-            onPress={()=>this._navigateToPoemDetails(_poem)}
+            onPress={() => this._navigateToPoemDetails(_poem)}
             onWishPress={() => this._onPressWish(_poem)}
         />
 
@@ -283,6 +284,18 @@ class HomeScreen extends React.Component {
                 {
                     this.props.categories.length > 0 && this._renderCategoryArea()
                 }
+
+                {/* <AdMobBanner
+                    style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
+                    adSize="banner"
+                    adUnitID="ca-app-pub-9997053501259124/2213427427" //my ad 
+                    testDeviceID="EMULATOR"
+                    didFailToReceiveAdWithError={error => console.log("ad error ", error)}
+                    adViewDidReceiveAd={add => console.log("ad receive ", add)}
+                    adViewWillPresentScreen={add => console.log("ad receive ", add)}
+                    adViewWillLeaveApplication={() => console.log("tap")}
+                    adViewDidDismissScreen={() => console.log('closed')}
+                /> */}
 
 
                 {
