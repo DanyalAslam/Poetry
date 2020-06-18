@@ -9,15 +9,20 @@ import { connect } from 'react-redux'
 
 const PoemCard = (props) => {
 
-   
+
 
     return (
         <View>
-            <AnimatedWish
-                onWishPress={props.onWishPress}
-                wish={props.wishList.findIndex(_element => _element.title == props.title) == -1
-                    ? 'unwish': 'wish'}
-            />
+            {
+                !props.hideWish
+                    ? <AnimatedWish
+                        onWishPress={props.onWishPress}
+                        wish={props.wishList.findIndex(_element => _element.title == props.title) == -1
+                            ? 'unwish' : 'wish'}
+                    />
+
+                    : null
+            }
 
 
             <RippleTouch style={styles.ripple} rippleColor="black" onPress={props.onPress}>
@@ -57,7 +62,7 @@ const PoemCard = (props) => {
     )
 }
 
-const mapStateToProps = state => { 
+const mapStateToProps = state => {
 
     return {
 

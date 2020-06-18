@@ -227,6 +227,7 @@ class HomeScreen extends React.Component {
             poet={_poem.author}
             title={_poem.title}
             verses={_lines}
+            hideWish={true}
             onPress={() => this._navigateToPoemDetails(_poem)}
             onWishPress={() => this._onPressWish(_poem)}
         />
