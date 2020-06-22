@@ -111,7 +111,7 @@ public class Splash {
         dialog.show();
 
 
-        startFadeAnimation(Book, 2000, vw, "Book");
+        startFadeAnimation(Book, 2500, vw, "Book");
 
         Log.d("SPLASH SHOW ", "show:  hiii");
     }
@@ -121,7 +121,7 @@ public class Splash {
 
         TranslateAnimation translateAnimation = new TranslateAnimation(60*vw,0*vw,0,0);
 
-        translateAnimation.setDuration(2200);
+        translateAnimation.setDuration(2500);
 
         Poetry.setVisibility(View.VISIBLE);
 
@@ -175,7 +175,7 @@ public class Splash {
 
                 if( key == "Book"){
 
-                    startFadeAnimation(Feather,2000,vw,"");
+                    startFadeAnimation(Feather,3000,vw,"");
                 }
                 else{
 

@@ -344,9 +344,12 @@ class HomeScreen extends React.Component {
 
 const mapStateToProps = state => {
 
+    let _poets = state.GeneralReducer.poets
+
+   
     return {
 
-        poets: state.GeneralReducer.poets,
+        poets: _poets,
         categories: state.GeneralReducer.categories,
         homePoems: state.GeneralReducer.homePoems,
         searchModal: state.GeneralReducer.searchModal
