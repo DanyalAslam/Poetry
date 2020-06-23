@@ -39,8 +39,8 @@ const CategoryPoemDetailsScreen = (props) => {
             <AdMobBanner
                 style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
                 adSize="banner"
-                adUnitID="ca-app-pub-3940256099942544/6300978111"
-                testDeviceID="EMULATOR"
+                adUnitID="ca-app-pub-8059419171547646/7788864330"
+                // testDeviceID="EMULATOR"
 
             />
 
