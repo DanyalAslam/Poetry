@@ -17,6 +17,9 @@ import { store, persistor } from "./src/redux";
 import { appTheme } from './src/Utils';
 
 
+//         android:largeHeap="true"
+// android:hardwareAccelerated="false"
+
 
 const App = () => {
   return (
