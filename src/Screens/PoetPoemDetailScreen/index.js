@@ -188,6 +188,7 @@ class PoetPoemDetailScreen extends React.Component {
                 <AdMobBanner
                     style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100,alignSelf: 'center'}}
                     adSize="banner"
+                    onAdFailedToLoad={(e) => console.log(e)}
                     // adUnitID="ca-app-pub-3940256099942544/6300978111" google testad
                     adUnitID="ca-app-pub-8059419171547646/7352367170"  
                     // testDeviceID="EMULATOR" 

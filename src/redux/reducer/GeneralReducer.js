@@ -18,7 +18,7 @@ const GeneralReducer = (state = INITIAL_STATE, action) => {
 
         case actionTypes.POETS: {
 
-            if (action.payload.length > 0) {
+            if (action.payload.length > 0 && action.page > 1) {
                 LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
             }
 
