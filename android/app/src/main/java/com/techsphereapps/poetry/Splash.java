@@ -70,9 +70,11 @@ public class Splash {
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 
         relativeLayout.addView(Feather, layoutParams);
-        Feather.getLayoutParams().width = 55*vw;
-        Feather.getLayoutParams().height = 35*vh;
+        Feather.getLayoutParams().width = 25*vw;
+        Feather.getLayoutParams().height = 17*vh;
         Feather.requestLayout();
+         Feather.setY(-2*vh);
+          Feather.setX(-6*vw);
         Feather.setVisibility(View.INVISIBLE);
 
 
@@ -81,11 +83,11 @@ public class Splash {
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
         relativeLayout.addView(Book, layoutParams);
-        Book.getLayoutParams().width = 90*vw;
-        Book.getLayoutParams().height = 40*vh;
+        Book.getLayoutParams().width = 80*vw;
+        Book.getLayoutParams().height = 35*vh;
         Book.requestLayout();
         Book.setVisibility(View.INVISIBLE);
-        Book.setY(30*vh);
+        Book.setY(38*vh);
 
 
 
@@ -95,12 +97,12 @@ public class Splash {
 
 
         relativeLayout.addView(Poetry, layoutParams);
-        Poetry.getLayoutParams().width = 85*vw;
-        Poetry.getLayoutParams().height = 40*vh;
+        Poetry.getLayoutParams().width = 26*vw;
+        Poetry.getLayoutParams().height = 15*vh;
         Poetry.requestLayout();
         Poetry.setVisibility(View.INVISIBLE);
-        Poetry.setY(31f*vh);
-        Poetry.setX(15f*vw);
+        Poetry.setY(42f*vh);
+        Poetry.setX(57f*vw);
 
 
 
@@ -111,7 +113,7 @@ public class Splash {
         dialog.show();
 
 
-        startFadeAnimation(Book, 2500, vw, "Book");
+        startFadeAnimation(Book, 1800, vw, "Book");
 
         Log.d("SPLASH SHOW ", "show:  hiii");
     }
@@ -121,7 +123,7 @@ public class Splash {
 
         TranslateAnimation translateAnimation = new TranslateAnimation(60*vw,0*vw,0,0);
 
-        translateAnimation.setDuration(2500);
+        translateAnimation.setDuration(1800);
 
         Poetry.setVisibility(View.VISIBLE);
 
@@ -175,7 +177,7 @@ public class Splash {
 
                 if( key == "Book"){
 
-                    startFadeAnimation(Feather,3000,vw,"");
+                    startFadeAnimation(Feather,2200,vw,"");
                 }
                 else{
 
