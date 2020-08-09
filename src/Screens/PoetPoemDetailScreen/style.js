@@ -31,7 +31,8 @@ export default Styles = StyleSheet.create({
    text: {
       fontSize: 2.4*vh,
       fontFamily: fonts.SSR,
-      marginTop: 0.5*vh
+      marginTop: 0.5*vh,
+      width: 70*vw
    },
    lines:{
       fontSize: 2*vh,

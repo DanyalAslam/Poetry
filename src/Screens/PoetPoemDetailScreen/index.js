@@ -8,10 +8,12 @@ import Toast from 'react-native-simple-toast'
 import {
     AdMobInterstitial,
     AdMobBanner
-} from 'react-native-admob';  
+} from 'react-native-admob';
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import { appTheme } from '../../Utils/index.js'
 import { vh } from '../../Units/index.js'
+import Tts from 'react-native-tts';
+import AnimatedButton from '../../Components/AnimatedButton/index.js'
 
 
 class PoetPoemDetailScreen extends React.Component {
@@ -28,11 +30,15 @@ class PoetPoemDetailScreen extends React.Component {
         this.props.navigation.addListener("focus", () => {
             this.setState({ poemDetails: null })
 
+            AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+            AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
+            // AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
+
+            this.showInterstitial()
+
+
             if (this.props.route?.params?.makeApiCall) {
-
-                // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-                AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
-
+ 
                 this._getPoem()
             }
             else {
@@ -41,34 +47,46 @@ class PoetPoemDetailScreen extends React.Component {
         })
 
 
+        this.props.navigation.addListener('blur', () => {
+            Tts.stop();
+        })
 
-
-        
-
+        Tts.addEventListener('tts-finish', (event) => {
+            if(this.playPauseRef){
+                this.playPauseRef._onPress()
+            }
+        })
 
     }
 
     backAction = () => {
 
-        if(this.props.route?.params?.fromSearch){
+        if (this.props.route?.params?.fromSearch) {
             this.props.showSearchModal()
             this.props.navigation.popToTop()
-           
+
         }
 
-        else{
+        else {
             this.props.navigation.pop()
         }
 
         return true;
-        
+
     }
 
 
     componentWillUnmount() {
         AdMobInterstitial.removeAllListeners();
         this.props.navigation.removeListener("focus")
+        this.props.navigation.removeListener("blur")
         this.backHandler.remove();
+       
+        try {
+            Tts.removeAllListeners()
+        } catch (error) {
+            
+        }
     }
 
     _getPoem = () => {
@@ -82,7 +100,7 @@ class PoetPoemDetailScreen extends React.Component {
 
             this.setState({ refreshing: false, poemDetails: success[0] })
 
-            this.showInterstitial()
+            // this.showInterstitial()
 
         }, error => {
 
@@ -97,7 +115,7 @@ class PoetPoemDetailScreen extends React.Component {
 
         AdMobInterstitial.requestAd()
             .then((_d) => {
-                console.log('**  ',_d)
+                console.log('**  ', _d)
                 AdMobInterstitial.isReady((data) => {
                     if (data)
                         AdMobInterstitial.showAd()
@@ -105,18 +123,48 @@ class PoetPoemDetailScreen extends React.Component {
                 }
                 )
             })
-            .catch(_err => console.log('err ',_err))
-            
+            .catch(_err => console.log('err ', _err))
+
 
     }
 
-    _onPressWish = (poem) => { 
+    _onPressWish = (poem) => {
 
         this.props.addToWishList(poem, success => {
 
             Toast.show(success)
 
         })
+
+
+
+    }
+
+    _onPlay = () => {
+
+        Tts.getInitStatus().then(() => {
+
+            Tts.setDucking(true);
+
+            let _lines = this.state.poemDetails.lines.map((line, index) => {
+                return line + " "
+            })
+
+            Tts.setDefaultRate(0.4);
+
+            Tts.speak(_lines.toString());
+
+        }, (err) => {
+            if (err.code === 'no_engine') {
+                Tts.requestInstallEngine();
+            }
+        });
+
+    }
+
+    _onStop = () => {
+
+        Tts.stop()
 
     }
 
@@ -140,9 +188,23 @@ class PoetPoemDetailScreen extends React.Component {
                         ? 'unwish' : 'wish'}
                 />
 
-                <View style={styles.textContainer}>
-                    <Text style={styles.title}>Title:</Text>
-                    <Text style={styles.text}>{_details.title}</Text>
+                <View style={[styles.textContainer, {
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-end',
+                    flexDirection: 'row'
+                }]}>
+
+                    <View>
+                        <Text style={styles.title}>Title:</Text>
+                        <Text style={styles.text}>{_details.title}</Text>
+                    </View>
+
+                    <AnimatedButton
+                        onPlay={this._onPlay}
+                        onStop={this._onStop}
+                        ref={_ref => this.playPauseRef = _ref}
+                    />
+
                 </View>
 
                 <View style={styles.textContainer}>
@@ -171,7 +233,7 @@ class PoetPoemDetailScreen extends React.Component {
 
 
     render() {
- 
+
         return (
 
             <ScrollView
@@ -189,9 +251,10 @@ class PoetPoemDetailScreen extends React.Component {
                     style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100,alignSelf: 'center'}}
                     adSize="banner"
                     onAdFailedToLoad={(e) => console.log(e)}
-                    // adUnitID="ca-app-pub-3940256099942544/6300978111" google testad
-                    adUnitID="ca-app-pub-8059419171547646/7352367170"  
+                    adUnitID="ca-app-pub-3940256099942544/6300978111" //google testad
+                    // adUnitID="ca-app-pub-8059419171547646/7352367170"  
                     // testDeviceID="EMULATOR" 
+                    
                 />
 
                 {

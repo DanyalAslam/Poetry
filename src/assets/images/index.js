@@ -5,6 +5,8 @@ const allImages = {
         rightArrow: require('./generalIcons/rightArrow.png'),
         wishIcon: require('./generalIcons/wishIcon.png'),
         leftArrow: require('./generalIcons/leftArrow.png'),
+        pause: require('./generalIcons/pause.png'),
+        play: require('./generalIcons/play.png'),
     },
     tabBarIcons:{
         homeActive: require('./tabBarIcons/homeActive.png'),

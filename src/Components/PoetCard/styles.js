@@ -26,10 +26,11 @@ export default Styles = StyleSheet.create({
 
     text: {
         color: appTheme.darkGray,
-        fontSize: 1.8 * vh,
+        fontSize: 1.65 * vh,
         fontFamily: fonts.SSB,
-        marginTop: 1.5*vh,
-        
+        marginTop: 1.2*vh,
+        textAlign: 'center',
+        paddingHorizontal: 1*vw,
         
 
     },

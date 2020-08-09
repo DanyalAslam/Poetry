@@ -16,7 +16,7 @@ const styles = {
     wishImageCon: {
         position: 'absolute',
         top: 3 * vh,
-        right: 4 * vw,
+        right: 4.8 * vw,
         zIndex: 9999999, 
         elevation: 5,
         height: 10 * vw,
