@@ -7,6 +7,10 @@ const allImages = {
         leftArrow: require('./generalIcons/leftArrow.png'),
         pause: require('./generalIcons/pause.png'),
         play: require('./generalIcons/play.png'),
+        facebook: require('./generalIcons/facebook.png'),
+        whatsapp: require('./generalIcons/whatsapp.png'),
+        instagram: require('./generalIcons/instagram.png'),
+        messenger: require('./generalIcons/messenger.png'),
     },
     tabBarIcons:{
         homeActive: require('./tabBarIcons/homeActive.png'),
