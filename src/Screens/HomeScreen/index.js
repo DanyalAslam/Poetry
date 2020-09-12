@@ -35,7 +35,7 @@ class HomeScreen extends React.Component {
 
     backAction = () => {
 
-        console.log(this.props.searchModal);
+        // console.log(this.props.searchModal);
 
 
         //     if(this.props.searchModal){

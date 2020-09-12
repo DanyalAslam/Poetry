@@ -21,10 +21,10 @@ class CategoryPoemDetailsScreen extends React.Component {
 
         this.props.navigation.addListener("focus", () => {
 
-            // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-            // AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
+            AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+            AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
 
-            AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/8398110094')
+            // AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/8398110094')
             this.showInterstitial()
 
         })
@@ -131,19 +131,11 @@ class CategoryPoemDetailsScreen extends React.Component {
             <ScrollView style={styles.parentContainer} showsVerticalScrollIndicator={false}>
 
 
-                <AdMobBanner
-                    style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
-                    adSize="banner"
-                    adUnitID="ca-app-pub-8059419171547646/7788864330"
-                // testDeviceID="EMULATOR"
-
-                />
-
 
                 <View style={styles.firstChildContainer}>
 
                     <AnimatedWish
-                        onWishPress={() => _onPressWish(_details)}
+                        onWishPress={() => this._onPressWish(_details)}
                         wish={this.props.wishList.findIndex(_element => _element.title == _details.title) == -1
                             ? 'unwish' : 'wish'}
                     />
@@ -180,6 +172,15 @@ class CategoryPoemDetailsScreen extends React.Component {
                     <Text style={styles.lines}>{_lines}</Text>
 
                 </View>
+
+                <AdMobBanner
+                    style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
+                    adSize="banner"
+                    // adUnitID="ca-app-pub-8059419171547646/7788864330"
+                    adUnitID="ca-app-pub-3940256099942544/6300978111"  //google testad
+                    testDeviceID="EMULATOR"
+
+                />
 
             </ScrollView>
         )
