@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, ScrollView, RefreshControl, BackHandler } from 'react-native'
+import { Text, View, ScrollView, RefreshControl, BackHandler, Image } from 'react-native'
 import styles from './style.js'
 import AnimatedWish from '../../Components/AnimatedWish/index.js'
 import { connect } from 'react-redux'
@@ -11,9 +11,17 @@ import {
 } from 'react-native-admob';
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import { appTheme } from '../../Utils/index.js'
-import { vh } from '../../Units/index.js'
+import { vh, vw } from '../../Units/index.js'
 import Tts from 'react-native-tts';
 import AnimatedButton from '../../Components/AnimatedButton/index.js'
+import Share from 'react-native-share';
+import { ShareDialog,MessageDialog } from 'react-native-fbsdk';
+import RBSheet from "react-native-raw-bottom-sheet";
+import BottomSheetButtons from '../../Components/BottomSheetButtons/index.js'
+import allImages from '../../assets/images/index.js'
+
+
+
 
 
 class PoetPoemDetailScreen extends React.Component {
@@ -30,15 +38,16 @@ class PoetPoemDetailScreen extends React.Component {
         this.props.navigation.addListener("focus", () => {
             this.setState({ poemDetails: null })
 
-            // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-            // AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
-            AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
+            AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+            AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
 
-            this.showInterstitial()
+            // AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
+
+            // this.showInterstitial()
 
 
             if (this.props.route?.params?.makeApiCall) {
- 
+
                 this._getPoem()
             }
             else {
@@ -52,7 +61,7 @@ class PoetPoemDetailScreen extends React.Component {
         })
 
         Tts.addEventListener('tts-finish', (event) => {
-            if(this.playPauseRef){
+            if (this.playPauseRef) {
                 this.playPauseRef._onPress()
             }
         })
@@ -81,11 +90,11 @@ class PoetPoemDetailScreen extends React.Component {
         this.props.navigation.removeListener("focus")
         this.props.navigation.removeListener("blur")
         this.backHandler.remove();
-       
+
         try {
             Tts.removeAllListeners()
         } catch (error) {
-            
+
         }
     }
 
@@ -128,13 +137,82 @@ class PoetPoemDetailScreen extends React.Component {
 
     }
 
-    _onPressWish = (poem) => {
+    _shareToFacebook = () => {
 
-        this.props.addToWishList(poem, success => {
+        const shareLinkContent = {
+            contentType: 'link',
+            contentUrl: 'https://www.google.com',
+            quote: this.state.poemDetails.lines.toString(),
+            caption: 'heckkk',
+            contentDescription: 'Wow, check out this great site!',
+        };
+        ShareDialog.show(shareLinkContent);
 
-            Toast.show(success)
+    }
 
-        })
+    _shareToWhatsapp = () => {
+
+        let options = {
+            title: 'Poetry',
+            message: this.state.poemDetails.lines.toString(),
+            social: Share.Social.WHATSAPP,
+            whatsAppNumber: ''
+        }
+
+        Share.shareSingle(options)
+            .then((res) => { console.log(res) })
+            .catch((err) => { err && console.log(err); });
+
+
+    }
+
+
+    _shareToInstagram = () => {
+
+        let options = {
+            title: 'Poetry',
+            message: this.state.poemDetails.lines.toString(),
+            social: Share.Social.INSTAGRAM
+        }
+
+        Share.shareSingle(options)
+            .then((res) => { console.log(res) })
+            .catch((err) => { err && console.log(err); });
+
+
+    }
+
+    _shareToMessenger = () => {
+
+        const shareLinkContent = {
+            contentType: 'link',
+            contentUrl: 'https://www.google.com',
+            quote: this.state.poemDetails.lines.toString()+'asdasdasdasd', 
+            message: 'asdsad'
+        };
+
+        MessageDialog.show(shareLinkContent);
+
+ 
+
+
+    }
+
+
+    _onPressWish = async (poem) => {
+
+
+        this.RBSheet.open()
+
+
+
+
+
+        // this.props.addToWishList(poem, success => {
+
+        //     Toast.show(success)
+
+        // })
 
 
 
@@ -183,7 +261,7 @@ class PoetPoemDetailScreen extends React.Component {
             return <View style={styles.firstChildContainer}>
 
                 <AnimatedWish
-                    onWishPress={() => this._onPressWish(_details)}
+                    onWishPress={() => this._onPressWish(_lines)}
                     wish={this.props.wishList.findIndex(_element => _element.title == _details.title) == -1
                         ? 'unwish' : 'wish'}
                 />
@@ -231,6 +309,51 @@ class PoetPoemDetailScreen extends React.Component {
         return null
     }
 
+    _renderBottomSheet = () => {
+
+        return <RBSheet
+            ref={ref => {
+                this.RBSheet = ref;
+            }}
+            height={25 * vh}
+            openDuration={250}
+            customStyles={{
+                container: {
+                    // justifyContent: "center",
+                    // alignItems: "center",
+                    // backgroundColor: 'red'
+                }
+            }}
+            dragFromTopOnly
+            closeOnDragDown
+            animationType="fade"
+        >
+
+            <BottomSheetButtons
+                source={allImages.generalIcons.facebook}
+                onPress={this._shareToFacebook}
+                text="Share to facebook"
+            />
+            <BottomSheetButtons
+                source={allImages.generalIcons.whatsapp}
+                onPress={this._shareToWhatsapp}
+                text="Share to whatsapp"
+            />
+            <BottomSheetButtons
+                source={allImages.generalIcons.instagram}
+                onPress={this._shareToInstagram}
+                text="Share to instagram DM"
+            />
+            {/* <BottomSheetButtons
+                source={allImages.generalIcons.messenger}
+                onPress={this._shareToMessenger}
+                text="Send in messenger"
+            /> */}
+
+
+        </RBSheet>
+    }
+
 
     render() {
 
@@ -247,19 +370,27 @@ class PoetPoemDetailScreen extends React.Component {
                 }
             >
 
-                <AdMobBanner
-                    style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100,alignSelf: 'center'}}
-                    adSize="banner"
-                    onAdFailedToLoad={(e) => console.log(e)}
-                    // adUnitID="ca-app-pub-3940256099942544/6300978111" //google testad
-                    adUnitID="ca-app-pub-8059419171547646/7352367170"  
-                    // testDeviceID="EMULATOR" 
-                    
-                />
+
 
                 {
                     this._renderSection()
                 }
+
+
+                {
+                    this._renderBottomSheet()
+                }
+
+                <AdMobBanner
+                    style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
+                    adSize="banner"
+                    onAdFailedToLoad={(e) => console.log(e)}
+                    adUnitID="ca-app-pub-3940256099942544/6300978111" //google testad
+                    // adUnitID="ca-app-pub-8059419171547646/7352367170"  
+                    testDeviceID="EMULATOR"
+
+                />
+
 
             </ScrollView>
         )
