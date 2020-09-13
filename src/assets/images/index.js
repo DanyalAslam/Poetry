@@ -11,6 +11,7 @@ const allImages = {
         whatsapp: require('./generalIcons/whatsapp.png'),
         instagram: require('./generalIcons/instagram.png'),
         messenger: require('./generalIcons/messenger.png'),
+        share: require('./generalIcons/share.png'),
     },
     tabBarIcons:{
         homeActive: require('./tabBarIcons/homeActive.png'),

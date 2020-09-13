@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, ScrollView, RefreshControl, BackHandler, Image } from 'react-native'
+import { Text, View, ScrollView, RefreshControl, BackHandler, Image, TouchableOpacity } from 'react-native'
 import styles from './style.js'
 import AnimatedWish from '../../Components/AnimatedWish/index.js'
 import { connect } from 'react-redux'
@@ -15,7 +15,7 @@ import { vh, vw } from '../../Units/index.js'
 import Tts from 'react-native-tts';
 import AnimatedButton from '../../Components/AnimatedButton/index.js'
 import Share from 'react-native-share';
-import { ShareDialog,MessageDialog } from 'react-native-fbsdk';
+import { ShareDialog, MessageDialog } from 'react-native-fbsdk';
 import RBSheet from "react-native-raw-bottom-sheet";
 import BottomSheetButtons from '../../Components/BottomSheetButtons/index.js'
 import allImages from '../../assets/images/index.js'
@@ -139,12 +139,14 @@ class PoetPoemDetailScreen extends React.Component {
 
     _shareToFacebook = () => {
 
+        let _lines = this.state.poemDetails.lines.map((line, index) => {
+            return line + "\n"
+        })
+
         const shareLinkContent = {
             contentType: 'link',
-            contentUrl: 'https://www.google.com',
-            quote: this.state.poemDetails.lines.toString(),
-            caption: 'heckkk',
-            contentDescription: 'Wow, check out this great site!',
+            contentUrl: 'https://play.google.com/store/apps/details?id=com.techsphereapps.poetry&hl=en',
+            quote: _lines.join('')
         };
         ShareDialog.show(shareLinkContent);
 
@@ -152,9 +154,13 @@ class PoetPoemDetailScreen extends React.Component {
 
     _shareToWhatsapp = () => {
 
+        let _lines = this.state.poemDetails.lines.map((line, index) => {
+            return line + "\n"
+        })
+
         let options = {
             title: 'Poetry',
-            message: this.state.poemDetails.lines.toString(),
+            message: _lines.join(''),
             social: Share.Social.WHATSAPP,
             whatsAppNumber: ''
         }
@@ -169,9 +175,13 @@ class PoetPoemDetailScreen extends React.Component {
 
     _shareToInstagram = () => {
 
+        let _lines = this.state.poemDetails.lines.map((line, index) => {
+            return line + "\n"
+        })
+
         let options = {
             title: 'Poetry',
-            message: this.state.poemDetails.lines.toString(),
+            message: _lines.join(''),
             social: Share.Social.INSTAGRAM
         }
 
@@ -187,35 +197,37 @@ class PoetPoemDetailScreen extends React.Component {
         const shareLinkContent = {
             contentType: 'link',
             contentUrl: 'https://www.google.com',
-            quote: this.state.poemDetails.lines.toString()+'asdasdasdasd', 
+            quote: this.state.poemDetails.lines.toString() + 'asdasdasdasd',
             message: 'asdsad'
         };
 
         MessageDialog.show(shareLinkContent);
 
- 
+
 
 
     }
 
 
-    _onPressWish = async (poem) => {
-
-
-        this.RBSheet.open()
+    _onPressWish = (poem) => {
 
 
 
+        this.props.addToWishList(poem, success => {
 
+            Toast.show(success)
 
-        // this.props.addToWishList(poem, success => {
-
-        //     Toast.show(success)
-
-        // })
+        })
 
 
 
+    }
+
+    _onSharePress = () => {
+
+        if (this.RBSheet) {
+            this.RBSheet.open()
+        }
     }
 
     _onPlay = () => {
@@ -261,7 +273,7 @@ class PoetPoemDetailScreen extends React.Component {
             return <View style={styles.firstChildContainer}>
 
                 <AnimatedWish
-                    onWishPress={() => this._onPressWish(_lines)}
+                    onWishPress={() => this._onPressWish(_details)}
                     wish={this.props.wishList.findIndex(_element => _element.title == _details.title) == -1
                         ? 'unwish' : 'wish'}
                 />
@@ -285,10 +297,31 @@ class PoetPoemDetailScreen extends React.Component {
 
                 </View>
 
-                <View style={styles.textContainer}>
-                    <Text style={styles.title}>Poet:</Text>
-                    <Text style={styles.text}>{_details.author}</Text>
+
+                <View style={[styles.textContainer, {
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-end',
+                    flexDirection: 'row'
+                }]}>
+
+                    <View >
+                        <Text style={styles.title}>Poet:</Text>
+                        <Text style={styles.text}>{_details.author}</Text>
+                    </View>
+
+                    <TouchableOpacity style={styles.imageContainer}
+                        onPress={this._onSharePress}
+                    >
+
+                        <Image
+                            source={allImages.generalIcons.share}
+                            style={styles.image}
+                        />
+
+                    </TouchableOpacity>
+
                 </View>
+
 
                 <View style={styles.textContainer}>
                     <Text style={styles.title}>Lines:</Text>
