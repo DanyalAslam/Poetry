@@ -17,6 +17,7 @@ import { ShareDialog, MessageDialog } from 'react-native-fbsdk';
 import RBSheet from "react-native-raw-bottom-sheet";
 import BottomSheetButtons from '../../Components/BottomSheetButtons/index.js'
 import allImages from '../../assets/images/index.js'
+import { playStoreUrl } from '../../Utils/index.js'
 
 
 class CategoryPoemDetailsScreen extends React.Component {
@@ -26,10 +27,11 @@ class CategoryPoemDetailsScreen extends React.Component {
 
         this.props.navigation.addListener("focus", () => {
 
-            AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-            AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
+            // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+            // AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
 
-            // AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/8398110094')
+            AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/8398110094')
+
             this.showInterstitial()
 
         })
@@ -105,8 +107,9 @@ class CategoryPoemDetailsScreen extends React.Component {
 
         let options = {
             title: 'Poetry',
-            message: _lines.join(''),
+            message: _lines.join('')+"     \n\n",
             social: Share.Social.WHATSAPP,
+            url: playStoreUrl,
             whatsAppNumber: ''
         }
 
@@ -126,7 +129,8 @@ class CategoryPoemDetailsScreen extends React.Component {
 
         let options = {
             title: 'Poetry',
-            message: _lines.join(''),
+            message: _lines.join('')+"     \n\n",
+            url: playStoreUrl,
             social: Share.Social.INSTAGRAM
         }
 
@@ -316,9 +320,9 @@ class CategoryPoemDetailsScreen extends React.Component {
                 <AdMobBanner
                     style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
                     adSize="banner"
-                    // adUnitID="ca-app-pub-8059419171547646/7788864330"
-                    adUnitID="ca-app-pub-3940256099942544/6300978111"  //google testad
-                    testDeviceID="EMULATOR"
+                    adUnitID="ca-app-pub-8059419171547646/7788864330"
+                    // adUnitID="ca-app-pub-3940256099942544/6300978111"  //google testad
+                    // testDeviceID="EMULATOR"
 
                 />
 

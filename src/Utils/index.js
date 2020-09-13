@@ -9,3 +9,6 @@ export const appTheme = {
     black: '#000000',
     grayish: '#cccccc'
 }
+
+export const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.techsphereapps.poetry&hl=en'
+ 
