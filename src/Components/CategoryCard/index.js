@@ -12,6 +12,7 @@ const CategoryCard = (props) => {
             style={styles.Container}
             imageStyle={styles.imageStyle}
             source={props.source}
+            progressiveRenderingEnabled
         >
             
             <Text style={styles.title}>

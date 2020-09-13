@@ -15,7 +15,11 @@ class ArtistCard extends Component {
                 <RippleTouch rippleColor="black" onPress={props.onPress}>
 
 
-                    <Image source={props.source} style={styles.imageStyle} />
+                    <Image
+                        source={props.source}
+                        style={styles.imageStyle}
+                        progressiveRenderingEnabled
+                    />
 
                 </RippleTouch>
 
