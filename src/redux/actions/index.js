@@ -92,12 +92,26 @@ const actions = {
     getTrendingPoems: (success, error) => {
 
         return dispatch => {
-            Api.get('/trending', apiSuccess => {
 
+
+            Api.getPoetDB('/random/4', apiSuccess => {
+
+
+
+                let _transformedResponse = apiSuccess.map(_item => {
+
+                    return {
+                        author: _item.author,
+                        title: _item.title,
+                        lines: _item.lines.splice(0, 2)
+                    }
+                })
+
+               
 
                 dispatch({
                     type: actionTypes.HOME_POEMS,
-                    payload: apiSuccess.poems
+                    payload: _transformedResponse
                 })
 
                 return success(true)
@@ -107,6 +121,8 @@ const actions = {
                 return error(apiError)
 
             })
+
+
         }
     },
 
@@ -171,7 +187,7 @@ const actions = {
         return dispatch => {
             dispatch({
                 type: actionTypes.SHOW_SEARCH
-             })
+            })
         }
     },
 
@@ -180,7 +196,7 @@ const actions = {
         return dispatch => {
             dispatch({
                 type: actionTypes.HIDE_SEARCH
-             })
+            })
         }
     },
 
