@@ -221,7 +221,13 @@ class HomeScreen extends React.Component {
 
         let _poem = item
 
-        let _lines = _poem.lines.trim()
+        let _lines = _poem.lines.map((line, index) => {
+            return line + "\n"
+        })
+
+        _lines = _lines.join('')
+        console.log(_poem.lines.join(''));
+       
 
         return <PoemCard
             poet={_poem.author}
