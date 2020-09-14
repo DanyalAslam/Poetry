@@ -40,9 +40,9 @@ class PoetPoemDetailScreen extends React.Component {
             // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
             // AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
 
-            AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
+            // AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
 
-            this.showInterstitial()
+            // this.showInterstitial()
 
 
             if (this.props.route?.params?.makeApiCall) {
@@ -60,6 +60,9 @@ class PoetPoemDetailScreen extends React.Component {
         })
 
         Tts.addEventListener('tts-finish', (event) => {
+
+            // work need here
+
             if (this.playPauseRef) {
                 this.playPauseRef._onPress()
             }
@@ -159,7 +162,7 @@ class PoetPoemDetailScreen extends React.Component {
 
         let options = {
             title: 'Poetry',
-            message: _lines.join('')+"     \n\n",
+            message: _lines.join('') + "     \n\n",
             social: Share.Social.WHATSAPP,
             url: playStoreUrl,
             whatsAppNumber: '',
@@ -181,7 +184,7 @@ class PoetPoemDetailScreen extends React.Component {
 
         let options = {
             title: 'Poetry',
-            message: _lines.join('')+"     \n\n",
+            message: _lines.join('') + "     \n\n",
             url: playStoreUrl,
             social: Share.Social.INSTAGRAM
         }
@@ -233,7 +236,13 @@ class PoetPoemDetailScreen extends React.Component {
 
     _onPlay = () => {
 
+
+
         Tts.getInitStatus().then(() => {
+
+            // Tts.requestInstallData();
+
+            Tts.setDefaultLanguage('en-IE');
 
             Tts.setDucking(true);
 
@@ -241,11 +250,27 @@ class PoetPoemDetailScreen extends React.Component {
                 return line + " "
             })
 
+            let firstSectionLimit = 60 
+ 
+
+            if (_lines.length > firstSectionLimit) {
+ 
+                _lines = _lines.splice(0, firstSectionLimit)
+
+            } 
+
             Tts.setDefaultRate(0.4);
 
-            Tts.speak(_lines.toString());
+            Tts.speak(_lines.join(''),  error => {
+                this.playPauseRef._onPress()
+                return Toast.show('Unable to play this poem')
+            });
+
+           
+
 
         }, (err) => {
+
             if (err.code === 'no_engine') {
                 Tts.requestInstallEngine();
             }
@@ -415,7 +440,7 @@ class PoetPoemDetailScreen extends React.Component {
                     this._renderBottomSheet()
                 }
 
-                <AdMobBanner
+                {/* <AdMobBanner
                     style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
                     adSize="banner"
                     onAdFailedToLoad={(e) => console.log(e)}
@@ -423,7 +448,7 @@ class PoetPoemDetailScreen extends React.Component {
                     adUnitID="ca-app-pub-8059419171547646/7352367170"  
                     // testDeviceID="EMULATOR"
 
-                />
+                /> */}
 
 
             </ScrollView>
