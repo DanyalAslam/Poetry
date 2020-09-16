@@ -226,7 +226,6 @@ class HomeScreen extends React.Component {
         })
 
         _lines = _lines.join('')
-        console.log(_poem.lines.join(''));
        
 
         return <PoemCard

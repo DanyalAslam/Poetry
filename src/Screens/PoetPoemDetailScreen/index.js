@@ -20,14 +20,15 @@ import RBSheet from "react-native-raw-bottom-sheet";
 import BottomSheetButtons from '../../Components/BottomSheetButtons/index.js'
 import allImages from '../../assets/images/index.js'
 
-
+const LIMIT = 40
 
 
 class PoetPoemDetailScreen extends React.Component {
 
     state = {
         poemDetails: null,
-        refreshing: false
+        refreshing: false,
+        newLines: []
     }
 
     componentDidMount() {
@@ -59,13 +60,68 @@ class PoetPoemDetailScreen extends React.Component {
             Tts.stop();
         })
 
+
+
         Tts.addEventListener('tts-finish', (event) => {
 
-            // work need here
+            if (this.state.newLines.length > 0) {
 
-            if (this.playPauseRef) {
-                this.playPauseRef._onPress()
+              
+
+                    let splittedLines = [...this.state.newLines.slice(LIMIT, this.state.newLines.length)]
+
+
+                    if (splittedLines.length > LIMIT) {
+
+                        splittedLines = [...splittedLines.splice(0, LIMIT)]
+
+
+                        this._speak(splittedLines.join(''))
+
+                        this.setState({ newLines: [...this.state.newLines.slice(LIMIT, this.state.newLines.length)] })
+
+                    }
+                    else {
+
+                        this._speak(splittedLines.join(''))
+
+                    }
+
+ 
+
+
             }
+            else {
+
+                let _lines = this.state.poemDetails.lines.map((line, index) => {
+                    return line + " "
+                })
+
+
+
+                let splittedLines = [..._lines.slice(LIMIT, _lines.length)]
+
+
+                if (splittedLines.length > LIMIT) {
+
+                    splittedLines = [...splittedLines.splice(0, LIMIT)]
+
+
+                    this._speak(splittedLines.join(''))
+
+                    this.setState({ newLines: [..._lines.slice(LIMIT, _lines.length)] })
+
+                }
+                else {
+
+                    this._speak(splittedLines.join(''))
+
+
+                }
+
+            }
+
+
         })
 
     }
@@ -234,9 +290,8 @@ class PoetPoemDetailScreen extends React.Component {
         }
     }
 
-    _onPlay = () => {
 
-
+    _speak = (lines) => {
 
         Tts.getInitStatus().then(() => {
 
@@ -246,27 +301,17 @@ class PoetPoemDetailScreen extends React.Component {
 
             Tts.setDucking(true);
 
-            let _lines = this.state.poemDetails.lines.map((line, index) => {
-                return line + " "
-            })
 
-            let firstSectionLimit = 60 
- 
 
-            if (_lines.length > firstSectionLimit) {
- 
-                _lines = _lines.splice(0, firstSectionLimit)
 
-            } 
+            Tts.setDefaultRate(0.8);
 
-            Tts.setDefaultRate(0.4);
-
-            Tts.speak(_lines.join(''),  error => {
+            Tts.speak(lines, error => {
                 this.playPauseRef._onPress()
                 return Toast.show('Unable to play this poem')
             });
 
-           
+
 
 
         }, (err) => {
@@ -275,6 +320,26 @@ class PoetPoemDetailScreen extends React.Component {
                 Tts.requestInstallEngine();
             }
         });
+
+    }
+
+
+    _onPlay = () => {
+
+
+        let _lines = this.state.poemDetails.lines.map((line, index) => {
+            return line + " "
+        })
+
+
+
+        if (_lines.length > LIMIT) {
+
+            _lines = _lines.splice(0, LIMIT)
+
+        }
+
+        this._speak(_lines.join(''))
 
     }
 
