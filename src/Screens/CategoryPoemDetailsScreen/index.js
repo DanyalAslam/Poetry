@@ -20,8 +20,14 @@ import allImages from '../../assets/images/index.js'
 import { playStoreUrl } from '../../Utils/index.js'
 
 
+const LIMIT = 40
+
+
 class CategoryPoemDetailsScreen extends React.Component {
 
+    state = {
+        newLines: []
+    }
 
     componentDidMount() {
 
@@ -43,9 +49,78 @@ class CategoryPoemDetailsScreen extends React.Component {
         })
 
         Tts.addEventListener('tts-finish', (event) => {
-            if (this.playPauseRef) {
-                this.playPauseRef._onPress()
+          
+            if (this.state.newLines.length > 0) {
+
+                if (this.state.newLines.length < LIMIT) {
+                    
+                    if(this.playPauseRef){
+                        this.playPauseRef._onPress()
+                    }
+
+                }
+
+                else{
+
+                    let splittedLines = [...this.state.newLines.slice(LIMIT, this.state.newLines.length)]
+
+
+                    if (splittedLines.length > LIMIT) {
+    
+                        splittedLines = [...splittedLines.splice(0, LIMIT)]
+     
+    
+                        this._speak(splittedLines.join(''))
+    
+                        this.setState({ newLines: [...this.state.newLines.slice(LIMIT, this.state.newLines.length)] })
+    
+                    }
+                    else {
+     
+    
+                        this._speak(splittedLines.join(''))
+    
+                        this.setState({ newLines: [1] })
+    
+    
+                    }
+
+                }
+
+ 
+
             }
+            else {
+
+                let _lines = this.props.route.params.poem.lines.map((line, index) => {
+                    return line + " "
+                })
+
+
+
+                let splittedLines = [..._lines.slice(LIMIT, _lines.length)]
+
+
+                if (splittedLines.length > LIMIT) {
+
+                    splittedLines = [...splittedLines.splice(0, LIMIT)]
+ 
+                    this._speak(splittedLines.join(''))
+
+                    this.setState({ newLines: [..._lines.slice(LIMIT, _lines.length)] })
+
+                }
+                else {
+ 
+                    this._speak(splittedLines.join(''))
+
+                    this.setState({ newLines: [1] })
+
+                }
+
+            }
+
+
         })
     }
 
@@ -92,7 +167,7 @@ class CategoryPoemDetailsScreen extends React.Component {
 
         const shareLinkContent = {
             contentType: 'link',
-            contentUrl: 'https://play.google.com/store/apps/details?id=com.techsphereapps.poetry&hl=en',
+            contentUrl: playStoreUrl,
             quote: _lines.join('')
         };
         ShareDialog.show(shareLinkContent);
@@ -153,21 +228,32 @@ class CategoryPoemDetailsScreen extends React.Component {
 
     }
 
-    _onPlay = () => {
+
+    _speak = (lines) => {
 
         Tts.getInitStatus().then(() => {
 
+            // Tts.requestInstallData();
+
+            Tts.setDefaultLanguage('en-IE');
+
             Tts.setDucking(true);
 
-            let _lines = this.props.route.params.poem.lines.map((line, index) => {
-                return line + " "
-            })
+
+
 
             Tts.setDefaultRate(0.4);
 
-            Tts.speak(_lines.toString());
+            Tts.speak(lines, error => {
+                this.playPauseRef._onPress()
+                return Toast.show('Unable to play this poem')
+            });
+
+
+
 
         }, (err) => {
+
             if (err.code === 'no_engine') {
                 Tts.requestInstallEngine();
             }
@@ -175,6 +261,30 @@ class CategoryPoemDetailsScreen extends React.Component {
 
     }
 
+
+    _onPlay = () => {
+
+
+        let _lines =  this.props.route.params.poem.lines.map((line, index) => {
+            return line + " "
+        })
+
+
+
+        if (_lines.length > LIMIT) {
+
+            _lines = _lines.splice(0, LIMIT)
+
+        }
+
+        this._speak(_lines.join(''))
+
+        this.setState({ newLines: [] })
+
+    }
+
+
+ 
     _onStop = () => {
 
         Tts.stop()
