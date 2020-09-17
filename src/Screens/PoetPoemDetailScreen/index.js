@@ -66,29 +66,45 @@ class PoetPoemDetailScreen extends React.Component {
 
             if (this.state.newLines.length > 0) {
 
-              
+                if (this.state.newLines.length < LIMIT) {
+                    console.log(this.state.newLines)
+
+                    if(this.playPauseRef){
+                        this.playPauseRef._onPress()
+                    }
+
+                }
+
+                else{
 
                     let splittedLines = [...this.state.newLines.slice(LIMIT, this.state.newLines.length)]
 
 
                     if (splittedLines.length > LIMIT) {
-
+    
                         splittedLines = [...splittedLines.splice(0, LIMIT)]
-
-
+    
+                        console.log('spl 4 ', splittedLines[splittedLines.length - 1])
+    
                         this._speak(splittedLines.join(''))
-
+    
                         this.setState({ newLines: [...this.state.newLines.slice(LIMIT, this.state.newLines.length)] })
-
+    
                     }
                     else {
-
+    
+                        console.log('spl 3 ', splittedLines[splittedLines.length - 1])
+    
                         this._speak(splittedLines.join(''))
-
+    
+                        this.setState({ newLines: [1] })
+    
+    
                     }
 
- 
+                }
 
+ 
 
             }
             else {
@@ -105,17 +121,17 @@ class PoetPoemDetailScreen extends React.Component {
                 if (splittedLines.length > LIMIT) {
 
                     splittedLines = [...splittedLines.splice(0, LIMIT)]
-
-
+ 
                     this._speak(splittedLines.join(''))
 
                     this.setState({ newLines: [..._lines.slice(LIMIT, _lines.length)] })
 
                 }
                 else {
-
+ 
                     this._speak(splittedLines.join(''))
 
+                    this.setState({ newLines: [1] })
 
                 }
 
@@ -304,7 +320,7 @@ class PoetPoemDetailScreen extends React.Component {
 
 
 
-            Tts.setDefaultRate(0.8);
+            Tts.setDefaultRate(0.4);
 
             Tts.speak(lines, error => {
                 this.playPauseRef._onPress()
@@ -340,6 +356,8 @@ class PoetPoemDetailScreen extends React.Component {
         }
 
         this._speak(_lines.join(''))
+
+        this.setState({ newLines: [] })
 
     }
 
