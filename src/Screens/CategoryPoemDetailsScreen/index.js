@@ -31,63 +31,71 @@ class CategoryPoemDetailsScreen extends React.Component {
 
     componentDidMount() {
 
-        this.props.navigation.addListener("focus", () => {
+        AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+        AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
 
-            // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-            // AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
+        // AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/8398110094')
 
-            AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/8398110094')
-
-            this.showInterstitial()
-
-        })
+        this.showInterstitial()
 
 
 
         this.props.navigation.addListener('blur', () => {
-            Tts.stop();
+
+
+            try {
+                Tts.stop();
+
+                AdMobInterstitial.removeAllListeners();
+
+                Tts.removeAllListeners()
+
+            } catch (error) {
+
+            }
+
         })
 
         Tts.addEventListener('tts-finish', (event) => {
-          
+
             if (this.state.newLines.length > 0) {
 
                 if (this.state.newLines.length < LIMIT) {
-                    
-                    if(this.playPauseRef){
+
+                    if (this.playPauseRef) {
                         this.playPauseRef._onPress()
                     }
 
                 }
 
-                else{
+                else {
 
                     let splittedLines = [...this.state.newLines.slice(LIMIT, this.state.newLines.length)]
 
 
                     if (splittedLines.length > LIMIT) {
-    
+
                         splittedLines = [...splittedLines.splice(0, LIMIT)]
-     
-    
+
+
                         this._speak(splittedLines.join(''))
-    
+
                         this.setState({ newLines: [...this.state.newLines.slice(LIMIT, this.state.newLines.length)] })
-    
+
                     }
                     else {
-     
-    
+
+
                         this._speak(splittedLines.join(''))
-    
+
                         this.setState({ newLines: [1] })
-    
-    
+
+
                     }
 
                 }
 
- 
+
 
             }
             else {
@@ -104,14 +112,14 @@ class CategoryPoemDetailsScreen extends React.Component {
                 if (splittedLines.length > LIMIT) {
 
                     splittedLines = [...splittedLines.splice(0, LIMIT)]
- 
+
                     this._speak(splittedLines.join(''))
 
                     this.setState({ newLines: [..._lines.slice(LIMIT, _lines.length)] })
 
                 }
                 else {
- 
+
                     this._speak(splittedLines.join(''))
 
                     this.setState({ newLines: [1] })
@@ -131,13 +139,7 @@ class CategoryPoemDetailsScreen extends React.Component {
 
         this.props.navigation.removeListener("blur")
 
-        AdMobInterstitial.removeAllListeners();
 
-        try {
-            Tts.removeAllListeners()
-        } catch (error) {
-
-        }
 
     }
 
@@ -182,7 +184,7 @@ class CategoryPoemDetailsScreen extends React.Component {
 
         let options = {
             title: 'Poetry',
-            message: _lines.join('')+"     \n\n",
+            message: _lines.join('') + "     \n\n",
             social: Share.Social.WHATSAPP,
             url: playStoreUrl,
             whatsAppNumber: ''
@@ -204,7 +206,7 @@ class CategoryPoemDetailsScreen extends React.Component {
 
         let options = {
             title: 'Poetry',
-            message: _lines.join('')+"     \n\n",
+            message: _lines.join('') + "     \n\n",
             url: playStoreUrl,
             social: Share.Social.INSTAGRAM
         }
@@ -265,7 +267,7 @@ class CategoryPoemDetailsScreen extends React.Component {
     _onPlay = () => {
 
 
-        let _lines =  this.props.route.params.poem.lines.map((line, index) => {
+        let _lines = this.props.route.params.poem.lines.map((line, index) => {
             return line + " "
         })
 
@@ -284,7 +286,7 @@ class CategoryPoemDetailsScreen extends React.Component {
     }
 
 
- 
+
     _onStop = () => {
 
         Tts.stop()
@@ -298,7 +300,7 @@ class CategoryPoemDetailsScreen extends React.Component {
             this.RBSheet.open()
         }
     }
-    
+
 
     _renderBottomSheet = () => {
 
@@ -430,9 +432,9 @@ class CategoryPoemDetailsScreen extends React.Component {
                 <AdMobBanner
                     style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
                     adSize="banner"
-                    adUnitID="ca-app-pub-8059419171547646/7788864330"
-                    // adUnitID="ca-app-pub-3940256099942544/6300978111"  //google testad
-                    // testDeviceID="EMULATOR"
+                    // adUnitID="ca-app-pub-8059419171547646/7788864330"
+                    adUnitID="ca-app-pub-3940256099942544/6300978111"  //google testad
+                    testDeviceID="EMULATOR"
 
                 />
 

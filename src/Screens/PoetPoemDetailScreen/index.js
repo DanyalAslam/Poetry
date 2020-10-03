@@ -35,15 +35,16 @@ class PoetPoemDetailScreen extends React.Component {
 
         this.backHandler = BackHandler.addEventListener("hardwareBackPress", this.backAction);
 
+        AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+        AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
+
+        // AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
+
+        this.showInterstitial()
+
+
         this.props.navigation.addListener("focus", () => {
             this.setState({ poemDetails: null })
-
-            // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-            // AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
-
-            AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
-
-            this.showInterstitial()
 
 
             if (this.props.route?.params?.makeApiCall) {
@@ -57,7 +58,17 @@ class PoetPoemDetailScreen extends React.Component {
 
 
         this.props.navigation.addListener('blur', () => {
-            Tts.stop();
+
+            try {
+                Tts.stop();
+
+                AdMobInterstitial.removeAllListeners();
+
+                Tts.removeAllListeners()
+            } catch (error) {
+
+            }
+
         })
 
 
@@ -69,42 +80,40 @@ class PoetPoemDetailScreen extends React.Component {
                 if (this.state.newLines.length < LIMIT) {
                     console.log(this.state.newLines)
 
-                    if(this.playPauseRef){
+                    if (this.playPauseRef) {
                         this.playPauseRef._onPress()
                     }
 
                 }
 
-                else{
+                else {
 
                     let splittedLines = [...this.state.newLines.slice(LIMIT, this.state.newLines.length)]
 
 
                     if (splittedLines.length > LIMIT) {
-    
+
                         splittedLines = [...splittedLines.splice(0, LIMIT)]
-    
-                        console.log('spl 4 ', splittedLines[splittedLines.length - 1])
-    
+
+
                         this._speak(splittedLines.join(''))
-    
+
                         this.setState({ newLines: [...this.state.newLines.slice(LIMIT, this.state.newLines.length)] })
-    
+
                     }
                     else {
-    
-                        console.log('spl 3 ', splittedLines[splittedLines.length - 1])
-    
+
+
                         this._speak(splittedLines.join(''))
-    
+
                         this.setState({ newLines: [1] })
-    
-    
+
+
                     }
 
                 }
 
- 
+
 
             }
             else {
@@ -121,14 +130,14 @@ class PoetPoemDetailScreen extends React.Component {
                 if (splittedLines.length > LIMIT) {
 
                     splittedLines = [...splittedLines.splice(0, LIMIT)]
- 
+
                     this._speak(splittedLines.join(''))
 
                     this.setState({ newLines: [..._lines.slice(LIMIT, _lines.length)] })
 
                 }
                 else {
- 
+
                     this._speak(splittedLines.join(''))
 
                     this.setState({ newLines: [1] })
@@ -160,16 +169,12 @@ class PoetPoemDetailScreen extends React.Component {
 
 
     componentWillUnmount() {
-        AdMobInterstitial.removeAllListeners();
+
         this.props.navigation.removeListener("focus")
         this.props.navigation.removeListener("blur")
         this.backHandler.remove();
 
-        try {
-            Tts.removeAllListeners()
-        } catch (error) {
 
-        }
     }
 
     _getPoem = () => {
@@ -527,9 +532,9 @@ class PoetPoemDetailScreen extends React.Component {
                     style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
                     adSize="banner"
                     onAdFailedToLoad={(e) => console.log(e)}
-                    // adUnitID="ca-app-pub-3940256099942544/6300978111" //google testad
-                    adUnitID="ca-app-pub-8059419171547646/7352367170"  
-                    // testDeviceID="EMULATOR"
+                    adUnitID="ca-app-pub-3940256099942544/6300978111" //google testad
+                    // adUnitID="ca-app-pub-8059419171547646/7352367170"
+                    testDeviceID="EMULATOR"
 
                 />
 
