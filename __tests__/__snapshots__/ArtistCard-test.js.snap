@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "white",
+        "height": 333.5,
+        "marginVertical": 13.34,
+        "width": 225,
+      },
+    ]
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onLayout={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    pointerEvents="box-only"
+  >
+    <Image
+      progressiveRenderingEnabled={true}
+      style={
+        Object {
+          "borderRadius": 22.5,
+          "height": 266.8,
+          "marginBottom": 20.009999999999998,
+          "width": 225,
+        }
+      }
+    />
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "transparent",
+            "bottom": 0,
+            "left": 0,
+            "overflow": "hidden",
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "borderRadius": 0,
+          },
+        ]
+      }
+    />
+  </View>
+  <Text
+    numberOfLines={1}
+    style={
+      Object {
+        "color": "#000000",
+        "fontFamily": "SourceSerifPro-SemiBold",
+        "fontSize": 26.68,
+        "marginLeft": 7.5,
+        "textAlign": "left",
+      }
+    }
+  >
+    Poet:
+  </Text>
+  <Text
+    numberOfLines={2}
+    style={
+      Object {
+        "color": "#6A6A6A",
+        "fontFamily": "SourceSerifPro-Regular",
+        "fontSize": 22.678,
+        "marginLeft": 7.5,
+        "textAlign": "left",
+      }
+    }
+  />
+</View>
+`;

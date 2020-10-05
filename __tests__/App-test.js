@@ -16,3 +16,8 @@ beforeEach(() => {
 it('renders correctly', async () => {
   renderer.create(<App />);
 });
+
+// test('renders correctly',async () => {
+//   const tree = renderer.create(<App />).toJSON();
+//   expect(tree).toMatchSnapshot();
+// });

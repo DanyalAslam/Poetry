@@ -1,0 +1,17 @@
+/**
+ * @format
+ */
+
+import 'react-native';
+import React from 'react';
+import AnimatedButton from '../src/Components/AnimatedButton';
+
+// Note: test renderer must be required after react-native.
+import renderer from 'react-test-renderer';
+
+
+test('renders correctly', () => {
+    const tree = renderer.create(<AnimatedButton />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
