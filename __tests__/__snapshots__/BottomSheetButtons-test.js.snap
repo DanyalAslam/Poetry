@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onLayout={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  pointerEvents="box-only"
+  style={
+    Object {
+      "paddingLeft": 60,
+      "paddingRight": 60,
+      "width": 750,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "borderBottomColor": "#cccccc",
+        "borderBottomWidth": 0.75,
+        "flexDirection": "row",
+        "paddingVertical": 20.009999999999998,
+      }
+    }
+  >
+    <Image
+      style={
+        Object {
+          "height": 37.5,
+          "resizeMode": "contain",
+          "width": 37.5,
+        }
+      }
+    />
+    <Text
+      style={
+        Object {
+          "fontFamily": "SourceSerifPro-SemiBold",
+          "fontSize": 26.68,
+          "marginLeft": 22.5,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "transparent",
+          "bottom": 0,
+          "left": 0,
+          "overflow": "hidden",
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        Object {
+          "borderRadius": 0,
+        },
+      ]
+    }
+  />
+</View>
+`;

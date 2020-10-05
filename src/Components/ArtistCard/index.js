@@ -21,6 +21,8 @@ class ArtistCard extends Component {
                         progressiveRenderingEnabled
                     />
 
+                 
+
                 </RippleTouch>
 
                 <Text style={styles.title} numberOfLines={1}>
