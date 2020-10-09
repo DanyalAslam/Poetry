@@ -20,7 +20,7 @@ class MoreScreen extends React.Component {
                     />
                 </View>
 
-                <RippleTouch style={styles.row} onPress={() => this.props.navigation.navigate('WishListScreen')}>
+                <RippleTouch style={styles.row} onPress={() => this.props.navigation.navigate('WishListStack')}>
                     <View style={styles.row_1}>
                         <View style={styles.innerRow}>
                             <Image

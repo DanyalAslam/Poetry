@@ -25,7 +25,7 @@ class WishListScreen extends React.Component {
             title={_poem.title}
             verses={_poem.lines}
             onWishPress={() => this._onPressWish(_poem)}
-            onPress={() => this.props.navigation.navigate('PoetPoemDetailScreen', { poem: item })}
+            onPress={() => this.props.navigation.navigate('WishListDetailScreen', { poem: item })}
         />
 
     }
