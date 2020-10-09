@@ -23,7 +23,7 @@ export default Styles = StyleSheet.create({
     inputField: {
         width: '87%',
         marginLeft: 2 * vw,
-        fontFamily: fonts.JR,
+        fontFamily: fonts.SSR,
         fontSize: 2.3 * vh
     },
     textField: {
@@ -32,7 +32,7 @@ export default Styles = StyleSheet.create({
         paddingVertical: 2*vh
     },
     text:{
-        fontFamily: fonts.JR,
+        fontFamily: fonts.SSR,
         fontSize: 2.3 * vh,
         color: appTheme.lightGray
     }

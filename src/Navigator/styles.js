@@ -34,7 +34,7 @@ export default Styles = StyleSheet.create({
         backgroundColor: appTheme.white,
         height: 8.7 * vh,
         elevation: 14,
-        borderTopWidth: 0.3 * vw,
+        borderTopWidth: 0.1 * vw,
         borderColor: appTheme.lightGray,
         shadowColor: appTheme.darkGray,
         shadowOffset: {
@@ -47,7 +47,7 @@ export default Styles = StyleSheet.create({
         width: 10 * vw,
     },
     indicatorStyle: {
-        height: 0.4 * vh,
+        height: 0 * vh,
         backgroundColor: appTheme.black
     },
     imageStyle: {

@@ -30,379 +30,431 @@ const HomeStack = createStackNavigator();
 const CategoryStack = createStackNavigator();
 const PoetStack = createStackNavigator();
 const MoreStack = createStackNavigator();
+const WishStack = createStackNavigator();
 
 
 class MainNavigator extends React.Component {
 
 
- _DefaultHeaderOptions = (props) => {
+  _DefaultHeaderOptions = (props) => {
 
-  return {
-    headerShown: true,
-    title: this.getHeaderTitle(props),
-    headerTitleAlign: 'center',
-    headerTitleStyle: this._pickHeaderStyle(props),
-    headerStyle: styles.header,
-    headerLeft: () => this._renderHeaderLeft(props),
-    headerLeftContainerStyle: styles.leftContainer
-  }
-}
-
- _pickHeaderStyle = (props) => {
-
-  const routeName = props.route.name
-
-
-  let _styles = styles.headerTitle
-
-  if (routeName == "MoreScreen" || routeName == "CategoryDetailsScreen"
-    || routeName == "CategoryPoemDetailsScreen" || routeName == 'PoetPoemsScreen'
-    || routeName == 'WishListScreen' || routeName == 'PoetPoemDetailScreen') {
-
-    _styles = styles.headerTitle_1
-
+    return {
+      headerShown: true,
+      title: this.getHeaderTitle(props),
+      headerTitleAlign: 'center',
+      headerTitleStyle: this._pickHeaderStyle(props),
+      headerStyle: styles.header,
+      headerLeft: () => this._renderHeaderLeft(props),
+      headerLeftContainerStyle: styles.leftContainer
+    }
   }
 
-  return _styles
-}
+  _pickHeaderStyle = (props) => {
+
+    const routeName = props.route.name
 
 
- _onBackPress = (props) => {
+    let _styles = styles.headerTitle
 
-  const routeName = props.route.name
+    if (routeName == "MoreScreen" || routeName == "CategoryDetailsScreen"
+      || routeName == "CategoryPoemDetailsScreen" || routeName == 'PoetPoemsScreen'
+      || routeName == 'WishListScreen' || routeName == 'PoetPoemDetailScreen'
+      || routeName == 'WishListDetailScreen'
+      ) {
 
-  console.log(routeName,'  ',props.route?.params?.fromSearch)
-
-  if (routeName == 'PoetPoemDetailScreen') {
-    if (props.route?.params?.fromSearch) {
-
-      props.navigation.popToTop()
-      this.props.showSearchModal()
+      _styles = styles.headerTitle_1
 
     }
-    else{
+
+    return _styles
+  }
+
+
+  _onBackPress = (props) => {
+
+    const routeName = props.route.name
+
+    if (routeName == 'PoetPoemDetailScreen') {
+      if (props.route?.params?.fromSearch) {
+
+        props.navigation.popToTop()
+        this.props.showSearchModal()
+
+      }
+      else {
+        props.navigation.pop()
+      }
+    }
+    else {
       props.navigation.pop()
     }
-  }
-  else{
-    props.navigation.pop()
-  }
-
-}
-
-
- _renderHeaderLeft = (props) => {
-
-  const routeName = props.route.name
-
-
-  if (routeName == 'CategoryDetailsScreen' || routeName == 'PoetPoemsScreen'
-    || routeName == "CategoryPoemDetailsScreen"
-    || routeName == 'WishListScreen' || routeName == 'PoetPoemDetailScreen') {
-
-    return <RippleTouch
-      onPress={()=>this._onBackPress(props)}
-    >
-      <Image style={styles.imageStyle} source={allImages.generalIcons.leftArrow} />
-    </RippleTouch>
 
   }
 
-  return null
 
-}
+  _renderHeaderLeft = (props) => {
+
+    const routeName = props.route.name
 
 
- _renderHeaderWithSearch = (props) => {
-  return {
-    ...this._DefaultHeaderOptions(props),
-    header: (props) => <ExtendedHeader {...props} />
+    if (routeName == 'CategoryDetailsScreen' || routeName == 'PoetPoemsScreen'
+      || routeName == "CategoryPoemDetailsScreen"|| routeName == 'WishListDetailScreen'
+      || routeName == 'WishListScreen' || routeName == 'PoetPoemDetailScreen') {
+
+      return <RippleTouch
+        onPress={() => this._onBackPress(props)}
+      >
+        <Image style={styles.imageStyle} source={allImages.generalIcons.leftArrow} />
+      </RippleTouch>
+
+    }
+
+    return null
+
   }
-}
 
 
- getHeaderTitle = (props) => {
-
-  const routeName = props.route.name
-
-
-  switch (routeName) {
-
-    case 'HomeScreen': {
-      return 'Poetry'
-    }
-
-    case 'CategoriesScreen': {
-      return 'Categories'
-    }
-
-    case 'CategoryDetailsScreen': {
-
-      return props.route.params.title
-    }
-
-    case 'CategoryPoemDetailsScreen': {
-      return "Details"
-    }
-
-
-    case 'PoetsScreen': {
-      return 'Poets'
-    }
-
-    case 'PoetPoemsScreen': {
-      return props.route.params.title
-    }
-
-    case 'PoetPoemDetailScreen': {
-      return 'Details'
-    }
-
-    case 'MoreScreen': {
-      return 'More'
-    }
-
-    case 'WishListScreen': {
-      return 'WishList'
-    }
-
-
-    default: {
-      return routeName
+  _renderHeaderWithSearch = (props) => {
+    return {
+      ...this._DefaultHeaderOptions(props),
+      header: (props) => <ExtendedHeader {...props} />
     }
   }
 
-}
+
+  getHeaderTitle = (props) => {
+
+    const routeName = props.route.name
 
 
- HomeStackNavigator = (props) => {
+    switch (routeName) {
+
+      case 'HomeScreen': {
+        return 'Poetry'
+      }
+
+      case 'CategoriesScreen': {
+        return 'Categories'
+      }
+
+      case 'CategoryDetailsScreen': {
+
+        return props.route.params.title
+      }
+
+      case 'CategoryPoemDetailsScreen': {
+        return "Details"
+      }
 
 
-  return (
-    <>
-      <HomeStack.Navigator
+      case 'PoetsScreen': {
+        return 'Poets'
+      }
+
+      case 'PoetPoemsScreen': {
+        return props.route.params.title
+      }
+
+      case 'PoetPoemDetailScreen': {
+        return 'Details'
+      }
+
+      case 'MoreScreen': {
+        return 'More'
+      }
+
+      case 'WishListScreen': {
+        return 'WishList'
+      }
+
+      case 'WishListStack': {
+        return null
+      }
+
+      case 'WishListDetailScreen': {
+        return 'Poem Details'
+      }
+
+
+
+      default: {
+        return routeName
+      }
+    }
+
+  }
+
+
+  HomeStackNavigator = (props) => {
+
+
+    return (
+      <>
+        <HomeStack.Navigator
+          screenOptions={this._renderHeaderWithSearch}
+          headerMode="screen"
+        >
+
+          <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+
+        </HomeStack.Navigator>
+
+        <SearchModal navigation={props.navigation} />
+      </>
+    )
+  }
+
+
+  WishStackNavigator = (props) => {
+
+
+    return (
+
+      <WishStack.Navigator
         screenOptions={this._renderHeaderWithSearch}
         headerMode="screen"
       >
 
-        <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
-
-      </HomeStack.Navigator>
-
-      <SearchModal navigation={props.navigation} />
-    </>
-  )
-}
-
- CategoryStackNavigator = () => {
-
-  return (
-    <CategoryStack.Navigator
-      screenOptions={this._renderHeaderWithSearch}
-
-      headerMode="screen"
-    >
-      <CategoryStack.Screen
-        name="CategoriesScreen"
-        component={CategoriesScreen}
-      />
-
-      <CategoryStack.Screen
-        name="CategoryDetailsScreen"
-        component={CategoryDetailsScreen}
-        options={
-          {
-            ...TransitionPresets.SlideFromRightIOS,
-            gestureEnabled: true,
-            gestureDirection: 'horizontal'
+        <WishStack.Screen
+          name="WishListScreen"
+          component={WishListScreen}
+          options={
+            {
+              ...TransitionPresets.SlideFromRightIOS,
+              gestureEnabled: true,
+              gestureDirection: 'horizontal'
+            }
           }
-        }
-      />
+        />
 
-      <CategoryStack.Screen
-        name="CategoryPoemDetailsScreen"
-        component={CategoryPoemDetailsScreen}
-        options={
-          {
-            ...TransitionPresets.SlideFromRightIOS,
-            gestureEnabled: true,
-            gestureDirection: 'horizontal'
+        <WishStack.Screen
+          name="WishListDetailScreen"
+          component={PoetPoemDetailScreen}
+          options={
+            {
+              ...TransitionPresets.SlideFromRightIOS,
+              gestureEnabled: true,
+              gestureDirection: 'horizontal'
+            }
           }
-        }
-      />
+        />
 
-    </CategoryStack.Navigator>
-  )
-}
+      </WishStack.Navigator>
 
- PoetStackNavigator = () => {
+    )
+  }
 
-  return (
-    <PoetStack.Navigator
-      screenOptions={this._renderHeaderWithSearch}
-      headerMode="screen"
-    >
-      <PoetStack.Screen
-        name="PoetsScreen"
-        component={PoetsScreen}
-      />
 
-      <PoetStack.Screen
-        name="PoetPoemsScreen"
-        component={PoetPoemsScreen}
-        options={
-          {
-            ...TransitionPresets.SlideFromRightIOS,
-            gestureEnabled: true,
-            gestureDirection: 'horizontal'
+  CategoryStackNavigator = () => {
+
+    return (
+      <CategoryStack.Navigator
+        screenOptions={this._renderHeaderWithSearch}
+
+        headerMode="screen"
+      >
+        <CategoryStack.Screen
+          name="CategoriesScreen"
+          component={CategoriesScreen}
+        />
+
+        <CategoryStack.Screen
+          name="CategoryDetailsScreen"
+          component={CategoryDetailsScreen}
+          options={
+            {
+              ...TransitionPresets.SlideFromRightIOS,
+              gestureEnabled: true,
+              gestureDirection: 'horizontal'
+            }
           }
-        }
-      />
+        />
 
-      <PoetStack.Screen
-        name="PoetPoemDetailScreen"
-        component={PoetPoemDetailScreen}
-        options={
-          {
-            ...TransitionPresets.SlideFromRightIOS,
-            gestureEnabled: true,
-            gestureDirection: 'horizontal'
+        <CategoryStack.Screen
+          name="CategoryPoemDetailsScreen"
+          component={CategoryPoemDetailsScreen}
+          options={
+            {
+              ...TransitionPresets.SlideFromRightIOS,
+              gestureEnabled: true,
+              gestureDirection: 'horizontal'
+            }
           }
-        }
-      />
+        />
 
+      </CategoryStack.Navigator>
+    )
+  }
 
+  PoetStackNavigator = () => {
 
-    </PoetStack.Navigator>
-  )
-}
+    return (
+      <PoetStack.Navigator
+        screenOptions={this._renderHeaderWithSearch}
+        headerMode="screen"
+      >
+        <PoetStack.Screen
+          name="PoetsScreen"
+          component={PoetsScreen}
+        />
 
- MoreStackNavigator = () => {
-
-  return (
-    <MoreStack.Navigator
-      screenOptions={this._renderHeaderWithSearch}
-      headerMode="screen"
-    >
-      <MoreStack.Screen
-        name="MoreScreen"
-        component={MoreScreen}
-      />
-
-      <MoreStack.Screen
-        name="WishListScreen"
-        component={WishListScreen}
-        options={
-          {
-            ...TransitionPresets.SlideFromRightIOS,
-            gestureEnabled: true,
-            gestureDirection: 'horizontal'
+        <PoetStack.Screen
+          name="PoetPoemsScreen"
+          component={PoetPoemsScreen}
+          options={
+            {
+              ...TransitionPresets.SlideFromRightIOS,
+              gestureEnabled: true,
+              gestureDirection: 'horizontal'
+            }
           }
-        }
-      />
+        />
 
-    </MoreStack.Navigator>
-  )
-}
+        <PoetStack.Screen
+          name="PoetPoemDetailScreen"
+          component={PoetPoemDetailScreen}
+          options={
+            {
+              ...TransitionPresets.SlideFromRightIOS,
+              gestureEnabled: true,
+              gestureDirection: 'horizontal'
+            }
+          }
+        />
 
 
 
-TabNavigator = (props) => {
- 
+      </PoetStack.Navigator>
+    )
+  }
 
-  return (
-    <Tabs.Navigator
-      tabBarPosition="bottom"
-      // lazy={true}
-      tabBarOptions={{
-        activeTintColor: appTheme.black,
-        inactiveTintColor: appTheme.lightGray,
-        showIcon: true,
-        pressColor: appTheme.lightGray,
-        showLabel: false,
-        tabStyle: styles.tabStyle,
-        style: styles.tabBarStyle,
-        iconStyle: styles.iconStyle,
-        bounces: true,
-        indicatorStyle: styles.indicatorStyle
-      }}
-      swipeEnabled={true}
-    >
-      <Tabs.Screen
-        name="HomeStack"
-        component={this.HomeStackNavigator}
-        options={{
-          tabBarIcon: (params) => {
-            return (
-              <TabBarItem params={params} name='HomeStack' />
-            )
-          },
+  MoreStackNavigator = () => {
 
+    return (
+      <MoreStack.Navigator
+        // screenOptions={this._renderHeaderWithSearch}
+        // headerMode="screen"
+        screenOptions={{headerShown: false}}
+      >
+        <MoreStack.Screen
+          name="MoreScreen"
+          component={MoreScreen}
+        />
+
+        <MoreStack.Screen
+          name="WishListStack"
+          component={this.WishStackNavigator}
+          options={
+            {
+              ...TransitionPresets.SlideFromRightIOS,
+              gestureEnabled: true,
+              gestureDirection: 'horizontal'
+            }
+          }
+        />
+
+      </MoreStack.Navigator>
+    )
+  }
+
+
+
+  TabNavigator = (props) => {
+
+
+    return (
+      <Tabs.Navigator
+        tabBarPosition="bottom"
+        // lazy={true}
+        tabBarOptions={{
+          activeTintColor: appTheme.black,
+          inactiveTintColor: appTheme.lightGray,
+          showIcon: true,
+          pressColor: appTheme.lightGray,
+          showLabel: false,
+          tabStyle: styles.tabStyle,
+          style: styles.tabBarStyle,
+          iconStyle: styles.iconStyle,
+          bounces: true,
+          indicatorStyle: styles.indicatorStyle
         }}
-      />
+        swipeEnabled={true}
+      >
+        <Tabs.Screen
+          name="HomeStack"
+          component={this.HomeStackNavigator}
+          options={{
+            tabBarIcon: (params) => {
+              return (
+                <TabBarItem params={params} name='HomeStack' />
+              )
+            },
 
-      <Tabs.Screen
-        name="CategoryStack"
-        component={this.CategoryStackNavigator}
-        options={{
-          tabBarIcon: (params) => {
-            return (
-              <TabBarItem params={params} name='CategoryStack' />
-            )
-          },
+          }}
+        />
 
-        }}
-      />
+        <Tabs.Screen
+          name="CategoryStack"
+          component={this.CategoryStackNavigator}
+          options={{
+            tabBarIcon: (params) => {
+              return (
+                <TabBarItem params={params} name='CategoryStack' />
+              )
+            },
 
-      <Tabs.Screen
-        name="PoetStack"
-        component={this.PoetStackNavigator}
-        options={{
-          tabBarIcon: (params) => {
+          }}
+        />
 
-            return (
-              <TabBarItem params={params} name='PoetStack' />
-            )
-          },
+        <Tabs.Screen
+          name="PoetStack"
+          component={this.PoetStackNavigator}
+          options={{
+            tabBarIcon: (params) => {
 
-        }}
-      />
+              return (
+                <TabBarItem params={params} name='PoetStack' />
+              )
+            },
 
-      <Tabs.Screen
-        name="MoreStack"
-        component={this.MoreStackNavigator}
-        options={{
-          tabBarIcon: (params) => {
-            return (
-              <TabBarItem params={params} name='MoreStack' />
-            )
-          },
+          }}
+        />
 
-        }}
-      />
-    </Tabs.Navigator>
+        <Tabs.Screen
+          name="MoreStack"
+          component={this.MoreStackNavigator}
+          options={{
+            tabBarIcon: (params) => {
+              return (
+                <TabBarItem params={params} name='MoreStack' />
+              )
+            },
 
-  );
-}
+          }}
+        />
+      </Tabs.Navigator>
 
- render(){
+    );
+  }
 
-  return (
+  render() {
 
-    <NavigationContainer>
-      <this.TabNavigator {...this.props} />
-    </NavigationContainer>
+    return (
 
-  )
+      <NavigationContainer>
+        <this.TabNavigator {...this.props} />
+      </NavigationContainer>
 
- }
- 
- 
+    )
+
+  }
+
+
 }
 
 const mapDispatchToProps = dispatch => {
 
-  return { 
+  return {
     showSearchModal: () => dispatch(actions.showSearch())
   }
 
@@ -411,4 +463,3 @@ const mapDispatchToProps = dispatch => {
 
 
 export default connect(null, mapDispatchToProps)(MainNavigator)
- 
