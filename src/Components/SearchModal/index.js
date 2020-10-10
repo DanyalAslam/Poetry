@@ -22,18 +22,18 @@ class SearchModal extends React.Component {
         message: ''
     }
 
-    
+
 
 
     backAction = () => {
-       
+
         this.props.hideSearchModal()
 
         return true;
-        
+
     }
 
- 
+
 
 
     _renderBackButton = () => {
@@ -65,11 +65,36 @@ class SearchModal extends React.Component {
             }
             else {
 
-                this.setState({
-                    results: [],
-                    message: 'No results found, try another keyword',
-                    refreshing: false
+                this.setState({ refreshing: true })
+
+                this.props.getPoetPoems(this.state.search, poetSuccess => {
+
+                    if (poetSuccess.length > 0) {
+
+                        this.setState({ results: poetSuccess, message: '', refreshing: false })
+                    }
+                    else {
+
+                        this.setState({
+                            results: [],
+                            message: 'No results found, try another keyword',
+                            refreshing: false
+                        })
+
+                    }
+
+
+
+
+                }, poetError => {
+
+                    Toast.show(poetError)
+
+                    this.setState({ results: [], message: 'Some error occured', refreshing: false })
+
                 })
+
+
 
             }
 
@@ -84,7 +109,7 @@ class SearchModal extends React.Component {
     }
 
     _navigate = (item) => {
-     
+
         this.props.hideSearchModal()
         this.props.navigation.navigate('PoetPoemDetailScreen', { poem: item, fromSearch: true })
         // this.setState({ search: '', results: [], message: '' })
@@ -155,7 +180,7 @@ class SearchModal extends React.Component {
                             value={this.state.search}
                             onChangeText={search => this.setState({ search })}
                             onSubmitEditing={this._onSubmit}
-                            style={{ marginHorizontal: 5 * vw, marginTop: 1.5 * vh }}
+                            style={{ marginHorizontal: 5 * vw, marginTop: 1 * vh }}
                         />
 
 
@@ -178,6 +203,7 @@ class SearchModal extends React.Component {
                             />
                         }
                         ListEmptyComponent={this._renderEmpty}
+
                     />
 
                 </View>
@@ -200,6 +226,7 @@ const mapDispatchToProps = dispatch => {
     return {
         hideSearchModal: () => dispatch(actions.hideSearch()),
         getPoems: (keyword, success, error) => dispatch(actions.getPoems(keyword, success, error)),
+        getPoetPoems: (keyword, success, error) => dispatch(actions.getPoetPoems(keyword, success, error)),
         addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success))
     }
 }

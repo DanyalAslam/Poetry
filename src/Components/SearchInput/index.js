@@ -1,11 +1,11 @@
 import React from 'react'
-import { View, Image, TextInput, Text } from 'react-native'
+import { View, Image,TextInput,  Text } from 'react-native'
 import styles from './styles.js'
 import allImages from '../../assets/images/index.js'
 import { appTheme } from '../../Utils/index.js'
 import RippleTouch from '../RippleTouch/index.js'
 import actions from '../../redux/actions/index.js'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux' 
 
 
 const SearchInput = (props) => {
@@ -30,7 +30,7 @@ const SearchInput = (props) => {
                 value={props.value}
                 onChangeText={props.onChangeText}
                 onSubmitEditing={props.onSubmitEditing}
-                returnKeyType="next"
+                returnKeyType="next" 
             />
         </View>
     }
