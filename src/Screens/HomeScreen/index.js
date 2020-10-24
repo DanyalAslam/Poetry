@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, TouchableOpacity, RefreshControl, BackHandler } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, RefreshControl, BackHandler, NativeModules } from 'react-native'
 import styles from './styles.js'
 import CategoryCard from '../../../src/Components/CategoryCard'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -12,7 +12,6 @@ import actions from '../../redux/actions/index.js'
 import { appTheme } from '../../Utils/index.js'
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import Toast from 'react-native-simple-toast'
-import AdMobBanner from 'react-native-admob/RNAdMobBanner'
 
 
 
@@ -28,9 +27,14 @@ class HomeScreen extends React.Component {
         this.backHandler = BackHandler.addEventListener("hardwareBackPress", this.backAction);
 
 
-        this._getHomeData()
+        this._getHomeData();
+
+
+
 
     }
+
+
 
 
     backAction = () => {
@@ -60,6 +64,7 @@ class HomeScreen extends React.Component {
         this.setState({ refreshing: true })
 
         this.props.getHomeData(success => {
+
 
             this.setState({ refreshing: false })
 
@@ -119,19 +124,11 @@ class HomeScreen extends React.Component {
 
                 <View style={styles.topCardChildRow}>
 
-                    <View>
-                        <Text style={styles.Heading}>
-                            Poets
+                    <Text style={styles.Heading}>
+                        Poets
                     </Text>
 
-                        <Text style={[styles.HeadingSeeAll,
-                        { fontSize: 1.85 * vh, marginTop: 0.5 * vh }
-                        ]}
-                            numberOfLines={1}>
-                            Browse through the collection of historical poets.
-                     </Text>
 
-                    </View>
 
                     <TouchableOpacity onPress={this._navigateToPoets}>
                         <Text style={styles.HeadingSeeAll}>
@@ -139,6 +136,13 @@ class HomeScreen extends React.Component {
                      </Text>
                     </TouchableOpacity>
                 </View>
+
+                <Text style={[styles.HeadingSeeAll,
+                { fontSize: 1.85 * vh, marginTop: 1 * vh, marginLeft: 3*vw, marginBottom: 1*vh }
+                ]}
+                    numberOfLines={1}>
+                    Browse through the collection of historical poets.
+                     </Text>
 
                 <Carousel
                     ref={(c) => { this._carousel = c; }}
@@ -153,7 +157,8 @@ class HomeScreen extends React.Component {
                     inactiveSlideScale={1}
                     activeSlideAlignment="start"
                     slideStyle={{ marginHorizontal: 2 * vw }}
-                    inactiveSlideOpacity={1}
+                    inactiveSlideOpacity={1} 
+                    
                 />
 
             </View>
@@ -226,7 +231,7 @@ class HomeScreen extends React.Component {
         })
 
         _lines = _lines.join('')
-       
+
 
         return <PoemCard
             poet={_poem.author}
@@ -351,13 +356,14 @@ const mapStateToProps = state => {
 
     let _poets = state.GeneralReducer.poets
 
-   
+
     return {
 
         poets: _poets,
         categories: state.GeneralReducer.categories,
         homePoems: state.GeneralReducer.homePoems,
-        searchModal: state.GeneralReducer.searchModal
+        searchModal: state.GeneralReducer.searchModal,
+
 
     }
 
@@ -369,6 +375,7 @@ const mapDispatchToProps = dispatch => {
         getHomeData: (success, error) => dispatch(actions.getHomeData(success, error)),
         addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success)),
         hideSearchModal: () => dispatch(actions.hideSearch()),
+
     }
 
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, ScrollView, RefreshControl, BackHandler, Image, TouchableOpacity } from 'react-native'
+import { Text, View, ScrollView, RefreshControl, BackHandler, Image, TouchableOpacity, NativeModules } from 'react-native'
 import styles from './style.js'
 import AnimatedWish from '../../Components/AnimatedWish/index.js'
 import { connect } from 'react-redux'
@@ -38,9 +38,10 @@ class PoetPoemDetailScreen extends React.Component {
         // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
         // AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
 
-        AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
+        // AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
 
-        this.showInterstitial()
+        // this.showInterstitial()
+
 
 
         this.props.navigation.addListener("focus", () => {
@@ -49,10 +50,14 @@ class PoetPoemDetailScreen extends React.Component {
 
             if (this.props.route?.params?.makeApiCall) {
 
-                this._getPoem()
+                this._getPoem(success => {
+                    this.showReviewPopUp();
+                })
             }
             else {
-                this.setState({ poemDetails: this.props.route.params.poem })
+                this.setState({ poemDetails: this.props.route.params.poem }, ()=>{
+                    setTimeout(this.showReviewPopUp,2000)
+                })
             }
         })
 
@@ -151,6 +156,41 @@ class PoetPoemDetailScreen extends React.Component {
 
     }
 
+
+    showReviewPopUp = () => {
+
+        if (this.props.reviewStatus == 0) {
+
+            this.props.checkForReview(1)
+
+        }
+        else if (this.props.reviewStatus == 1) {
+
+            this.props.checkForReview(2)
+
+        }
+
+        else if (this.props.reviewStatus == 2) {
+
+            if (NativeModules.PoetryReview) {
+
+
+                NativeModules.PoetryReview.showReviewPopUp(success => {
+
+                    console.log('** Success');
+                },
+                    error => {
+                        console.log('** Error');
+                    })
+
+            }
+
+        }
+
+    }
+
+
+
     backAction = () => {
 
         if (this.props.route?.params?.fromSearch) {
@@ -177,7 +217,7 @@ class PoetPoemDetailScreen extends React.Component {
 
     }
 
-    _getPoem = () => {
+    _getPoem = (completed) => {
 
         let _poemName = this.props.route?.params?.poem?.title
 
@@ -185,6 +225,9 @@ class PoetPoemDetailScreen extends React.Component {
 
         this.props.getPoems(_poemName, success => {
 
+            if (completed) {
+                completed();
+            }
 
             this.setState({ refreshing: false, poemDetails: success[0] })
 
@@ -532,9 +575,9 @@ class PoetPoemDetailScreen extends React.Component {
                     style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
                     adSize="banner"
                     onAdFailedToLoad={(e) => console.log(e)}
-                    // adUnitID="ca-app-pub-3940256099942544/6300978111" //google testad
-                    adUnitID="ca-app-pub-8059419171547646/7352367170"
-                    // testDeviceID="EMULATOR"
+                    adUnitID="ca-app-pub-3940256099942544/6300978111" //google testad
+                    // adUnitID="ca-app-pub-8059419171547646/7352367170"
+                    testDeviceID="EMULATOR"
 
                 />
 
@@ -550,7 +593,7 @@ const mapStateToProps = state => {
     return {
 
         wishList: state.GeneralReducer.wishList,
-
+        reviewStatus: state.GeneralReducer.reviewStatus
     }
 
 }
@@ -560,7 +603,8 @@ const mapDispatchToProps = dispatch => {
     return {
         getPoems: (title, success, error) => dispatch(actions.getPoems(title, success, error)),
         addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success)),
-        showSearchModal: () => dispatch(actions.showSearch())
+        showSearchModal: () => dispatch(actions.showSearch()),
+        checkForReview: (status) => dispatch(actions.checkForReview(status)),
     }
 
 }

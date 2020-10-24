@@ -41,9 +41,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         paddingHorizontal: 3 * vw,
-        marginBottom:1.5*vh,
+        // marginBottom:1.5*vh,
         alignItems: 'baseline',
-        marginRight: 2 * vw,
+        marginRight: 2 * vw, 
     },
     Heading: {
         fontFamily: fonts.SSB,
