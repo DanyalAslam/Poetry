@@ -7,7 +7,8 @@ const INITIAL_STATE = {
     categories: [],
     homePoems: [],
     wishList: [],
-    searchModal: false
+    searchModal: false,
+    reviewStatus: 0
 
 }
 
@@ -106,6 +107,15 @@ const GeneralReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 searchModal: false 
+            }
+            
+        }
+
+        case actionTypes.REVIEW_STATUS: {
+
+            return {
+                ...state,
+                reviewStatus: action.status 
             }
             
         }

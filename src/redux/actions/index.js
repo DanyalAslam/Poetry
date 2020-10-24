@@ -217,6 +217,18 @@ const actions = {
 
         }
     },
+
+    checkForReview: (status) => {
+
+        return dispatch => {
+
+            dispatch({
+                type: actionTypes.REVIEW_STATUS,
+                status
+            })
+
+        }
+    },
 }
 
 export default actions
