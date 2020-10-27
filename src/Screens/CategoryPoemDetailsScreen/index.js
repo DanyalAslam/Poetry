@@ -34,9 +34,9 @@ class CategoryPoemDetailsScreen extends React.Component {
         // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
         // AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
 
-        // AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/8398110094')
+        AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/8398110094')
 
-        // this.showInterstitial()
+        this.showInterstitial();
 
 
 
@@ -431,9 +431,9 @@ class CategoryPoemDetailsScreen extends React.Component {
                 <AdMobBanner
                     style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
                     adSize="banner"
-                    // adUnitID="ca-app-pub-8059419171547646/7788864330"
-                    adUnitID="ca-app-pub-3940256099942544/6300978111"  //google testad
-                    testDeviceID="EMULATOR"
+                    adUnitID="ca-app-pub-8059419171547646/7788864330"
+                    // adUnitID="ca-app-pub-3940256099942544/6300978111"  //google testad
+                    // testDeviceID="EMULATOR"
 
                 />
 
