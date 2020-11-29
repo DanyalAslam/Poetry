@@ -12,6 +12,7 @@ import actions from '../../redux/actions/index.js'
 import { appTheme } from '../../Utils/index.js'
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import Toast from 'react-native-simple-toast'
+import PoemFeedCard from '../../Components/PoemFeedCard/index.js'
 
 
 
@@ -138,7 +139,7 @@ class HomeScreen extends React.Component {
                 </View>
 
                 <Text style={[styles.HeadingSeeAll,
-                { fontSize: 1.85 * vh, marginTop: 1 * vh, marginLeft: 3*vw, marginBottom: 1*vh }
+                { fontSize: 1.85 * vh, marginTop: 1 * vh, marginLeft: 3 * vw, marginBottom: 1 * vh }
                 ]}
                     numberOfLines={1}>
                     Browse through the collection of historical poets.
@@ -157,8 +158,8 @@ class HomeScreen extends React.Component {
                     inactiveSlideScale={1}
                     activeSlideAlignment="start"
                     slideStyle={{ marginHorizontal: 2 * vw }}
-                    inactiveSlideOpacity={1} 
-                    
+                    inactiveSlideOpacity={1}
+
                 />
 
             </View>
@@ -281,6 +282,42 @@ class HomeScreen extends React.Component {
         </View>
     }
 
+    _renderFeedItem = ({ item, index }) => {
+
+        return <PoemFeedCard
+            poet="John doe"
+            title="Trying to be a stud"
+            verses="Trying to be a stud, but no help and the life goes on and on"
+        />
+    }
+
+
+    _renderFeed = () => {
+
+        return <View style={{ width: 100 * vw }}>
+            <View style={{
+                flexDirection: 'row', justifyContent: 'space-between',
+                marginHorizontal: 5 * vw, alignItems: 'baseline'
+            }}>
+                <Text style={styles.Heading}>
+                    Poems Feed
+            </Text>
+
+            </View>
+            <FlatList
+                data={[0, 1, 2]}
+                style={styles.scrollView}
+                contentContainerStyle={{ alignItems: 'center', paddingTop: 3.5 * vh, paddingBottom: 1 * vh }}
+                showsVerticalScrollIndicator={false}
+                renderItem={this._renderFeedItem}
+                numColumns={1}
+                keyExtractor={(item, ind) => String(ind)}
+            />
+
+        </View>
+    }
+
+
 
     _renderSection = () => {
 
@@ -296,18 +333,16 @@ class HomeScreen extends React.Component {
                     this.props.categories.length > 0 && this._renderCategoryArea()
                 }
 
-                {/* <AdMobBanner
-                    style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
-                    adSize="banner"
-                    adUnitID="ca-app-pub-3940256099942544/6300978111"  
-                    testDeviceID="EMULATOR"
-                
-                /> */}
-
 
                 {
                     this._renderTrending()
                 }
+
+
+                {
+                    this._renderFeed()
+                }
+
             </>
         }
 
