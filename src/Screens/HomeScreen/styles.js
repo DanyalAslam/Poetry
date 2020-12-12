@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     },
     HeadingSeeAll: {
         fontFamily: fonts.SSR,
-        fontSize: 2.0 * vh,
+        fontSize: 1.8 * vh,
         color: appTheme.darkGray
     },
     textStyle: {

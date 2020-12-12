@@ -28,12 +28,12 @@ export default Styles = StyleSheet.create({
     },
     heading: {
         color: appTheme.black,
-        fontSize: 2.1 * vh,
+        fontSize: 1.6 * vh,
         fontFamily: fonts.SSB
     },
     text: {
         color: appTheme.darkGray,
-        fontSize: 1.8 * vh,
+        fontSize: 1.3 * vh,
         fontFamily: fonts.SSR
     },
    

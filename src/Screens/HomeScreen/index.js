@@ -349,7 +349,7 @@ class HomeScreen extends React.Component {
 
 
                 {
-                    this._renderFeed()
+                    // this._renderFeed()
                 }
 
             </>

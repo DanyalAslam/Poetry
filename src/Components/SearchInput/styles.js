@@ -24,16 +24,16 @@ export default Styles = StyleSheet.create({
         width: '87%',
         marginLeft: 2 * vw,
         fontFamily: fonts.SSR,
-        fontSize: 2.3 * vh, 
+        fontSize: 2.0 * vh, 
     },
     textField: {
         width: '87%',
         marginLeft: 2 * vw,
-        paddingVertical: 2*vh
+        paddingVertical: 1.5*vh
     },
     text:{
         fontFamily: fonts.SSR,
-        fontSize: 2.3 * vh,
+        fontSize: 2.0 * vh,
         color: appTheme.lightGray
     }
 });

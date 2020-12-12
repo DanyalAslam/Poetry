@@ -12,13 +12,13 @@ export default Styles = StyleSheet.create({
         paddingBottom: 1 * vw
     },
     imageStyle: {
-        width: '55%',
-        height: '45%',
+        width: 6*vw,
+        height: 6*vw,
         resizeMode: 'contain',
-        marginBottom: 1 * vw
+        marginBottom: 0.1* vh
     },
     labelStyle: {
-        fontSize: 2 * vh,
+        fontSize: 1.7 * vh,
         marginTop: 0.2*vh,
         fontFamily: fonts.SSB ,
          ...Platform.select({

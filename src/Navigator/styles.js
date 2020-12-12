@@ -14,7 +14,7 @@ export default Styles = StyleSheet.create({
     },
     headerTitle: {
         color: appTheme.white,
-        fontSize: 3.3 * vh,
+        fontSize: 3.0 * vh,
         fontFamily: fonts.SSR,
     },
     headerTitle_1: {
@@ -34,8 +34,8 @@ export default Styles = StyleSheet.create({
         backgroundColor: appTheme.white,
         height: 8.7 * vh,
         elevation: 14,
-        borderTopWidth: 0.1 * vw,
-        borderColor: appTheme.lightGray,
+        // borderTopWidth: 0.1 * vw,
+        // borderColor: appTheme.lightGray,
         shadowColor: appTheme.darkGray,
         shadowOffset: {
             width: 1 * vw,

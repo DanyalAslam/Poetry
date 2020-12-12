@@ -11,7 +11,7 @@ export default Styles = StyleSheet.create({
     },
     Title: {
         color: appTheme.white,
-        fontSize: 3.3 * vh,
+        fontSize: 3.0 * vh,
         fontFamily: fonts.SSR,
         alignSelf: 'center'
     },
