@@ -81,11 +81,16 @@ class HomeScreen extends React.Component {
 
     _navigateToPoetDetails = (author) => {
 
-        this.props.navigation.navigate('PoetStack', {
-            screen: 'PoetPoemsScreen',
-            params: {
-                title: author
-            }
+        // this.props.navigation.navigate('PoetStack', {
+        //     screen: 'PoetPoemsScreen',
+        //     params: {
+        //         title: author
+        //     }
+        // })
+
+        this.props.navigation.navigate('PoetPoemsScreen', {
+            title: author
+
         })
     }
 
@@ -287,7 +292,7 @@ class HomeScreen extends React.Component {
         return <PoemFeedCard
             poet="John doe"
             title="Trying to be a stud"
-            verses="Trying to be a stud, but no help and the life goes on and on"
+            verses="Trying to be a stud, but no help and the life goes on and onTrying to be a stud, but no help and the life goes on and on"
         />
     }
 

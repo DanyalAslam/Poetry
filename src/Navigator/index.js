@@ -22,6 +22,7 @@ import SearchModal from '../Components/SearchModal';
 import CategoryPoemDetailsScreen from '../Screens/CategoryPoemDetailsScreen';
 import actions from '../redux/actions';
 import { connect } from 'react-redux';
+import PoemDetailScreen from '../Screens/PoemDetailScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -31,6 +32,7 @@ const CategoryStack = createStackNavigator();
 const PoetStack = createStackNavigator();
 const MoreStack = createStackNavigator();
 const WishStack = createStackNavigator();
+const RootStack = createStackNavigator();
 
 
 class MainNavigator extends React.Component {
@@ -58,9 +60,9 @@ class MainNavigator extends React.Component {
 
     if (routeName == "MoreScreen" || routeName == "CategoryDetailsScreen"
       || routeName == "CategoryPoemDetailsScreen" || routeName == 'PoetPoemsScreen'
-      || routeName == 'WishListScreen' || routeName == 'PoetPoemDetailScreen'
+      || routeName == 'WishListScreen' || routeName == 'PoemDetailScreen'
       || routeName == 'WishListDetailScreen'
-      ) {
+    ) {
 
       _styles = styles.headerTitle_1
 
@@ -98,8 +100,8 @@ class MainNavigator extends React.Component {
 
 
     if (routeName == 'CategoryDetailsScreen' || routeName == 'PoetPoemsScreen'
-      || routeName == "CategoryPoemDetailsScreen"|| routeName == 'WishListDetailScreen'
-      || routeName == 'WishListScreen' || routeName == 'PoetPoemDetailScreen') {
+      || routeName == "CategoryPoemDetailsScreen" || routeName == 'WishListDetailScreen'
+      || routeName == 'WishListScreen' || routeName == 'PoemDetailScreen') {
 
       return <RippleTouch
         onPress={() => this._onBackPress(props)}
@@ -139,7 +141,7 @@ class MainNavigator extends React.Component {
 
       case 'CategoryDetailsScreen': {
 
-        return props.route.params.title
+        return props.route.params?.title
       }
 
       case 'CategoryPoemDetailsScreen': {
@@ -152,10 +154,10 @@ class MainNavigator extends React.Component {
       }
 
       case 'PoetPoemsScreen': {
-        return props.route.params.title
+        return props.route.params?.title
       }
 
-      case 'PoetPoemDetailScreen': {
+      case 'PoemDetailScreen': {
         return 'Details'
       }
 
@@ -298,7 +300,7 @@ class MainNavigator extends React.Component {
           component={PoetsScreen}
         />
 
-        <PoetStack.Screen
+        {/* <PoetStack.Screen
           name="PoetPoemsScreen"
           component={PoetPoemsScreen}
           options={
@@ -308,7 +310,7 @@ class MainNavigator extends React.Component {
               gestureDirection: 'horizontal'
             }
           }
-        />
+        /> */}
 
         <PoetStack.Screen
           name="PoetPoemDetailScreen"
@@ -334,7 +336,7 @@ class MainNavigator extends React.Component {
       <MoreStack.Navigator
         // screenOptions={this._renderHeaderWithSearch}
         // headerMode="screen"
-        screenOptions={{headerShown: false}}
+        screenOptions={{ headerShown: false }}
       >
         <MoreStack.Screen
           name="MoreScreen"
@@ -437,12 +439,61 @@ class MainNavigator extends React.Component {
     );
   }
 
+
+  RootStackNavigator = () => {
+
+    return (
+      <RootStack.Navigator
+      // screenOptions={this._renderHeaderWithSearch}
+      // headerMode="screen"
+      // screenOptions={{headerShown: false}}
+      >
+        <RootStack.Screen
+          name="TabStack"
+          component={this.TabNavigator}
+          options={{ headerShown: false }}
+        />
+
+        <RootStack.Screen
+          name="PoetPoemsScreen"
+          component={PoetPoemsScreen}
+          options={(props) => {
+            return {
+              ...TransitionPresets.FadeFromBottomAndroid,
+              gestureEnabled: true,
+              gestureDirection: 'horizontal',
+              ...this._renderHeaderWithSearch(props)
+            }
+          }
+          }
+        />
+
+        <RootStack.Screen
+          name="PoemDetailScreen"
+          component={PoemDetailScreen}
+          options={(props) => {
+            return {
+              ...TransitionPresets.SlideFromRightIOS,
+              gestureEnabled: true,
+              gestureDirection: 'horizontal',
+              ...this._renderHeaderWithSearch(props)
+            }
+          }
+          }
+        />
+
+      </RootStack.Navigator>
+    )
+  }
+
+
   render() {
 
     return (
 
       <NavigationContainer>
-        <this.TabNavigator {...this.props} />
+        {/* <this.TabNavigator {...this.props} /> */}
+        <this.RootStackNavigator {...this.props} />
       </NavigationContainer>
 
     )

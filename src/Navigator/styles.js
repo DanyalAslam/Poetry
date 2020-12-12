@@ -19,7 +19,7 @@ export default Styles = StyleSheet.create({
     },
     headerTitle_1: {
         color: appTheme.white,
-        fontSize: 3.3 * vh,
+        fontSize: 2.8 * vh,
         fontFamily: fonts.SSR,
         marginTop: 3 * vh
     },

@@ -13,12 +13,14 @@ const PoemFeedCard = (props) => {
 
     return (
         <View>
-         
+
 
 
             <RippleTouch style={styles.ripple} rippleColor="black" onPress={props.onPress}>
 
-                <View style={{ marginVertical: 0.5 * vh }}>
+
+
+                <View style={{ marginVertical: 0.3 * vh }}>
                     <Text style={styles.heading}>
                         Poet:
                 </Text>
@@ -29,7 +31,7 @@ const PoemFeedCard = (props) => {
 
 
 
-                <View style={{ marginVertical: 0.5 * vh }}>
+                <View style={{ marginVertical: 0.3 * vh }}>
                     <Text style={styles.heading}>
                         Title:
                 </Text>
@@ -38,7 +40,8 @@ const PoemFeedCard = (props) => {
                     </Text>
                 </View>
 
-                <View style={{ marginVertical: 0.5 * vh }}>
+
+                <View style={{ marginVertical: 0.3 * vh }}>
                     <Text style={styles.heading}>
                         Verses:
                 </Text>
@@ -56,7 +59,7 @@ const PoemFeedCard = (props) => {
 const mapStateToProps = state => {
 
     return {
- 
+
 
     }
 

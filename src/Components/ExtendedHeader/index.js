@@ -16,7 +16,8 @@ export default ExtendedHeader = (props) => {
             && _routeName != 'CategoryDetailsScreen'
             && _routeName != 'WishListScreen'
             && _routeName != 'WishListStack'
-            && _routeName != "PoetPoemDetailScreen"
+            // && _routeName != "PoetPoemDetailScreen"
+            && _routeName != "PoemDetailScreen"
             && _routeName != "CategoryPoemDetailsScreen"
             && _routeName != 'PoetPoemsScreen'
             && _routeName != 'WishListDetailScreen'

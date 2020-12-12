@@ -36,6 +36,9 @@ export default Styles = StyleSheet.create({
         fontSize: 1.8 * vh,
         fontFamily: fonts.SSR
     },
-   
+    row:{
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    }
 
 });
