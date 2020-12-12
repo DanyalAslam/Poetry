@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
         paddingBottom: 4 * vh,
         elevation: 3,
         backgroundColor: appTheme.white,
+    
     },
     topCardChildRow: {
         flexDirection: "row",
