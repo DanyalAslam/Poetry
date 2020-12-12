@@ -111,7 +111,7 @@ class SearchModal extends React.Component {
     _navigate = (item) => {
 
         this.props.hideSearchModal()
-        this.props.navigation.navigate('PoetPoemDetailScreen', { poem: item, fromSearch: true })
+        this.props.navigation.navigate('PoemDetailScreen', { poem: item, fromSearch: true })
         // this.setState({ search: '', results: [], message: '' })
     }
 

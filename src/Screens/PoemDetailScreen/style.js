@@ -24,18 +24,18 @@ export default Styles = StyleSheet.create({
    },
 
    title: {
-      fontSize: 2.8*vh,
+      fontSize: 2.2*vh,
       fontFamily: fonts.SSB
    },
 
    text: {
-      fontSize: 2.4*vh,
+      fontSize: 1.8*vh,
       fontFamily: fonts.SSR,
       marginTop: 0.5*vh,
       width: 70*vw
    },
    lines:{
-      fontSize: 2*vh,
+      fontSize: 1.8*vh,
       fontFamily: fonts.SSR,
       marginTop: 0.5*vh,
       marginLeft: 3 * vw,
