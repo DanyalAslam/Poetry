@@ -228,7 +228,7 @@ class HomeScreen extends React.Component {
 
     _navigateToPoemDetails = (poem) => {
 
-        this.props.navigation.navigate('PoetPoemDetailScreen', { poem, makeApiCall: true })
+        this.props.navigation.navigate('PoemDetailScreen', { poem, makeApiCall: true })
     }
 
 

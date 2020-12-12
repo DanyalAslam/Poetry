@@ -29,7 +29,7 @@ export default Styles = StyleSheet.create({
         elevation: 5,
         borderBottomWidth: 0.4 * vw,
         borderBottomColor: appTheme.lightGray,
-        height: 10 * vh,
+        height: 9 * vh,
         backgroundColor: appTheme.black,
    
     },
@@ -38,7 +38,7 @@ export default Styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row',
-        marginTop: 2 * vh,
+        marginTop: 0.5 * vh,
         width: '60%'
     }
 

@@ -35,12 +35,7 @@ class PoemDetailScreen extends React.Component {
 
         this.backHandler = BackHandler.addEventListener("hardwareBackPress", this.backAction);
 
-        // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-        // AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
 
-        AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
-
-        this.showInterstitial()
 
 
 
@@ -50,13 +45,20 @@ class PoemDetailScreen extends React.Component {
 
             if (this.props.route?.params?.makeApiCall) {
 
+                AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+                AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
+
+                // AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
+
+                this.showInterstitial();
+
                 this._getPoem(success => {
                     this.showReviewPopUp();
                 })
             }
             else {
-                this.setState({ poemDetails: this.props.route.params.poem }, ()=>{
-                    setTimeout(this.showReviewPopUp,2000)
+                this.setState({ poemDetails: this.props.route.params.poem }, () => {
+                    setTimeout(this.showReviewPopUp, 2000)
                 })
             }
         })
@@ -270,10 +272,10 @@ class PoemDetailScreen extends React.Component {
             contentUrl: playStoreUrl,
             quote: _lines.join('')
         };
-        ShareDialog.show(shareLinkContent).then(success=>{
+        ShareDialog.show(shareLinkContent).then(success => {
 
-        }, error=>{
-            console.log("error ",error);
+        }, error => {
+            console.log("error ", error);
             Toast.show("Some error occured while sharing to facebook")
         })
 
@@ -581,10 +583,10 @@ class PoemDetailScreen extends React.Component {
                     style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
                     adSize="banner"
                     onAdFailedToLoad={(e) => console.log(e)}
-                    // adUnitID="ca-app-pub-3940256099942544/6300978111" //google testad
-                    // testDeviceID="EMULATOR"
-                    adUnitID="ca-app-pub-8059419171547646/7352367170"
-               
+                    adUnitID="ca-app-pub-3940256099942544/6300978111" //google testad
+                    testDeviceID="EMULATOR"
+                // adUnitID="ca-app-pub-8059419171547646/7352367170"
+
 
                 />
 

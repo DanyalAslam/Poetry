@@ -180,7 +180,7 @@ class SearchModal extends React.Component {
                             value={this.state.search}
                             onChangeText={search => this.setState({ search })}
                             onSubmitEditing={this._onSubmit}
-                            style={{ marginHorizontal: 5 * vw, marginTop: 1 * vh }}
+                            style={{ marginHorizontal: 5 * vw, marginTop: 1.4 * vh }}
                             autoFocus={true}
                         />
 

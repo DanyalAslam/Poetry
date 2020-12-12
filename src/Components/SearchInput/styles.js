@@ -13,6 +13,7 @@ export default Styles = StyleSheet.create({
         borderRadius: 2 * vw, 
         borderWidth: 0.04 * vw,
         borderColor: appTheme.lightGray,  
+        
     },
     imageStyle: {
         width: 5 * vw,
@@ -24,7 +25,7 @@ export default Styles = StyleSheet.create({
         width: '87%',
         marginLeft: 2 * vw,
         fontFamily: fonts.SSR,
-        fontSize: 2.0 * vh, 
+        fontSize: 2.0 * vh,  
     },
     textField: {
         width: '87%',

@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import styles from './styles.js'
 import { Header } from '@react-navigation/stack'
 import SearchInput from '../SearchInput/index.js'
+import { vh } from '../../Units/index.js'
 
 
 export default ExtendedHeader = (props) => {
@@ -23,7 +24,7 @@ export default ExtendedHeader = (props) => {
             && _routeName != 'WishListDetailScreen'
         ) {
 
-            return <SearchInput mode="touchable" />
+            return <SearchInput mode="touchable" style={{ marginTop: 0.5 * vh }} />
         }
 
         return null

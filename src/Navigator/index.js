@@ -227,17 +227,6 @@ class MainNavigator extends React.Component {
           }
         />
 
-        <WishStack.Screen
-          name="WishListDetailScreen"
-          component={PoemDetailScreen}
-          options={
-            {
-              ...TransitionPresets.SlideFromRightIOS,
-              gestureEnabled: true,
-              gestureDirection: 'horizontal'
-            }
-          }
-        />
 
       </WishStack.Navigator>
 
