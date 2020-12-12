@@ -13,13 +13,11 @@ import CategoriesScreen from '../Screens/CategoriesScreen';
 import CategoryDetailsScreen from '../Screens/CategoryDetailsScreen';
 import PoetPoemsScreen from '../Screens/PoetPoemsScreen';
 import WishListScreen from '../Screens/WishListScreen';
-import PoetPoemDetailScreen from '../Screens/PoetPoemDetailScreen'
 
 import RippleTouch from '../Components/RippleTouch';
 import { Image } from 'react-native';
 import allImages from '../assets/images';
-import SearchModal from '../Components/SearchModal';
-import CategoryPoemDetailsScreen from '../Screens/CategoryPoemDetailsScreen';
+import SearchModal from '../Components/SearchModal'; 
 import actions from '../redux/actions';
 import { connect } from 'react-redux';
 import PoemDetailScreen from '../Screens/PoemDetailScreen';
@@ -76,7 +74,7 @@ class MainNavigator extends React.Component {
 
     const routeName = props.route.name
 
-    if (routeName == 'PoetPoemDetailScreen') {
+    if (routeName == 'PoemDetailScreen') {
       if (props.route?.params?.fromSearch) {
 
         props.navigation.popToTop()
@@ -231,7 +229,7 @@ class MainNavigator extends React.Component {
 
         <WishStack.Screen
           name="WishListDetailScreen"
-          component={PoetPoemDetailScreen}
+          component={PoemDetailScreen}
           options={
             {
               ...TransitionPresets.SlideFromRightIOS,
@@ -272,17 +270,7 @@ class MainNavigator extends React.Component {
           }
         />
 
-        <CategoryStack.Screen
-          name="CategoryPoemDetailsScreen"
-          component={CategoryPoemDetailsScreen}
-          options={
-            {
-              ...TransitionPresets.SlideFromRightIOS,
-              gestureEnabled: true,
-              gestureDirection: 'horizontal'
-            }
-          }
-        />
+       
 
       </CategoryStack.Navigator>
     )
@@ -312,7 +300,7 @@ class MainNavigator extends React.Component {
           }
         /> */}
 
-        <PoetStack.Screen
+        {/* <PoetStack.Screen
           name="PoetPoemDetailScreen"
           component={PoetPoemDetailScreen}
           options={
@@ -322,7 +310,7 @@ class MainNavigator extends React.Component {
               gestureDirection: 'horizontal'
             }
           }
-        />
+        /> */}
 
 
 

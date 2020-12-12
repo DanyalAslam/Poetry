@@ -270,7 +270,12 @@ class PoemDetailScreen extends React.Component {
             contentUrl: playStoreUrl,
             quote: _lines.join('')
         };
-        ShareDialog.show(shareLinkContent);
+        ShareDialog.show(shareLinkContent).then(success=>{
+
+        }, error=>{
+            console.log("error ",error);
+            Toast.show("Some error occured while sharing to facebook")
+        })
 
     }
 
@@ -556,6 +561,7 @@ class PoemDetailScreen extends React.Component {
                     <RefreshControl
                         refreshing={this.state.refreshing}
                         colors={[appTheme.lightGray]}
+                        onRefresh={this._getPoem}
                     />
                 }
             >
