@@ -3,6 +3,8 @@ import { View, Image, Text, StyleSheet } from 'react-native'
 import React, { Component } from 'react';
 import styles from './styles';
 import RippleTouch from '../RippleTouch';
+import ImageBackground from 'react-native/Libraries/Image/ImageBackground';
+import { vw } from '../../Units';
 
 
 class ArtistCard extends Component {
@@ -11,28 +13,31 @@ class ArtistCard extends Component {
         let props = this.props
 
         return (
-            <View style={[styles.ripple]}>
-                <RippleTouch rippleColor="black" onPress={props.onPress}>
+            <RippleTouch rippleColor="black" 
+            onPress={props.onPress} 
+            style={[styles.ripple]}
+            rippleContainerBorderRadius={3*vw}
+            >
+                <ImageBackground
+                    source={props.source}
+                    imageStyle={styles.imageStyle}
+                    progressiveRenderingEnabled
+                    style={[styles.image]}
+                >
 
 
-                    <Image
-                        source={props.source}
-                        style={styles.imageStyle}
-                        progressiveRenderingEnabled
-                    />
 
-                </RippleTouch>
+                    {/* <Text style={styles.title} numberOfLines={1}>
+                        Poet:
+                    </Text> */}
 
-                <Text style={styles.title} numberOfLines={1}>
-                    Poet:
-                </Text>
-
-                <Text style={styles.text} numberOfLines={2}>
-                    {props.poet}
-                </Text>
+                    <Text style={styles.text} numberOfLines={2}>
+                        {props.poet}
+                    </Text>
 
 
-            </View>
+                </ImageBackground>
+            </RippleTouch>
         )
     }
 }

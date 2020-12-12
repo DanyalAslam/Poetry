@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         
         width: 100 * vw,
         marginTop: 3 * vh,
-        paddingLeft: 5 * vw,
+        // paddingLeft: 5 * vw,
     },
     categroyScroll: {
         paddingHorizontal: 5 * vw,
@@ -31,28 +31,29 @@ const styles = StyleSheet.create({
          
         borderTopLeftRadius: 5 * vw,
         borderBottomLeftRadius: 5 * vw,
-        paddingLeft: 2 * vw,
+        // paddingLeft: 2 * vw,
         paddingTop: 2 * vh,
-        paddingBottom: 4 * vh,
-        elevation: 3,
-        backgroundColor: appTheme.white,
+        // paddingBottom: 4 * vh,
+        // elevation: 3,
+        // backgroundColor: appTheme.white,
     
     },
     topCardChildRow: {
         flexDirection: "row",
         justifyContent: "space-between",
-        paddingHorizontal: 3 * vw,
+        paddingRight: 3 * vw,
+        paddingLeft: 5 * vw,
         // marginBottom:1.5*vh,
         alignItems: 'baseline',
         marginRight: 2 * vw, 
     },
     Heading: {
         fontFamily: fonts.SSB,
-        fontSize: 3.2 * vh,
+        fontSize: 2.5 * vh,
     },
     HeadingSeeAll: {
         fontFamily: fonts.SSR,
-        fontSize: 2.2 * vh,
+        fontSize: 2.0 * vh,
         color: appTheme.darkGray
     },
     textStyle: {

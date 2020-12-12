@@ -144,9 +144,10 @@ class HomeScreen extends React.Component {
                 </View>
 
                 <Text style={[styles.HeadingSeeAll,
-                { fontSize: 1.85 * vh, marginTop: 1 * vh, marginLeft: 3 * vw, marginBottom: 1 * vh }
+                { fontSize: 1.65 * vh, marginTop: 1 * vh, marginBottom: 1 * vh, paddingLeft: 5 * vw, }
                 ]}
-                    numberOfLines={1}>
+                // numberOfLines={1}
+                >
                     Browse through the collection of historical poets.
                      </Text>
 
@@ -156,15 +157,15 @@ class HomeScreen extends React.Component {
                     renderItem={this._renderPoetCard}
                     sliderWidth={100 * vw}
                     itemWidth={30 * vw}
-                    autoplay={true}
-                    loop={true}
-                    autoplayInterval={2000}
+                    // autoplay={true}
+                    // loop={true}
+                    // autoplayInterval={2000}
                     horizontal={true}
                     inactiveSlideScale={1}
                     activeSlideAlignment="start"
-                    slideStyle={{ marginHorizontal: 2 * vw }}
+                    slideStyle={{ marginHorizontal: 1 * vw }}
                     inactiveSlideOpacity={1}
-
+                    contentContainerCustomStyle={{marginLeft: 1*vw}}
                 />
 
             </View>
@@ -177,7 +178,7 @@ class HomeScreen extends React.Component {
 
 
         return <>
-            <View style={[styles.topCardChildRow, { marginTop: 5 * vh, marginLeft: 3 * vw, marginRight: 6 * vw, }]}>
+            <View style={[styles.topCardChildRow, { marginTop: 5 * vh,  marginRight: 6 * vw, }]}>
 
                 <Text style={styles.Heading}>
                     Categories
@@ -199,6 +200,7 @@ class HomeScreen extends React.Component {
                     source={{ uri: this.props.categories[0].image }}
                     title={this.props.categories[0].title}
                     style={styles.categoryCardStyle}
+                    textStyle={{fontSize: 2.2*vh}}
                     onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[0].title })}
                 />
 
@@ -206,6 +208,7 @@ class HomeScreen extends React.Component {
                     source={{ uri: this.props.categories[1].image }}
                     title={this.props.categories[1].title}
                     style={styles.categoryCardStyle}
+                    textStyle={{fontSize: 2.2*vh}}
                     onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[1].title })}
                 />
 
@@ -213,6 +216,7 @@ class HomeScreen extends React.Component {
                     source={{ uri: this.props.categories[2].image }}
                     title={this.props.categories[2].title}
                     style={styles.categoryCardStyle}
+                    textStyle={{fontSize: 2.2*vh}}
                     onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[2].title })}
                 />
 
@@ -277,7 +281,7 @@ class HomeScreen extends React.Component {
             <FlatList
                 data={this.props.homePoems}
                 style={styles.scrollView}
-                contentContainerStyle={{ alignItems: 'center', paddingTop: 3.5 * vh, paddingBottom: 1 * vh }}
+                contentContainerStyle={{ alignItems: 'center', paddingTop: 0.8 * vh, paddingBottom: 1 * vh }}
                 showsVerticalScrollIndicator={false}
                 renderItem={this._renderPoems}
                 numColumns={2}
@@ -299,7 +303,7 @@ class HomeScreen extends React.Component {
 
     _renderFeed = () => {
 
-        return <View style={{ width: 100 * vw }}>
+        return <View style={{ width: 100 * vw, marginTop: 2*vh }}>
             <View style={{
                 flexDirection: 'row', justifyContent: 'space-between',
                 marginHorizontal: 5 * vw, alignItems: 'baseline'
@@ -312,7 +316,7 @@ class HomeScreen extends React.Component {
             <FlatList
                 data={[0, 1, 2]}
                 style={styles.scrollView}
-                contentContainerStyle={{ alignItems: 'center', paddingTop: 3.5 * vh, paddingBottom: 1 * vh }}
+                contentContainerStyle={{ alignItems: 'center', paddingTop: 0.8 * vh, paddingBottom: 1 * vh }}
                 showsVerticalScrollIndicator={false}
                 renderItem={this._renderFeedItem}
                 numColumns={1}

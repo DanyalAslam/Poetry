@@ -4,36 +4,36 @@ import { appTheme } from '../../Utils';
 import fonts from '../../assets/fonts';
 
 export default Styles = StyleSheet.create({
-    ripple: {
-        width: 30 * vw, 
-        height: 25 * vh ,
-        marginVertical: 1 * vh,
-        // marginHorizontal: 2 * vw, 
-        backgroundColor: 'white',  
-        // alignItems: 'center'
+    ripple: { 
+        marginVertical: 1 * vh, 
+    },
+    image:{
+        width: 30 * vw,
+        height: 25 * vh, 
+        justifyContent: 'flex-end',
+        paddingBottom: 1 * vh
+
     },
 
     imageStyle: {
-        width: 30 * vw, 
-        height: 20*vh,
-        borderRadius: 3 * vw, 
-        marginBottom: 1.5*vh,
+        borderRadius: 3 * vw,
     },
-  
+
     title: {
         color: appTheme.black,
         fontSize: 2 * vh,
-        fontFamily: fonts.SSB, 
+        fontFamily: fonts.SSB,
         textAlign: 'left',
-        marginLeft: 1*vw
+        marginLeft: 1 * vw
 
     },
     text: {
-        color: appTheme.darkGray,
-        fontSize: 1.7 * vh,
-        fontFamily: fonts.SSR, 
+        color: appTheme.white,
+        fontSize: 1.3 * vh,
+        fontFamily: fonts.SSR,
         textAlign: 'left',
-        marginLeft: 1*vw
+        marginLeft: 2 * vw,
+        width: 20 * vw
 
     },
 

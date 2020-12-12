@@ -27,7 +27,7 @@ export default Styles = StyleSheet.create({
     },
     title: {
         color: appTheme.white,
-        fontSize: 4 * vh,
+        fontSize: 3 * vh,
         fontFamily: fonts.SSR
     }
 
