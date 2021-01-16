@@ -44,7 +44,7 @@ class WishListScreen extends React.Component {
 
     _renderEmpty = () => {
 
-        return <EmptyComponent message="Nothing in your wishlist" />
+        return <EmptyComponent message="Nothing in your favorites" />
 
     }
 

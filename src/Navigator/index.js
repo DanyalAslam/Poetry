@@ -56,11 +56,7 @@ class MainNavigator extends React.Component {
 
     let _styles = styles.headerTitle
 
-    if (routeName == "MoreScreen" || routeName == "CategoryDetailsScreen"
-      || routeName == "CategoryPoemDetailsScreen" || routeName == 'PoetPoemsScreen'
-      || routeName == 'WishListScreen' || routeName == 'PoemDetailScreen'
-      || routeName == 'WishListDetailScreen'
-    ) {
+    if (routeName != "HomeScreen"  ) {
 
       _styles = styles.headerTitle_1
 
@@ -164,7 +160,7 @@ class MainNavigator extends React.Component {
       }
 
       case 'WishListScreen': {
-        return 'WishList'
+        return 'Favorites'
       }
 
       case 'WishListStack': {
@@ -358,6 +354,7 @@ class MainNavigator extends React.Component {
           indicatorStyle: styles.indicatorStyle
         }}
         swipeEnabled={true}
+
       >
         <Tabs.Screen
           name="HomeStack"

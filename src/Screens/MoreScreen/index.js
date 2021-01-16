@@ -28,7 +28,7 @@ class MoreScreen extends React.Component {
                                 style={styles.iconStyle}
                             />
                             <Text style={styles.textStyle}>
-                                WishList
+                            Favorites
                             </Text>
                         </View>
 

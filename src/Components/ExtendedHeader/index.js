@@ -13,15 +13,7 @@ export default ExtendedHeader = (props) => {
 
         let _routeName = props.scene.route.name
 
-        if (_routeName != 'MoreScreen'
-            && _routeName != 'CategoryDetailsScreen'
-            && _routeName != 'WishListScreen'
-            && _routeName != 'WishListStack'
-            // && _routeName != "PoetPoemDetailScreen"
-            && _routeName != "PoemDetailScreen"
-            && _routeName != "CategoryPoemDetailsScreen"
-            && _routeName != 'PoetPoemsScreen'
-            && _routeName != 'WishListDetailScreen'
+        if (_routeName == 'HomeScreen'
         ) {
 
             return <SearchInput mode="touchable" style={{ marginTop: 0.5 * vh }} />
