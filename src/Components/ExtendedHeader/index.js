@@ -13,10 +13,9 @@ export default ExtendedHeader = (props) => {
 
         let _routeName = props.scene.route.name
 
-        if (_routeName == 'HomeScreen'
-        ) {
+        if (_routeName == 'HomeScreen') {
 
-            return <SearchInput mode="touchable" style={{ marginTop: 0.5 * vh }} />
+            return <SearchInput mode="touchable" style={{ marginTop: 0.5 * vh }} navigation={props.navigation} />
         }
 
         return null

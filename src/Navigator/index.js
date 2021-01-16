@@ -17,10 +17,11 @@ import WishListScreen from '../Screens/WishListScreen';
 import RippleTouch from '../Components/RippleTouch';
 import { Image } from 'react-native';
 import allImages from '../assets/images';
-import SearchModal from '../Components/SearchModal'; 
+import SearchModal from '../Components/SearchModal';
 import actions from '../redux/actions';
 import { connect } from 'react-redux';
 import PoemDetailScreen from '../Screens/PoemDetailScreen';
+import SearchScreen from '../Screens/SearchScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -56,7 +57,7 @@ class MainNavigator extends React.Component {
 
     let _styles = styles.headerTitle
 
-    if (routeName != "HomeScreen"  ) {
+    if (routeName != "HomeScreen") {
 
       _styles = styles.headerTitle_1
 
@@ -70,21 +71,7 @@ class MainNavigator extends React.Component {
 
     const routeName = props.route.name
 
-    if (routeName == 'PoemDetailScreen') {
-      if (props.route?.params?.fromSearch) {
-
-        props.navigation.popToTop()
-        this.props.showSearchModal()
-
-      }
-      else {
-        props.navigation.pop()
-      }
-    }
-    else {
-      props.navigation.pop()
-    }
-
+    props.navigation.goBack()
   }
 
 
@@ -95,7 +82,9 @@ class MainNavigator extends React.Component {
 
     if (routeName == 'CategoryDetailsScreen' || routeName == 'PoetPoemsScreen'
       || routeName == "CategoryPoemDetailsScreen" || routeName == 'WishListDetailScreen'
-      || routeName == 'WishListScreen' || routeName == 'PoemDetailScreen') {
+      || routeName == 'WishListScreen' || routeName == 'PoemDetailScreen'
+
+    ) {
 
       return <RippleTouch
         onPress={() => this._onBackPress(props)}
@@ -127,6 +116,10 @@ class MainNavigator extends React.Component {
 
       case 'HomeScreen': {
         return 'Poetry'
+      }
+
+      case 'SearchScreen': {
+        return null
       }
 
       case 'CategoriesScreen': {
@@ -193,6 +186,8 @@ class MainNavigator extends React.Component {
 
           <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
 
+
+
         </HomeStack.Navigator>
 
         <SearchModal navigation={props.navigation} />
@@ -255,7 +250,7 @@ class MainNavigator extends React.Component {
           }
         />
 
-       
+
 
       </CategoryStack.Navigator>
     )
@@ -451,6 +446,21 @@ class MainNavigator extends React.Component {
               gestureEnabled: true,
               gestureDirection: 'horizontal',
               ...this._renderHeaderWithSearch(props)
+            }
+          }
+          }
+        />
+
+        <RootStack.Screen
+          name="SearchScreen"
+          component={SearchScreen}
+          options={(props) => {
+            return {
+              ...TransitionPresets.SlideFromRightIOS,
+              gestureEnabled: true,
+              gestureDirection: 'horizontal',
+              headerShown: false
+              // ...this._renderHeaderWithSearch(props)
             }
           }
           }

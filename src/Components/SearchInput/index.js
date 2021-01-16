@@ -11,24 +11,21 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const SearchInput = (props) => {
 
+    const navigateToSearchScreen = () => {
+        props.navigation.navigate('SearchScreen')
+    }
+
     const _renderSearch = () => {
         if (props.mode == "touchable") {
 
             return <TouchableOpacity
-            activeOpacity={1}
-            style={[styles.container, props.style]} onPress={props.showSearchModal}>
+                activeOpacity={1}
+                style={[styles.container, props.style]} onPress={navigateToSearchScreen}>
                 <Image source={allImages.generalIcons.searchIcon} style={styles.imageStyle} />
                 <View style={styles.textField}>
                     <Text style={styles.text}>Search</Text>
                 </View>
             </TouchableOpacity>
-
-            // return <RippleTouch style={[styles.container, props.style]} onPress={props.showSearchModal}>
-            //     <Image source={allImages.generalIcons.searchIcon} style={styles.imageStyle} />
-            //     <View style={styles.textField}>
-            //    <Text style={styles.text}>Search</Text>
-            //     </View>
-            // </RippleTouch>
         }
 
         return <View style={[styles.container, props.style]}>
@@ -52,11 +49,6 @@ const SearchInput = (props) => {
     )
 }
 
-const mapDispatchToProps = dispatch => {
 
-    return {
-        showSearchModal: () => dispatch(actions.showSearch())
-    }
-}
 
-export default connect(null, mapDispatchToProps)(SearchInput)
+export default SearchInput;
