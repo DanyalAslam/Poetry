@@ -16,7 +16,7 @@ class PoetsScreen extends React.Component {
 
     state = {
        
-        refreshing: false,
+        refreshing: true,
         page: 1
     }
 
@@ -27,7 +27,9 @@ class PoetsScreen extends React.Component {
                 this.setState({ page: 1 })
             }
 
-        })
+        });
+
+        this._getPoets();
     }
 
     componentWillUnmount() {

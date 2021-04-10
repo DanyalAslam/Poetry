@@ -10,28 +10,7 @@ import actions from '../../redux/actions/index.js'
 
 class CategoriesScreen extends React.Component {
     state = {
-        mockData: [
-            {
-                source: allImages.generalImages.loveImage,
-                title: "Love"
-            },
-            {
-                source: allImages.generalImages.sadImage,
-                title: "Sad"
-            },
-            {
-                source: allImages.generalImages.friendImage,
-                title: "Friendship"
-            },
-            {
-                source: allImages.generalImages.happyImage,
-                title: "Happy"
-            },
-            {
-                source: allImages.generalImages.enemyImage,
-                title: "Enemy"
-            }
-        ]
+
     }
     componentDidMount() {
         this.props.getCategories(success => {
@@ -54,7 +33,7 @@ class CategoriesScreen extends React.Component {
             />
         })
     }
-    
+
     render() {
         return (
             <View style={styles.container}>
@@ -73,7 +52,7 @@ class CategoriesScreen extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => {
-    return { 
+    return {
         getCategories: (success, error) => dispatch(actions.getCategories(success, error))
     }
 }

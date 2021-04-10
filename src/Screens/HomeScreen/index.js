@@ -19,45 +19,17 @@ import PoemFeedCard from '../../Components/PoemFeedCard/index.js'
 class HomeScreen extends React.Component {
 
     state = {
-        refreshing: false
+        refreshing: true
     }
 
 
     componentDidMount() {
 
-        this.backHandler = BackHandler.addEventListener("hardwareBackPress", this.backAction);
-
-
         this._getHomeData();
 
 
-
-
     }
 
-
-
-
-    backAction = () => {
-
-        // console.log(this.props.searchModal);
-
-
-        //     if(this.props.searchModal){
-        //         this.props.hideSearchModal()
-        //     }
-        //   else{
-        //       BackHandler.exitApp()
-        //   }
-
-        return true;
-
-    }
-
-
-    componentWillUnmount() {
-        this.backHandler.remove();
-    }
 
 
     _getHomeData = () => {
