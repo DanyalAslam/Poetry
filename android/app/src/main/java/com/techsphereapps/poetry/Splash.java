@@ -23,7 +23,7 @@ public class Splash {
 
     private static Dialog dialog;
 
-    private static ImageView Book, Feather, Poetry;
+    private static ImageView Logo;
 
     private static boolean shouldHide = false;
 
@@ -41,17 +41,11 @@ public class Splash {
         int vw = displayMetrics.widthPixels / 100;
 
 
-        Book = new ImageView(applicationContext);
-        Book.setImageDrawable(getDrawable(applicationContext,R.drawable.book));
-        Book.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
-        Feather = new ImageView(applicationContext);
-        Feather.setImageDrawable(getDrawable(applicationContext,R.drawable.leaf));
-        Feather.setScaleType(ImageView.ScaleType.FIT_XY);
+        Logo = new ImageView(applicationContext);
+        Logo.setImageDrawable(getDrawable(applicationContext,R.drawable.logo));
+        Logo.setScaleType(ImageView.ScaleType.FIT_XY);
 
-        Poetry = new ImageView(applicationContext);
-        Poetry.setImageDrawable(getDrawable(applicationContext,R.drawable.poetry));
-        Poetry.setScaleType(ImageView.ScaleType.FIT_XY);
 
 
 
@@ -69,42 +63,11 @@ public class Splash {
 
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 
-        relativeLayout.addView(Feather, layoutParams);
-        Feather.getLayoutParams().width = 25*vw;
-        Feather.getLayoutParams().height = 17*vh;
-        Feather.requestLayout();
-         Feather.setY(-2*vh);
-          Feather.setX(-6*vw);
-        Feather.setVisibility(View.INVISIBLE);
-
-
-        layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-
-        relativeLayout.addView(Book, layoutParams);
-        Book.getLayoutParams().width = 80*vw;
-        Book.getLayoutParams().height = 35*vh;
-        Book.requestLayout();
-        Book.setVisibility(View.INVISIBLE);
-        Book.setY(38*vh);
-
-
-
-
-
-        layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-
-        relativeLayout.addView(Poetry, layoutParams);
-        Poetry.getLayoutParams().width = 26*vw;
-        Poetry.getLayoutParams().height = 15*vh;
-        Poetry.requestLayout();
-        Poetry.setVisibility(View.INVISIBLE);
-        Poetry.setY(42f*vh);
-        Poetry.setX(57f*vw);
-
-
+        relativeLayout.addView(Logo, layoutParams);
+        Logo.getLayoutParams().width = 45*vw;
+        Logo.getLayoutParams().height = 25*vh;
+        Logo.requestLayout();
+        Logo.setVisibility(View.INVISIBLE);
 
 
 
@@ -113,47 +76,13 @@ public class Splash {
         dialog.show();
 
 
-        startFadeAnimation(Book, 1800, vw, "Book");
+        startFadeAnimation(Logo, 2500);
 
         Log.d("SPLASH SHOW ", "show:  hiii");
     }
 
-    public static void startAnimation( float vw){
 
-
-        TranslateAnimation translateAnimation = new TranslateAnimation(60*vw,0*vw,0,0);
-
-        translateAnimation.setDuration(1800);
-
-        Poetry.setVisibility(View.VISIBLE);
-
-        Poetry.startAnimation(translateAnimation);
-
-        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                Log.d("ANIMATION ", "onAnimationStart:  started");
-            }
-
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-                Log.d("ANIMATION ", "onAnimationEnd:  ended");
-
-                shouldHide = true;
-                 hide();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-    }
-
-    public static void startFadeAnimation (ImageView imageView, int duration, float vw, String key) {
+    public static void startFadeAnimation (ImageView imageView, int duration) {
 
         AlphaAnimation alphaAnimation = new AlphaAnimation(0f,1f);
 
@@ -175,14 +104,8 @@ public class Splash {
 
                 Log.d("ANIMATION ", "onAnimationEnd:  ended");
 
-                if( key == "Book"){
-
-                    startFadeAnimation(Feather,2200,vw,"");
-                }
-                else{
-
-                    startAnimation(vw);
-                }
+                shouldHide = true;
+                hide();
 
 
             }
