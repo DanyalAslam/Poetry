@@ -31,7 +31,7 @@ export default Styles = StyleSheet.create({
         borderBottomColor: appTheme.lightGray,
         height: 9 * vh,
         backgroundColor: appTheme.black,
-        marginTop: 4*vh
+        // marginTop: 4*vh
     },
 
     headerRow: {

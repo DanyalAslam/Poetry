@@ -22,7 +22,7 @@ class SearchScreen extends React.Component {
         message: ''
     }
 
- 
+
 
     _renderBackButton = () => {
 
@@ -99,7 +99,7 @@ class SearchScreen extends React.Component {
     _navigate = (item) => {
 
         this.props.navigation.push('PoemDetailScreen', { poem: item, fromSearch: true })
-       
+
     }
 
     _renderPoems = ({ item }) => {
@@ -142,7 +142,10 @@ class SearchScreen extends React.Component {
 
     render() {
         return (
-        <View style={styles.container}>
+            <View style={styles.container}>
+
+                <View style={{ paddingTop: 4 * vh, backgroundColor: appTheme.black, width: 100 * vw }}>
+
 
                     <View style={styles.header}>
 
@@ -167,27 +170,29 @@ class SearchScreen extends React.Component {
 
                     </View>
 
-
-                    <FlatList
-                        data={this.state.results}
-                        style={styles.scrollView}
-                        contentContainerStyle={{ paddingTop: 3.5 * vh, paddingBottom: 1 * vh, paddingHorizontal: 4 * vw }}
-                        showsVerticalScrollIndicator={false}
-                        renderItem={this._renderPoems}
-                        numColumns={2}
-                        keyExtractor={(item, ind) => String(ind)}
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={this.state.refreshing}
-                                colors={[appTheme.lightGray]}
-                            // onRefresh={this._getPoems}
-                            />
-                        }
-                        ListEmptyComponent={this._renderEmpty}
-
-                    />
-
                 </View>
+
+
+                <FlatList
+                    data={this.state.results}
+                    style={styles.scrollView}
+                    contentContainerStyle={{ paddingTop: 3.5 * vh, paddingBottom: 1 * vh, paddingHorizontal: 4 * vw }}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={this._renderPoems}
+                    numColumns={2}
+                    keyExtractor={(item, ind) => String(ind)}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            colors={[appTheme.lightGray]}
+                        // onRefresh={this._getPoems}
+                        />
+                    }
+                    ListEmptyComponent={this._renderEmpty}
+
+                />
+
+            </View>
         )
     }
 
@@ -199,7 +204,7 @@ class SearchScreen extends React.Component {
 const mapDispatchToProps = dispatch => {
 
     return {
-         getPoems: (keyword, success, error) => dispatch(actions.getPoems(keyword, success, error)),
+        getPoems: (keyword, success, error) => dispatch(actions.getPoems(keyword, success, error)),
         getPoetPoems: (keyword, success, error) => dispatch(actions.getPoetPoems(keyword, success, error)),
         addToWishList: (poem, success) => dispatch(actions.addToWishList(poem, success))
     }

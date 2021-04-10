@@ -34,7 +34,6 @@ class PoemDetailScreen extends React.Component {
 
     componentDidMount() {
 
-        this.backHandler = BackHandler.addEventListener("hardwareBackPress", this.backAction);
 
 
         this.props.navigation.addListener("focus", () => {
@@ -43,43 +42,43 @@ class PoemDetailScreen extends React.Component {
 
             if (this.props.route?.params?.makeApiCall) {
 
-                AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-                AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
+                // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+                // AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
 
-                // AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
+                AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
 
-                // this.showInterstitial();
+
+                AdMobInterstitial.addEventListener('adLoaded', () =>
+                    console.log('AdMobInterstitial adLoaded'),
+                    this.setState({
+                        ad_loaded: true
+                    })
+                );
+
+                AdMobInterstitial.addEventListener('adClosed', () => {
+                    console.log('AdMobInterstitial => adClosed');
+
+                    this.setState({
+                        ad_loaded: false
+                    }, this._onPlay)
+
+
+                });
 
                 AdMobInterstitial.requestAd().catch(error => console.warn(error));
 
                 this._getPoem(success => {
                     this.showReviewPopUp();
-                })
+                });
+
             }
             else {
                 this.setState({ poemDetails: this.props.route.params.poem }, () => {
                     setTimeout(this.showReviewPopUp, 2000)
                 })
             }
-        })
-
-
-        AdMobInterstitial.addEventListener('adLoaded', () =>
-            console.log('AdMobInterstitial adLoaded'),
-            this.setState({
-                ad_loaded: true
-            })
-        );
-
-        AdMobInterstitial.addEventListener('adClosed', () => {
-            console.log('AdMobInterstitial => adClosed');
-
-            this.setState({
-                ad_loaded: false
-            }, this._onPlay)
-
-
         });
+
 
 
         this.props.navigation.addListener('blur', () => {
@@ -209,31 +208,10 @@ class PoemDetailScreen extends React.Component {
 
     }
 
-
-
-    backAction = () => {
-
-        if (this.props.route?.params?.fromSearch) {
-            this.props.showSearchModal()
-            this.props.navigation.popToTop()
-
-        }
-
-        else {
-            this.props.navigation.pop()
-        }
-
-        return true;
-
-    }
-
-
     componentWillUnmount() {
 
         this.props.navigation.removeListener("focus")
         this.props.navigation.removeListener("blur")
-        this.backHandler.remove();
-
 
     }
 
@@ -264,7 +242,7 @@ class PoemDetailScreen extends React.Component {
 
     showInterstitial = () => {
 
-        if(this.state.ad_loaded){
+        if (this.state.ad_loaded) {
             AdMobInterstitial.isReady((data) => {
                 if (data) {
                     AdMobInterstitial.showAd();
@@ -272,11 +250,11 @@ class PoemDetailScreen extends React.Component {
                 }
             });
         }
-        else{
+        else {
             this._onPlay();
         }
 
-       
+
 
         // AdMobInterstitial.requestAd()
         //     .then((_d) => {
@@ -622,9 +600,9 @@ class PoemDetailScreen extends React.Component {
                     adSize="banner"
                     onAdFailedToLoad={(e) => console.log(e)
                     }
-                    adUnitID="ca-app-pub-3940256099942544/6300978111" //google testad
-                    testDeviceID="EMULATOR"
-                // adUnitID="ca-app-pub-8059419171547646/7352367170"
+                    // adUnitID="ca-app-pub-3940256099942544/6300978111" //google testad
+                    // testDeviceID="EMULATOR"
+                    adUnitID="ca-app-pub-8059419171547646/7352367170"
 
 
                 />

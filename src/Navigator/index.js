@@ -211,7 +211,7 @@ class MainNavigator extends React.Component {
           component={WishListScreen}
           options={
             {
-              ...TransitionPresets.ScaleFromCenterAndroid,
+              ...TransitionPresets.RevealFromBottomAndroid,
               // gestureEnabled: false,
               // gestureDirection: 'horizontal'
             }
@@ -243,7 +243,7 @@ class MainNavigator extends React.Component {
           component={CategoryDetailsScreen}
           options={
             {
-              ...TransitionPresets.ScaleFromCenterAndroid,
+              ...TransitionPresets.RevealFromBottomAndroid,
               // gestureEnabled: false,
               // gestureDirection: 'horizontal'
             }
@@ -268,29 +268,6 @@ class MainNavigator extends React.Component {
           component={PoetsScreen}
         />
 
-        {/* <PoetStack.Screen
-          name="PoetPoemsScreen"
-          component={PoetPoemsScreen}
-          options={
-            {
-              ...TransitionPresets.SlideFromRightIOS,
-              gestureEnabled: true,
-              gestureDirection: 'horizontal'
-            }
-          }
-        /> */}
-
-        {/* <PoetStack.Screen
-          name="PoetPoemDetailScreen"
-          component={PoetPoemDetailScreen}
-          options={
-            {
-              ...TransitionPresets.SlideFromRightIOS,
-              gestureEnabled: true,
-              gestureDirection: 'horizontal'
-            }
-          }
-        /> */}
 
 
 
@@ -316,7 +293,7 @@ class MainNavigator extends React.Component {
           component={this.WishStackNavigator}
           options={
             {
-              ...TransitionPresets.ScaleFromCenterAndroid,
+              ...TransitionPresets.RevealFromBottomAndroid,
               // gestureEnabled: false,
               // gestureDirection: 'horizontal'
             }
@@ -346,10 +323,11 @@ class MainNavigator extends React.Component {
           style: styles.tabBarStyle,
           iconStyle: styles.iconStyle,
           bounces: true,
-          indicatorStyle: styles.indicatorStyle
+          indicatorStyle: styles.indicatorStyle,
+        
         }}
         swipeEnabled={true}
-
+        
       >
         <Tabs.Screen
           name="HomeStack"
@@ -428,7 +406,7 @@ class MainNavigator extends React.Component {
           component={PoetPoemsScreen}
           options={(props) => {
             return {
-              ...TransitionPresets.ScaleFromCenterAndroid,
+              ...TransitionPresets.RevealFromBottomAndroid,
               // gestureEnabled: false,
               // gestureDirection: 'horizontal',
               ...this._renderHeaderWithSearch(props)
@@ -456,7 +434,7 @@ class MainNavigator extends React.Component {
           component={SearchScreen}
           options={(props) => {
             return {
-              ...TransitionPresets.ScaleFromCenterAndroid,
+              ...TransitionPresets.RevealFromBottomAndroid,
               // gestureEnabled: false,
               // gestureDirection: 'horizontal',
               headerShown: false
