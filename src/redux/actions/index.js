@@ -161,7 +161,7 @@ const actions = {
                             payload: poem
                         })
 
-                        return success("Added to wishlist")
+                        return success("Added to favorites")
 
                     }
                     else {
@@ -175,7 +175,7 @@ const actions = {
                             payload: wishList
                         })
 
-                        return success("Removed from wishlist")
+                        return success("Removed from favorites")
                     }
                 })
 

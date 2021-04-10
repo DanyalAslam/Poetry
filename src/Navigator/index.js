@@ -211,9 +211,9 @@ class MainNavigator extends React.Component {
           component={WishListScreen}
           options={
             {
-              ...TransitionPresets.SlideFromRightIOS,
-              gestureEnabled: true,
-              gestureDirection: 'horizontal'
+              ...TransitionPresets.ScaleFromCenterAndroid,
+              // gestureEnabled: false,
+              // gestureDirection: 'horizontal'
             }
           }
         />
@@ -243,9 +243,9 @@ class MainNavigator extends React.Component {
           component={CategoryDetailsScreen}
           options={
             {
-              ...TransitionPresets.SlideFromRightIOS,
-              gestureEnabled: true,
-              gestureDirection: 'horizontal'
+              ...TransitionPresets.ScaleFromCenterAndroid,
+              // gestureEnabled: false,
+              // gestureDirection: 'horizontal'
             }
           }
         />
@@ -316,9 +316,9 @@ class MainNavigator extends React.Component {
           component={this.WishStackNavigator}
           options={
             {
-              ...TransitionPresets.SlideFromRightIOS,
-              gestureEnabled: true,
-              gestureDirection: 'horizontal'
+              ...TransitionPresets.ScaleFromCenterAndroid,
+              // gestureEnabled: false,
+              // gestureDirection: 'horizontal'
             }
           }
         />
@@ -428,9 +428,9 @@ class MainNavigator extends React.Component {
           component={PoetPoemsScreen}
           options={(props) => {
             return {
-              ...TransitionPresets.FadeFromBottomAndroid,
-              gestureEnabled: true,
-              gestureDirection: 'horizontal',
+              ...TransitionPresets.ScaleFromCenterAndroid,
+              // gestureEnabled: false,
+              // gestureDirection: 'horizontal',
               ...this._renderHeaderWithSearch(props)
             }
           }
@@ -442,9 +442,9 @@ class MainNavigator extends React.Component {
           component={PoemDetailScreen}
           options={(props) => {
             return {
-              ...TransitionPresets.SlideFromRightIOS,
-              gestureEnabled: true,
-              gestureDirection: 'horizontal',
+              ...TransitionPresets.ScaleFromCenterAndroid,
+              // gestureEnabled: false,
+              // gestureDirection: 'horizontal',
               ...this._renderHeaderWithSearch(props)
             }
           }
@@ -456,9 +456,9 @@ class MainNavigator extends React.Component {
           component={SearchScreen}
           options={(props) => {
             return {
-              ...TransitionPresets.SlideFromRightIOS,
-              gestureEnabled: true,
-              gestureDirection: 'horizontal',
+              ...TransitionPresets.ScaleFromCenterAndroid,
+              // gestureEnabled: false,
+              // gestureDirection: 'horizontal',
               headerShown: false
               // ...this._renderHeaderWithSearch(props)
             }

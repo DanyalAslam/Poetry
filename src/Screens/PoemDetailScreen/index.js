@@ -28,15 +28,13 @@ class PoemDetailScreen extends React.Component {
     state = {
         poemDetails: null,
         refreshing: false,
-        newLines: []
+        newLines: [],
+        ad_loaded: false
     }
 
     componentDidMount() {
 
         this.backHandler = BackHandler.addEventListener("hardwareBackPress", this.backAction);
-
-
-
 
 
         this.props.navigation.addListener("focus", () => {
@@ -45,12 +43,14 @@ class PoemDetailScreen extends React.Component {
 
             if (this.props.route?.params?.makeApiCall) {
 
-                // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-                // AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
+                AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+                AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
 
                 // AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
 
                 // this.showInterstitial();
+
+                AdMobInterstitial.requestAd().catch(error => console.warn(error));
 
                 this._getPoem(success => {
                     this.showReviewPopUp();
@@ -62,6 +62,24 @@ class PoemDetailScreen extends React.Component {
                 })
             }
         })
+
+
+        AdMobInterstitial.addEventListener('adLoaded', () =>
+            console.log('AdMobInterstitial adLoaded'),
+            this.setState({
+                ad_loaded: true
+            })
+        );
+
+        AdMobInterstitial.addEventListener('adClosed', () => {
+            console.log('AdMobInterstitial => adClosed');
+
+            this.setState({
+                ad_loaded: false
+            }, this._onPlay)
+
+
+        });
 
 
         this.props.navigation.addListener('blur', () => {
@@ -246,17 +264,37 @@ class PoemDetailScreen extends React.Component {
 
     showInterstitial = () => {
 
-        AdMobInterstitial.requestAd()
-            .then((_d) => {
-                // console.log('**  ', _d)
-                AdMobInterstitial.isReady((data) => {
-                    if (data)
-                        AdMobInterstitial.showAd()
-                    console.log(data)
+        if(this.state.ad_loaded){
+            AdMobInterstitial.isReady((data) => {
+                if (data) {
+                    AdMobInterstitial.showAd();
+                    console.log(data);
                 }
-                )
-            })
-            .catch(_err => console.log('err ', _err))
+            });
+        }
+        else{
+            this._onPlay();
+        }
+
+       
+
+        // AdMobInterstitial.requestAd()
+        //     .then((_d) => {
+        //         // console.log('**  ', _d)
+        //         AdMobInterstitial.isReady((data) => {
+        //             if (data) {
+        //                 AdMobInterstitial.showAd();
+        //                 console.log(data);
+
+
+        //             }
+
+
+
+        //         });
+
+        //     })
+        //     .catch(_err => console.log('err ', _err))
 
 
     }
@@ -454,7 +492,7 @@ class PoemDetailScreen extends React.Component {
                     </View>
 
                     <AnimatedButton
-                        onPlay={this._onPlay}
+                        onPlay={this.showInterstitial}
                         onStop={this._onStop}
                         ref={_ref => this.playPauseRef = _ref}
                     />
@@ -560,7 +598,7 @@ class PoemDetailScreen extends React.Component {
                 style={styles.parentContainer}
                 showsVerticalScrollIndicator={false}
                 refreshControl={
-                    <RefreshControl
+                    < RefreshControl
                         refreshing={this.state.refreshing}
                         colors={[appTheme.lightGray]}
                         onRefresh={this._getPoem}
@@ -579,19 +617,20 @@ class PoemDetailScreen extends React.Component {
                     this._renderBottomSheet()
                 }
 
-                <AdMobBanner
+                < AdMobBanner
                     style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
                     adSize="banner"
-                    onAdFailedToLoad={(e) => console.log(e)}
+                    onAdFailedToLoad={(e) => console.log(e)
+                    }
                     adUnitID="ca-app-pub-3940256099942544/6300978111" //google testad
                     testDeviceID="EMULATOR"
-                    // adUnitID="ca-app-pub-8059419171547646/7352367170"
+                // adUnitID="ca-app-pub-8059419171547646/7352367170"
 
 
                 />
 
 
-            </ScrollView>
+            </ScrollView >
         )
     }
 
