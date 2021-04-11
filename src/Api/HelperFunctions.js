@@ -1,8 +1,9 @@
 import { store } from "../redux";
+import Toast from 'react-native-simple-toast';
 
 const TAG = '__API__';
 export const showToast = (msg) => {
-
+    return Toast.show(msg);
 }
 
 export const handleResponse = ({ response, jsonResponse }) => {
@@ -51,7 +52,7 @@ export const performNetworkRequest = async (url, configs) => {
     }
 };
 
-export const LOG = (label, data) => {
+export const LOG = (label, ...data) => {
     if (__DEV__) {
         console.log(TAG + `__${label}__ :`, data);
     }
@@ -116,7 +117,7 @@ export const getConfigs = (method, body, formData = true) => {
     const data = store.getState();
     if (data) {
 
-        if (data.UserReducer.token != null) {
+        if (data.UserReducer.token) {
             headers['Authorization'] = 'Bearer ' + data.UserReducer.token;
         }
 

@@ -1,9 +1,9 @@
-import actionTypes from "../Actions/actionTypes";
+import actionTypes from "../actions/actionTypes";
 import initialStates from "./InitialStates";
 
 const initialState = initialStates.UserReducer;
 
-export default UserReducer = (state = initialState, action) => {
+const UserReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case actionTypes.LOGOUT: {
@@ -26,4 +26,6 @@ export default UserReducer = (state = initialState, action) => {
 
     }
 
-}
+};
+
+export default UserReducer;

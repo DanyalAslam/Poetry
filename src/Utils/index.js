@@ -12,16 +12,18 @@ export const appTheme = {
 }
 
 export const placeHolderMessages = {
-    firstName: 'Enter Your First Name',
-    lastName: 'Enter Your Last Name',
-    phoneNumber: 'Enter Your Phone Number',
-    email: 'Enter Email',
-    password: 'Enter Password',
-    confirmPassword: 'Enter Confirm Password',
-    country: 'Enter Country',
+    name: 'Enter your name',
+    email: 'Enter your email',
+    password: 'Enter your password',
+    confirmPassword: 'Confirm your password',
+    country: 'Enter your country',
     verificationCode: 'Enter Code',
+    age: 'Enter your age'
 }
 
 
-export const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.techsphereapps.poetry&hl=en'
+export const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.techsphereapps.poetry&hl=en';
+
+export const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
  

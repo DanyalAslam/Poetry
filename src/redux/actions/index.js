@@ -241,12 +241,11 @@ const actions = {
             try {
                 const response = await Api.promise.post(endPoints.auth.register, credentials);
 
-                LOG("SUCCESS SIGNUP ", response);
-                
+                return Promise.resolve(response);
 
             } catch (error) {
 
-                LOG("ERROR SIGNUP ", error);
+                return Promise.reject(error);
 
             }
 

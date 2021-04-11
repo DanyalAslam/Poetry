@@ -1,4 +1,5 @@
 import config from './config'
+import { dataToQueryParameter, getConfigs, getMessage, handleResponse, LOG, performNetworkRequest } from './HelperFunctions'
 
 
 const Api = {
@@ -61,9 +62,9 @@ const Api = {
     },
 
     promise: {
-        post: async (endpoint, body, formData, queryParams) => {
+        post: async (endpoint, body, formData = false, queryParams) => {
 
-            const url = base_url + endpoint + dataToQueryParameter(queryParams);
+            const url = config.baseUrl + endpoint + dataToQueryParameter(queryParams);
             const configs = getConfigs('POST', body, formData);
 
 
@@ -74,7 +75,7 @@ const Api = {
                 return Promise.resolve(result);
 
             } catch (e) {
-             
+
                 const message = getMessage(e);
                 return Promise.reject(message);
             }

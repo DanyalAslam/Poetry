@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { vw,vh } from '../../../Units';
+import { vw, vh } from '../../../Units';
 import { appTheme } from '../../../Utils';
 
 export default styles = StyleSheet.create({
@@ -32,15 +32,15 @@ export default styles = StyleSheet.create({
 
     },
     cameraContainerStyle: {
-        borderRadius: 2.5 * vw,
-        width: 5 * vw,
-        height: 5 * vw,
+        borderRadius: 4 * vw,
+        width: 8 * vw,
+        height: 8 * vw,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#fff',
         position: 'absolute',
-        bottom: 2 * vw,
-        right: -1 * vw,
+        bottom: 0 * vw,
+        right: -2 * vw,
         borderColor: appTheme.black,
         borderWidth: 0.5 * vw,
         elevation: 3,
@@ -50,7 +50,7 @@ export default styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingBottom: 10 * vh,
-        paddingHorizontal : 10*vw
+        paddingHorizontal: 10 * vw
     },
     addressDetailsHeading: {
         fontWeight: 'bold',
@@ -61,19 +61,31 @@ export default styles = StyleSheet.create({
         // fontWeight: 'bold', 
         fontSize: 3 * vh,
         marginBottom: 2 * vh,
-        marginTop: 10*vh
+        marginTop: 10 * vh
     },
-    btnStyle:{
-        marginTop: 1.95*vh,
-        marginBottom: 2.5*vh,
+    btnStyle: {
+        marginTop: 3 * vh,
+        marginBottom: 3.5 * vh,
         backgroundColor: appTheme.white
     },
-    btnText:{
-        fontSize: 2.2* vh,
+    btnText: {
+        fontSize: 2.2 * vh,
         color: appTheme.black
     },
-    login:{
-        fontSize: 1.75* vh,
+    login: {
+        fontSize: 2 * vh,
+        marginBottom: 1 * vh
+    },
+    title: {
+        marginBottom: 3 * vh,
+        marginTop: 2 * vh,
+        fontSize: 3 * vh
+    },
+    RadioButton:{
+        flexDirection: 'row',
+        width:  50 * vw,
+        justifyContent: 'space-between',
+     
     }
 
 });
