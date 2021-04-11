@@ -46,26 +46,35 @@ class PoemDetailScreen extends React.Component {
                 // AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
 
                 AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
+                
+                setTimeout(() => {
+                    
+                    AdMobInterstitial.addEventListener('adLoaded', () =>
+                        console.log('AdMobInterstitial adLoaded'),
+                        this.setState({
+                            ad_loaded: true
+                        })
+                    );
+
+                    AdMobInterstitial.addEventListener('adFailedToLoad', error =>
+                        this.setState({
+                            ad_loaded: false
+                        })
+                    );
+
+                    AdMobInterstitial.addEventListener('adClosed', () => {
+                        console.log('AdMobInterstitial => adClosed');
+
+                        this.setState({
+                            ad_loaded: false
+                        }, this._onPlay)
 
 
-                AdMobInterstitial.addEventListener('adLoaded', () =>
-                    console.log('AdMobInterstitial adLoaded'),
-                    this.setState({
-                        ad_loaded: true
-                    })
-                );
+                    });
 
-                AdMobInterstitial.addEventListener('adClosed', () => {
-                    console.log('AdMobInterstitial => adClosed');
+                    AdMobInterstitial.requestAd().catch(error => console.warn(error));
 
-                    this.setState({
-                        ad_loaded: false
-                    }, this._onPlay)
-
-
-                });
-
-                AdMobInterstitial.requestAd().catch(error => console.warn(error));
+                }, 500);
 
                 this._getPoem(success => {
                     this.showReviewPopUp();
@@ -247,6 +256,9 @@ class PoemDetailScreen extends React.Component {
                 if (data) {
                     AdMobInterstitial.showAd();
                     console.log(data);
+                }
+                else {
+                    this._onPlay();
                 }
             });
         }
@@ -595,7 +607,7 @@ class PoemDetailScreen extends React.Component {
                     this._renderBottomSheet()
                 }
 
-                < AdMobBanner
+                <AdMobBanner
                     style={{ margin: 2 * vh, height: 15 * vh, zIndex: 100, alignSelf: 'center' }}
                     adSize="banner"
                     onAdFailedToLoad={(e) => console.log(e)
@@ -603,8 +615,6 @@ class PoemDetailScreen extends React.Component {
                     // adUnitID="ca-app-pub-3940256099942544/6300978111" //google testad
                     // testDeviceID="EMULATOR"
                     adUnitID="ca-app-pub-8059419171547646/7352367170"
-
-
                 />
 
 
