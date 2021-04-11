@@ -25,7 +25,25 @@ const allImages = {
     },
     generalImages:{
         logo: require('./generalImages/logo.png'),  
-    }
+        placeHolder: require('./generalImages/placeHolder.png'),  
+        background: require('./generalImages/background.png'),  
+    },
+    transparentIcons: {
+        camera: require('./TransparentIcons/camera.png'),
+        personIcon: require('./TransparentIcons/personIcon.png'),
+        cityIcon: require('./TransparentIcons/cityIcon.png'),
+        countryIcon: require('./TransparentIcons/countryIcon.png'),
+        emailIcon: require('./TransparentIcons/emailIcon.png'),
+        passwordIcon: require('./TransparentIcons/passwordIcon.png'),
+        eyeOpenIcon: require('./TransparentIcons/eyeOpenIcon.png'),
+        phoneIcon: require('./TransparentIcons/phoneIcon.png'),
+        zipCodeIcon: require('./TransparentIcons/zipCodeIcon.png'),
+        stateIcon: require('./TransparentIcons/stateIcon.png'),
+        addressIcon: require('./TransparentIcons/addressIcon.png'), 
+        eyeCloseIcon: require('./TransparentIcons/eyeCloseIcon.png'),
+        verifyCode: require('./TransparentIcons/verifyCode.png'),
+
+    },
 }
 
 

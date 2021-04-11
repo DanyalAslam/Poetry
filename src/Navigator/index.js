@@ -22,6 +22,7 @@ import actions from '../redux/actions';
 import { connect } from 'react-redux';
 import PoemDetailScreen from '../Screens/PoemDetailScreen';
 import SearchScreen from '../Screens/SearchScreen';
+import SignupScreen from '../Screens/Authentication/SignupScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -324,10 +325,10 @@ class MainNavigator extends React.Component {
           iconStyle: styles.iconStyle,
           bounces: true,
           indicatorStyle: styles.indicatorStyle,
-        
+
         }}
         swipeEnabled={true}
-        
+
       >
         <Tabs.Screen
           name="HomeStack"
@@ -391,9 +392,7 @@ class MainNavigator extends React.Component {
 
     return (
       <RootStack.Navigator
-      // screenOptions={this._renderHeaderWithSearch}
-      // headerMode="screen"
-      // screenOptions={{headerShown: false}}
+        initialRouteName="SignupScreen"
       >
         <RootStack.Screen
           name="TabStack"
@@ -407,8 +406,6 @@ class MainNavigator extends React.Component {
           options={(props) => {
             return {
               ...TransitionPresets.RevealFromBottomAndroid,
-              // gestureEnabled: false,
-              // gestureDirection: 'horizontal',
               ...this._renderHeaderWithSearch(props)
             }
           }
@@ -421,8 +418,6 @@ class MainNavigator extends React.Component {
           options={(props) => {
             return {
               ...TransitionPresets.ScaleFromCenterAndroid,
-              // gestureEnabled: false,
-              // gestureDirection: 'horizontal',
               ...this._renderHeaderWithSearch(props)
             }
           }
@@ -435,10 +430,19 @@ class MainNavigator extends React.Component {
           options={(props) => {
             return {
               ...TransitionPresets.RevealFromBottomAndroid,
-              // gestureEnabled: false,
-              // gestureDirection: 'horizontal',
               headerShown: false
-              // ...this._renderHeaderWithSearch(props)
+            }
+          }
+          }
+        />
+
+        <RootStack.Screen
+          name="SignupScreen"
+          component={SignupScreen}
+          options={(props) => {
+            return {
+              ...TransitionPresets.SlideFromRightIOS,
+              headerShown: false
             }
           }
           }
