@@ -3,4 +3,11 @@ const config = {
     poetDBurl: 'http://poetrydb.org'
 }
 
-export default config
+export const endPoints = {
+    auth: {
+        login: '/auth/login',
+        register: '/auth/register'
+    }
+};
+
+export default config;

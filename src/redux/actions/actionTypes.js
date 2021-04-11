@@ -6,7 +6,10 @@ const actionTypes = {
     SET_WISHLIST: 'SET_WISHLIST',
     SHOW_SEARCH: 'SHOW_SEARCH',
     HIDE_SEARCH: 'HIDE_SEARCH',
-    REVIEW_STATUS: 'REVIEW_STATUS'
+    REVIEW_STATUS: 'REVIEW_STATUS',
+
+    LOGOUT: "LOGOUT",
+    LOGIN: "LOGIN"
 }
 
 export default actionTypes

@@ -2,6 +2,8 @@ import Api from '../../Api'
 import actionTypes from './actionTypes'
 import { getStoredState } from 'redux-persist'
 import { persistConfig } from '..'
+import { endPoints } from '../../Api/config'
+import { LOG } from '../../Api/HelperFunctions'
 
 const actions = {
 
@@ -107,7 +109,7 @@ const actions = {
                     }
                 })
 
-               
+
 
                 dispatch({
                     type: actionTypes.HOME_POEMS,
@@ -229,6 +231,27 @@ const actions = {
 
         }
     },
+
+
+    // ******************** Auth ****************
+    register: (credentials) => {
+
+        return async dispatch => {
+
+            try {
+                const response = await Api.promise.post(endPoints.auth.register, credentials);
+
+                LOG("SUCCESS SIGNUP ", response);
+                
+
+            } catch (error) {
+
+                LOG("ERROR SIGNUP ", error);
+
+            }
+
+        }
+    }
 }
 
 export default actions
