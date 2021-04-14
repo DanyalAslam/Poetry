@@ -23,6 +23,7 @@ import { connect } from 'react-redux';
 import PoemDetailScreen from '../Screens/PoemDetailScreen';
 import SearchScreen from '../Screens/SearchScreen';
 import SignupScreen from '../Screens/Authentication/SignupScreen';
+import LoginScreen from '../Screens/Authentication/LoginScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -392,7 +393,7 @@ class MainNavigator extends React.Component {
 
     return (
       <RootStack.Navigator
-        initialRouteName="SignupScreen"
+        initialRouteName="LoginScreen"
       >
         <RootStack.Screen
           name="TabStack"
@@ -439,6 +440,18 @@ class MainNavigator extends React.Component {
         <RootStack.Screen
           name="SignupScreen"
           component={SignupScreen}
+          options={(props) => {
+            return {
+              ...TransitionPresets.SlideFromRightIOS,
+              headerShown: false
+            }
+          }
+          }
+        />
+
+        <RootStack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
           options={(props) => {
             return {
               ...TransitionPresets.SlideFromRightIOS,

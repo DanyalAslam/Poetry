@@ -256,6 +256,30 @@ const actions = {
             }
 
         }
+    },
+
+    login: (credentials) => {
+
+        return async dispatch => {
+
+            try {
+
+                dispatch({ type: actionTypes.LOADING_ON });
+
+                const response = await Api.promise.post(endPoints.auth.login, credentials);
+
+                dispatch({ type: actionTypes.LOGIN, payload: response?.token });
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                dispatch({ type: actionTypes.LOADING_OFF });
+                return Promise.reject(error);
+
+            }
+
+        }
     }
 }
 

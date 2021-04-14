@@ -1,6 +1,5 @@
 const config = {
-    // baseUrl: 'https://poetry-server.herokuapp.com',
-    baseUrl: 'http://192.168.0.102:5000',
+    baseUrl: 'https://poetry-server.herokuapp.com',
     poetDBurl: 'http://poetrydb.org'
 }
 

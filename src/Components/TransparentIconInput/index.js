@@ -58,6 +58,12 @@ class TransparentIconInput extends Component {
                 this.setState({ showLabel: true, isTyping: true })
             }
         }
+        else{
+            if (this.props.label) {
+                LayoutAnimation.configureNext(LayoutAnimation.Presets.linear)
+                this.setState({ showLabel: true, })
+            }
+        }
 
 
     }
@@ -72,6 +78,14 @@ class TransparentIconInput extends Component {
                 }
 
                 this.setState({ isTyping: false })
+            }
+        }
+        else{
+            if (this.props.label) {
+                if (this.props.value == undefined || this.props.value?.trim() == '') {
+                    LayoutAnimation.configureNext(LayoutAnimation.Presets.linear)
+                    this.setState({ showLabel: false })
+                }
             }
         }
 

@@ -18,6 +18,12 @@ const LoadingReducer = (state = initialState, action) => {
             };
         }
 
+        case actionTypes.LOGIN: {
+            return {
+                ...initialStates.LoadingReducer
+            };
+        }
+
 
         default: {
             return state;

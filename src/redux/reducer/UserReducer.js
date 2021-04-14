@@ -14,7 +14,6 @@ const UserReducer = (state = initialState, action) => {
 
         case actionTypes.LOGIN: {
             return {
-                profile: action.payload?.profile,
                 token: action.payload?.token
             };
         }
