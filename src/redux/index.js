@@ -6,7 +6,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 export const persistConfig = {
     key: "poetry-storage-root",
-    storage: AsyncStorage
+    storage: AsyncStorage,
+    blacklist: ['GeneralReducer'],
 }
 
 const persistedReducer = persistReducer(persistConfig, reducer)

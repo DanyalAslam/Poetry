@@ -9,7 +9,9 @@ const actionTypes = {
     REVIEW_STATUS: 'REVIEW_STATUS',
 
     LOGOUT: "LOGOUT",
-    LOGIN: "LOGIN"
+    LOGIN: "LOGIN",
+    LOADING_ON: "LOADING_ON",
+    LOADING_OFF: "LOADING_OFF"
 }
 
 export default actionTypes

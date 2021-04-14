@@ -6,16 +6,13 @@ import RippleTouch from '../../../Components/RippleTouch/index.js';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import TextSemiBold from '../../../Components/TextSemiBold/index';
 import Button from '../../../Components/Button/index.js';
-import { vw, vh } from '../../../Units';
 import { emailRegex, placeHolderMessages } from '../../../Utils';
-// import { connect } from 'react-redux';
 import TransparentIconInput from '../../../Components/TransparentIconInput';
 import { connect } from 'react-redux';
 import RadioButton from '../../../Components/RadioButton/index.js';
 import { LOG, showToast } from '../../../Api/HelperFunctions.js';
 import actions from '../../../redux/actions/index.js';
-// import imagePicker from 'rn-image-picker'
-// import actions from './../../redux/actions/index';
+import imagePicker from 'rn-image-picker'
 
 const initial_state = {
     name: '',
@@ -59,7 +56,8 @@ class SignupScreen extends Component {
 
 
         const userInfo = {
-            ...this.state.userInfo
+            ...this.state.userInfo,
+            image: this.state.userInfo?.image?.data ?? ''
         };
 
         if (userInfo.name.trim() == '') {
@@ -124,6 +122,8 @@ class SignupScreen extends Component {
                 }
             });
 
+            this.props.navigation.replace("LoginScreen");
+
         } catch (error) {
 
             if (error) {
@@ -134,20 +134,23 @@ class SignupScreen extends Component {
 
     }
 
-
-
-
     _pickImage = () => {
 
-        return;
+        if (this.props.loading) {
+            return null;
+        }
+
 
         imagePicker.open(success => {
             // do something with image 
-            console.log('image pick succes ', success)
+
             this.setState(prevState => ({
                 userInfo: {
                     ...prevState.userInfo,
-                    image: success.uri,
+                    image: {
+                        data: success.data,
+                        uri: success.uri
+                    },
                 },
             }))
         }, error => {
@@ -169,7 +172,7 @@ class SignupScreen extends Component {
 
     _renderProfileIcon = () => {
         return <View style={styles.profilePicContainerStyle}>
-            <Image source={this.state.userInfo.image != "" ? { uri: this.state.userInfo.image } : allImages.generalImages.placeHolder} style={styles.profilePicStyle} />
+            <Image source={this.state.userInfo.image != "" ? { uri: this.state.userInfo.image?.uri } : allImages.generalImages.placeHolder} style={styles.profilePicStyle} />
 
             <RippleTouch style={styles.cameraContainerStyle} onPress={this._pickImage} >
                 <Image source={allImages.transparentIcons.camera} style={styles.cameraStyle} />
@@ -177,6 +180,7 @@ class SignupScreen extends Component {
 
         </View>
     }
+
 
     _renderPersonalInfoFields = () => {
         return <View style={styles.scrollViewStyle}>
@@ -312,6 +316,15 @@ class SignupScreen extends Component {
 }
 
 
+const mapStateToProps = state => {
+
+    return {
+        loading: state.LoadingReducer.loading
+
+    };
+
+}
+
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -321,4 +334,4 @@ const mapDispatchToProps = (dispatch) => {
 
 
 
-export default connect(null, mapDispatchToProps)(SignupScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(SignupScreen)

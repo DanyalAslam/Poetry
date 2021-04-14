@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { ActivityIndicator, View } from 'react-native'
 import Styles from './Styles.js'
 import RippleTouch from '../RippleTouch/index.js'
 import { appTheme } from './../../Utils/index';
+import { connect } from 'react-redux';
 
-export default class Button extends Component {
+class Button extends Component {
 
     constructor(props) {
         super(props)
@@ -12,11 +13,22 @@ export default class Button extends Component {
         }
     }
 
+    renderBody = () => {
+
+        if (this.props.loading) {
+            return <ActivityIndicator size="small" color={appTheme.black} />;
+        }
+
+        return this.props.children;
+
+    }
+
+
     _renderButton = () => {
 
         return <RippleTouch disabled={this.props.disabled} rippleColor={appTheme.darkGray} onPress={this.props.onPress}
             style={[Styles.buttonStyles, this.props.style, this.props.disabled ? { opacity: 0.5, backgroundColor: '#919191' } : null]} >
-            {this.props.children}
+            {this.renderBody()}
         </RippleTouch>
     }
 
@@ -24,3 +36,13 @@ export default class Button extends Component {
         return (this._renderButton())
     }
 }
+
+const mapStateToProps = state => {
+
+    return {
+        loading: state.LoadingReducer.loading
+    };
+
+}
+
+export default connect(mapStateToProps, null, null, { forwardRef: true })(Button);

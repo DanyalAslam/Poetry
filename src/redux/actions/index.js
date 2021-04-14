@@ -239,12 +239,18 @@ const actions = {
         return async dispatch => {
 
             try {
+
+                dispatch({ type: actionTypes.LOADING_ON });
+
                 const response = await Api.promise.post(endPoints.auth.register, credentials);
+
+                dispatch({ type: actionTypes.LOADING_OFF });
 
                 return Promise.resolve(response);
 
             } catch (error) {
 
+                dispatch({ type: actionTypes.LOADING_OFF });
                 return Promise.reject(error);
 
             }

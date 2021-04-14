@@ -7,9 +7,10 @@ import { TypingAnimation } from 'react-native-typing-animation';
 import RippleTouch from '../RippleTouch';
 import allImages from './../../assets/images/index';
 import TextSemiBold from '../TextSemiBold/index';
+import { connect } from 'react-redux';
 
 
-export default class TransparentIconInput extends Component {
+class TransparentIconInput extends Component {
 
     constructor(props) {
         super(props)
@@ -77,7 +78,16 @@ export default class TransparentIconInput extends Component {
 
     }
 
- 
+
+    getEditable = () => {
+
+        if(this.props.editable){
+            return this.props.editable;
+        }
+
+        return !this.props.loading;
+
+    }
 
     _renderInputField = () => {
 
@@ -95,8 +105,8 @@ export default class TransparentIconInput extends Component {
             style={Styles.inputField}
             onChangeText={props.onChangeText}
             ref={r => this.input = r}
-            editable={this.props.editable}
             {...props}
+            editable={this.getEditable()}
             secureTextEntry={this.state.hidden}
         />
     }
@@ -149,3 +159,15 @@ export default class TransparentIconInput extends Component {
         )
     }
 }
+
+
+const mapStateToProps = state => {
+
+    return {
+        loading: state.LoadingReducer.loading
+    
+    };
+
+}
+
+export default connect(mapStateToProps, null, null, { forwardRef: true })(TransparentIconInput);

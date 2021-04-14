@@ -6184,6 +6184,10 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
+"rn-image-picker@git+https://salsoftmobile@bitbucket.org/salsoftmobileapphq/rn-image-picker.git":
+  version "2.0.6"
+  resolved "git+https://salsoftmobile@bitbucket.org/salsoftmobileapphq/rn-image-picker.git#edccd51fd4b0f09e66e613961531496d2c0dcce5"
+
 rsvp@^4.8.4:
   version "4.8.5"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"
