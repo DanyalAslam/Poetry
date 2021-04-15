@@ -86,7 +86,6 @@ class LoginScreen extends Component {
                 }
             });
 
-           
             this.props.navigation.replace("TabStack");
 
         } catch (error) {
@@ -181,6 +180,8 @@ class LoginScreen extends Component {
 
 
 const mapStateToProps = state => {
+
+    console.log(state);
 
     return {
         loading: state.LoadingReducer.loading

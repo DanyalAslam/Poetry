@@ -1,46 +1,92 @@
 import React from 'react'
-import { View, Text,Image } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import styles from './styles.js'
 import allImages from '../../assets/images'
 import RippleTouch from '../../Components/RippleTouch'
+import MoreItem from '../../Components/MoreItem/index.js'
+import { connect } from 'react-redux'
+import actions from '../../redux/actions/index.js'
 
 
 class MoreScreen extends React.Component {
+
+    renderProfileItem = () => {
+
+        if (!this.props.token) {
+            return null;
+        }
+
+        return <MoreItem
+            onPress={() => this.props.navigation.navigate('WishListStack')}
+            title="My Profile"
+            image={allImages.generalIcons.profile}
+        />
+
+    }
+
+    renderLogout = () => {
+
+        if (!this.props.token) {
+            return <MoreItem
+                onPress={() => this.props.navigation.navigate('LoginScreen')}
+                title="Log In"
+                image={allImages.generalIcons.login}
+            />
+        }
+
+        return <MoreItem
+            onPress={this.props.logout}
+            title="Log Out"
+            image={allImages.generalIcons.logout}
+        />
+
+    }
 
     render() {
         return (
             <View style={styles.container}>
 
                 <View
-                    style={styles.imageContainer}
-                >
+                    style={styles.imageContainer}>
                     <Image
                         style={styles.imageStyle}
                         source={allImages.generalImages.logo}
                     />
                 </View>
 
-                <RippleTouch style={styles.row} onPress={() => this.props.navigation.navigate('WishListStack')}>
-                    <View style={styles.row_1}>
-                        <View style={styles.innerRow}>
-                            <Image
-                                source={allImages.generalIcons.wishIcon}
-                                style={styles.iconStyle}
-                            />
-                            <Text style={styles.textStyle}>
-                            Favorites
-                            </Text>
-                        </View>
+                <MoreItem
+                    onPress={() => this.props.navigation.navigate('WishListStack')}
+                    title="Favorites"
+                    image={allImages.generalIcons.wishIcon}
+                />
 
-                        <Image
-                            source={allImages.generalIcons.rightArrow}
-                            style={styles.iconStyle}
-                        />
-                    </View>
-                </RippleTouch>
+                {
+                    this.renderProfileItem()
+                }
+
+                {
+                    this.renderLogout()
+                }
+
             </View>
         )
     }
 }
 
-export default MoreScreen
+const mapStateToProps = state => {
+
+    return {
+        token: state.UserReducer.token
+    }
+
+}
+
+const mapDispatchToProps = dispatch => {
+
+    return {
+        logout: () => dispatch(actions.logout())
+    }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoreScreen);

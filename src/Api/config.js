@@ -6,7 +6,8 @@ const config = {
 export const endPoints = {
     auth: {
         login: '/auth/login',
-        register: '/auth/register'
+        register: '/auth/register',
+        profile: '/auth/profile'
     }
 };
 

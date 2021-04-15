@@ -14,7 +14,8 @@ const UserReducer = (state = initialState, action) => {
 
         case actionTypes.LOGIN: {
             return {
-                token: action.payload?.token
+                token: action.payload?.token,
+                profile: action.payload?.profile,
             };
         }
 

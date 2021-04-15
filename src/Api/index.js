@@ -82,6 +82,27 @@ const Api = {
                 return Promise.reject(message);
             }
         },
+
+        get: async (endpoint, queryParams) => {
+
+            const url = config.baseUrl + endpoint + dataToQueryParameter(queryParams);
+            const configs = getConfigs('GET');
+
+
+            try {
+                const networkResult = await performNetworkRequest(url, configs);
+                const result = await handleResponse(networkResult);
+
+                return Promise.resolve(result);
+
+            } catch (e) {
+
+                console.log('e ',e);
+
+                const message = getMessage(e);
+                return Promise.reject(message);
+            }
+        },
     }
 }
 

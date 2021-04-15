@@ -12,6 +12,9 @@ const allImages = {
         instagram: require('./generalIcons/instagram.png'),
         messenger: require('./generalIcons/messenger.png'),
         share: require('./generalIcons/share.png'),
+        login: require('./generalIcons/login.png'),
+        logout: require('./generalIcons/logout.png'),
+        profile: require('./generalIcons/profile.png'),
     },
     tabBarIcons:{
         homeActive: require('./tabBarIcons/homeActive.png'),

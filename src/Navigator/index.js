@@ -392,9 +392,7 @@ class MainNavigator extends React.Component {
   RootStackNavigator = () => {
 
     return (
-      <RootStack.Navigator
-        initialRouteName="LoginScreen"
-      >
+      <RootStack.Navigator>
         <RootStack.Screen
           name="TabStack"
           component={this.TabNavigator}

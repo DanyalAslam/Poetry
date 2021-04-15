@@ -268,7 +268,12 @@ const actions = {
 
                 const response = await Api.promise.post(endPoints.auth.login, credentials);
 
-                dispatch({ type: actionTypes.LOGIN, payload: response?.token });
+                dispatch({
+                    type: actionTypes.LOGIN, payload: {
+                        token: response?.token,
+                        profile: response?.user
+                    }
+                });
 
                 return Promise.resolve(response);
 
@@ -280,6 +285,36 @@ const actions = {
             }
 
         }
+    },
+
+    getProfile: () => {
+
+        return async dispatch => {
+
+            try {
+
+                const response = await Api.promise.get(endPoints.auth.profile);
+
+                // dispatch({ type: actionTypes.GET_PROFILE, payload: response?.token });
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
+    logout: () => {
+
+        return disptach => {
+            return disptach({ type: actionTypes.LOGOUT });
+        }
+
+
     }
 }
 
