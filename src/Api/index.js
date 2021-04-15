@@ -76,8 +76,7 @@ const Api = {
 
             } catch (e) {
 
-                console.log('e ',e);
-
+              
                 const message = getMessage(e);
                 return Promise.reject(message);
             }

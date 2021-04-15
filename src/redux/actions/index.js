@@ -314,8 +314,81 @@ const actions = {
             return disptach({ type: actionTypes.LOGOUT });
         }
 
+    },
 
-    }
+    sendCode: (credentials) => {
+
+        return async dispatch => {
+
+            try {
+
+                dispatch({ type: actionTypes.LOADING_ON });
+
+                const response = await Api.promise.post(endPoints.auth.forgot, credentials);
+
+                dispatch({ type: actionTypes.LOADING_OFF });
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                dispatch({ type: actionTypes.LOADING_OFF });
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
+    verifyCode: (credentials) => {
+
+        return async dispatch => {
+
+            try {
+
+                dispatch({ type: actionTypes.LOADING_ON });
+
+                const response = await Api.promise.post(endPoints.auth.verify, credentials);
+
+                dispatch({ type: actionTypes.LOADING_OFF });
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                dispatch({ type: actionTypes.LOADING_OFF });
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
+
+    resetPassword: (credentials) => {
+
+        return async dispatch => {
+
+            try {
+
+                dispatch({ type: actionTypes.LOADING_ON });
+
+                const response = await Api.promise.post(endPoints.auth.reset, credentials);
+
+                dispatch({ type: actionTypes.LOADING_OFF });
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                dispatch({ type: actionTypes.LOADING_OFF });
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
 }
 
 export default actions

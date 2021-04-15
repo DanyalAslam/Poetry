@@ -24,6 +24,7 @@ import PoemDetailScreen from '../Screens/PoemDetailScreen';
 import SearchScreen from '../Screens/SearchScreen';
 import SignupScreen from '../Screens/Authentication/SignupScreen';
 import LoginScreen from '../Screens/Authentication/LoginScreen';
+import ForgotPasswordScreen from '../Screens/Authentication/ForgotPasswordScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -450,6 +451,18 @@ class MainNavigator extends React.Component {
         <RootStack.Screen
           name="LoginScreen"
           component={LoginScreen}
+          options={(props) => {
+            return {
+              ...TransitionPresets.SlideFromRightIOS,
+              headerShown: false
+            }
+          }
+          }
+        />
+
+        <RootStack.Screen
+          name="ForgotPasswordScreen"
+          component={ForgotPasswordScreen}
           options={(props) => {
             return {
               ...TransitionPresets.SlideFromRightIOS,
