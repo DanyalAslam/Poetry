@@ -28,8 +28,18 @@ export default Styles = StyleSheet.create({
     },
     heading: {
         color: appTheme.black,
-        fontSize: 2.1 * vh,
+        fontSize: 1.8 * vh,
         fontFamily: fonts.SSB
+    },
+    name:{
+        color: appTheme.black,
+        fontSize: 1.7 * vh,
+        fontFamily: fonts.SSB
+    },
+    date:{
+        color: appTheme.darkGray,
+        fontSize: 1.2 * vh,
+        fontFamily: fonts.SSR
     },
     text: {
         color: appTheme.darkGray,
@@ -39,6 +49,16 @@ export default Styles = StyleSheet.create({
     row:{
         flexDirection: 'row',
         justifyContent: 'space-between'
+    },
+    image:{
+        width: 10 * vw,
+        height: 10 * vw,
+        borderRadius: 5 * vw,
+        marginRight: 2 * vw
+    },
+    topRow:{
+        flexDirection: 'row',
+        alignItems: 'center'
     }
 
 });

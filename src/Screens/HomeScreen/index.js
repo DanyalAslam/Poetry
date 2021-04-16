@@ -266,7 +266,8 @@ class HomeScreen extends React.Component {
     _renderFeedItem = ({ item, index }) => {
 
         return <PoemFeedCard
-            poet="John doe"
+            name="John doe"
+            created_at="2 mins ago"
             title="Trying to be a stud"
             verses="Trying to be a stud, but no help and the life goes on and onTrying to be a stud, but no help and the life goes on and on"
         />
@@ -306,7 +307,7 @@ class HomeScreen extends React.Component {
 
             return <>
                 {
-                    this._renderTopCards()
+                    // this._renderTopCards()
                 }
 
 
@@ -316,12 +317,12 @@ class HomeScreen extends React.Component {
 
 
                 {
-                    this._renderTrending()
+                    // this._renderTrending()
                 }
 
 
                 {
-                    // this._renderFeed()
+                    this._renderFeed()
                 }
 
             </>

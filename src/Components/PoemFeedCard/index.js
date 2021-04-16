@@ -1,9 +1,9 @@
 import React, { Component, useState } from 'react'
-import { Text, View } from 'react-native'
+import { Image, Text, View } from 'react-native'
 import styles from './styles.js'
 import RippleTouch from '../RippleTouch/index.js'
 import { vh } from '../../Units/index.js'
-import AnimatedWish from '../AnimatedWish/index.js'
+import allImages from '../../assets/images'
 import { connect } from 'react-redux'
 
 
@@ -21,12 +21,22 @@ const PoemFeedCard = (props) => {
 
 
                 <View style={{ marginVertical: 0.3 * vh }}>
-                    <Text style={styles.heading}>
-                        Poet:
-                </Text>
-                    <Text style={styles.text}>
-                        {props.poet}
-                    </Text>
+                    <View style={styles.topRow}>
+                        <Image
+                            source={allImages.generalImages.profileImage}
+                            style={styles.image}
+                        />
+
+                        <View>
+                            <Text style={styles.name}>
+                                {props.name}
+                            </Text>
+                            <Text style={styles.date}>
+                                {props.created_at}
+                            </Text>
+                        </View>
+
+                    </View>
                 </View>
 
 

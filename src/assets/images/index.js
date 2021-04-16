@@ -15,6 +15,8 @@ const allImages = {
         login: require('./generalIcons/login.png'),
         logout: require('./generalIcons/logout.png'),
         profile: require('./generalIcons/profile.png'),
+        edit: require('./generalIcons/edit.png'),
+
     },
     tabBarIcons:{
         homeActive: require('./tabBarIcons/homeActive.png'),

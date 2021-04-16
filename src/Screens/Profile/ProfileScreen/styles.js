@@ -94,26 +94,23 @@ const styles = StyleSheet.create({
 
     country: {
         color: appTheme.gray,
-        marginBottom: 0.5 * vh,
         fontSize: 1.6 * vh,
 
     },
 
     age: {
         color: appTheme.gray,
-        marginBottom: 0.5 * vh,
         fontSize: 1.6 * vh,
     },
 
     male: {
         color: appTheme.gray,
-        marginBottom: 0.5 * vh,
         fontSize: 1.6 * vh,
     },
 
     ageRow: {
         flexDirection: 'row',
-    
+        alignItems: 'center',
     },
 
     statsContainer: {
@@ -122,18 +119,28 @@ const styles = StyleSheet.create({
     },
 
     aboutContainer: {
-        width: '100%'
+        width: '100%',
+        marginBottom: 2 * vh
     },
 
     aboutInfo: {
         fontSize: 1.6 * vh
     },
 
-    separator:{
-        // width: 0.5 * vw,
-        // backgroundColor: appTheme.grayish,
+    separator: {
+        width: 0.8 * vw,
+        height: 0.8 * vw,
+        borderRadius: 0.4 * vw,
+        backgroundColor: appTheme.grayish,
         marginHorizontal: 2 * vw,
-  
+
+    },
+
+    border: {
+        width: '100%',
+        backgroundColor: appTheme.skyWhite,
+        alignSelf: 'center',
+        height: 0.7 * vw
     }
 
 

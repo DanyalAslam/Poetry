@@ -30,7 +30,7 @@ class ProfileScreen extends React.Component {
             <RippleTouch
             // onPress={() => this._onBackPress(props)}
             >
-                <Image style={styles.headerIcon} source={allImages.generalIcons.rightArrow} />
+                <Image style={styles.headerIcon} source={allImages.generalIcons.edit} />
             </RippleTouch>
         </View>
 
@@ -94,13 +94,13 @@ class ProfileScreen extends React.Component {
                             {this.props.profile?.country}
                         </TextPoppinsRegular>
 
-                        <View style={styles.separator}/>
+                        <View style={styles.separator} />
 
                         <TextPoppinsRegular style={styles.male}>
                             {this.props.profile?.gender}
                         </TextPoppinsRegular>
 
-                        <View style={styles.separator}/>
+                        <View style={styles.separator} />
 
                         <TextPoppinsRegular style={styles.age}>
                             {`${this.props.profile?.age} yrs`}
@@ -109,6 +109,18 @@ class ProfileScreen extends React.Component {
 
 
                     <View style={styles.statsContainer}>
+                        <View style={styles.poemStats}>
+
+                            <TextPoppinsMedium style={styles.poemTitle}>
+                                Poems
+                            </TextPoppinsMedium>
+
+                            <TextPoppinsRegular style={styles.poemCount}>
+                                10
+                            </TextPoppinsRegular>
+
+                        </View>
+
                         <View style={styles.poemStats}>
 
                             <TextPoppinsMedium style={styles.poemTitle}>
@@ -137,10 +149,13 @@ class ProfileScreen extends React.Component {
 
                     </View>
 
+                    <View style={styles.border} />
 
                     {
                         this.renderAbout()
                     }
+
+                    <View style={styles.border} />
 
                 </View>
 
