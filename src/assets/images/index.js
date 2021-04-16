@@ -29,7 +29,8 @@ const allImages = {
     generalImages:{
         logo: require('./generalImages/logo.png'),  
         placeHolder: require('./generalImages/placeHolder.png'),  
-        background: require('./generalImages/background.png'),  
+        background: require('./generalImages/background.png'), 
+        profileImage: require('./generalImages/profileImage.jpeg'),  
     },
     transparentIcons: {
         camera: require('./TransparentIcons/camera.png'),

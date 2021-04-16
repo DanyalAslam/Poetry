@@ -59,6 +59,10 @@
 		<string>SourceSerifPro-Bold.ttf</string>
 		<string>SourceSerifPro-Regular.ttf</string>
 		<string>SourceSerifPro-SemiBold.ttf</string>
+		<string>Poppins-Light.ttf</string>
+		<string>Poppins-Medium.ttf</string>
+		<string>Poppins-Regular.ttf</string>
+		<string>Poppins-SemiBold.ttf</string>
 	</array>
 </dict>
 </plist>

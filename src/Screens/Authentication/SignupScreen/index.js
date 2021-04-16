@@ -55,10 +55,12 @@ class SignupScreen extends Component {
     _onContinue = async () => {
 
 
-        const userInfo = {
+        let userInfo = {
             ...this.state.userInfo,
             image: this.state.userInfo?.image?.data ?? ''
         };
+ 
+
 
         if (userInfo.name.trim() == '') {
             return showToast('Please enter your name');
@@ -104,6 +106,16 @@ class SignupScreen extends Component {
             return showToast('Passwords do not match');
         }
 
+        if (userInfo.image != "") {
+            if (!userInfo.image.includes('data')) {
+                let base = `data:image/png;base64,${userInfo.image}`;
+
+                userInfo = {
+                    ...userInfo,
+                    image: base
+                };
+            }
+        }
 
         delete userInfo.confirmPassword;
 

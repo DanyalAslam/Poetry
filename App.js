@@ -27,7 +27,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <StatusBar
-          translucent={true}
+          translucent={false}
           backgroundColor={appTheme.black}
           animated={true}
           barStyle='light-content'

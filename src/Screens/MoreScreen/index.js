@@ -17,7 +17,7 @@ class MoreScreen extends React.Component {
         }
 
         return <MoreItem
-            onPress={() => this.props.navigation.navigate('WishListStack')}
+            onPress={() => this.props.navigation.navigate('ProfileScreen')}
             title="My Profile"
             image={allImages.generalIcons.profile}
         />

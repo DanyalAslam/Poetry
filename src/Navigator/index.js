@@ -25,6 +25,7 @@ import SearchScreen from '../Screens/SearchScreen';
 import SignupScreen from '../Screens/Authentication/SignupScreen';
 import LoginScreen from '../Screens/Authentication/LoginScreen';
 import ForgotPasswordScreen from '../Screens/Authentication/ForgotPasswordScreen';
+import ProfileScreen from '../Screens/Profile/ProfileScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -214,9 +215,7 @@ class MainNavigator extends React.Component {
           component={WishListScreen}
           options={
             {
-              ...TransitionPresets.RevealFromBottomAndroid,
-              // gestureEnabled: false,
-              // gestureDirection: 'horizontal'
+              ...TransitionPresets.ScaleFromCenterAndroid,
             }
           }
         />
@@ -246,9 +245,7 @@ class MainNavigator extends React.Component {
           component={CategoryDetailsScreen}
           options={
             {
-              ...TransitionPresets.RevealFromBottomAndroid,
-              // gestureEnabled: false,
-              // gestureDirection: 'horizontal'
+              ...TransitionPresets.ScaleFromCenterAndroid,
             }
           }
         />
@@ -296,9 +293,7 @@ class MainNavigator extends React.Component {
           component={this.WishStackNavigator}
           options={
             {
-              ...TransitionPresets.RevealFromBottomAndroid,
-              // gestureEnabled: false,
-              // gestureDirection: 'horizontal'
+              ...TransitionPresets.ScaleFromCenterAndroid,
             }
           }
         />
@@ -405,7 +400,7 @@ class MainNavigator extends React.Component {
           component={PoetPoemsScreen}
           options={(props) => {
             return {
-              ...TransitionPresets.RevealFromBottomAndroid,
+              ...TransitionPresets.ScaleFromCenterAndroid,
               ...this._renderHeaderWithSearch(props)
             }
           }
@@ -429,7 +424,7 @@ class MainNavigator extends React.Component {
           component={SearchScreen}
           options={(props) => {
             return {
-              ...TransitionPresets.RevealFromBottomAndroid,
+              ...TransitionPresets.ScaleFromCenterAndroid,
               headerShown: false
             }
           }
@@ -466,6 +461,18 @@ class MainNavigator extends React.Component {
           options={(props) => {
             return {
               ...TransitionPresets.SlideFromRightIOS,
+              headerShown: false
+            }
+          }
+          }
+        />
+
+        <RootStack.Screen
+          name="ProfileScreen"
+          component={ProfileScreen}
+          options={(props) => {
+            return {
+              ...TransitionPresets.ScaleFromCenterAndroid,
               headerShown: false
             }
           }
