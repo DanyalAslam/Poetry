@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
   
     },
     text: {
-        marginLeft: 3 * vw
+        marginLeft: 3 * vw,
+        fontSize: 1.6 * vh
     },
     radioBtn: {
         height: 6 * vw,

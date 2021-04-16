@@ -48,12 +48,12 @@ export default Styles = StyleSheet.create({
         width: '80%',
         height: '100%',
         paddingVertical: 0,
-        fontSize: 2 * vh,
+        fontSize: 1.6 * vh,
         fontFamily: fonts.SSR,
         color: appTheme.white
     },
     label: {
-        fontSize: 2 * vh,
+        fontSize: 1.7 * vh,
         marginBottom: 0.8 * vh
     }
 });

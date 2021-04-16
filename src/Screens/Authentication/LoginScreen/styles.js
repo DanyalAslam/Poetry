@@ -8,7 +8,7 @@ export default styles = StyleSheet.create({
         width: 100 * vw,
         height: 100 * vh,
         alignItems: 'center',
-
+      
     },
 
     lottieView: {
@@ -29,7 +29,7 @@ export default styles = StyleSheet.create({
     },
 
     signup: {
-        fontSize: 2.1 * vh,
+        fontSize: 1.8 * vh,
         marginBottom: 2 * vh,
 
     },
@@ -39,15 +39,15 @@ export default styles = StyleSheet.create({
         backgroundColor: appTheme.white
     },
     btnText: {
-        fontSize: 2.2 * vh,
+        fontSize: 2.0 * vh,
         color: appTheme.black
     },
     login: {
-        fontSize: 2 * vh,
+        fontSize: 1.6 * vh,
         marginBottom: 1 * vh
     },
     forgotPassword: {
-        fontSize: 2 * vh,
+        fontSize: 1.4 * vh,
 
     },
     forgotView: {
@@ -58,7 +58,7 @@ export default styles = StyleSheet.create({
     title: {
         marginBottom: 3 * vh,
         marginTop: 5 * vh,
-        fontSize: 3 * vh
+        fontSize: 2.5 * vh
     },
 
 

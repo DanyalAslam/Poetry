@@ -69,17 +69,17 @@ export default styles = StyleSheet.create({
         backgroundColor: appTheme.white
     },
     btnText: {
-        fontSize: 2.2 * vh,
+        fontSize: 2.0 * vh,
         color: appTheme.black
     },
     login: {
-        fontSize: 2 * vh,
+        fontSize: 1.6 * vh,
         marginBottom: 1 * vh
     },
     title: {
         marginBottom: 3 * vh,
         marginTop: 2 * vh,
-        fontSize: 3 * vh
+        fontSize: 2.5 * vh
     },
     RadioButton:{
         flexDirection: 'row',

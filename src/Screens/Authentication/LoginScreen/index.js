@@ -166,12 +166,11 @@ class LoginScreen extends Component {
             </RippleTouch>
 
 
-            <RippleTouch onPress={() => this.props.navigation.navigate('LoginScreen')}>
+            <RippleTouch onPress={this.props.navigation.goBack}>
                 <TextSemiBold style={styles.login}>
                     Back To Poetry
                 </TextSemiBold>
             </RippleTouch>
-
 
         </View>
 
