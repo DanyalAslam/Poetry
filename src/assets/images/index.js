@@ -18,6 +18,7 @@ const allImages = {
         edit: require('./generalIcons/edit.png'),
         like: require('./generalIcons/like.png'),
         unlike: require('./generalIcons/unlike.png'),
+        cross: require('./generalIcons/cross.png'),
 
     },
     tabBarIcons:{

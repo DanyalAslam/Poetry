@@ -16,6 +16,10 @@ import PoemFeedCard from '../../../Components/PoemFeedCard/index.js'
 import { appTheme, genders } from '../../../Utils/index.js'
 import RadioButton from '../../../Components/RadioButton/index.js'
 import Button from '../../../Components/Button/index.js'
+import RBSheet from 'react-native-raw-bottom-sheet'
+import BottomSheetButtons from '../../../Components/BottomSheetButtons/index.js'
+import { vh } from '../../../Units/index.js'
+import imagePicker from 'rn-image-picker';
 
 const gendersArray = ["Male", "Female"];
 
@@ -149,7 +153,7 @@ class EditProfileScreen extends React.Component {
 
     onRadioChange = (data) => {
 
-        if(this.props.loading){
+        if (this.props.loading) {
             return
         }
 
@@ -198,7 +202,7 @@ class EditProfileScreen extends React.Component {
                 style={styles.profileImage}
             />
 
-            <RippleTouch style={styles.cameraContainerStyle} onPress={this._pickImage} >
+            <RippleTouch style={styles.cameraContainerStyle} onPress={this.openOptions} >
                 <Image source={allImages.transparentIcons.camera} style={styles.cameraStyle} />
             </RippleTouch>
 
@@ -213,7 +217,7 @@ class EditProfileScreen extends React.Component {
             age: String(this.state.profile?.age)
             // image: this.state.profile?.image?.data ?? ''
         };
- 
+
 
         if (userInfo.name.trim() == '') {
             return showToast('Please enter your name');
@@ -230,7 +234,7 @@ class EditProfileScreen extends React.Component {
         if (userInfo.country.trim() == '') {
             return showToast('Please enter your country');
         }
-  
+
 
         if (userInfo.image != "") {
             if (!userInfo.image.includes('base64')) {
@@ -242,16 +246,37 @@ class EditProfileScreen extends React.Component {
                 };
             }
         }
- 
+
+
+        this.updateProfile(userInfo);
+
+    }
+
+    removeImage = async () => {
+
+        if (this.RBSheet) {
+            this.RBSheet.close()
+        }
+
+        let userInfo = {
+            image: ""
+        };
+
+        this.updateProfile(userInfo);
+
+    }
+
+
+    updateProfile = async (data) => {
+
         try {
 
-            const response = await this.props.updateProfile(userInfo);
+            const response = await this.props.updateProfile(data);
 
             if (response?.message) {
                 showToast(response?.message);
-
             }
-            
+
 
             this.props.navigation.goBack();
 
@@ -263,8 +288,82 @@ class EditProfileScreen extends React.Component {
 
         }
 
+
     }
 
+
+    openPicker = () => {
+
+        if (this.RBSheet) {
+            this.RBSheet.close()
+        }
+
+        imagePicker.open(success => {
+            // do something with image 
+
+            let data = success.data;
+
+            if (!data.includes('base64')) {
+                let base = `data:image/png;base64,${data}`;
+
+                data = base;
+            }
+
+            let userInfo = {
+                image: data
+            }
+
+            this.updateProfile(userInfo);
+
+
+        }, error => {
+            // error handling
+            console.log('image pick error ', error)
+        })
+    }
+
+
+    _renderBottomSheet = () => {
+
+        return <RBSheet
+            ref={ref => {
+                this.RBSheet = ref;
+            }}
+            height={20 * vh}
+            openDuration={200}
+
+            dragFromTopOnly
+            closeOnDragDown
+            animationType="fade"
+        >
+
+            <BottomSheetButtons
+                source={allImages.generalIcons.edit}
+                onPress={this.openPicker}
+                text="Change Picture"
+            />
+            <BottomSheetButtons
+                source={allImages.generalIcons.cross}
+                onPress={this.removeImage}
+                text="Remove Picture"
+            />
+
+
+
+        </RBSheet>
+    }
+
+    openOptions = () => {
+
+        if (this.props.loading) {
+            return;
+        }
+
+        if (this.RBSheet) {
+            this.RBSheet.open()
+        }
+
+    }
 
     render() {
 
@@ -334,6 +433,9 @@ class EditProfileScreen extends React.Component {
 
                 </View>
 
+                {
+                    this._renderBottomSheet()
+                }
 
             </ScrollView>
         )

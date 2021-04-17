@@ -307,7 +307,7 @@ class HomeScreen extends React.Component {
 
             return <>
                 {
-                    // this._renderTopCards()
+                    this._renderTopCards()
                 }
 
 
@@ -317,12 +317,12 @@ class HomeScreen extends React.Component {
 
 
                 {
-                    // this._renderTrending()
+                    this._renderTrending()
                 }
 
 
                 {
-                    this._renderFeed()
+                    // this._renderFeed()
                 }
 
             </>

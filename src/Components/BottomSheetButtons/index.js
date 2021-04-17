@@ -14,8 +14,8 @@ class BottomSheetButtons extends React.Component {
             <RippleTouch style={{
 
                 width: 100 * vw,
-                paddingLeft: 8 * vw,
-                paddingRight: 8 * vw,
+                paddingLeft: 5 * vw,
+                paddingRight: 5 * vw,
 
 
             }}

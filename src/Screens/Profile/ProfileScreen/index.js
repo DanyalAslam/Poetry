@@ -56,7 +56,7 @@ class ProfileScreen extends React.Component {
             this.setState({
                 refreshing: false
             })
-            
+
         }
 
     }
@@ -211,17 +211,7 @@ class ProfileScreen extends React.Component {
 
 
                     <View style={styles.statsContainer}>
-                        <View style={styles.poemStats}>
 
-                            <TextPoppinsMedium style={styles.poemTitle}>
-                                Poems
-                            </TextPoppinsMedium>
-
-                            <TextPoppinsRegular style={styles.poemCount}>
-                                10
-                            </TextPoppinsRegular>
-
-                        </View>
 
                         <View style={styles.poemStats}>
 
@@ -234,6 +224,19 @@ class ProfileScreen extends React.Component {
                             </TextPoppinsRegular>
 
                         </View>
+
+                        <View style={styles.poemStats}>
+
+                            <TextPoppinsMedium style={styles.poemTitle}>
+                                Joined
+                            </TextPoppinsMedium>
+
+                            <TextPoppinsRegular style={styles.poemCount}>
+                                20 April 2001
+                            </TextPoppinsRegular>
+
+                        </View>
+
 
 
                         <View style={styles.likeStats}>
@@ -270,6 +273,8 @@ class ProfileScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
+
+    LOG('state ', state.UserReducer)
 
     return {
         profile: state.UserReducer.profile
