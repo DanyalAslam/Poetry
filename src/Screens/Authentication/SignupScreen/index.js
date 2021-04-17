@@ -107,7 +107,7 @@ class SignupScreen extends Component {
         }
 
         if (userInfo.image != "") {
-            if (!userInfo.image.includes('data')) {
+            if (!userInfo.image.includes('base64')) {
                 let base = `data:image/png;base64,${userInfo.image}`;
 
                 userInfo = {

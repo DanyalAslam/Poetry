@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, FlatList, ScrollView } from 'react-native'
 import styles from './styles.js'
 import allImages from '../../../assets/images'
 import RippleTouch from '../../../Components/RippleTouch'
@@ -12,6 +12,8 @@ import TextPoppinsMedium from '../../../Components/TextPoppinsMedium/index.js'
 import TextPoppinsSemi from '../../../Components/TextPoppinsSemi/index.js'
 import TextPoppinsLight from '../../../Components/TextPoppinsLight/index.js'
 import { LOG } from '../../../Api/HelperFunctions.js'
+import PoemFeedCard from '../../../Components/PoemFeedCard/index.js'
+import { genders } from '../../../Utils/index.js'
 
 
 
@@ -59,12 +61,71 @@ class ProfileScreen extends React.Component {
     }
 
 
+    _renderFeedItem = ({ item, index }) => {
+
+        return <PoemFeedCard
+            name="John doe"
+            created_at="2 mins ago"
+            title="Trying to be a stud"
+            verses="Trying to be a stud, but no help and the life goes on and onTrying to be a stud, but no help and the life goes on and on"
+        />
+    }
+
+
+    _renderFeed = () => {
+
+        return <View style={styles.feedView}>
+
+            <FlatList
+                data={[0, 1, 2]}
+                contentContainerStyle={styles.feedContainer}
+                showsVerticalScrollIndicator={false}
+                renderItem={this._renderFeedItem}
+                numColumns={1}
+                keyExtractor={(item, ind) => String(ind)}
+                scrollEnabled={false}
+            />
+
+        </View>
+    }
+
+    getProfileImage = () => {
+
+        let profileImage = this.props.profile?.image ?? "";
+
+        if (profileImage != "") {
+            if (!profileImage?.includes('base64')) {
+                profileImage = {
+                    uri: `data:image/png;base64,${profileImage}`
+                };
+            }
+            else {
+                profileImage = {
+                    uri: profileImage
+                };
+            }
+        }
+        else {
+            if (this.props?.profile?.gender?.toLowerCase() == genders.male) {
+                profileImage = allImages.generalImages.male;
+            }
+            else {
+                profileImage = allImages.generalImages.female;
+            }
+        }
+
+
+
+        return profileImage;
+    }
+
     render() {
 
-        LOG('this.props.profile ', this.props.profile)
 
         return (
-            <View style={styles.container}>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={styles.container}>
 
                 {
                     this.renderHeader()
@@ -74,7 +135,7 @@ class ProfileScreen extends React.Component {
 
                     <View style={styles.profileImageContainer}>
                         <Image
-                            source={{ uri: this.props.profile?.image }}
+                            source={this.getProfileImage()}
                             style={styles.profileImage}
                         />
                     </View>
@@ -159,7 +220,10 @@ class ProfileScreen extends React.Component {
 
                 </View>
 
-            </View>
+                {
+                    this._renderFeed()
+                }
+            </ScrollView>
         )
     }
 }

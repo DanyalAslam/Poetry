@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react'
-import { Image, Text, View } from 'react-native'
+import { Image, Text, TouchableOpacity, View } from 'react-native'
 import styles from './styles.js'
 import RippleTouch from '../RippleTouch/index.js'
 import { vh } from '../../Units/index.js'
@@ -7,66 +7,103 @@ import allImages from '../../assets/images'
 import { connect } from 'react-redux'
 
 
-const PoemFeedCard = (props) => {
+class PoemFeedCard extends Component {
+
+    state = {
+        liked: false
+    }
 
 
+    getActiveIcon = () => {
 
-    return (
-        <View>
+        let icon = allImages.generalIcons.unlike;
 
+        if (this.state.liked) {
+            icon = allImages.generalIcons.like;
+        }
 
+        return icon;
 
-            <RippleTouch style={styles.ripple} rippleColor="black" onPress={props.onPress}>
+    }
 
+    toggleLike = () => {
+        this.setState({
+            liked: !this.state.liked
+        });
+    }
 
+    render() {
+        return (
+            <View>
 
-                <View style={{ marginVertical: 0.3 * vh }}>
-                    <View style={styles.topRow}>
-                        <Image
-                            source={allImages.generalImages.profileImage}
-                            style={styles.image}
-                        />
+                <View
+                    style={styles.ripple}
+                // rippleColor="black"
+                // onPress={this.props.onPress}
+                >
 
-                        <View>
-                            <Text style={styles.name}>
-                                {props.name}
-                            </Text>
-                            <Text style={styles.date}>
-                                {props.created_at}
-                            </Text>
+                    <View style={{ marginVertical: 0.3 * vh }}>
+                        <View style={styles.topRow}>
+                            <TouchableOpacity activeOpacity={0.7} style={styles.profileRow}>
+                                <Image
+                                    source={allImages.generalImages.profileImage}
+                                    style={styles.profileImage}
+                                />
+
+                                <View>
+                                    <Text style={styles.name}>
+                                        {this.props.name}
+                                    </Text>
+                                    <Text style={styles.date}>
+                                        {this.props.created_at}
+                                    </Text>
+                                </View>
+
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={this.toggleLike} activeOpacity={0.7}>
+                                <Image
+                                    source={this.getActiveIcon()}
+                                    style={styles.image}
+                                />
+                            </TouchableOpacity>
+
                         </View>
 
                     </View>
-                </View>
 
 
 
-                <View style={{ marginVertical: 0.3 * vh }}>
-                    <Text style={styles.heading}>
-                        Title:
-                </Text>
-                    <Text style={[styles.text, { fontSize: 1.65 * vh }]} numberOfLines={2}>
-                        {props.title}
+                    <View style={{ marginVertical: 0.3 * vh }}>
+                        <Text style={styles.heading}>
+                            Title:
                     </Text>
-                </View>
+                        <Text style={[styles.text, { fontSize: 1.65 * vh }]} numberOfLines={2}>
+                            {this.props.title}
+                        </Text>
+                    </View>
 
 
-                <View style={{ marginVertical: 0.3 * vh }}>
-                    <Text style={styles.heading}>
-                        Verses:
-                </Text>
-                    <Text style={[styles.text, { width: '100%', fontSize: 1.4 * vh }]} numberOfLines={2}>
-                        {props.verses}
+                    <View style={{ marginVertical: 0.3 * vh }}>
+                        <Text style={styles.heading}>
+                            Verses:
                     </Text>
+                        <Text style={[styles.text, { width: '100%', fontSize: 1.4 * vh }]} numberOfLines={2}>
+                            {this.props.verses}
+                        </Text>
+                    </View>
+
+
                 </View>
+            </View>
+        )
+    }
 
 
-            </RippleTouch>
-        </View>
-    )
+
 }
 
-const mapStateToProps = state => {
+const mapStateToprops = state => {
 
     return {
 
@@ -75,4 +112,4 @@ const mapStateToProps = state => {
 
 }
 
-export default connect(mapStateToProps, null)(PoemFeedCard)
+export default connect(mapStateToprops, null)(PoemFeedCard)

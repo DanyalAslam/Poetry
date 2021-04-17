@@ -8,8 +8,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: appTheme.white,
-        paddingHorizontal: 5 * vw,
-        paddingVertical: 2 * vh
+        paddingHorizontal: 2 * vw,
+        // paddingVertical: 2 * vh
     },
 
     profileContainer: {
@@ -44,7 +44,9 @@ const styles = StyleSheet.create({
 
     headerRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginTop: 3 * vh,
+        paddingHorizontal: 2 * vw
     },
 
     poemTitle: {
@@ -120,7 +122,8 @@ const styles = StyleSheet.create({
 
     aboutContainer: {
         width: '100%',
-        marginBottom: 2 * vh
+        marginBottom: 2 * vh,
+        paddingHorizontal: 4 * vw,
     },
 
     aboutInfo: {
@@ -141,6 +144,18 @@ const styles = StyleSheet.create({
         backgroundColor: appTheme.skyWhite,
         alignSelf: 'center',
         height: 0.7 * vw
+    },
+
+    feedContainer: {
+        alignItems: 'center',
+        paddingTop: 0.8 * vh,
+        paddingBottom: 1 * vh,
+      
+    },
+
+    feedView: {
+        marginTop: 1 * vh,
+ 
     }
 
 

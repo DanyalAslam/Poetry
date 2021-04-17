@@ -51,14 +51,26 @@ export default Styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     image:{
+        width: 8 * vw,
+        height: 8 * vw,
+        marginRight: 2 * vw,
+        resizeMode: 'contain'
+    },
+    profileImage:{
         width: 10 * vw,
         height: 10 * vw,
         borderRadius: 5 * vw,
-        marginRight: 2 * vw
+        marginRight: 2 * vw,
     },
     topRow:{
         flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+
+    profileRow:{
+        flexDirection: 'row',
         alignItems: 'center'
-    }
+    },
 
 });

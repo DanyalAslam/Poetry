@@ -16,6 +16,8 @@ const allImages = {
         logout: require('./generalIcons/logout.png'),
         profile: require('./generalIcons/profile.png'),
         edit: require('./generalIcons/edit.png'),
+        like: require('./generalIcons/like.png'),
+        unlike: require('./generalIcons/unlike.png'),
 
     },
     tabBarIcons:{
@@ -33,6 +35,8 @@ const allImages = {
         placeHolder: require('./generalImages/placeHolder.png'),  
         background: require('./generalImages/background.png'), 
         profileImage: require('./generalImages/profileImage.jpeg'),  
+        male: require('./generalImages/male.png'), 
+        female: require('./generalImages/female.png'), 
     },
     transparentIcons: {
         camera: require('./TransparentIcons/camera.png'),
