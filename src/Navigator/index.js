@@ -28,6 +28,7 @@ import ForgotPasswordScreen from '../Screens/Authentication/ForgotPasswordScreen
 import ProfileScreen from '../Screens/Profile/ProfileScreen';
 import EditProfileScreen from '../Screens/Profile/EditProfileScreen';
 import FeedScreen from '../Screens/FeedScreen';
+import CreatePoemScreen from '../Screens/CreatePoemScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -133,6 +134,10 @@ class MainNavigator extends React.Component {
         return 'Categories'
       }
 
+      case 'FeedScreen': {
+        return 'Feed'
+      }
+
       case 'CategoryDetailsScreen': {
 
         return props.route.params?.title
@@ -209,7 +214,7 @@ class MainNavigator extends React.Component {
     return (
 
       <WishStack.Navigator
-        screenOptions={this._renderHeaderWithSearch}
+        screenOptions={this._DefaultHeaderOptions}
         headerMode="screen"
       >
 
@@ -234,7 +239,7 @@ class MainNavigator extends React.Component {
 
     return (
       <CategoryStack.Navigator
-        screenOptions={this._renderHeaderWithSearch}
+        screenOptions={this._DefaultHeaderOptions}
 
         headerMode="screen"
       >
@@ -263,7 +268,7 @@ class MainNavigator extends React.Component {
 
     return (
       <PoetStack.Navigator
-        screenOptions={this._renderHeaderWithSearch}
+        screenOptions={this._DefaultHeaderOptions}
         headerMode="screen"
       >
         <PoetStack.Screen
@@ -309,7 +314,7 @@ class MainNavigator extends React.Component {
 
     return (
       <FeedStack.Navigator
-        screenOptions={this._renderHeaderWithSearch}
+        screenOptions={this._DefaultHeaderOptions}
         headerMode="screen"
       >
         <FeedStack.Screen
@@ -515,6 +520,18 @@ class MainNavigator extends React.Component {
           options={(props) => {
             return {
               ...TransitionPresets.SlideFromRightIOS,
+              headerShown: false
+            }
+          }
+          }
+        />
+
+        <RootStack.Screen
+          name="CreatePoemScreen"
+          component={CreatePoemScreen}
+          options={(props) => {
+            return {
+              ...TransitionPresets.ScaleFromCenterAndroid,
               headerShown: false
             }
           }

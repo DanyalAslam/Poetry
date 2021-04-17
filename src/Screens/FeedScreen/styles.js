@@ -7,11 +7,11 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: appTheme.white,
         flex: 1,
-        alignItems: 'center', 
+        alignItems: 'center',
         justifyContent: 'center'
     },
     topCard: {
-        
+
         width: 100 * vw,
         marginTop: 3 * vh,
         // paddingLeft: 5 * vw,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         marginRight: 3 * vw,
     },
     topCardChild: {
-         
+
         borderTopLeftRadius: 5 * vw,
         borderBottomLeftRadius: 5 * vw,
         // paddingLeft: 2 * vw,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         // paddingBottom: 4 * vh,
         // elevation: 3,
         // backgroundColor: appTheme.white,
-    
+
     },
     topCardChildRow: {
         flexDirection: "row",
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         paddingLeft: 5 * vw,
         // marginBottom:1.5*vh,
         alignItems: 'baseline',
-        marginRight: 2 * vw, 
+        marginRight: 2 * vw,
     },
     Heading: {
         fontFamily: fonts.SSB,
@@ -61,8 +61,40 @@ const styles = StyleSheet.create({
         marginTop: vh * 1
     },
     scrollView: {
-        width: '100%', 
+        width: '100%',
     },
+
+    profileImage: {
+        width: 15 * vw,
+        height: 15 * vw,
+        borderRadius: 7.5 * vw,
+        // resizeMode: 'contain',
+    },
+
+    profileImageContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        // elevation: 2,
+        width: 15 * vw,
+        height: 15 * vw,
+        borderRadius: 7.5 * vw,
+        backgroundColor: appTheme.white,
+        marginBottom: 1.5 * vh
+    },
+
+    message: {
+        color: appTheme.black,
+        fontSize: 1.7 * vh,
+        textAlign: 'center'
+    },
+
+    status: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 2 * vh,
+        marginBottom: 2 * vh,
+        backgroundColor: appTheme.white
+    }
 })
 
 export default styles

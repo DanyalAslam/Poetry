@@ -15,6 +15,8 @@ import { LOG } from '../../../Api/HelperFunctions.js'
 import PoemFeedCard from '../../../Components/PoemFeedCard/index.js'
 import { genders, getProfileImage } from '../../../Utils/index.js'
 import moment from 'moment'
+import EmptyComponent from '../../../Components/EmptyComponent/index.js'
+import { vh } from '../../../Units/index.js'
 
 
 class ProfileScreen extends React.Component {
@@ -103,6 +105,10 @@ class ProfileScreen extends React.Component {
 
     }
 
+    ListEmptyComponent = () => {
+
+        return <EmptyComponent message="No poems to show" style={{ marginBottom: 3 * vh }} />;
+    }
 
     _renderFeedItem = ({ item, index }) => {
 
@@ -123,13 +129,14 @@ class ProfileScreen extends React.Component {
         return <View style={styles.feedView}>
 
             <FlatList
-                data={this.props.myPoems}
+                data={this.props.myPoems ?? []}
                 contentContainerStyle={styles.feedContainer}
                 showsVerticalScrollIndicator={false}
                 renderItem={this._renderFeedItem}
                 numColumns={1}
                 keyExtractor={(item, ind) => String(item._id)}
                 scrollEnabled={false}
+                ListEmptyComponent={this.ListEmptyComponent}
             />
 
         </View>

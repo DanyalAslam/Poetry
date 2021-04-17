@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, RefreshControl, } from 'react-native'
+import { View, Text, FlatList, RefreshControl, TouchableOpacity, Image, } from 'react-native'
 import styles from './styles.js'
 
 import { vw, vh } from '../../Units/index.js'
@@ -8,10 +8,11 @@ import { connect } from 'react-redux'
 import actions from '../../redux/actions/index.js'
 import { appTheme, getProfileImage } from '../../Utils/index.js'
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
-import Toast from 'react-native-simple-toast'
 import PoemFeedCard from '../../Components/PoemFeedCard/index.js'
 import { LOG } from '../../Api/HelperFunctions.js'
 import moment from 'moment'
+import TextSemiBold from '../../Components/TextSemiBold/index.js'
+import TextRegular from '../../Components/TextRegular/index.js'
 
 
 
@@ -70,7 +71,7 @@ class FeedScreen extends React.Component {
             verses={item?.verses}
             source={getProfileImage(item?.user)}
             id={item._id}
-            isLiked={item?.likers?.find(like => like.id == this.props.user_id) ? true : false}
+            isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}
         />
     }
 
@@ -93,13 +94,32 @@ class FeedScreen extends React.Component {
                 />
             }
             ListEmptyComponent={this.ListEmptyComponent}
+            ListHeaderComponent={this.ListHeaderComponent}
         />
     }
 
+    ListHeaderComponent = () => {
 
+        return <TouchableOpacity
+            onPress={() => this.props.navigation.navigate("CreatePoemScreen")}
+            activeOpacity={0.7}
+            style={styles.status}>
+            <View style={styles.profileImageContainer}>
+                <Image
+                    source={getProfileImage(this.props.profile)}
+                    style={styles.profileImage}
+                />
+            </View>
+
+            <TextRegular style={styles.message}>
+                {`Hey ${this.props?.profile?.name ?? 'guest'} !\n Have something to share?`}
+            </TextRegular>
+        </TouchableOpacity>
+
+    }
 
     render() {
-       return (
+        return (
             <View style={styles.container}>
                 {
                     this._renderFeed()
@@ -114,7 +134,7 @@ const mapStateToProps = state => {
     return {
 
         allPoems: state.PoemReducer.allPoems,
-        user_id: state.UserReducer.profile?._id,
+        profile: state.UserReducer.profile,
     }
 
 }

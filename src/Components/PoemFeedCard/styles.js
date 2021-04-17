@@ -5,7 +5,7 @@ import fonts from '../../assets/fonts';
 
 export default Styles = StyleSheet.create({
     ripple: {
-        height: 25 * vh,
+        minHeight: 25 * vh,
         width: 90 * vw,
         marginVertical: 1 * vh,
         marginHorizontal: 2*vw,
@@ -14,7 +14,8 @@ export default Styles = StyleSheet.create({
         borderRadius: 3 * vw,
         shadowColor: 'black',
         paddingHorizontal: 2 * vw,
-        justifyContent: 'space-around'
+        justifyContent: 'space-between',
+        paddingVertical: 1 * vh
     },
     Container: {
         flexDirection: 'row',
@@ -29,22 +30,27 @@ export default Styles = StyleSheet.create({
     heading: {
         color: appTheme.black,
         fontSize: 1.8 * vh,
-        fontFamily: fonts.SSB
+        // fontFamily: fonts.SSB
+        fontFamily: fonts.poppins.regular
     },
     name:{
         color: appTheme.black,
         fontSize: 1.7 * vh,
-        fontFamily: fonts.SSB
+        // fontFamily: fonts.SSB
+        fontFamily: fonts.poppins.regular
     },
     date:{
         color: appTheme.darkGray,
         fontSize: 1.2 * vh,
-        fontFamily: fonts.SSR
+        // fontFamily: fonts.SSR
+        fontFamily: fonts.poppins.light,
+        lineHeight: 1.5 * vh
     },
     text: {
         color: appTheme.darkGray,
         fontSize: 1.8 * vh,
-        fontFamily: fonts.SSR
+        fontFamily: fonts.poppins.light
+        // fontFamily: fonts.SSR
     },
     row:{
         flexDirection: 'row',

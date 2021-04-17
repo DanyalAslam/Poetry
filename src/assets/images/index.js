@@ -30,6 +30,8 @@ const allImages = {
         moreInActive: require('./tabBarIcons/moreInActive.png'),
         poetActive: require('./tabBarIcons/poetActive.png'),
         poetInActive: require('./tabBarIcons/poetInActive.png'),
+        feedActive: require('./tabBarIcons/feedActive.png'),
+        feedInActive: require('./tabBarIcons/feedInActive.png'),
     },
     generalImages:{
         logo: require('./generalImages/logo.png'),  
