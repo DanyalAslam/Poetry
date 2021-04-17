@@ -26,6 +26,16 @@ export default class TabBarItem extends Component {
                 </View>
             }
 
+            case "FeedStack": {
+                return <View style={Styles.buttonStyles}>
+                    <Image source={params.focused ? allImages.tabBarIcons.categActive : allImages.tabBarIcons.categInActive} 
+                    style={Styles.imageStyle} />
+                    <Text style={[Styles.labelStyle, { color: params.color }]}>
+                        Feed
+                    </Text>
+                </View>
+            }
+
             case "CategoryStack": {
                 return <View style={Styles.buttonStyles}>
                     <Image source={params.focused ? allImages.tabBarIcons.categActive : allImages.tabBarIcons.categInActive} 

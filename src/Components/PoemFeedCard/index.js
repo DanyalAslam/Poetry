@@ -5,20 +5,18 @@ import RippleTouch from '../RippleTouch/index.js'
 import { vh } from '../../Units/index.js'
 import allImages from '../../assets/images'
 import { connect } from 'react-redux'
+import actions from '../../redux/actions/index.js'
+import { LOG } from '../../Api/HelperFunctions.js'
 
 
 class PoemFeedCard extends Component {
-
-    state = {
-        liked: false
-    }
 
 
     getActiveIcon = () => {
 
         let icon = allImages.generalIcons.unlike;
 
-        if (this.state.liked) {
+        if (this.props.isLiked) {
             icon = allImages.generalIcons.like;
         }
 
@@ -27,9 +25,8 @@ class PoemFeedCard extends Component {
     }
 
     toggleLike = () => {
-        this.setState({
-            liked: !this.state.liked
-        });
+
+        this.props.toggleLike(this.props.id);
     }
 
     render() {
@@ -46,7 +43,7 @@ class PoemFeedCard extends Component {
                         <View style={styles.topRow}>
                             <TouchableOpacity activeOpacity={0.7} style={styles.profileRow}>
                                 <Image
-                                    source={allImages.generalImages.profileImage}
+                                    source={this.props.source}
                                     style={styles.profileImage}
                                 />
 
@@ -103,13 +100,13 @@ class PoemFeedCard extends Component {
 
 }
 
-const mapStateToprops = state => {
+
+const mapDispatchToProps = dispatch => {
 
     return {
-
-
+        toggleLike: (poem_id) => dispatch(actions.toggleLike(poem_id)),
     }
 
 }
 
-export default connect(mapStateToprops, null)(PoemFeedCard)
+export default connect(null, mapDispatchToProps)(PoemFeedCard)

@@ -11,6 +11,13 @@ export const endPoints = {
         forgot: '/auth/forgot',
         verify: '/auth/verify',
         reset: '/auth/reset'
+    },
+
+    feed: {
+        allPoems: '/feed/poems',
+        myPoems: '/feed/mypoems',
+        create: '/feed/createPoem',
+        toggleLike: '/feed/toggleLike'
     }
 };
 

@@ -27,6 +27,7 @@ import LoginScreen from '../Screens/Authentication/LoginScreen';
 import ForgotPasswordScreen from '../Screens/Authentication/ForgotPasswordScreen';
 import ProfileScreen from '../Screens/Profile/ProfileScreen';
 import EditProfileScreen from '../Screens/Profile/EditProfileScreen';
+import FeedScreen from '../Screens/FeedScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -37,6 +38,7 @@ const PoetStack = createStackNavigator();
 const MoreStack = createStackNavigator();
 const WishStack = createStackNavigator();
 const RootStack = createStackNavigator();
+const FeedStack = createStackNavigator();
 
 
 class MainNavigator extends React.Component {
@@ -303,7 +305,21 @@ class MainNavigator extends React.Component {
     )
   }
 
+  FeedStackNavigator = () => {
 
+    return (
+      <FeedStack.Navigator
+        screenOptions={this._renderHeaderWithSearch}
+        headerMode="screen"
+      >
+        <FeedStack.Screen
+          name="FeedScreen"
+          component={FeedScreen}
+        />
+
+      </FeedStack.Navigator>
+    )
+  }
 
   TabNavigator = (props) => {
 
@@ -335,6 +351,19 @@ class MainNavigator extends React.Component {
             tabBarIcon: (params) => {
               return (
                 <TabBarItem params={params} name='HomeStack' />
+              )
+            },
+
+          }}
+        />
+
+        <Tabs.Screen
+          name="FeedStack"
+          component={this.FeedStackNavigator}
+          options={{
+            tabBarIcon: (params) => {
+              return (
+                <TabBarItem params={params} name='FeedStack' />
               )
             },
 

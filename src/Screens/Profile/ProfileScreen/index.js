@@ -13,7 +13,8 @@ import TextPoppinsSemi from '../../../Components/TextPoppinsSemi/index.js'
 import TextPoppinsLight from '../../../Components/TextPoppinsLight/index.js'
 import { LOG } from '../../../Api/HelperFunctions.js'
 import PoemFeedCard from '../../../Components/PoemFeedCard/index.js'
-import { genders } from '../../../Utils/index.js'
+import { genders, getProfileImage } from '../../../Utils/index.js'
+import moment from 'moment'
 
 
 class ProfileScreen extends React.Component {
@@ -45,6 +46,8 @@ class ProfileScreen extends React.Component {
             })
 
             const response = await this.props.getProfile();
+
+            const poems = await this.props.getMyPoems();
 
             this.setState({
                 refreshing: false
@@ -104,10 +107,13 @@ class ProfileScreen extends React.Component {
     _renderFeedItem = ({ item, index }) => {
 
         return <PoemFeedCard
-            name="John doe"
-            created_at="2 mins ago"
-            title="Trying to be a stud"
-            verses="Trying to be a stud, but no help and the life goes on and onTrying to be a stud, but no help and the life goes on and on"
+            name={item?.user?.name}
+            created_at={moment(item?.created_at).fromNow(true)}
+            title={item?.title}
+            verses={item?.verses}
+            source={getProfileImage(item?.user)}
+            id={item._id}
+            isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}
         />
     }
 
@@ -117,50 +123,21 @@ class ProfileScreen extends React.Component {
         return <View style={styles.feedView}>
 
             <FlatList
-                data={[0, 1, 2]}
+                data={this.props.myPoems}
                 contentContainerStyle={styles.feedContainer}
                 showsVerticalScrollIndicator={false}
                 renderItem={this._renderFeedItem}
                 numColumns={1}
-                keyExtractor={(item, ind) => String(ind)}
+                keyExtractor={(item, ind) => String(item._id)}
                 scrollEnabled={false}
             />
 
         </View>
     }
 
-    getProfileImage = () => {
 
-        let profileImage = this.props.profile?.image ?? "";
-
-        if (profileImage != "") {
-            if (!profileImage?.includes('base64')) {
-                profileImage = {
-                    uri: `data:image/png;base64,${profileImage}`
-                };
-            }
-            else {
-                profileImage = {
-                    uri: profileImage
-                };
-            }
-        }
-        else {
-            if (this.props?.profile?.gender?.toLowerCase() == genders.male) {
-                profileImage = allImages.generalImages.male;
-            }
-            else {
-                profileImage = allImages.generalImages.female;
-            }
-        }
-
-
-
-        return profileImage;
-    }
 
     render() {
-
 
         return (
             <ScrollView
@@ -176,7 +153,7 @@ class ProfileScreen extends React.Component {
 
                     <View style={styles.profileImageContainer}>
                         <Image
-                            source={this.getProfileImage()}
+                            source={getProfileImage(this.props.profile)}
                             style={styles.profileImage}
                         />
                     </View>
@@ -220,7 +197,7 @@ class ProfileScreen extends React.Component {
                             </TextPoppinsMedium>
 
                             <TextPoppinsRegular style={styles.poemCount}>
-                                10
+                                {this.props.profile?.poems}
                             </TextPoppinsRegular>
 
                         </View>
@@ -232,7 +209,7 @@ class ProfileScreen extends React.Component {
                             </TextPoppinsMedium>
 
                             <TextPoppinsRegular style={styles.poemCount}>
-                                20 April 2001
+                                {moment(this.props.profile?.joined).format("DD MMMM YYYY")}
                             </TextPoppinsRegular>
 
                         </View>
@@ -246,7 +223,7 @@ class ProfileScreen extends React.Component {
                             </TextPoppinsMedium>
 
                             <TextPoppinsRegular style={styles.likeCount}>
-                                200
+                                {this.props.profile?.likes}
                             </TextPoppinsRegular>
 
                         </View>
@@ -274,10 +251,9 @@ class ProfileScreen extends React.Component {
 
 const mapStateToProps = state => {
 
-    LOG('state ', state.UserReducer)
-
     return {
-        profile: state.UserReducer.profile
+        profile: state.UserReducer.profile,
+        myPoems: state.PoemReducer.myPoems
     }
 
 }
@@ -285,7 +261,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 
     return {
-        getProfile: () => dispatch(actions.getProfile())
+        getProfile: () => dispatch(actions.getProfile()),
+        getMyPoems: () => dispatch(actions.getMyPoems())
     }
 
 }

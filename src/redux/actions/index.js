@@ -414,6 +414,125 @@ const actions = {
         }
     },
 
+    getMyPoems: () => {
+
+        return async dispatch => {
+
+            try {
+
+                const response = await Api.promise.get(endPoints.feed.myPoems);
+
+                dispatch({ type: actionTypes.MY_POEMS, payload: { poems: response?.poems } });
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
+    getAllPoems: () => {
+
+        return async dispatch => {
+
+            try {
+
+                const response = await Api.promise.get(endPoints.feed.allPoems);
+
+                dispatch({ type: actionTypes.ALL_POEMS, payload: { poems: response?.poems } });
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
+    toggleLike: (poem_id) => {
+
+        return async (dispatch, getState) => {
+
+            try {
+
+                let data = {
+                    poem_id
+                };
+
+                let poemStore = getState().PoemReducer;
+                let user_id = getState().UserReducer?.profile?._id;
+
+
+                let myPoemIndex = poemStore?.myPoems?.findIndex(poem => poem._id == poem_id);
+
+                if (myPoemIndex != -1) {
+
+                    let poem = checkAndLike(poemStore?.myPoems[myPoemIndex], user_id);
+                    poemStore.myPoems[myPoemIndex] = {
+                        ...poem
+                    };
+
+                }
+
+                let allPoemIndex = poemStore?.allPoems?.findIndex(poem => poem._id == poem_id);
+
+                if (allPoemIndex != -1) {
+
+                    let poem = checkAndLike(poemStore?.allPoems[allPoemIndex], user_id);
+
+                    poemStore.allPoems[allPoemIndex] = {
+                        ...poem
+                    };
+
+                }
+
+                dispatch({ type: actionTypes.TOGGLE_LIKE, payload: { allPoems: poemStore?.allPoems, myPoems: poemStore?.myPoems } });
+
+                const response = await Api.promise.post(endPoints.feed.toggleLike, data);
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
 }
 
-export default actions
+
+const checkAndLike = (poem, user_id) => {
+
+    let likeIndex = poem?.likers?.findIndex(like => like.id == user_id);
+
+    if (likeIndex != -1) {
+
+        poem?.likers?.splice(likeIndex, 1);
+
+    }
+    else {
+
+        poem.likers = [
+            ...poem?.likers,
+            {
+                id: user_id
+            }
+        ]
+
+    }
+
+    return poem;
+
+}
+
+
+export default actions;

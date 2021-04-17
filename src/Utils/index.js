@@ -1,3 +1,4 @@
+import allImages from "../assets/images";
 
 export const appTheme = {
     white: '#FFFFFF',
@@ -30,3 +31,34 @@ export const genders = {
     male: "male",
     female: "female"
 };
+
+
+export const getProfileImage = (profile) => {
+
+    let profileImage = profile?.image ?? "";
+
+    if (profileImage != "") {
+        if (!profileImage?.includes('base64')) {
+            profileImage = {
+                uri: `data:image/png;base64,${profileImage}`
+            };
+        }
+        else {
+            profileImage = {
+                uri: profileImage
+            };
+        }
+    }
+    else {
+        if (profile?.gender?.toLowerCase() == genders.male) {
+            profileImage = allImages.generalImages.male;
+        }
+        else {
+            profileImage = allImages.generalImages.female;
+        }
+    }
+
+
+
+    return profileImage;
+}

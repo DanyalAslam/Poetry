@@ -13,7 +13,11 @@ const actionTypes = {
     LOGIN: "LOGIN",
     LOADING_ON: "LOADING_ON",
     LOADING_OFF: "LOADING_OFF",
-    GET_PROFILE: 'GET_PROFILE'
+    GET_PROFILE: 'GET_PROFILE',
+
+    MY_POEMS: 'MY_POEMS',
+    ALL_POEMS: 'ALL_POEMS',
+    TOGGLE_LIKE: 'TOGGLE_LIKE'
 }
 
 export default actionTypes
