@@ -26,6 +26,7 @@ import SignupScreen from '../Screens/Authentication/SignupScreen';
 import LoginScreen from '../Screens/Authentication/LoginScreen';
 import ForgotPasswordScreen from '../Screens/Authentication/ForgotPasswordScreen';
 import ProfileScreen from '../Screens/Profile/ProfileScreen';
+import EditProfileScreen from '../Screens/Profile/EditProfileScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -473,6 +474,18 @@ class MainNavigator extends React.Component {
           options={(props) => {
             return {
               ...TransitionPresets.ScaleFromCenterAndroid,
+              headerShown: false
+            }
+          }
+          }
+        />
+
+        <RootStack.Screen
+          name="EditProfileScreen"
+          component={EditProfileScreen}
+          options={(props) => {
+            return {
+              ...TransitionPresets.SlideFromRightIOS,
               headerShown: false
             }
           }

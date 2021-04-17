@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
         width: 30 * vw,
         height: 30 * vw,
         borderRadius: 15 * vw,
-        backgroundColor: appTheme.white
+        backgroundColor: appTheme.white,
+        
     },
 
     headerIcon: {
@@ -48,57 +49,25 @@ const styles = StyleSheet.create({
         marginTop: 3 * vh,
         paddingHorizontal: 2 * vw
     },
-
-    poemTitle: {
-        color: appTheme.black,
-    },
-
-    poemCount: {
-        color: appTheme.gray,
-        fontSize: 1.8 * vh
-    },
-
-    poemStats: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginHorizontal: 7 * vw,
-        marginBottom: 2 * vh
-    },
-
-    likeTitle: {
-        color: appTheme.black,
-    },
-
-    likeCount: {
-        color: appTheme.gray,
-        fontSize: 1.8 * vh
-    },
-
-    likeStats: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginHorizontal: 7 * vw,
-        marginBottom: 2 * vh
-    },
+ 
 
     username: {
         color: appTheme.black,
         marginTop: 2 * vh,
-        marginBottom: 0.5 * vh,
         fontSize: 2.3 * vh
     },
 
     email: {
         color: appTheme.gray,
-        marginBottom: 0.5 * vh,
-        fontSize: 1.8 * vh
+        marginBottom: 2 * vh,
+        fontSize: 1.8 * vh,
+        marginTop: 2 * vh,
     },
 
     country: {
         color: appTheme.gray,
         fontSize: 1.6 * vh,
-        maxWidth: 40 * vw,
-        textAlign: 'center'
+
     },
 
     age: {
@@ -116,11 +85,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    statsContainer: {
-        flexDirection: 'row',
-        marginTop: 3 * vh
-    },
-
+  
     aboutContainer: {
         width: '100%',
         marginBottom: 2 * vh,
@@ -147,18 +112,63 @@ const styles = StyleSheet.create({
         height: 0.7 * vw
     },
 
-    feedContainer: {
-        alignItems: 'center',
-        paddingTop: 0.8 * vh,
-        paddingBottom: 1 * vh,
-      
+    aboutField:{
+        textAlignVertical: 'top',
+        maxHeight: 25 * vh,
+        fontFamily: fonts.poppins.light,
+        color: appTheme.gray
+    },
+    inputField:{
+        fontFamily: fonts.poppins.light,
+        color: appTheme.gray
     },
 
-    feedView: {
-        marginTop: 1 * vh,
- 
-    }
+    nameContainer:{
+        width: '100%',
+        paddingHorizontal: 4 * vw,
+    },
 
+    RadioButton:{
+        flexDirection: 'row',
+        width:  50 * vw,
+        justifyContent: 'space-between',
+        marginBottom: 1 *vh
+    },
+    radioText:{
+        color: appTheme.darkGray,
+        fontFamily: fonts.poppins.light
+    },
+
+    btnStyle: {
+        marginTop: 3 * vh,
+        marginBottom: 3.5 * vh,
+        backgroundColor: appTheme.black
+    },
+    btnText: {
+        fontSize: 2.0 * vh,
+        color: appTheme.white
+    },
+
+    cameraStyle: {
+        width: '50%',
+        height: '50%',
+        resizeMode: 'contain',
+
+    },
+    cameraContainerStyle: {
+        borderRadius: 4 * vw,
+        width: 8 * vw,
+        height: 8 * vw,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff',
+        position: 'absolute',
+        bottom: 0 * vw,
+        right: 0 * vw,
+        borderColor: appTheme.black,
+        borderWidth: 0.5 * vw,
+        elevation: 3,
+    },
 
 })
 

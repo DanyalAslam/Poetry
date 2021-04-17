@@ -1,16 +1,16 @@
 import React from 'react';
-import {Image, View, TouchableOpacity} from 'react-native';
+import { Image, View, TouchableOpacity } from 'react-native';
 import TextSemiBold from '../TextSemiBold';
 import styles from './styles';
 
 class RadioButton extends React.Component {
   state = {
     data: this.props.data ?? [],
-    activeIndex: 0,
+    activeIndex: this.props?.activeIndex ?? 0,
   };
 
   _onToggle = (index) => {
-    this.setState({activeIndex: index}, () => {
+    this.setState({ activeIndex: index }, () => {
       if (this.props.onChange) {
         let _payload = {
           index,
@@ -34,7 +34,7 @@ class RadioButton extends React.Component {
           ) : null}
         </TouchableOpacity>
 
-        <TextSemiBold style={styles.text}>{item}</TextSemiBold>
+        <TextSemiBold style={[styles.text, this.props.textStyle]}>{item}</TextSemiBold>
       </View>
     );
   };

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, FlatList, ScrollView } from 'react-native'
+import { View, Text, Image, FlatList, ScrollView, RefreshControl } from 'react-native'
 import styles from './styles.js'
 import allImages from '../../../assets/images'
 import RippleTouch from '../../../Components/RippleTouch'
@@ -16,22 +16,62 @@ import PoemFeedCard from '../../../Components/PoemFeedCard/index.js'
 import { genders } from '../../../Utils/index.js'
 
 
-
 class ProfileScreen extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            refreshing: true
+        }
+    }
+
+    componentDidMount() {
+
+        this.props.navigation.addListener('focus', this.getProfile);
+
+    }
+
+    componentWillUnmount() {
+        this.props.navigation.removeListener('focus');
+    }
+
+
+    getProfile = async () => {
+
+        try {
+
+            this.setState({
+                refreshing: true
+            })
+
+            const response = await this.props.getProfile();
+
+            this.setState({
+                refreshing: false
+            })
+
+
+        } catch (error) {
+
+            this.setState({
+                refreshing: false
+            })
+            
+        }
+
+    }
 
 
     renderHeader = () => {
 
         return <View style={styles.headerRow}>
             <RippleTouch
-            // onPress={() => this._onBackPress(props)}
-            >
+                onPress={this.props.navigation.goBack}>
                 <Image style={styles.headerIcon} source={allImages.generalIcons.leftArrow} />
             </RippleTouch>
 
             <RippleTouch
-            // onPress={() => this._onBackPress(props)}
-            >
+                onPress={() => this.props.navigation.navigate('EditProfileScreen')}>
                 <Image style={styles.headerIcon} source={allImages.generalIcons.edit} />
             </RippleTouch>
         </View>
@@ -124,6 +164,7 @@ class ProfileScreen extends React.Component {
 
         return (
             <ScrollView
+                refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.getProfile} />}
                 showsVerticalScrollIndicator={false}
                 style={styles.container}>
 
@@ -239,7 +280,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 
     return {
-        logout: () => dispatch(actions.logout())
+        getProfile: () => dispatch(actions.getProfile())
     }
 
 }

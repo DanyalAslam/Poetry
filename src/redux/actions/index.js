@@ -295,7 +295,8 @@ const actions = {
 
                 const response = await Api.promise.get(endPoints.auth.profile);
 
-                // dispatch({ type: actionTypes.GET_PROFILE, payload: response?.token });
+
+                dispatch({ type: actionTypes.GET_PROFILE, payload: { profile: response?.user } });
 
                 return Promise.resolve(response);
 
@@ -374,6 +375,30 @@ const actions = {
                 dispatch({ type: actionTypes.LOADING_ON });
 
                 const response = await Api.promise.post(endPoints.auth.reset, credentials);
+
+                dispatch({ type: actionTypes.LOADING_OFF });
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                dispatch({ type: actionTypes.LOADING_OFF });
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
+    updateProfile: (credentials) => {
+
+        return async dispatch => {
+
+            try {
+
+                dispatch({ type: actionTypes.LOADING_ON });
+
+                const response = await Api.promise.post(endPoints.auth.profile, credentials);
 
                 dispatch({ type: actionTypes.LOADING_OFF });
 

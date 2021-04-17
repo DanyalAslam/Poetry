@@ -16,7 +16,7 @@ class Button extends Component {
     renderBody = () => {
 
         if (this.props.loading) {
-            return <ActivityIndicator size="small" color={appTheme.black} />;
+            return <ActivityIndicator size="small" color={this.props.color ?? appTheme.black} />;
         }
 
         return this.props.children;
