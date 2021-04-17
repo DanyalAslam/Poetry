@@ -136,6 +136,7 @@ android {
         versionName "1.1.6"
         multiDexEnabled true
     }
+     aaptOptions { cruncherEnabled = false }
     splits {
         abi {
             reset()
