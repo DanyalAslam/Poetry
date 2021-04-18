@@ -17,7 +17,7 @@ class MoreScreen extends React.Component {
         }
 
         return <MoreItem
-            onPress={() => this.props.navigation.navigate('ProfileScreen')}
+            onPress={() => this.props.navigation.navigate('ProfileScreen', { id: this.props.user_id })}
             title="My Profile"
             image={allImages.generalIcons.profile}
         />
@@ -76,7 +76,8 @@ class MoreScreen extends React.Component {
 const mapStateToProps = state => {
 
     return {
-        token: state.UserReducer.token
+        token: state.UserReducer.token,
+        user_id: state.UserReducer.profile?._id
     }
 
 }

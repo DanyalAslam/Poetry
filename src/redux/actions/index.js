@@ -285,16 +285,20 @@ const actions = {
         }
     },
 
-    getProfile: () => {
+    getProfile: (user_id) => {
 
-        return async dispatch => {
+        return async (dispatch, getState) => {
 
             try {
 
-                const response = await Api.promise.get(endPoints.auth.profile);
+                const response = await Api.promise.get(endPoints.auth.profile, { id: user_id });
 
+                let id = getState().UserReducer.profile?._id;
 
-                dispatch({ type: actionTypes.GET_PROFILE, payload: { profile: response?.user } });
+                if (id == user_id) {
+                    dispatch({ type: actionTypes.GET_PROFILE, payload: { profile: response?.user } });
+                }
+
 
                 return Promise.resolve(response);
 
@@ -412,17 +416,24 @@ const actions = {
         }
     },
 
-    getMyPoems: (page = 1) => {
+    getMyPoems: (page = 1, user_id) => {
 
-        return async dispatch => {
+        return async (dispatch, getState) => {
 
             try {
 
-                const response = await Api.promise.get(endPoints.feed.myPoems, { page });
+                const response = await Api.promise.get(endPoints.feed.myPoems, { page, id: user_id });
 
-             
+
+                // let id = getState().UserReducer.profile?._id;
+
+                // if (id == user_id) {
+                //     dispatch({ type: actionTypes.MY_POEMS, payload: { poems: response?.poems, page } });
+                // }
 
                 dispatch({ type: actionTypes.MY_POEMS, payload: { poems: response?.poems, page } });
+
+
 
                 return Promise.resolve(response);
 

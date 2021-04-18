@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, FlatList, RefreshControl } from 'react-native'
+import { View, Text, Image, FlatList, RefreshControl, ActivityIndicator } from 'react-native'
 import styles from './styles.js'
 import allImages from '../../../assets/images'
 import RippleTouch from '../../../Components/RippleTouch'
@@ -13,7 +13,7 @@ import BottomSheetButtons from '../../../Components/BottomSheetButtons/index.js'
 import TextPoppinsLight from '../../../Components/TextPoppinsLight/index.js'
 import { LOG } from '../../../Api/HelperFunctions.js'
 import PoemFeedCard from '../../../Components/PoemFeedCard/index.js'
-import { genders, getProfileImage, _calculateDate } from '../../../Utils/index.js'
+import { appTheme, genders, getProfileImage, _calculateDate } from '../../../Utils/index.js'
 import moment from 'moment'
 import EmptyComponent from '../../../Components/EmptyComponent/index.js'
 import { vh } from '../../../Units/index.js'
@@ -29,18 +29,21 @@ class ProfileScreen extends React.Component {
             page: 1,
             is_last_page: false,
             active_poem: null,
-
+            other_user: null,
+            other_user_poems: []
         }
     }
 
     componentDidMount() {
 
         this.props.navigation.addListener('focus', this.getData);
+        this.props.navigation.addListener('blur', () => this.getPoems(this.props.profile?._id));
 
     }
 
     componentWillUnmount() {
         this.props.navigation.removeListener('focus');
+        this.props.navigation.removeListener('blur');
     }
 
 
@@ -52,9 +55,21 @@ class ProfileScreen extends React.Component {
                 refreshing: true
             })
 
-            const response = await this.props.getProfile();
+            let id = this.props?.route?.params?.id ?? this.props.profile?._id;
 
-            this.getPoems();
+            const response = await this.props.getProfile(id);
+
+            if (id != this.props.profile?._id) {
+
+                this.setState({
+                    other_user: response.user
+                }, () => this.getPoems(id));
+
+            }
+            else {
+                this.getPoems(id);
+            }
+
 
 
 
@@ -69,15 +84,16 @@ class ProfileScreen extends React.Component {
     }
 
 
-    getPoems = async () => {
+    getPoems = async (id) => {
 
         try {
 
-            const poems = await this.props.getMyPoems(this.state.page);
+            const response = await this.props.getMyPoems(this.state.page, id);
+
 
             this.setState({
                 refreshing: false,
-                is_last_page: poems?.poems?.length == 0 ? true : false
+                is_last_page: response?.poems?.length == 0 ? true : false
             })
 
 
@@ -96,13 +112,15 @@ class ProfileScreen extends React.Component {
 
         if (this.props.myPoems?.length >= 10) {
 
+            let id = this.props?.route?.params?.id ?? this.props.profile?._id;
+
             if (this.state.is_last_page) {
                 // set state to show message
             }
             else {
                 this.setState({
                     page: this.state.page + 1
-                }, this.getPoems);
+                }, () => this.getPoems(id));
             }
 
         }
@@ -118,10 +136,12 @@ class ProfileScreen extends React.Component {
                 <Image style={styles.headerIcon} source={allImages.generalIcons.leftArrow} />
             </RippleTouch>
 
-            <RippleTouch
-                onPress={() => this.props.navigation.navigate('EditProfileScreen')}>
-                <Image style={styles.headerIcon} source={allImages.generalIcons.edit} />
-            </RippleTouch>
+            {
+                this.props.route?.params?.type != "other" && <RippleTouch
+                    onPress={() => this.props.navigation.navigate('EditProfileScreen')}>
+                    <Image style={styles.headerIcon} source={allImages.generalIcons.edit} />
+                </RippleTouch>
+            }
         </View>
 
     }
@@ -129,7 +149,7 @@ class ProfileScreen extends React.Component {
 
     renderAbout = () => {
 
-        let bio = this.props.profile?.bio;
+        let bio = this.getUserData()?.bio;
 
         if (bio == "") {
             bio = "Add some thing wonderful about yourself.";
@@ -165,7 +185,7 @@ class ProfileScreen extends React.Component {
             source={getProfileImage(item?.owner[0])}
             id={item._id}
             isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}
-            showOptions={true}
+            showOptions={this.props.route?.params?.type != "other"}
             openOptions={this.openOptions}
         />
     }
@@ -183,10 +203,23 @@ class ProfileScreen extends React.Component {
 
     _renderFeed = () => {
 
+        if (this.state.refreshing && this.props.route?.params?.type == "other") {
+            return <View style={styles.ActivityIndicator}>
+                <ActivityIndicator color={appTheme.black} size="small"/>
+            </View>
+        }
+
+        if (this.props.route?.params?.type == "other" && this.state.other_user == null) {
+
+            return this.ListEmptyComponent();
+
+        }
+
+
         return <View style={styles.feedView}>
 
             <FlatList
-                data={this.props.myPoems ?? []}
+                data={this.getPoemData()}
                 contentContainerStyle={styles.feedContainer}
                 renderItem={this._renderFeedItem}
                 numColumns={1}
@@ -197,7 +230,7 @@ class ProfileScreen extends React.Component {
                 ListFooterComponent={this.ListFooterComponent}
                 ListFooterComponentStyle={{ marginBottom: 4 * vh }}
                 ListHeaderComponent={this.ListHeaderComponent}
-                refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.getPoems} />}
+                refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.getData} />}
                 showsVerticalScrollIndicator={false}
                 style={styles.container}
             />
@@ -216,36 +249,36 @@ class ProfileScreen extends React.Component {
 
                 <View style={styles.profileImageContainer}>
                     <Image
-                        source={getProfileImage(this.props.profile)}
+                        source={getProfileImage(this.getUserData())}
                         style={styles.profileImage}
                     />
                 </View>
 
 
                 <TextPoppinsMedium style={styles.username}>
-                    {this.props.profile?.name}
+                    {this.getUserData()?.name}
                 </TextPoppinsMedium>
 
                 <TextPoppinsRegular style={styles.email}>
-                    {this.props.profile?.email}
+                    {this.getUserData()?.email}
                 </TextPoppinsRegular>
 
 
                 <View style={styles.ageRow}>
                     <TextPoppinsRegular style={styles.country}>
-                        {this.props.profile?.country}
+                        {this.getUserData()?.country}
                     </TextPoppinsRegular>
 
                     <View style={styles.separator} />
 
                     <TextPoppinsRegular style={styles.male}>
-                        {this.props.profile?.gender}
+                        {this.getUserData()?.gender}
                     </TextPoppinsRegular>
 
                     <View style={styles.separator} />
 
                     <TextPoppinsRegular style={styles.age}>
-                        {`${this.props.profile?.age} yrs`}
+                        {`${this.getUserData()?.age} yrs`}
                     </TextPoppinsRegular>
                 </View>
 
@@ -260,7 +293,7 @@ class ProfileScreen extends React.Component {
                             </TextPoppinsMedium>
 
                         <TextPoppinsRegular style={styles.poemCount}>
-                            {this.props.profile?.poems}
+                            {this.getUserData()?.poems}
                         </TextPoppinsRegular>
 
                     </View>
@@ -272,7 +305,7 @@ class ProfileScreen extends React.Component {
                             </TextPoppinsMedium>
 
                         <TextPoppinsRegular style={styles.poemCount}>
-                            {moment(this.props.profile?.joined).format("DD MMMM YYYY")}
+                            {moment(this.getUserData()?.joined).format("DD MMMM YYYY")}
                         </TextPoppinsRegular>
 
                     </View>
@@ -286,7 +319,7 @@ class ProfileScreen extends React.Component {
                             </TextPoppinsMedium>
 
                         <TextPoppinsRegular style={styles.likeCount}>
-                            {this.props.profile?.likes}
+                            {this.getUserData()?.likes}
                         </TextPoppinsRegular>
 
                     </View>
@@ -409,6 +442,40 @@ class ProfileScreen extends React.Component {
         </RBSheet>
     }
 
+    getPoemData = () => {
+
+        let poems = [];
+
+
+        poems = [
+            ...this.props.myPoems
+        ]
+
+        return poems;
+
+    }
+
+    getUserData = () => {
+
+        let user = null;
+
+        if (this.props.route?.params?.id != this.props.profile?._id) {
+            user = {
+                ...this.state.other_user
+            }
+        }
+        else {
+            user = {
+                ...this.props.profile
+            }
+        }
+
+
+        return user;
+
+    }
+
+
     render() {
 
         return (this._renderFeed())
@@ -427,8 +494,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 
     return {
-        getProfile: () => dispatch(actions.getProfile()),
-        getMyPoems: (page) => dispatch(actions.getMyPoems(page)),
+        getProfile: (user_id) => dispatch(actions.getProfile(user_id)),
+        getMyPoems: (page, user_id) => dispatch(actions.getMyPoems(page, user_id)),
         removePoem: (poem_id) => dispatch(actions.removePoem(poem_id)),
         editPoem: (data) => dispatch(actions.editPoem(data))
     }

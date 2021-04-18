@@ -31,7 +31,7 @@ class FeedScreen extends React.Component {
 
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.props.navigation.removeListener('focus');
     }
 
@@ -94,7 +94,9 @@ class FeedScreen extends React.Component {
             verses={item?.verses}
             source={getProfileImage(item?.owner[0])}
             id={item._id}
+            owner_id={item?.user_id}
             isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}
+            navigation={this.props.navigation}
         />
     }
 

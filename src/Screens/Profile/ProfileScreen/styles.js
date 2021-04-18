@@ -11,6 +11,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 2 * vw,
         // paddingVertical: 2 * vh
     },
+    ActivityIndicator: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
 
     profileContainer: {
         alignItems: 'center',

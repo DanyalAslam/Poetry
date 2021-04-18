@@ -48,6 +48,28 @@ class PoemFeedCard extends Component {
 
     }
 
+    onUserPress = () => {
+
+        if (!this.props.navigation) {
+            return
+        }
+
+        if (!this.props.token) {
+            return showToast("Please log in to like");
+        }
+
+        let params = {
+            id: this.props.owner_id
+        }
+
+        if (params.id != this.props.user_id) {
+            params["type"] = "other";
+        }
+
+
+        this.props.navigation.navigate("ProfileScreen", params);
+
+    }
 
     render() {
         return (
@@ -57,7 +79,7 @@ class PoemFeedCard extends Component {
 
                 <View style={{ marginVertical: 0.3 * vh }}>
                     <View style={styles.topRow}>
-                        <TouchableOpacity activeOpacity={0.7} style={styles.profileRow}>
+                        <TouchableOpacity onPress={this.onUserPress} activeOpacity={0.7} style={styles.profileRow}>
                             <Image
                                 source={this.props.source}
                                 style={styles.profileImage}
@@ -136,6 +158,7 @@ const mapStateToProps = state => {
 
     return {
         token: state.UserReducer.token,
+        user_id: state.UserReducer.profile?._id,
     }
 
 }
