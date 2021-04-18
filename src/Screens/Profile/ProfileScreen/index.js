@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, FlatList, ScrollView, RefreshControl } from 'react-native'
+import { View, Text, Image, FlatList, RefreshControl } from 'react-native'
 import styles from './styles.js'
 import allImages from '../../../assets/images'
 import RippleTouch from '../../../Components/RippleTouch'
@@ -24,13 +24,15 @@ class ProfileScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            refreshing: true
+            refreshing: true,
+            page: 1,
+            is_last_page: false
         }
     }
 
     componentDidMount() {
 
-        this.props.navigation.addListener('focus', this.getProfile);
+        this.props.navigation.addListener('focus', this.getData);
 
     }
 
@@ -39,7 +41,7 @@ class ProfileScreen extends React.Component {
     }
 
 
-    getProfile = async () => {
+    getData = async () => {
 
         try {
 
@@ -49,10 +51,10 @@ class ProfileScreen extends React.Component {
 
             const response = await this.props.getProfile();
 
-            const poems = await this.props.getMyPoems();
+            this.getPoems();
 
             this.setState({
-                refreshing: false
+                refreshing: false,
             })
 
 
@@ -65,6 +67,45 @@ class ProfileScreen extends React.Component {
         }
 
     }
+
+
+    getPoems = async () => {
+
+        try {
+
+            const poems = await this.props.getMyPoems(this.state.page);
+
+            this.setState({
+                refreshing: false,
+                is_last_page: poems?.poems?.length == 0 ? true : false
+            })
+
+
+        } catch (error) {
+
+            this.setState({
+                refreshing: false
+            })
+
+        }
+
+    }
+
+
+    onEndReached = () => {
+
+        if (this.state.is_last_page) {
+            // set state to show message
+        }
+        else {
+            this.setState({
+                page: this.state.page + 1
+            }, this.getPoems);
+        }
+
+
+    }
+
 
 
     renderHeader = () => {
@@ -113,14 +154,24 @@ class ProfileScreen extends React.Component {
     _renderFeedItem = ({ item, index }) => {
 
         return <PoemFeedCard
-            name={item?.user?.name}
+            name={item?.owner[0]?.name}
             created_at={moment(item?.created_at).fromNow(true)}
             title={item?.title}
             verses={item?.verses}
-            source={getProfileImage(item?.user)}
+            source={getProfileImage(item?.owner[0])}
             id={item._id}
             isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}
         />
+    }
+
+    ListFooterComponent = () => {
+
+        if (this.state.page > 1 && this.state.refreshing) {
+            return <TextRegular style={styles.dots}>...</TextRegular>
+        }
+
+        return null;
+
     }
 
 
@@ -131,128 +182,130 @@ class ProfileScreen extends React.Component {
             <FlatList
                 data={this.props.myPoems ?? []}
                 contentContainerStyle={styles.feedContainer}
-                showsVerticalScrollIndicator={false}
                 renderItem={this._renderFeedItem}
                 numColumns={1}
                 keyExtractor={(item, ind) => String(item._id)}
-                scrollEnabled={false}
                 ListEmptyComponent={this.ListEmptyComponent}
+                onEndReached={this.onEndReached}
+                onEndReachedThreshold={0.16}
+                ListFooterComponent={this.ListFooterComponent}
+                ListFooterComponentStyle={{ marginBottom: 4 * vh }}
+                ListHeaderComponent={this.ListHeaderComponent}
+                refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.getPoems} />}
+                showsVerticalScrollIndicator={false}
+                style={styles.container}
             />
 
         </View>
+    }
+
+    ListHeaderComponent = () => {
+
+        return <>
+            {
+                this.renderHeader()
+            }
+
+            <View style={styles.profileContainer}>
+
+                <View style={styles.profileImageContainer}>
+                    <Image
+                        source={getProfileImage(this.props.profile)}
+                        style={styles.profileImage}
+                    />
+                </View>
+
+
+                <TextPoppinsMedium style={styles.username}>
+                    {this.props.profile?.name}
+                </TextPoppinsMedium>
+
+                <TextPoppinsRegular style={styles.email}>
+                    {this.props.profile?.email}
+                </TextPoppinsRegular>
+
+
+                <View style={styles.ageRow}>
+                    <TextPoppinsRegular style={styles.country}>
+                        {this.props.profile?.country}
+                    </TextPoppinsRegular>
+
+                    <View style={styles.separator} />
+
+                    <TextPoppinsRegular style={styles.male}>
+                        {this.props.profile?.gender}
+                    </TextPoppinsRegular>
+
+                    <View style={styles.separator} />
+
+                    <TextPoppinsRegular style={styles.age}>
+                        {`${this.props.profile?.age} yrs`}
+                    </TextPoppinsRegular>
+                </View>
+
+
+                <View style={styles.statsContainer}>
+
+
+                    <View style={styles.poemStats}>
+
+                        <TextPoppinsMedium style={styles.poemTitle}>
+                            Poems
+                            </TextPoppinsMedium>
+
+                        <TextPoppinsRegular style={styles.poemCount}>
+                            {this.props.profile?.poems}
+                        </TextPoppinsRegular>
+
+                    </View>
+
+                    <View style={styles.poemStats}>
+
+                        <TextPoppinsMedium style={styles.poemTitle}>
+                            Joined
+                            </TextPoppinsMedium>
+
+                        <TextPoppinsRegular style={styles.poemCount}>
+                            {moment(this.props.profile?.joined).format("DD MMMM YYYY")}
+                        </TextPoppinsRegular>
+
+                    </View>
+
+
+
+                    <View style={styles.likeStats}>
+
+                        <TextPoppinsMedium style={styles.likeTitle}>
+                            Likes
+                            </TextPoppinsMedium>
+
+                        <TextPoppinsRegular style={styles.likeCount}>
+                            {this.props.profile?.likes}
+                        </TextPoppinsRegular>
+
+                    </View>
+
+
+                </View>
+
+                <View style={styles.border} />
+
+                {
+                    this.renderAbout()
+                }
+
+                <View style={styles.border} />
+
+            </View>
+
+        </>
     }
 
 
 
     render() {
 
-        return (
-            <ScrollView
-                refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.getProfile} />}
-                showsVerticalScrollIndicator={false}
-                style={styles.container}>
-
-                {
-                    this.renderHeader()
-                }
-
-                <View style={styles.profileContainer}>
-
-                    <View style={styles.profileImageContainer}>
-                        <Image
-                            source={getProfileImage(this.props.profile)}
-                            style={styles.profileImage}
-                        />
-                    </View>
-
-
-                    <TextPoppinsMedium style={styles.username}>
-                        {this.props.profile?.name}
-                    </TextPoppinsMedium>
-
-                    <TextPoppinsRegular style={styles.email}>
-                        {this.props.profile?.email}
-                    </TextPoppinsRegular>
-
-
-                    <View style={styles.ageRow}>
-                        <TextPoppinsRegular style={styles.country}>
-                            {this.props.profile?.country}
-                        </TextPoppinsRegular>
-
-                        <View style={styles.separator} />
-
-                        <TextPoppinsRegular style={styles.male}>
-                            {this.props.profile?.gender}
-                        </TextPoppinsRegular>
-
-                        <View style={styles.separator} />
-
-                        <TextPoppinsRegular style={styles.age}>
-                            {`${this.props.profile?.age} yrs`}
-                        </TextPoppinsRegular>
-                    </View>
-
-
-                    <View style={styles.statsContainer}>
-
-
-                        <View style={styles.poemStats}>
-
-                            <TextPoppinsMedium style={styles.poemTitle}>
-                                Poems
-                            </TextPoppinsMedium>
-
-                            <TextPoppinsRegular style={styles.poemCount}>
-                                {this.props.profile?.poems}
-                            </TextPoppinsRegular>
-
-                        </View>
-
-                        <View style={styles.poemStats}>
-
-                            <TextPoppinsMedium style={styles.poemTitle}>
-                                Joined
-                            </TextPoppinsMedium>
-
-                            <TextPoppinsRegular style={styles.poemCount}>
-                                {moment(this.props.profile?.joined).format("DD MMMM YYYY")}
-                            </TextPoppinsRegular>
-
-                        </View>
-
-
-
-                        <View style={styles.likeStats}>
-
-                            <TextPoppinsMedium style={styles.likeTitle}>
-                                Likes
-                            </TextPoppinsMedium>
-
-                            <TextPoppinsRegular style={styles.likeCount}>
-                                {this.props.profile?.likes}
-                            </TextPoppinsRegular>
-
-                        </View>
-
-
-                    </View>
-
-                    <View style={styles.border} />
-
-                    {
-                        this.renderAbout()
-                    }
-
-                    <View style={styles.border} />
-
-                </View>
-
-                {
-                    this._renderFeed()
-                }
-            </ScrollView>
-        )
+        return (this._renderFeed())
     }
 }
 
@@ -269,7 +322,7 @@ const mapDispatchToProps = dispatch => {
 
     return {
         getProfile: () => dispatch(actions.getProfile()),
-        getMyPoems: () => dispatch(actions.getMyPoems())
+        getMyPoems: (page) => dispatch(actions.getMyPoems(page))
     }
 
 }

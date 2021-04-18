@@ -6,7 +6,7 @@ import fonts from '../../../assets/fonts'
 const styles = StyleSheet.create({
 
     container: {
-        flex: 1,
+        // flex: 1,
         backgroundColor: appTheme.white,
         paddingHorizontal: 2 * vw,
         // paddingVertical: 2 * vh
@@ -157,7 +157,13 @@ const styles = StyleSheet.create({
     feedView: {
         marginTop: 1 * vh,
  
-    }
+    },
+
+    dots: {
+        color: appTheme.black,
+        fontSize: 2.2 * vh,
+        textAlign: 'center'
+    },
 
 
 })

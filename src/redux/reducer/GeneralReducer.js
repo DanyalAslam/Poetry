@@ -86,17 +86,17 @@ const GeneralReducer = (state = INITIAL_STATE, action) => {
 
             return {
                 ...state,
-                wishList: action.payload
+                wishList: [...action.payload]
             }
 
         }
 
         case actionTypes.SHOW_SEARCH: {
- 
+
 
             return {
                 ...state,
-                searchModal: true 
+                searchModal: true
             }
 
         }
@@ -106,18 +106,18 @@ const GeneralReducer = (state = INITIAL_STATE, action) => {
 
             return {
                 ...state,
-                searchModal: false 
+                searchModal: false
             }
-            
+
         }
 
         case actionTypes.REVIEW_STATUS: {
 
             return {
                 ...state,
-                reviewStatus: action.status 
+                reviewStatus: action.status
             }
-            
+
         }
 
 

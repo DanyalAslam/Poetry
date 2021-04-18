@@ -88,6 +88,12 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
 
+    dots: {
+        color: appTheme.black,
+        fontSize: 2.2 * vh,
+        textAlign: 'center'
+    },
+
     status: {
         justifyContent: 'center',
         alignItems: 'center',

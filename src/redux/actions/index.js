@@ -149,37 +149,35 @@ const actions = {
 
     addToWishList: (poem, success) => {
 
-        return dispatch => {
+        return (dispatch, getState) => {
 
-            getStoredState(persistConfig)
-                .then(_state => {
+            let _state = getState();
 
-                    let ifExist = _state.GeneralReducer.wishList.findIndex(_element => _element.title == poem.title)
+            let ifExist = _state.GeneralReducer.wishList.findIndex(_element => _element.title == poem.title)
 
-                    if (ifExist == -1) {
+            if (ifExist == -1) {
 
-                        dispatch({
-                            type: actionTypes.ADD_TO_WISHLIST,
-                            payload: poem
-                        })
-
-                        return success("Added to favorites")
-
-                    }
-                    else {
-
-                        let wishList = _state.GeneralReducer.wishList
-
-                        wishList.splice(ifExist, 1)
-
-                        dispatch({
-                            type: actionTypes.SET_WISHLIST,
-                            payload: wishList
-                        })
-
-                        return success("Removed from favorites")
-                    }
+                dispatch({
+                    type: actionTypes.ADD_TO_WISHLIST,
+                    payload: poem
                 })
+
+                return success("Added to favorites")
+
+            }
+            else {
+
+                let wishList = _state.GeneralReducer.wishList
+
+                wishList.splice(ifExist, 1)
+
+                dispatch({
+                    type: actionTypes.SET_WISHLIST,
+                    payload: wishList
+                })
+
+                return success("Removed from favorites")
+            }
 
         }
     },
@@ -414,15 +412,15 @@ const actions = {
         }
     },
 
-    getMyPoems: () => {
+    getMyPoems: (page = 1) => {
 
         return async dispatch => {
 
             try {
 
-                const response = await Api.promise.get(endPoints.feed.myPoems);
+                const response = await Api.promise.get(endPoints.feed.myPoems, { page });
 
-                dispatch({ type: actionTypes.MY_POEMS, payload: { poems: response?.poems } });
+                dispatch({ type: actionTypes.MY_POEMS, payload: { poems: response?.poems, page } });
 
                 return Promise.resolve(response);
 
@@ -435,15 +433,15 @@ const actions = {
         }
     },
 
-    getAllPoems: () => {
+    getAllPoems: (page = 1) => {
 
         return async dispatch => {
 
             try {
 
-                const response = await Api.promise.get(endPoints.feed.allPoems);
+                const response = await Api.promise.get(endPoints.feed.allPoems, { page });
 
-                dispatch({ type: actionTypes.ALL_POEMS, payload: { poems: response?.poems } });
+                dispatch({ type: actionTypes.ALL_POEMS, payload: { poems: response?.poems, page } });
 
                 return Promise.resolve(response);
 

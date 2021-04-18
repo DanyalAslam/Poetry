@@ -15,17 +15,48 @@ const PoemReducer = (state = initialState, action) => {
 
 
         case actionTypes.MY_POEMS: {
-            return {
-                ...state,
-                myPoems: action.payload?.poems,
-            };
+
+            if (action.payload?.page > 1) {
+
+                return {
+                    ...state,
+                    myPoems: [
+                        ...state.myPoems,
+                        ...action.payload?.poems
+                    ],
+                };
+
+            }
+            else {
+                return {
+                    ...state,
+                    myPoems: action.payload?.poems,
+                };
+            }
+
         }
 
         case actionTypes.ALL_POEMS: {
-            return {
-                ...state,
-                allPoems: action.payload?.poems,
-            };
+
+            if (action.payload?.page > 1) {
+
+                return {
+                    ...state,
+                    allPoems: [
+                        ...state.allPoems,
+                        ...action.payload?.poems
+                    ],
+                };
+
+            }
+            else {
+                return {
+                    ...state,
+                    allPoems: action.payload?.poems,
+                };
+            }
+
+
         }
 
         case actionTypes.TOGGLE_LIKE: {

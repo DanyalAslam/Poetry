@@ -6,7 +6,7 @@ import { vh } from '../../Units/index.js'
 import allImages from '../../assets/images'
 import { connect } from 'react-redux'
 import actions from '../../redux/actions/index.js'
-import { LOG } from '../../Api/HelperFunctions.js'
+import { LOG, showToast } from '../../Api/HelperFunctions.js'
 import MoreText from '../MoreText/index.js'
 
 
@@ -26,6 +26,12 @@ class PoemFeedCard extends Component {
     }
 
     toggleLike = () => {
+
+        if(!this.props.token){
+
+            return showToast("Please log in to like");
+
+        }
 
         this.props.toggleLike(this.props.id);
     }
@@ -93,9 +99,17 @@ class PoemFeedCard extends Component {
         )
     }
 
+}
 
+
+const mapStateToProps = state => {
+
+    return {
+        token: state.UserReducer.token,
+    }
 
 }
+
 
 
 const mapDispatchToProps = dispatch => {
@@ -106,4 +120,4 @@ const mapDispatchToProps = dispatch => {
 
 }
 
-export default connect(null, mapDispatchToProps)(PoemFeedCard)
+export default connect(mapStateToProps, mapDispatchToProps)(PoemFeedCard)

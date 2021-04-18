@@ -9,7 +9,7 @@ import actions from '../../redux/actions/index.js'
 import { appTheme, getProfileImage } from '../../Utils/index.js'
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import PoemFeedCard from '../../Components/PoemFeedCard/index.js'
-import { LOG } from '../../Api/HelperFunctions.js'
+import { LOG, showToast } from '../../Api/HelperFunctions.js'
 import moment from 'moment'
 import TextSemiBold from '../../Components/TextSemiBold/index.js'
 import TextRegular from '../../Components/TextRegular/index.js'
@@ -19,7 +19,9 @@ import TextRegular from '../../Components/TextRegular/index.js'
 class FeedScreen extends React.Component {
 
     state = {
-        refreshing: true
+        refreshing: true,
+        page: 1,
+        is_last_page: false
     }
 
 
@@ -40,11 +42,14 @@ class FeedScreen extends React.Component {
                 refreshing: true
             })
 
-            const poems = await this.props.getAllPoems();
+            const response = await this.props.getAllPoems(this.state.page);
+
 
             this.setState({
-                refreshing: false
+                refreshing: false,
+                is_last_page: response?.poems?.length == 0 ? true : false
             })
+
 
 
         } catch (error) {
@@ -57,6 +62,21 @@ class FeedScreen extends React.Component {
 
     }
 
+    onEndReached = () => {
+
+        if (this.state.is_last_page) {
+            // set state to show message
+        }
+        else {
+            this.setState({
+                page: this.state.page + 1
+            }, this._getData);
+        }
+
+
+    }
+
+
     ListEmptyComponent = () => {
 
         return <EmptyComponent message="No poems to show" style={{ marginTop: 5 * vh }} />;
@@ -65,16 +85,25 @@ class FeedScreen extends React.Component {
     _renderFeedItem = ({ item, index }) => {
 
         return <PoemFeedCard
-            name={item?.user?.name}
+            name={item?.owner[0]?.name}
             created_at={moment(item?.created_at).fromNow(true)}
             title={item?.title}
             verses={item?.verses}
-            source={getProfileImage(item?.user)}
+            source={getProfileImage(item?.owner[0])}
             id={item._id}
             isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}
         />
     }
 
+    ListFooterComponent = () => {
+
+        if (this.state.page > 1 && this.state.refreshing) {
+            return <TextRegular style={styles.dots}>...</TextRegular>
+        }
+
+        return null;
+
+    }
 
     _renderFeed = () => {
 
@@ -95,13 +124,30 @@ class FeedScreen extends React.Component {
             }
             ListEmptyComponent={this.ListEmptyComponent}
             ListHeaderComponent={this.ListHeaderComponent}
+            onEndReached={this.onEndReached}
+            onEndReachedThreshold={0.16}
+            ListFooterComponent={this.ListFooterComponent}
+            ListFooterComponentStyle={{ marginBottom: 4 * vh }}
         />
     }
+
+    onStatusPress = () => {
+
+        if (!this.props.token) {
+
+            return showToast("Please log in to create a poem");
+
+        }
+
+        this.props.navigation.navigate("CreatePoemScreen");
+
+    }
+
 
     ListHeaderComponent = () => {
 
         return <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("CreatePoemScreen")}
+            onPress={this.onStatusPress}
             activeOpacity={0.7}
             style={styles.status}>
             <View style={styles.profileImageContainer}>
@@ -131,10 +177,13 @@ class FeedScreen extends React.Component {
 
 const mapStateToProps = state => {
 
+    LOG(' state.UserReducer.profile ',state.UserReducer.profile)
+
     return {
 
         allPoems: state.PoemReducer.allPoems,
         profile: state.UserReducer.profile,
+        token: state.UserReducer.token,
     }
 
 }
@@ -142,7 +191,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 
     return {
-        getAllPoems: () => dispatch(actions.getAllPoems()),
+        getAllPoems: (page) => dispatch(actions.getAllPoems(page)),
     }
 
 }
