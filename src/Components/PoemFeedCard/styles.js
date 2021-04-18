@@ -8,14 +8,15 @@ export default Styles = StyleSheet.create({
         minHeight: 25 * vh,
         width: 90 * vw,
         marginVertical: 1 * vh,
-        marginHorizontal: 2*vw,
+        marginHorizontal: 2 * vw,
         elevation: 4,
         backgroundColor: 'white',
         borderRadius: 3 * vw,
         shadowColor: 'black',
         paddingHorizontal: 2 * vw,
         justifyContent: 'space-between',
-        paddingVertical: 1 * vh
+        paddingVertical: 1 * vh,
+        paddingLeft: 3 * vw
     },
     Container: {
         flexDirection: 'row',
@@ -33,13 +34,13 @@ export default Styles = StyleSheet.create({
         // fontFamily: fonts.SSB
         fontFamily: fonts.poppins.regular
     },
-    name:{
+    name: {
         color: appTheme.black,
         fontSize: 1.7 * vh,
         // fontFamily: fonts.SSB
         fontFamily: fonts.poppins.regular
     },
-    date:{
+    date: {
         color: appTheme.darkGray,
         fontSize: 1.2 * vh,
         // fontFamily: fonts.SSR
@@ -52,29 +53,35 @@ export default Styles = StyleSheet.create({
         fontFamily: fonts.poppins.light
         // fontFamily: fonts.SSR
     },
-    row:{
+    row: {
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
-    image:{
+    image: {
         width: 8 * vw,
         height: 8 * vw,
         marginRight: 2 * vw,
         resizeMode: 'contain'
     },
-    profileImage:{
+    threeDots: {
+        width: 5 * vw,
+        height: 5 * vw,
+        marginRight: 2 * vw,
+        resizeMode: 'contain'
+    },
+    profileImage: {
         width: 10 * vw,
         height: 10 * vw,
         borderRadius: 5 * vw,
         marginRight: 2 * vw,
     },
-    topRow:{
+    topRow: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
     },
 
-    profileRow:{
+    profileRow: {
         flexDirection: 'row',
         alignItems: 'center'
     },

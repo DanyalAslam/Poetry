@@ -19,6 +19,8 @@ const allImages = {
         like: require('./generalIcons/like.png'),
         unlike: require('./generalIcons/unlike.png'),
         cross: require('./generalIcons/cross.png'),
+        more: require('./generalIcons/more.png'),
+        editPoem: require('./generalIcons/editPoem.png'),
 
     },
     tabBarIcons:{

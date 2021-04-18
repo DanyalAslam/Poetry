@@ -5,8 +5,9 @@ import {
   Text,
   LayoutAnimation,
 } from 'react-native';
-import { vh, vw } from '../../Units';
+import Clipboard from '@react-native-community/clipboard';
 import styles from './styles';
+import { showToast } from '../../Api/HelperFunctions';
 
 export default class MoreText extends React.PureComponent {
   constructor(props) {
@@ -28,17 +29,28 @@ export default class MoreText extends React.PureComponent {
 
   }
 
+  onLongPress = () => {
+
+    Clipboard.setString(this.props.text);
+
+    showToast("Copied")
+
+  }
+
   render() {
 
+
+
     return (
-      <View>
+      <View style={styles.container}>
         <Text
+          onLongPress={this.onLongPress}
           style={styles.text}
           {...(this.state.showMore == false ? { numberOfLines: 2 } : null)}>
           {this.props.text}
         </Text>
 
-        {this.props.text?.length > 100 && !this.state.showMore && (
+        {this.props.text?.length > 70 && !this.state.showMore && (
           <TouchableOpacity
             onPress={this.onShowMore}>
             <Text

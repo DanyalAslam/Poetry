@@ -6,7 +6,7 @@ import { vw, vh } from '../../Units/index.js'
 
 import { connect } from 'react-redux'
 import actions from '../../redux/actions/index.js'
-import { appTheme, getProfileImage } from '../../Utils/index.js'
+import { appTheme, getProfileImage, _calculateDate } from '../../Utils/index.js'
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import PoemFeedCard from '../../Components/PoemFeedCard/index.js'
 import { LOG, showToast } from '../../Api/HelperFunctions.js'
@@ -86,7 +86,7 @@ class FeedScreen extends React.Component {
 
         return <PoemFeedCard
             name={item?.owner[0]?.name}
-            created_at={moment(item?.created_at).fromNow(true)}
+            created_at={_calculateDate(item?.created_at)}
             title={item?.title}
             verses={item?.verses}
             source={getProfileImage(item?.owner[0])}
@@ -176,8 +176,6 @@ class FeedScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
-
-    LOG(' state.UserReducer.profile ',state.UserReducer.profile)
 
     return {
 

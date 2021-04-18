@@ -16,8 +16,8 @@ class CreatePoemScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: "",
-            verses: ""
+            title: this.props?.route?.params?.poem?.title ?? "",
+            verses: this.props?.route?.params?.poem?.verses ?? ""
         }
     }
 
@@ -100,28 +100,40 @@ class CreatePoemScreen extends React.Component {
             verses: this.state.verses
         };
 
+        if (this.props?.route?.params?.editPoem) {
+            data["poem_id"] = this.props?.route?.params?.poem?.poem_id;
 
-        try {
-
-            const response = await this.props.createPoem(data);
-
-            if (response?.message) {
-                showToast(response?.message);
-            }
-
-
+            this.props?.route?.params?.editPoem(data);
             this.props.navigation.goBack();
+           
+        }
+        else {
 
-        } catch (error) {
+            try {
 
-            if (error) {
-                showToast(error);
+                const response = await this.props.createPoem(data);
+
+                if (response?.message) {
+                    showToast(response?.message);
+                }
+
+
+                this.props.navigation.goBack();
+
+            } catch (error) {
+
+                if (error) {
+                    showToast(error);
+                }
+
             }
 
         }
 
+
+
     }
- 
+
     render() {
 
         return (

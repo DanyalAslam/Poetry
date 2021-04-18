@@ -17,7 +17,9 @@ const actionTypes = {
 
     MY_POEMS: 'MY_POEMS',
     ALL_POEMS: 'ALL_POEMS',
-    TOGGLE_LIKE: 'TOGGLE_LIKE'
+    TOGGLE_LIKE: 'TOGGLE_LIKE',
+    REMOVE_POEM: 'REMOVE_POEM',
+    EDIT_POEM: 'EDIT_POEM'
 }
 
 export default actionTypes

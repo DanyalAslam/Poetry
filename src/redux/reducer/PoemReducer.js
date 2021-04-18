@@ -67,6 +67,25 @@ const PoemReducer = (state = initialState, action) => {
             };
         }
 
+        case actionTypes.REMOVE_POEM: {
+
+            return {
+                ...state,
+                allPoems: [...action.payload?.allPoems],
+                myPoems: [...action.payload?.myPoems],
+            };
+        }
+
+        case actionTypes.EDIT_POEM: {
+
+            return {
+                ...state,
+                allPoems: [...action.payload?.allPoems],
+                myPoems: [...action.payload?.myPoems],
+            };
+        }
+
+
         default: {
             return state;
         }

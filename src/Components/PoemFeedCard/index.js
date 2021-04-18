@@ -27,7 +27,7 @@ class PoemFeedCard extends Component {
 
     toggleLike = () => {
 
-        if(!this.props.token){
+        if (!this.props.token) {
 
             return showToast("Please log in to like");
 
@@ -35,6 +35,19 @@ class PoemFeedCard extends Component {
 
         this.props.toggleLike(this.props.id);
     }
+
+    showOptionSheet = () => {
+
+        let data = {
+            poem_id: this.props.id,
+            title: this.props.title,
+            verses: this.props.verses
+        };
+
+        this.props.openOptions(data);
+
+    }
+
 
     render() {
         return (
@@ -61,12 +74,14 @@ class PoemFeedCard extends Component {
 
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={this.toggleLike} activeOpacity={0.7}>
-                            <Image
-                                source={this.getActiveIcon()}
-                                style={styles.image}
-                            />
-                        </TouchableOpacity>
+                        {
+                            this.props.showOptions && <TouchableOpacity onPress={this.showOptionSheet} activeOpacity={0.7}>
+                                <Image
+                                    source={allImages.generalIcons.more}
+                                    style={styles.threeDots}
+                                />
+                            </TouchableOpacity>
+                        }
 
                     </View>
 
@@ -94,6 +109,21 @@ class PoemFeedCard extends Component {
                     <MoreText text={this.props.verses} />
                 </View>
 
+
+                <View style={{ marginVertical: 0 * vh }}>
+                    <View style={styles.topRow}>
+                        <View />
+
+                        <TouchableOpacity onPress={this.toggleLike} activeOpacity={0.7}>
+                            <Image
+                                source={this.getActiveIcon()}
+                                style={styles.image}
+                            />
+                        </TouchableOpacity>
+
+                    </View>
+
+                </View>
 
             </View>
         )

@@ -338,14 +338,16 @@ class EditProfileScreen extends React.Component {
         >
 
             <BottomSheetButtons
-                source={allImages.generalIcons.edit}
+                source={allImages.generalIcons.editPoem}
                 onPress={this.openPicker}
                 text="Change Picture"
+         
             />
             <BottomSheetButtons
                 source={allImages.generalIcons.cross}
                 onPress={this.removeImage}
                 text="Remove Picture"
+         
             />
 
 

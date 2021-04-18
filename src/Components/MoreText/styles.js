@@ -15,9 +15,12 @@ const styles = StyleSheet.create({
 
     showMore: {
         color: appTheme.darkGray,
-        fontSize: vh * 1.2,
-        alignSelf: 'flex-end',
+        fontSize: vh * 1.0,
         fontFamily: fonts.poppins.light,
+    },
+    container:{
+        flexDirection: 'row',
+        alignItems: 'flex-end'
     }
 
 

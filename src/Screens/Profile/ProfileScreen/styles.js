@@ -151,12 +151,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 0.8 * vh,
         paddingBottom: 1 * vh,
-      
+
     },
 
     feedView: {
         marginTop: 1 * vh,
- 
+
     },
 
     dots: {
@@ -165,7 +165,10 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
 
-
+    iconStyle: {
+        width: 4 * vw,
+        height: 4 * vw
+    }
 })
 
 export default styles;

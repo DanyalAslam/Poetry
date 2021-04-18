@@ -19,7 +19,7 @@ class BottomSheetButtons extends React.Component {
 
 
             }}
-            onPress={this.props.onPress}
+                onPress={this.props.onPress}
             >
                 <View style={{
                     flexDirection: 'row',
@@ -32,15 +32,15 @@ class BottomSheetButtons extends React.Component {
 
                     <Image
                         source={this.props.source}
-                        style={{ width: 5 * vw, height: 5 * vw, resizeMode: 'contain' }}
+                        style={[{ width: 5 * vw, height: 5 * vw, resizeMode: 'contain' },this.props.iconStyle]}
                     />
                     <Text style={{
                         fontFamily: fonts.SSB,
                         fontSize: 2 * vh,
                         marginLeft: 3 * vw
                     }}>
-                      {this.props.text}
-                        </Text>
+                        {this.props.text}
+                    </Text>
 
                 </View>
 

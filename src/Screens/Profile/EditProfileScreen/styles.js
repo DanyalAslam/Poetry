@@ -170,6 +170,10 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
 
+    iconStyle: {
+        width: 4 * vw,
+        height: 4 * vw
+    }
 })
 
 export default styles;

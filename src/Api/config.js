@@ -17,7 +17,9 @@ export const endPoints = {
         allPoems: '/feed/poems',
         myPoems: '/feed/mypoems',
         create: '/feed/createPoem',
-        toggleLike: '/feed/toggleLike'
+        toggleLike: '/feed/toggleLike',
+        removePoem: '/feed/remove',
+        editPoem: '/feed/edit'
     }
 };
 

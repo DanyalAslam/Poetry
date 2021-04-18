@@ -1,3 +1,4 @@
+import moment from "moment";
 import allImages from "../assets/images";
 
 export const appTheme = {
@@ -62,3 +63,42 @@ export const getProfileImage = (profile) => {
 
     return profileImage;
 }
+
+
+export const _calculateDate = (_date) => {
+    let date;
+
+    if (_date) {
+        let withinWeek = moment().subtract(7, 'days').startOf('day');
+        let evaluatingDate = moment(_date).utc(true).local();
+
+        let currentDate = moment().utc(true).local();
+
+        var duration = currentDate.diff(evaluatingDate, 'hours', true);
+        var durationInMins = currentDate.diff(evaluatingDate, 'minutes', true);
+
+        duration = parseInt(duration);
+
+        if (duration > 24) {
+            if (evaluatingDate.isAfter(withinWeek)) {
+                if (currentDate.weekday() != evaluatingDate.weekday()) {
+                    date =
+                        Math.abs(currentDate.weekday() - evaluatingDate.weekday()) + ' d';
+                } else {
+                    date = currentDate.weekday() + ' d';
+                }
+            } else if (evaluatingDate.isSame(moment(), 'year')) {
+                date = evaluatingDate.format('D MMM');
+            } else {
+                date = evaluatingDate.format('D MMM YYYY');
+            }
+        } else if (duration < 1) {
+            date = durationInMins > 1 ? parseInt(durationInMins) + ' m' : 'Just now';
+        } else {
+            date = duration + ' h';
+        }
+
+    }
+
+    return date;
+};

@@ -9,14 +9,15 @@ import TextRegular from '../../../Components/TextRegular';
 import TextSemiBold from '../../../Components/TextSemiBold';
 import TextPoppinsRegular from '../../../Components/TextPoppinsRegular'
 import TextPoppinsMedium from '../../../Components/TextPoppinsMedium/index.js'
-import TextPoppinsSemi from '../../../Components/TextPoppinsSemi/index.js'
+import BottomSheetButtons from '../../../Components/BottomSheetButtons/index.js'
 import TextPoppinsLight from '../../../Components/TextPoppinsLight/index.js'
 import { LOG } from '../../../Api/HelperFunctions.js'
 import PoemFeedCard from '../../../Components/PoemFeedCard/index.js'
-import { genders, getProfileImage } from '../../../Utils/index.js'
+import { genders, getProfileImage, _calculateDate } from '../../../Utils/index.js'
 import moment from 'moment'
 import EmptyComponent from '../../../Components/EmptyComponent/index.js'
 import { vh } from '../../../Units/index.js'
+import RBSheet from 'react-native-raw-bottom-sheet'
 
 
 class ProfileScreen extends React.Component {
@@ -26,7 +27,9 @@ class ProfileScreen extends React.Component {
         this.state = {
             refreshing: true,
             page: 1,
-            is_last_page: false
+            is_last_page: false,
+            active_poem: null,
+
         }
     }
 
@@ -107,7 +110,6 @@ class ProfileScreen extends React.Component {
     }
 
 
-
     renderHeader = () => {
 
         return <View style={styles.headerRow}>
@@ -155,12 +157,14 @@ class ProfileScreen extends React.Component {
 
         return <PoemFeedCard
             name={item?.owner[0]?.name}
-            created_at={moment(item?.created_at).fromNow(true)}
+            created_at={_calculateDate(item?.created_at)}
             title={item?.title}
             verses={item?.verses}
             source={getProfileImage(item?.owner[0])}
             id={item._id}
             isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}
+            showOptions={true}
+            openOptions={this.openOptions}
         />
     }
 
@@ -296,12 +300,112 @@ class ProfileScreen extends React.Component {
 
                 <View style={styles.border} />
 
+                {
+                    this._renderBottomSheet()
+                }
+
             </View>
 
         </>
     }
 
+    openOptions = (data) => {
 
+        if (this.RBSheet) {
+            this.setState({
+                active_poem: data
+            }, () => this.RBSheet.open())
+            // this.RBSheet.open()
+        }
+
+    }
+
+    removePoem = async () => {
+
+        if (this.RBSheet) {
+            this.RBSheet.close()
+        }
+
+        if (!this.state.active_poem?.poem_id) {
+            return;
+        }
+
+
+        try {
+
+            const response = await this.props.removePoem(this.state.active_poem?.poem_id);
+
+            LOG('response ', response)
+
+        } catch (error) {
+
+        }
+
+    }
+
+    editPoem = async (poem) => {
+
+
+        if (!this.state.active_poem?.poem_id) {
+            return;
+        }
+
+       
+        try {
+
+            let data = {
+                ...poem
+            };
+
+            const response = await this.props.editPoem(data);
+
+        } catch (error) {
+  
+        }
+
+    }
+
+    navigateToEditPoem = () => {
+
+        if (this.RBSheet) {
+            this.RBSheet.close()
+        }
+
+        this.props.navigation.navigate("CreatePoemScreen", { editPoem: this.editPoem, poem: this.state.active_poem })
+
+    }
+
+
+    _renderBottomSheet = () => {
+
+        return <RBSheet
+            ref={ref => {
+                this.RBSheet = ref;
+            }}
+            height={20 * vh}
+            openDuration={200}
+
+            dragFromTopOnly
+            closeOnDragDown
+            animationType="fade"
+        >
+
+            <BottomSheetButtons
+                source={allImages.generalIcons.editPoem}
+                onPress={this.navigateToEditPoem}
+                text="Edit Poem"
+            />
+            <BottomSheetButtons
+                source={allImages.generalIcons.cross}
+                onPress={this.removePoem}
+                text="Remove Poem"
+         
+            />
+
+
+
+        </RBSheet>
+    }
 
     render() {
 
@@ -322,7 +426,9 @@ const mapDispatchToProps = dispatch => {
 
     return {
         getProfile: () => dispatch(actions.getProfile()),
-        getMyPoems: (page) => dispatch(actions.getMyPoems(page))
+        getMyPoems: (page) => dispatch(actions.getMyPoems(page)),
+        removePoem: (poem_id) => dispatch(actions.removePoem(poem_id)),
+        editPoem: (data) => dispatch(actions.editPoem(data))
     }
 
 }

@@ -530,6 +530,91 @@ const actions = {
 
         }
     },
+
+    removePoem: (poem_id) => {
+
+        return async (dispatch, getState) => {
+
+            try {
+
+                let data = {
+                    poem_id
+                };
+
+                let poemStore = getState().PoemReducer;
+
+
+                let myPoemIndex = poemStore?.myPoems?.findIndex(poem => poem._id == poem_id);
+
+                if (myPoemIndex != -1) {
+
+                    poemStore.myPoems?.splice(myPoemIndex, 1);
+                }
+
+                let allPoemIndex = poemStore?.allPoems?.findIndex(poem => poem._id == poem_id);
+
+                if (allPoemIndex != -1) {
+
+                    poemStore.allPoems?.splice(allPoemIndex, 1);
+
+                }
+
+                dispatch({ type: actionTypes.REMOVE_POEM, payload: { allPoems: poemStore?.allPoems, myPoems: poemStore?.myPoems } });
+
+                const response = await Api.promise.post(endPoints.feed.removePoem, data);
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
+    editPoem: (data) => {
+
+        return async (dispatch, getState) => {
+
+            try {
+
+                let poemStore = getState().PoemReducer;
+
+
+                let myPoemIndex = poemStore?.myPoems?.findIndex(poem => poem._id == data.poem_id);
+
+                if (myPoemIndex != -1) {
+
+                    poemStore.myPoems[myPoemIndex].title = data.title;
+                    poemStore.myPoems[myPoemIndex].verses = data.verses;
+
+                }
+
+                let allPoemIndex = poemStore?.allPoems?.findIndex(poem => poem._id == data.poem_id);
+
+                if (allPoemIndex != -1) {
+
+                    poemStore.allPoems[allPoemIndex].title = data.title;
+                    poemStore.allPoems[allPoemIndex].verses = data.verses;
+
+                }
+
+                dispatch({ type: actionTypes.EDIT_POEM, payload: { allPoems: poemStore?.allPoems, myPoems: poemStore?.myPoems } });
+
+                const response = await Api.promise.post(endPoints.feed.editPoem, data);
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
 }
 
 
