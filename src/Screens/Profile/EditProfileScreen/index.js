@@ -274,11 +274,11 @@ class EditProfileScreen extends React.Component {
 
             let data = success.data;
 
-            if (!data.includes('base64')) {
-                let base = `data:image/png;base64,${data}`;
+            // if (!data.includes('base64')) {
+            //     let base = `data:image/png;base64,${data}`;
 
-                data = base;
-            }
+            //     data = base;
+            // }
 
             let userInfo = {
                 image: data

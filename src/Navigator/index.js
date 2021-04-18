@@ -362,18 +362,6 @@ class MainNavigator extends React.Component {
           }}
         />
 
-        <Tabs.Screen
-          name="FeedStack"
-          component={this.FeedStackNavigator}
-          options={{
-            tabBarIcon: (params) => {
-              return (
-                <TabBarItem params={params} name='FeedStack' />
-              )
-            },
-
-          }}
-        />
 
         <Tabs.Screen
           name="CategoryStack"
@@ -387,6 +375,20 @@ class MainNavigator extends React.Component {
 
           }}
         />
+
+        <Tabs.Screen
+          name="FeedStack"
+          component={this.FeedStackNavigator}
+          options={{
+            tabBarIcon: (params) => {
+              return (
+                <TabBarItem params={params} name='FeedStack' />
+              )
+            },
+
+          }}
+        />
+
 
         <Tabs.Screen
           name="PoetStack"
