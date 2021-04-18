@@ -420,6 +420,8 @@ const actions = {
 
                 const response = await Api.promise.get(endPoints.feed.myPoems, { page });
 
+             
+
                 dispatch({ type: actionTypes.MY_POEMS, payload: { poems: response?.poems, page } });
 
                 return Promise.resolve(response);
@@ -440,6 +442,7 @@ const actions = {
             try {
 
                 const response = await Api.promise.get(endPoints.feed.allPoems, { page });
+
 
                 dispatch({ type: actionTypes.ALL_POEMS, payload: { poems: response?.poems, page } });
 

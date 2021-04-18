@@ -56,9 +56,6 @@ class ProfileScreen extends React.Component {
 
             this.getPoems();
 
-            this.setState({
-                refreshing: false,
-            })
 
 
         } catch (error) {
@@ -97,15 +94,18 @@ class ProfileScreen extends React.Component {
 
     onEndReached = () => {
 
-        if (this.state.is_last_page) {
-            // set state to show message
-        }
-        else {
-            this.setState({
-                page: this.state.page + 1
-            }, this.getPoems);
-        }
+        if (this.props.myPoems?.length >= 10) {
 
+            if (this.state.is_last_page) {
+                // set state to show message
+            }
+            else {
+                this.setState({
+                    page: this.state.page + 1
+                }, this.getPoems);
+            }
+
+        }
 
     }
 
@@ -154,6 +154,8 @@ class ProfileScreen extends React.Component {
     }
 
     _renderFeedItem = ({ item, index }) => {
+
+        console.log('item  ', item.owner[0]);
 
         return <PoemFeedCard
             name={item?.owner[0]?.name}
@@ -350,7 +352,7 @@ class ProfileScreen extends React.Component {
             return;
         }
 
-       
+
         try {
 
             let data = {
@@ -360,7 +362,7 @@ class ProfileScreen extends React.Component {
             const response = await this.props.editPoem(data);
 
         } catch (error) {
-  
+
         }
 
     }
@@ -399,7 +401,7 @@ class ProfileScreen extends React.Component {
                 source={allImages.generalIcons.cross}
                 onPress={this.removePoem}
                 text="Remove Poem"
-         
+
             />
 
 

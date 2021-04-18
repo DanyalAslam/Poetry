@@ -13,7 +13,7 @@ import TextPoppinsSemi from '../../../Components/TextPoppinsSemi/index.js'
 import TextPoppinsLight from '../../../Components/TextPoppinsLight/index.js'
 import { LOG, showToast } from '../../../Api/HelperFunctions.js'
 import PoemFeedCard from '../../../Components/PoemFeedCard/index.js'
-import { appTheme, genders } from '../../../Utils/index.js'
+import { appTheme, genders, getProfileImage } from '../../../Utils/index.js'
 import RadioButton from '../../../Components/RadioButton/index.js'
 import Button from '../../../Components/Button/index.js'
 import RBSheet from 'react-native-raw-bottom-sheet'
@@ -165,40 +165,11 @@ class EditProfileScreen extends React.Component {
         })
     }
 
-    getProfileImage = () => {
-
-        let profileImage = this.state.profile?.image ?? "";
-
-        if (profileImage != "") {
-            if (!profileImage?.includes('base64')) {
-                profileImage = {
-                    uri: `data:image/png;base64,${profileImage}`
-                };
-            }
-            else {
-                profileImage = {
-                    uri: profileImage
-                };
-            }
-        }
-        else {
-            if (this.state?.profile?.gender?.toLowerCase() == genders.male) {
-                profileImage = allImages.generalImages.male;
-            }
-            else {
-                profileImage = allImages.generalImages.female;
-            }
-        }
-
-
-
-        return profileImage;
-    }
 
     _renderProfileIcon = () => {
         return <View style={styles.profileImageContainer}>
             <Image
-                source={this.getProfileImage()}
+                source={getProfileImage(this.state.profile)}
                 style={styles.profileImage}
             />
 
@@ -236,16 +207,16 @@ class EditProfileScreen extends React.Component {
         }
 
 
-        if (userInfo.image != "") {
-            if (!userInfo.image.includes('base64')) {
-                let base = `data:image/png;base64,${userInfo.image}`;
+        // if (userInfo.image != "") {
+        //     if (!userInfo.image.includes('base64')) {
+        //         let base = `data:image/png;base64,${userInfo.image}`;
 
-                userInfo = {
-                    ...userInfo,
-                    image: base
-                };
-            }
-        }
+        //         userInfo = {
+        //             ...userInfo,
+        //             image: base
+        //         };
+        //     }
+        // }
 
 
         this.updateProfile(userInfo);

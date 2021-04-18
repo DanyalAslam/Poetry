@@ -27,9 +27,12 @@ class FeedScreen extends React.Component {
 
     componentDidMount() {
 
-        this._getData();
+        this.props.navigation.addListener('focus', this._getData);
 
+    }
 
+    componentWillUnmount(){
+        this.props.navigation.removeListener('focus');
     }
 
 
@@ -64,15 +67,16 @@ class FeedScreen extends React.Component {
 
     onEndReached = () => {
 
-        if (this.state.is_last_page) {
-            // set state to show message
+        if ((this.props.allPoems?.length >= 10)) {
+            if (this.state.is_last_page) {
+                // set state to show message
+            }
+            else {
+                this.setState({
+                    page: this.state.page + 1
+                }, this._getData);
+            }
         }
-        else {
-            this.setState({
-                page: this.state.page + 1
-            }, this._getData);
-        }
-
 
     }
 
@@ -83,7 +87,6 @@ class FeedScreen extends React.Component {
     }
 
     _renderFeedItem = ({ item, index }) => {
-
         return <PoemFeedCard
             name={item?.owner[0]?.name}
             created_at={_calculateDate(item?.created_at)}

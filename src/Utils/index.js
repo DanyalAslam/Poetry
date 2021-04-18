@@ -39,16 +39,19 @@ export const getProfileImage = (profile) => {
     let profileImage = profile?.image ?? "";
 
     if (profileImage != "") {
-        if (!profileImage?.includes('base64')) {
-            profileImage = {
-                uri: `data:image/png;base64,${profileImage}`
-            };
-        }
-        else {
-            profileImage = {
-                uri: profileImage
-            };
-        }
+        profileImage = {
+            uri: profileImage
+        };
+        // if (!profileImage?.includes('base64')) {
+        //     profileImage = {
+        //         uri: `data:image/png;base64,${profileImage}`
+        //     };
+        // }
+        // else {
+        //     profileImage = {
+        //         uri: profileImage
+        //     };
+        // }
     }
     else {
         if (profile?.gender?.toLowerCase() == genders.male) {

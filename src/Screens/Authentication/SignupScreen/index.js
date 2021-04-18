@@ -106,16 +106,16 @@ class SignupScreen extends Component {
             return showToast('Passwords do not match');
         }
 
-        if (userInfo.image != "") {
-            if (!userInfo.image.includes('base64')) {
-                let base = `data:image/png;base64,${userInfo.image}`;
+        // if (userInfo.image != "") {
+        //     if (!userInfo.image.includes('base64')) {
+        //         let base = `data:image/png;base64,${userInfo.image}`;
 
-                userInfo = {
-                    ...userInfo,
-                    image: base
-                };
-            }
-        }
+        //         userInfo = {
+        //             ...userInfo,
+        //             image: base
+        //         };
+        //     }
+        // }
 
         delete userInfo.confirmPassword;
 
