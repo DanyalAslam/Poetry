@@ -40,6 +40,14 @@ export default Styles = StyleSheet.create({
         // fontFamily: fonts.SSB
         fontFamily: fonts.poppins.regular
     },
+    likers: {
+        fontSize: 1.3 * vh,
+    },
+    likeView: {
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        marginTop: 2 * vh
+    },
     date: {
         color: appTheme.darkGray,
         fontSize: 1.2 * vh,
@@ -63,6 +71,11 @@ export default Styles = StyleSheet.create({
         marginRight: 2 * vw,
         resizeMode: 'contain'
     },
+    likeImage: {
+        width: 4 * vw,
+        height: 4 * vw,
+        resizeMode: 'contain'
+    },
     threeDots: {
         width: 5 * vw,
         height: 5 * vw,
@@ -79,6 +92,13 @@ export default Styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
+    },
+
+    bottomRow: {
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        marginTop: 2 * vh
+        // justifyContent: 'space-between'
     },
 
     profileRow: {

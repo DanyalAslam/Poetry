@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import actions from '../../redux/actions/index.js'
 import { LOG, showToast } from '../../Api/HelperFunctions.js'
 import MoreText from '../MoreText/index.js'
+import TextPoppinsLight from '../TextPoppinsLight/index.js'
 
 
 class PoemFeedCard extends Component {
@@ -69,6 +70,48 @@ class PoemFeedCard extends Component {
 
         this.props.navigation.navigate("ProfileScreen", params);
 
+    }
+
+    showLikers = () => {
+
+        this.props.showLikeSheet(this.props.likers)
+
+    }
+
+    renderLikers = () => {
+
+
+        if (this.props.likers?.length > 0) {
+
+
+            let likers = [
+                ...this.props.likers
+            ].reverse();
+
+            if (likers.length == 1) {
+
+                return <TouchableOpacity onPress={this.showLikers} activeOpacity={0.7}>
+                    <TextPoppinsLight style={styles.likers}>
+                        {likers[0]?.name}
+                    </TextPoppinsLight>
+                </TouchableOpacity>
+
+
+            }
+            else {
+                return <TouchableOpacity onPress={this.showLikers} activeOpacity={0.7}>
+                    <TextPoppinsLight style={styles.likers}>
+                        {likers[0]?.name} and {likers.length - 1} others
+                    </TextPoppinsLight>
+                </TouchableOpacity>
+
+
+            }
+
+
+        }
+
+        return null;
     }
 
     render() {
@@ -133,8 +176,7 @@ class PoemFeedCard extends Component {
 
 
                 <View style={{ marginVertical: 0 * vh }}>
-                    <View style={styles.topRow}>
-                        <View />
+                    <View style={styles.bottomRow}>
 
                         <TouchableOpacity onPress={this.toggleLike} activeOpacity={0.7}>
                             <Image
@@ -142,6 +184,18 @@ class PoemFeedCard extends Component {
                                 style={styles.image}
                             />
                         </TouchableOpacity>
+
+                        {
+                            this.renderLikers()
+                        }
+
+
+                        {/* <TouchableOpacity onPress={this.toggleLike} activeOpacity={0.7}>
+                            <Image
+                                source={this.getActiveIcon()}
+                                style={styles.image}
+                            />
+                        </TouchableOpacity> */}
 
                     </View>
 

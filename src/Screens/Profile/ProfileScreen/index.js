@@ -18,6 +18,7 @@ import moment from 'moment'
 import EmptyComponent from '../../../Components/EmptyComponent/index.js'
 import { vh } from '../../../Units/index.js'
 import RBSheet from 'react-native-raw-bottom-sheet'
+import LikeSheet from '../../../Components/LikeSheet/index.js'
 
 
 class ProfileScreen extends React.Component {
@@ -175,8 +176,7 @@ class ProfileScreen extends React.Component {
 
     _renderFeedItem = ({ item, index }) => {
 
-        console.log('item  ', item.owner[0]);
-
+       
         return <PoemFeedCard
             name={item?.owner[0]?.name}
             created_at={_calculateDate(item?.created_at)}
@@ -187,6 +187,8 @@ class ProfileScreen extends React.Component {
             isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}
             showOptions={this.props.route?.params?.type != "other"}
             openOptions={this.openOptions}
+            likers={item?.likers}
+            showLikeSheet={this.showLikeSheet}
         />
     }
 
@@ -200,12 +202,18 @@ class ProfileScreen extends React.Component {
 
     }
 
+    showLikeSheet = (likers) => {
+
+        this.likeSheetRef.show(likers);
+
+    }
+
 
     _renderFeed = () => {
 
         if (this.state.refreshing && this.props.route?.params?.type == "other") {
             return <View style={styles.ActivityIndicator}>
-                <ActivityIndicator color={appTheme.black} size="small"/>
+                <ActivityIndicator color={appTheme.black} size="small" />
             </View>
         }
 
@@ -217,7 +225,7 @@ class ProfileScreen extends React.Component {
 
 
         return <View style={styles.feedView}>
-
+            <LikeSheet ref={_ref => this.likeSheetRef = _ref} navigation={this.props.navigation} />
             <FlatList
                 data={this.getPoemData()}
                 contentContainerStyle={styles.feedContainer}

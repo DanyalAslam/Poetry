@@ -480,13 +480,14 @@ const actions = {
 
                 let poemStore = getState().PoemReducer;
                 let user_id = getState().UserReducer?.profile?._id;
+                let user_name = getState().UserReducer?.profile?.name;
 
 
                 let myPoemIndex = poemStore?.myPoems?.findIndex(poem => poem._id == poem_id);
 
                 if (myPoemIndex != -1) {
 
-                    let poem = checkAndLike(poemStore?.myPoems[myPoemIndex], user_id);
+                    let poem = checkAndLike(poemStore?.myPoems[myPoemIndex], user_id, user_name);
                     poemStore.myPoems[myPoemIndex] = {
                         ...poem
                     };
@@ -497,7 +498,7 @@ const actions = {
 
                 if (allPoemIndex != -1) {
 
-                    let poem = checkAndLike(poemStore?.allPoems[allPoemIndex], user_id);
+                    let poem = checkAndLike(poemStore?.allPoems[allPoemIndex], user_id, user_name);
 
                     poemStore.allPoems[allPoemIndex] = {
                         ...poem
@@ -632,7 +633,7 @@ const actions = {
 }
 
 
-const checkAndLike = (poem, user_id) => {
+const checkAndLike = (poem, user_id, user_name) => {
 
     let likeIndex = poem?.likers?.findIndex(like => like.id == user_id);
 
@@ -646,7 +647,8 @@ const checkAndLike = (poem, user_id) => {
         poem.likers = [
             ...poem?.likers,
             {
-                id: user_id
+                id: user_id,
+                name: user_name
             }
         ]
 

@@ -13,6 +13,7 @@ import { LOG, showToast } from '../../Api/HelperFunctions.js'
 import moment from 'moment'
 import TextSemiBold from '../../Components/TextSemiBold/index.js'
 import TextRegular from '../../Components/TextRegular/index.js'
+import LikeSheet from '../../Components/LikeSheet/index.js'
 
 
 
@@ -97,8 +98,17 @@ class FeedScreen extends React.Component {
             owner_id={item?.user_id}
             isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}
             navigation={this.props.navigation}
+            likers={item?.likers}
+            showLikeSheet={this.showLikeSheet}
         />
     }
+
+    showLikeSheet = (likers) => {
+
+        this.likeSheetRef.show(likers);
+
+    }
+
 
     ListFooterComponent = () => {
 
@@ -172,6 +182,7 @@ class FeedScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <LikeSheet ref={_ref => this.likeSheetRef = _ref} navigation={this.props.navigation} />
                 {
                     this._renderFeed()
                 }

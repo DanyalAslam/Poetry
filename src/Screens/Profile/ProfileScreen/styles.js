@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     headerRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 3 * vh,
+        marginTop: 4 * vh,
         paddingHorizontal: 2 * vw
     },
 
@@ -160,8 +160,8 @@ const styles = StyleSheet.create({
     },
 
     feedView: {
-        marginTop: 1 * vh,
-
+        // paddingTop: 1 * vh,
+        backgroundColor: appTheme.white,
     },
 
     dots: {
