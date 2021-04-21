@@ -16,11 +16,18 @@ class MoreScreen extends React.Component {
             return null;
         }
 
-        return <MoreItem
-            onPress={() => this.props.navigation.navigate('ProfileScreen', { id: this.props.user_id })}
-            title="My Profile"
-            image={allImages.generalIcons.profile}
-        />
+        return <>
+            <MoreItem
+                onPress={() => this.props.navigation.navigate('ProfileScreen', { id: this.props.user_id })}
+                title="My Profile"
+                image={allImages.generalIcons.profile}
+            />
+            <MoreItem
+                onPress={() => this.props.navigation.navigate('MyLikesScreen')}
+                title="My Likes"
+                image={allImages.generalIcons.profile}
+            />
+        </>
 
     }
 

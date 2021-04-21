@@ -9,7 +9,8 @@ const LoadingReducer = {
 
 const PoemReducer = {
     allPoems: [],
-    myPoems: []
+    myPoems: [],
+    likedPoems: []
 };
 
 const initialStates = {

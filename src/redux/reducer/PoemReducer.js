@@ -59,6 +59,29 @@ const PoemReducer = (state = initialState, action) => {
 
         }
 
+        case actionTypes.LIKED_POEMS: {
+
+            if (action.payload?.page > 1) {
+
+                return {
+                    ...state,
+                    likedPoems: [
+                        ...state.likedPoems,
+                        ...action.payload?.poems
+                    ],
+                };
+
+            }
+            else {
+                return {
+                    ...state,
+                    likedPoems: action.payload?.poems,
+                };
+            }
+
+
+        }
+
         case actionTypes.TOGGLE_LIKE: {
             return {
                 ...state,

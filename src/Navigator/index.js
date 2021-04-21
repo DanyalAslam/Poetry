@@ -29,6 +29,7 @@ import ProfileScreen from '../Screens/Profile/ProfileScreen';
 import EditProfileScreen from '../Screens/Profile/EditProfileScreen';
 import FeedScreen from '../Screens/FeedScreen';
 import CreatePoemScreen from '../Screens/CreatePoemScreen';
+import MyLikesScreen from '../Screens/MyLikesScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -531,6 +532,18 @@ class MainNavigator extends React.Component {
         <RootStack.Screen
           name="CreatePoemScreen"
           component={CreatePoemScreen}
+          options={(props) => {
+            return {
+              ...TransitionPresets.ScaleFromCenterAndroid,
+              headerShown: false
+            }
+          }
+          }
+        />
+
+        <RootStack.Screen
+          name="MyLikesScreen"
+          component={MyLikesScreen}
           options={(props) => {
             return {
               ...TransitionPresets.ScaleFromCenterAndroid,
