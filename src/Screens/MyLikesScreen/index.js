@@ -89,11 +89,11 @@ class MyLikesScreen extends React.Component {
 
     _renderFeedItem = ({ item, index }) => {
         return <PoemFeedCard
-            name={item?.owner[0]?.name}
+            name={item?.user?.name}
             created_at={_calculateDate(item?.created_at)}
             title={item?.title}
             verses={item?.verses}
-            source={getProfileImage(item?.owner[0])}
+            source={getProfileImage(item?.user)}
             id={item._id}
             owner_id={item?.user_id}
             isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}
@@ -123,7 +123,7 @@ class MyLikesScreen extends React.Component {
     _renderFeed = () => {
 
         return <FlatList
-            data={this.props?.allPoems ?? []}
+            data={this.props?.likedPoems ?? []}
             style={styles.scrollView}
             contentContainerStyle={{ alignItems: 'center', paddingTop: 0.8 * vh, paddingBottom: 1 * vh }}
             showsVerticalScrollIndicator={false}
@@ -161,9 +161,7 @@ class MyLikesScreen extends React.Component {
 
     ListHeaderComponent = () => {
 
-        return <TouchableOpacity
-            onPress={this.onStatusPress}
-            activeOpacity={0.7}
+        return <View
             style={styles.status}>
             <View style={styles.profileImageContainer}>
                 <Image
@@ -173,9 +171,9 @@ class MyLikesScreen extends React.Component {
             </View>
 
             <TextRegular style={styles.message}>
-                {`Hey ${this.props?.profile?.name ?? 'guest'} !\n Have something to share?`}
+                {`${this.props?.profile?.name ?? 'guest'} !\n Your liked poems from the feed.`}
             </TextRegular>
-        </TouchableOpacity>
+        </View>
 
     }
 
@@ -195,7 +193,7 @@ const mapStateToProps = state => {
 
     return {
 
-        allPoems: state.PoemReducer.allPoems,
+        likedPoems: state.PoemReducer.likedPoems,
         profile: state.UserReducer.profile,
         token: state.UserReducer.token,
     }

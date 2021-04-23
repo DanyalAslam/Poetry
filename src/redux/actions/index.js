@@ -476,8 +476,7 @@ const actions = {
 
                 const response = await Api.promise.get(endPoints.feed.myLikes, { page });
 
-                console.log('response ',response);
-                // dispatch({ type: actionTypes.LIKED_POEMS, payload: { poems: response?.poems, page } });
+                dispatch({ type: actionTypes.LIKED_POEMS, payload: { poems: response?.poems, page } });
 
                 return Promise.resolve(response);
 
@@ -529,7 +528,19 @@ const actions = {
 
                 }
 
-                dispatch({ type: actionTypes.TOGGLE_LIKE, payload: { allPoems: poemStore?.allPoems, myPoems: poemStore?.myPoems } });
+                let likedPoemsIndex = poemStore?.likedPoems?.findIndex(poem => poem._id == poem_id);
+
+                if (likedPoemsIndex != -1) {
+
+                    let poem = checkAndLike(poemStore?.likedPoems[likedPoemsIndex], user_id, user_name, image);
+
+                    poemStore.likedPoems[likedPoemsIndex] = {
+                        ...poem
+                    };
+
+                }
+
+                dispatch({ type: actionTypes.TOGGLE_LIKE, payload: { allPoems: poemStore?.allPoems, myPoems: poemStore?.myPoems, likedPoems: poemStore?.likedPoems } });
 
                 const response = await Api.promise.post(endPoints.feed.toggleLike, data);
 

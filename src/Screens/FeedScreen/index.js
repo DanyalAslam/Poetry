@@ -89,11 +89,11 @@ class FeedScreen extends React.Component {
 
     _renderFeedItem = ({ item, index }) => {
         return <PoemFeedCard
-            name={item?.owner[0]?.name}
+            name={item?.user?.name}
             created_at={_calculateDate(item?.created_at)}
             title={item?.title}
             verses={item?.verses}
-            source={getProfileImage(item?.owner[0])}
+            source={getProfileImage(item?.user)}
             id={item._id}
             owner_id={item?.user_id}
             isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}

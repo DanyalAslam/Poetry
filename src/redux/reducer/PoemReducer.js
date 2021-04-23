@@ -87,6 +87,7 @@ const PoemReducer = (state = initialState, action) => {
                 ...state,
                 allPoems: [...action.payload?.allPoems],
                 myPoems: [...action.payload?.myPoems],
+                likedPoems: [...action.payload?.likedPoems],
             };
         }
 
