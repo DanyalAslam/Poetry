@@ -21,6 +21,7 @@ const allImages = {
         cross: require('./generalIcons/cross.png'),
         more: require('./generalIcons/more.png'),
         editPoem: require('./generalIcons/editPoem.png'),
+        bell: require('./generalIcons/bell.png'),
 
     },
     tabBarIcons:{

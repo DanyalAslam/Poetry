@@ -8,13 +8,24 @@ const styles = StyleSheet.create({
         backgroundColor: appTheme.white,
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        // justifyContent: 'center'
     },
     topCard: {
 
         width: 100 * vw,
         marginTop: 3 * vh,
         // paddingLeft: 5 * vw,
+    },
+    headerIcon: {
+        width: 6 * vw,
+        height: 6 * vw,
+        resizeMode: 'contain',
+        tintColor: appTheme.black,
+
+    },
+    backView: {
+        marginRight: 4 * vw,
+        marginBottom: 2 * vh
     },
     categroyScroll: {
         paddingHorizontal: 5 * vw,
@@ -84,8 +95,8 @@ const styles = StyleSheet.create({
 
     message: {
         color: appTheme.black,
-        fontSize: 2.5 * vh,
-
+        fontSize: 1.7 * vh,
+        textAlign: 'center'
     },
 
     dots: {
@@ -95,27 +106,12 @@ const styles = StyleSheet.create({
     },
 
     status: {
+        justifyContent: 'center',
+        alignItems: 'center',
         marginTop: 2 * vh,
         marginBottom: 2 * vh,
-        backgroundColor: appTheme.white,
-        width: 90 * vw
-    },
-
-    headerIcon: {
-        width: 6 * vw,
-        height: 6 * vw,
-        resizeMode: 'contain',
-        tintColor: appTheme.black,
-        marginRight: 4 * vw
-    },
-
-    headerRow: {
-        flexDirection: 'row',
-        marginTop: 2 * vh,
-        marginBottom: 2 * vh,
-        width: 90 * vw
-    },
- 
+        backgroundColor: appTheme.white
+    }
 })
 
 export default styles

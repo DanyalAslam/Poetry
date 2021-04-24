@@ -9,6 +9,7 @@ import actions from '../../redux/actions/index.js'
 import { LOG, showToast } from '../../Api/HelperFunctions.js'
 import MoreText from '../MoreText/index.js'
 import TextPoppinsLight from '../TextPoppinsLight/index.js'
+import Sound from 'react-native-sound';
 
 
 class PoemFeedCard extends Component {
@@ -34,7 +35,39 @@ class PoemFeedCard extends Component {
 
         }
 
+        if (this.props.onLike) {
+            this.props.onLike();
+        }
+
         this.props.toggleLike(this.props.id);
+
+
+        this.playLikeSound();
+
+    }
+
+    playLikeSound = () => {
+
+        if (!this.props.isLiked) {
+            var likeSound = new Sound('like.wav', Sound.MAIN_BUNDLE, (error) => {
+                if (error) {
+                    console.log('failed to load the sound', error);
+                    return;
+                }
+
+                // Play the sound with an onEnd callback
+                likeSound.play((success) => {
+                    if (success) {
+                        console.log('successfully finished playing');
+                    } else {
+                        console.log('playback failed due to audio decoding errors');
+                    }
+                });
+
+            });
+
+        }
+
     }
 
     showOptionSheet = () => {
@@ -114,6 +147,18 @@ class PoemFeedCard extends Component {
         return null;
     }
 
+    renderVerses = () => {
+
+        if (this.props.onLike) {
+            return <Text style={[styles.text, { width: '100%', fontSize: 1.5 * vh }]}>
+                {this.props.verses}
+            </Text>
+        }
+
+        return <MoreText text={this.props.verses} />
+
+    }
+
     render() {
         return (
             <View
@@ -168,10 +213,9 @@ class PoemFeedCard extends Component {
                     <Text style={styles.heading}>
                         Verses:
                         </Text>
-                    {/* <Text style={[styles.text, { width: '100%', fontSize: 1.5 * vh }]}>
-                        {this.props.verses}
-                    </Text> */}
-                    <MoreText text={this.props.verses} />
+                    {
+                        this.renderVerses()
+                    }
                 </View>
 
 

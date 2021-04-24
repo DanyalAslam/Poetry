@@ -14,6 +14,8 @@ import moment from 'moment'
 import TextSemiBold from '../../Components/TextSemiBold/index.js'
 import TextRegular from '../../Components/TextRegular/index.js'
 import LikeSheet from '../../Components/LikeSheet/index.js'
+import RippleTouch from '../../Components/RippleTouch/index.js'
+import allImages from '../../assets/images/index.js'
 
 
 
@@ -161,18 +163,24 @@ class MyLikesScreen extends React.Component {
 
     ListHeaderComponent = () => {
 
-        return <View
-            style={styles.status}>
-            <View style={styles.profileImageContainer}>
-                <Image
-                    source={getProfileImage(this.props.profile)}
-                    style={styles.profileImage}
-                />
-            </View>
+        return <View style={{ width: 90 * vw, marginTop: 1 * vh }}>
+            <TouchableOpacity style={styles.backView} onPress={this.props.navigation.goBack}>
+                <Image style={styles.headerIcon} source={allImages.generalIcons.leftArrow} />
+            </TouchableOpacity>
 
-            <TextRegular style={styles.message}>
-                {`${this.props?.profile?.name ?? 'guest'} !\n Your liked poems from the feed.`}
-            </TextRegular>
+            <View
+                style={styles.status}>
+                <View style={styles.profileImageContainer}>
+                    <Image
+                        source={getProfileImage(this.props.profile)}
+                        style={styles.profileImage}
+                    />
+                </View>
+
+                <TextRegular style={styles.message}>
+                    {`${this.props?.profile?.name ?? 'guest'} !\n Your liked poems from the feed.`}
+                </TextRegular>
+            </View>
         </View>
 
     }

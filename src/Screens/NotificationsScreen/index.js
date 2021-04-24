@@ -15,6 +15,8 @@ import TextSemiBold from '../../Components/TextSemiBold/index.js'
 import TextRegular from '../../Components/TextRegular/index.js'
 import LikeSheet from '../../Components/LikeSheet/index.js'
 import NotifCard from '../../Components/NotifCard/index.js'
+import allImages from '../../assets/images/index.js'
+import RippleTouch from '../../Components/RippleTouch/index.js'
 
 
 
@@ -91,6 +93,7 @@ class NotificationsScreen extends React.Component {
     _renderFeedItem = ({ item, index }) => {
         return <NotifCard
             notification={item}
+            navigation={this.props.navigation}
         />
     }
 
@@ -152,12 +155,25 @@ class NotificationsScreen extends React.Component {
 
     ListHeaderComponent = () => {
 
-        return <View
-            style={styles.status}>
-            <TextSemiBold style={styles.message}>
-                Notifications
+        return <View>
+            <View style={styles.headerRow}>
+                <RippleTouch onPress={this.props.navigation.goBack}>
+                    <Image style={styles.headerIcon} source={allImages.generalIcons.leftArrow} />
+                </RippleTouch>
+
+                <TextSemiBold style={styles.message}>
+                    Notifications
             </TextSemiBold>
+            </View>
+
+            {/* <View
+                style={styles.status}>
+                <TextSemiBold style={styles.message}>
+                    Notifications
+            </TextSemiBold>
+            </View> */}
         </View>
+
 
     }
 

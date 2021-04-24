@@ -20,9 +20,9 @@ export default class TabBarItem extends Component {
             case "HomeStack": {
                 return <View style={Styles.buttonStyles}>
                     <Image source={params.focused ? allImages.tabBarIcons.homeActive : allImages.tabBarIcons.homeInActive} style={Styles.imageStyle} />
-                    <Text style={[Styles.labelStyle, { color: params.color }]}>
+                    {/* <Text style={[Styles.labelStyle, { color: params.color }]}>
                         Home
-                    </Text>
+                    </Text> */}
                 </View>
             }
 
@@ -30,9 +30,9 @@ export default class TabBarItem extends Component {
                 return <View style={Styles.buttonStyles}>
                     <Image source={params.focused ? allImages.tabBarIcons.feedActive : allImages.tabBarIcons.feedInActive} 
                     style={Styles.imageStyle} />
-                    <Text style={[Styles.labelStyle, { color: params.color }]}>
+                    {/* <Text style={[Styles.labelStyle, { color: params.color }]}>
                         Feed
-                    </Text>
+                    </Text> */}
                 </View>
             }
 
@@ -40,9 +40,9 @@ export default class TabBarItem extends Component {
                 return <View style={Styles.buttonStyles}>
                     <Image source={params.focused ? allImages.tabBarIcons.categActive : allImages.tabBarIcons.categInActive} 
                     style={Styles.imageStyle} />
-                    <Text style={[Styles.labelStyle, { color: params.color }]}>
+                    {/* <Text style={[Styles.labelStyle, { color: params.color }]}>
                         Categories
-                    </Text>
+                    </Text> */}
                 </View>
             }
 
@@ -50,9 +50,9 @@ export default class TabBarItem extends Component {
                 return <View style={Styles.buttonStyles}>
                     <Image source={params.focused ? allImages.tabBarIcons.poetActive : allImages.tabBarIcons.poetInActive}
                         style={Styles.imageStyle} />
-                    <Text style={[Styles.labelStyle, { color: params.color }]}>
+                    {/* <Text style={[Styles.labelStyle, { color: params.color }]}>
                         Poets
-                    </Text>
+                    </Text> */}
                 </View>
             }
 
@@ -60,9 +60,9 @@ export default class TabBarItem extends Component {
                 return <View style={Styles.buttonStyles}>
                     <Image source={params.focused ? allImages.tabBarIcons.moreActive : allImages.tabBarIcons.moreInActive}
                         style={Styles.imageStyle} />
-                    <Text style={[Styles.labelStyle, { color: params.color }]}>
+                    {/* <Text style={[Styles.labelStyle, { color: params.color }]}>
                         More
-                    </Text>
+                    </Text> */}
                 </View>
             }
 

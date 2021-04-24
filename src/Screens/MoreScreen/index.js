@@ -25,12 +25,7 @@ class MoreScreen extends React.Component {
             <MoreItem
                 onPress={() => this.props.navigation.navigate('MyLikesScreen')}
                 title="My Likes"
-                image={allImages.generalIcons.profile}
-            />
-            <MoreItem
-                onPress={() => this.props.navigation.navigate('NotificationsScreen')}
-                title="Notifications"
-                image={allImages.generalIcons.profile}
+                image={allImages.generalIcons.like}
             />
         </>
 

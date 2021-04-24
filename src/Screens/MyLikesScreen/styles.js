@@ -16,6 +16,16 @@ const styles = StyleSheet.create({
         marginTop: 3 * vh,
         // paddingLeft: 5 * vw,
     },
+    headerIcon: {
+        width: 6 * vw,
+        height: 6 * vw,
+        resizeMode: 'contain',
+        tintColor: appTheme.black,
+
+    },
+    backView:{
+        marginRight: 4 * vw
+    },
     categroyScroll: {
         paddingHorizontal: 5 * vw,
         paddingBottom: 3 * vh,

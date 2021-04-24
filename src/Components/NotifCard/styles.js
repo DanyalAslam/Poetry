@@ -32,9 +32,15 @@ export default Styles = StyleSheet.create({
         fontFamily: fonts.poppins.light,
    
     },
+    poemTitle: {
+        color: appTheme.darkGray,
+        fontSize: 1.6 * vh,
+        fontFamily: fonts.poppins.light,
+   
+    },
     row: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'flex-start'
         // justifyContent: 'space-between'
     },
     container:{

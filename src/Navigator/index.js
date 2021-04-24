@@ -31,6 +31,7 @@ import FeedScreen from '../Screens/FeedScreen';
 import CreatePoemScreen from '../Screens/CreatePoemScreen';
 import MyLikesScreen from '../Screens/MyLikesScreen';
 import NotificationsScreen from '../Screens/NotificationsScreen';
+import FeedDetailScreen from '../Screens/FeedDetailScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -56,7 +57,9 @@ class MainNavigator extends React.Component {
       headerTitleStyle: this._pickHeaderStyle(props),
       headerStyle: styles.header,
       headerLeft: () => this._renderHeaderLeft(props),
-      headerLeftContainerStyle: styles.leftContainer
+      headerRight: () => this._renderHeaderRight(props),
+      headerLeftContainerStyle: styles.leftContainer,
+      headerRightContainerStyle: styles.rightContainer
     }
   }
 
@@ -92,7 +95,7 @@ class MainNavigator extends React.Component {
 
     if (routeName == 'CategoryDetailsScreen' || routeName == 'PoetPoemsScreen'
       || routeName == "CategoryPoemDetailsScreen" || routeName == 'WishListDetailScreen'
-      || routeName == 'WishListScreen' || routeName == 'PoemDetailScreen'
+      || routeName == 'WishListScreen' || routeName == 'PoemDetailScreen' || routeName == "NotificationsScreen"
 
     ) {
 
@@ -100,6 +103,24 @@ class MainNavigator extends React.Component {
         onPress={() => this._onBackPress(props)}
       >
         <Image style={styles.imageStyle} source={allImages.generalIcons.leftArrow} />
+      </RippleTouch>
+
+    }
+
+    return null
+
+  }
+
+  _renderHeaderRight = (props) => {
+
+    const routeName = props.route.name
+
+    if (routeName == 'FeedScreen' || routeName == 'FeedStack') {
+
+      return <RippleTouch
+        onPress={() => props.navigation.navigate('NotificationsScreen')}
+      >
+        <Image style={styles.imageStyle} source={allImages.generalIcons.bell} />
       </RippleTouch>
 
     }
@@ -557,6 +578,18 @@ class MainNavigator extends React.Component {
         <RootStack.Screen
           name="NotificationsScreen"
           component={NotificationsScreen}
+          options={(props) => {
+            return {
+              ...TransitionPresets.ScaleFromCenterAndroid,
+              headerShown: false
+            }
+          }
+          }
+        />
+
+        <RootStack.Screen
+          name="FeedDetailScreen"
+          component={FeedDetailScreen}
           options={(props) => {
             return {
               ...TransitionPresets.ScaleFromCenterAndroid,

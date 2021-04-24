@@ -59,5 +59,9 @@ export default Styles = StyleSheet.create({
     leftContainer: {
         marginLeft: 0.5 * vw,
         marginTop: 2.5 * vh
-    }
+    },
+    rightContainer: {
+        marginRight: 5 * vw,
+        marginTop: 2 * vh
+    },
 });

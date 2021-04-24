@@ -16,26 +16,22 @@ class NotifCard extends Component {
 
 
 
-    onUserPress = () => {
+    onPress = () => {
 
         if (!this.props.navigation) {
             return
         }
 
-        if (!this.props.token) {
-            return showToast("Please log in to like");
-        }
 
         let params = {
-            id: this.props.owner_id
+            poem: null
+        };
+
+        if (this.props.notification?.poems?.length > 0) {
+            params["poem"] = this.props.notification?.poems[0];
         }
 
-        if (params.id != this.props.user_id) {
-            params["type"] = "other";
-        }
-
-
-        this.props.navigation.navigate("ProfileScreen", params);
+        this.props.navigation.navigate("FeedDetailScreen", params);
 
     }
 
@@ -45,6 +41,7 @@ class NotifCard extends Component {
         return (
             <RippleTouch
                 style={styles.ripple}
+                onPress={this.onPress}
             >
 
                 <View style={styles.row}>
@@ -56,14 +53,14 @@ class NotifCard extends Component {
                         <Text style={[styles.text]}>
                             {this.props?.notification?.title}
                         </Text>
+                        <Text style={[styles.poemTitle]} numberOfLines={1}>
+                            {this.props?.notification?.poems[0]?.title}
+                        </Text>
                         <Text style={[styles.date]}>
                             {_calculateDate(this.props?.notification?.created_at)}
                         </Text>
                     </View>
                 </View>
-
-
-
 
             </RippleTouch>
         )
