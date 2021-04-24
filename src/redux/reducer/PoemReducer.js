@@ -82,6 +82,29 @@ const PoemReducer = (state = initialState, action) => {
 
         }
 
+        case actionTypes.NOTIFICATIONS: {
+
+            if (action.payload?.page > 1) {
+
+                return {
+                    ...state,
+                    notifications: [
+                        ...state.notifications,
+                        ...action.payload?.notifications
+                    ],
+                };
+
+            }
+            else {
+                return {
+                    ...state,
+                    notifications: action.payload?.notifications,
+                };
+            }
+
+
+        }
+
         case actionTypes.TOGGLE_LIKE: {
             return {
                 ...state,

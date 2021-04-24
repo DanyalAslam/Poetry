@@ -664,6 +664,28 @@ const actions = {
 
         }
     },
+
+
+    getNotifications: (page = 1) => {
+
+        return async dispatch => {
+
+            try {
+
+                const response = await Api.promise.get(endPoints.feed.notifications, { page });
+
+                dispatch({ type: actionTypes.NOTIFICATIONS, payload: { notifications: response?.notifications, page } });
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
 }
 
 
