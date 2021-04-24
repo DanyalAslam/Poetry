@@ -9,7 +9,7 @@ import actions from '../../redux/actions/index.js'
 import { LOG, showToast } from '../../Api/HelperFunctions.js'
 import MoreText from '../MoreText/index.js'
 import TextPoppinsLight from '../TextPoppinsLight/index.js'
-import Sound from 'react-native-sound';
+import { playLikeSound } from '../../Utils/index.js'
 
 
 class PoemFeedCard extends Component {
@@ -42,33 +42,13 @@ class PoemFeedCard extends Component {
         this.props.toggleLike(this.props.id);
 
 
-        this.playLikeSound();
-
-    }
-
-    playLikeSound = () => {
-
         if (!this.props.isLiked) {
-            var likeSound = new Sound('like.wav', Sound.MAIN_BUNDLE, (error) => {
-                if (error) {
-                    console.log('failed to load the sound', error);
-                    return;
-                }
-
-                // Play the sound with an onEnd callback
-                likeSound.play((success) => {
-                    if (success) {
-                        console.log('successfully finished playing');
-                    } else {
-                        console.log('playback failed due to audio decoding errors');
-                    }
-                });
-
-            });
-
+            playLikeSound();
         }
 
     }
+
+   
 
     showOptionSheet = () => {
 

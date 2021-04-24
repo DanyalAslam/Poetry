@@ -113,7 +113,11 @@ class MainNavigator extends React.Component {
 
   _renderHeaderRight = (props) => {
 
-    const routeName = props.route.name
+    const routeName = props.route.name;
+
+    if(!this.props.token){
+      return null;
+    }
 
     if (routeName == 'FeedScreen' || routeName == 'FeedStack') {
 
@@ -355,7 +359,7 @@ class MainNavigator extends React.Component {
     return (
       <Tabs.Navigator
         tabBarPosition="bottom"
-        // lazy={true}
+        lazy={true}
         tabBarOptions={{
           activeTintColor: appTheme.black,
           inactiveTintColor: appTheme.lightGray,
@@ -620,6 +624,15 @@ class MainNavigator extends React.Component {
 
 }
 
+
+const mapStateToProps = state => {
+
+  return {
+    token: state.UserReducer.token
+  }
+
+}
+
 const mapDispatchToProps = dispatch => {
 
   return {
@@ -630,4 +643,6 @@ const mapDispatchToProps = dispatch => {
 
 
 
-export default connect(null, mapDispatchToProps)(MainNavigator)
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainNavigator)

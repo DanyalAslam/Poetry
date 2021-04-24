@@ -312,13 +312,13 @@ class EditProfileScreen extends React.Component {
                 source={allImages.generalIcons.editPoem}
                 onPress={this.openPicker}
                 text="Change Picture"
-         
+
             />
             <BottomSheetButtons
                 source={allImages.generalIcons.cross}
                 onPress={this.removeImage}
                 text="Remove Picture"
-         
+
             />
 
 
@@ -359,11 +359,15 @@ class EditProfileScreen extends React.Component {
                         {this.state.profile?.email}
                     </TextPoppinsRegular>
 
-                    <View style={styles.border} />
+                    <TextPoppinsRegular style={styles.name}>
+                        {this.state.profile?.name}
+                    </TextPoppinsRegular>
+
+                    {/* <View style={styles.border} /> */}
 
 
                     {
-                        this.renderName()
+                        // this.renderName()
                     }
 
 
@@ -410,7 +414,7 @@ class EditProfileScreen extends React.Component {
                     this._renderBottomSheet()
                 }
 
-            </ScrollView>
+            </ScrollView >
         )
     }
 }

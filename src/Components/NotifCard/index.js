@@ -35,9 +35,21 @@ class NotifCard extends Component {
 
     }
 
+    getLikedProfile = () => {
+
+        let data = {
+            image: this.props?.notification?.liked_user_image,
+            gender: this.props?.notification?.liked_user_gender
+        };
+
+
+        return data;
+    }
+
 
 
     render() {
+
         return (
             <RippleTouch
                 style={styles.ripple}
@@ -46,7 +58,7 @@ class NotifCard extends Component {
 
                 <View style={styles.row}>
                     <Image
-                        source={getProfileImage(this.props?.notification?.poems[0]?.user)}
+                        source={getProfileImage(this.getLikedProfile())}
                         style={styles.profileImage}
                     />
                     <View style={styles.container}>

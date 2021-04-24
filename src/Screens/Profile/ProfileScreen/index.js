@@ -171,6 +171,10 @@ class ProfileScreen extends React.Component {
 
     ListEmptyComponent = () => {
 
+        if (this.state.refreshing) {
+            return null;
+        }
+
         return <EmptyComponent message="No poems to show" style={{ marginBottom: 3 * vh }} />;
     }
 

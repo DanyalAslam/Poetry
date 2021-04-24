@@ -59,11 +59,15 @@ const styles = StyleSheet.create({
 
     email: {
         color: appTheme.gray,
-        marginBottom: 2 * vh,
         fontSize: 1.8 * vh,
         marginTop: 2 * vh,
     },
+    name: {
+        color: appTheme.gray,
+        marginBottom: 2 * vh,
+        fontSize: 1.8 * vh,
 
+    },
     country: {
         color: appTheme.gray,
         fontSize: 1.6 * vh,

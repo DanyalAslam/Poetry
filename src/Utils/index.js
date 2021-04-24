@@ -1,5 +1,8 @@
 import moment from "moment";
 import allImages from "../assets/images";
+import Sound from 'react-native-sound';
+
+
 
 export const appTheme = {
     white: '#FFFFFF',
@@ -43,16 +46,7 @@ export const getProfileImage = (profile) => {
         profileImage = {
             uri: profileImage
         };
-        // if (!profileImage?.includes('base64')) {
-        //     profileImage = {
-        //         uri: `data:image/png;base64,${profileImage}`
-        //     };
-        // }
-        // else {
-        //     profileImage = {
-        //         uri: profileImage
-        //     };
-        // }
+
     }
     else {
         if (profile?.gender?.toLowerCase() == genders.male) {
@@ -62,8 +56,6 @@ export const getProfileImage = (profile) => {
             profileImage = allImages.generalImages.female;
         }
     }
-
-
 
     return profileImage;
 }
@@ -106,3 +98,24 @@ export const _calculateDate = (_date) => {
 
     return date;
 };
+
+export const playLikeSound = () => {
+
+    var likeSound = new Sound('like.wav', Sound.MAIN_BUNDLE, (error) => {
+        if (error) {
+            console.log('failed to load the sound', error);
+            return;
+        }
+
+        // Play the sound with an onEnd callback
+        likeSound.play((success) => {
+            if (success) {
+                console.log('successfully finished playing');
+            } else {
+                console.log('playback failed due to audio decoding errors');
+            }
+        });
+
+    });
+
+}

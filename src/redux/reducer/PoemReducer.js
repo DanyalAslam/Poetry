@@ -9,7 +9,9 @@ const PoemReducer = (state = initialState, action) => {
         case actionTypes.LOGOUT: {
             return {
                 ...state,
-                myPoems: []
+                myPoems: [],
+                likedPoems: [],
+                notifications: []
             };
         }
 
