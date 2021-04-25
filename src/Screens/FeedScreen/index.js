@@ -23,7 +23,8 @@ class FeedScreen extends React.Component {
         refreshing: true,
         page: 1,
         is_last_page: false,
-        has_scrolled: false
+        has_scrolled: false,
+        footerLoading: false
     }
 
 
@@ -33,10 +34,12 @@ class FeedScreen extends React.Component {
 
         DeviceEventEmitter.addListener('FeedPressed', (e) => {
 
-            if(!this.state.has_scrolled){
-                this._getData();
+            if (!this.state.has_scrolled) {
+                this.setState({
+                    page: 1
+                }, this._getData)
             }
-           
+
 
             if (this.flatListRef) {
 
@@ -88,6 +91,43 @@ class FeedScreen extends React.Component {
 
     }
 
+    onRefresh = () => {
+        this.setState({
+            page: 1,
+        }, this._getData)
+    }
+
+
+    getEndReachedData = async () => {
+
+        try {
+
+
+            this.setState({
+                footerLoading: true
+            })
+
+            const response = await this.props.getAllPoems(this.state.page);
+
+
+            this.setState({
+                footerLoading: false,
+                is_last_page: response?.poems?.length == 0 ? true : false
+            })
+
+
+
+        } catch (error) {
+
+            this.setState({
+                footerLoading: false,
+            })
+
+        }
+
+    }
+
+
     onEndReached = () => {
 
         if ((this.props.allPoems?.length >= 10)) {
@@ -97,7 +137,7 @@ class FeedScreen extends React.Component {
             else {
                 this.setState({
                     page: this.state.page + 1
-                }, this._getData);
+                }, this.getEndReachedData);
             }
         }
 
@@ -138,7 +178,7 @@ class FeedScreen extends React.Component {
 
     ListFooterComponent = () => {
 
-        if (this.state.page > 1 && this.state.refreshing) {
+        if (this.state.page > 1 && this.state.footerLoading) {
             return <TextRegular style={styles.dots}>...</TextRegular>
         }
 
@@ -170,7 +210,7 @@ class FeedScreen extends React.Component {
                 <RefreshControl
                     refreshing={this.state.refreshing}
                     colors={[appTheme.lightGray]}
-                    onRefresh={this._getData}
+                    onRefresh={this.onRefresh}
                 />
             }
             ListEmptyComponent={this.ListEmptyComponent}

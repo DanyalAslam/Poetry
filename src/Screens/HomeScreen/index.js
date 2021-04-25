@@ -137,7 +137,7 @@ class HomeScreen extends React.Component {
                     activeSlideAlignment="start"
                     slideStyle={{ marginHorizontal: 1 * vw }}
                     inactiveSlideOpacity={1}
-                    contentContainerCustomStyle={{marginLeft: 1*vw}}
+                    contentContainerCustomStyle={{ marginLeft: 1 * vw }}
                 />
 
             </View>
@@ -145,12 +145,22 @@ class HomeScreen extends React.Component {
         </View>
     }
 
+    _navigateToCategoryDetails = (title) => {
+
+        this.props.navigation.navigate('CategoryStack', {
+            screen: 'CategoryDetailsScreen',
+            params: {
+                title
+            }
+        })
+    }
+
 
     _renderCategoryArea = () => {
 
 
         return <>
-            <View style={[styles.topCardChildRow, { marginTop: 5 * vh,  marginRight: 6 * vw, }]}>
+            <View style={[styles.topCardChildRow, { marginTop: 5 * vh, marginRight: 6 * vw, }]}>
 
                 <Text style={styles.Heading}>
                     Categories
@@ -172,24 +182,24 @@ class HomeScreen extends React.Component {
                     source={{ uri: this.props.categories[0].image }}
                     title={this.props.categories[0].title}
                     style={styles.categoryCardStyle}
-                    textStyle={{fontSize: 2.2*vh}}
-                    onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[0].title })}
+                    textStyle={{ fontSize: 2.2 * vh }}
+                    onPress={() => this._navigateToCategoryDetails(this.props.categories[0].title)}
                 />
 
                 <CategoryCard
                     source={{ uri: this.props.categories[1].image }}
                     title={this.props.categories[1].title}
                     style={styles.categoryCardStyle}
-                    textStyle={{fontSize: 2.2*vh}}
-                    onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[1].title })}
+                    textStyle={{ fontSize: 2.2 * vh }}
+                    onPress={() => this._navigateToCategoryDetails(this.props.categories[1].title)}
                 />
 
                 <CategoryCard
                     source={{ uri: this.props.categories[2].image }}
                     title={this.props.categories[2].title}
                     style={styles.categoryCardStyle}
-                    textStyle={{fontSize: 2.2*vh}}
-                    onPress={() => this.props.navigation.navigate('CategoryDetailsScreen', { title: this.props.categories[2].title })}
+                    textStyle={{ fontSize: 2.2 * vh }}
+                    onPress={() => this._navigateToCategoryDetails(this.props.categories[2].title)}
                 />
 
 
@@ -276,7 +286,7 @@ class HomeScreen extends React.Component {
 
     _renderFeed = () => {
 
-        return <View style={{ width: 100 * vw, marginTop: 2*vh }}>
+        return <View style={{ width: 100 * vw, marginTop: 2 * vh }}>
             <View style={{
                 flexDirection: 'row', justifyContent: 'space-between',
                 marginHorizontal: 5 * vw, alignItems: 'baseline'

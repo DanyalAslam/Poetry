@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
         // flex: 1,
         backgroundColor: appTheme.white,
         paddingHorizontal: 2 * vw,
+     
         // paddingVertical: 2 * vh
     },
     ActivityIndicator: {
@@ -162,6 +163,7 @@ const styles = StyleSheet.create({
     feedView: {
         // paddingTop: 1 * vh,
         backgroundColor: appTheme.white,
+        flex:1
     },
 
     dots: {

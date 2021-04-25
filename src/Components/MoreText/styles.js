@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
     text: {
         color: appTheme.darkGray,
         fontFamily: fonts.poppins.light,
-        fontSize: vh * 1.5
+        fontSize: vh * 1.5,
+        maxWidth: 71 * vw,
     },
 
     showMore: {

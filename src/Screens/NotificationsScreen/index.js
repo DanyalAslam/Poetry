@@ -54,7 +54,7 @@ class NotificationsScreen extends React.Component {
 
             this.setState({
                 refreshing: false,
-                is_last_page: response?.poems?.length == 0 ? true : false
+                is_last_page: response?.notifications?.length == 0 ? true : false
             })
 
 
@@ -71,7 +71,7 @@ class NotificationsScreen extends React.Component {
 
     onEndReached = () => {
 
-        if ((this.props.allPoems?.length >= 10)) {
+        if ((this.props.notifications?.length >= 10)) {
             if (this.state.is_last_page) {
                 // set state to show message
             }
@@ -91,7 +91,7 @@ class NotificationsScreen extends React.Component {
             return null;
         }
 
-        return <EmptyComponent message="No poems to show" style={{ marginTop: 5 * vh }} />;
+        return <EmptyComponent message="No notifications to show" style={{ marginTop: 5 * vh }} />;
     }
 
     _renderFeedItem = ({ item, index }) => {
