@@ -69,7 +69,7 @@ class PoemFeedCard extends Component {
         }
 
         if (!this.props.token) {
-            return showToast("Please log in to like");
+            return showToast("Please log in to view profile");
         }
 
         let params = {

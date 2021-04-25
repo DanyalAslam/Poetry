@@ -15,7 +15,7 @@ import PoetPoemsScreen from '../Screens/PoetPoemsScreen';
 import WishListScreen from '../Screens/WishListScreen';
 
 import RippleTouch from '../Components/RippleTouch';
-import { Image } from 'react-native';
+import { DeviceEventEmitter, Image } from 'react-native';
 import allImages from '../assets/images';
 import SearchModal from '../Components/SearchModal';
 import actions from '../redux/actions';
@@ -32,6 +32,7 @@ import CreatePoemScreen from '../Screens/CreatePoemScreen';
 import MyLikesScreen from '../Screens/MyLikesScreen';
 import NotificationsScreen from '../Screens/NotificationsScreen';
 import FeedDetailScreen from '../Screens/FeedDetailScreen';
+import HeaderRight from '../Components/HeaderRight';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -115,17 +116,10 @@ class MainNavigator extends React.Component {
 
     const routeName = props.route.name;
 
-    if(!this.props.token){
-      return null;
-    }
 
     if (routeName == 'FeedScreen' || routeName == 'FeedStack') {
 
-      return <RippleTouch
-        onPress={() => props.navigation.navigate('NotificationsScreen')}
-      >
-        <Image style={styles.imageStyle} source={allImages.generalIcons.bell} />
-      </RippleTouch>
+      return <HeaderRight navigation={props.navigation} />
 
     }
 
@@ -339,6 +333,8 @@ class MainNavigator extends React.Component {
 
   FeedStackNavigator = () => {
 
+
+
     return (
       <FeedStack.Navigator
         screenOptions={this._DefaultHeaderOptions}
@@ -412,7 +408,11 @@ class MainNavigator extends React.Component {
                 <TabBarItem params={params} name='FeedStack' />
               )
             },
-
+          }}
+          listeners={{
+            tabPress: e => {
+              DeviceEventEmitter.emit("FeedPressed")
+            },
           }}
         />
 
@@ -636,7 +636,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 
   return {
-    showSearchModal: () => dispatch(actions.showSearch())
   }
 
 }
@@ -645,4 +644,4 @@ const mapDispatchToProps = dispatch => {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainNavigator)
+export default connect(mapStateToProps, null)(MainNavigator)

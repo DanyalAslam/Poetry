@@ -87,7 +87,9 @@ class LoginScreen extends Component {
                 }
             });
 
-            this.props.navigation.replace("TabStack");
+            // this.props.navigation.replace("TabStack");
+            this.props.navigation.popToTop();
+            // this.props.navigation.navigate("TabStack");
 
         } catch (error) {
 

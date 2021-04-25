@@ -118,7 +118,10 @@ class CreatePoemScreen extends React.Component {
                 }
 
 
+                await this.props.getAllPoems(1);
+
                 this.props.navigation.goBack();
+                
 
             } catch (error) {
 
@@ -187,6 +190,7 @@ const mapDispatchToProps = dispatch => {
 
     return {
         createPoem: (data) => dispatch(actions.createPoem(data)),
+        getAllPoems: (page) => dispatch(actions.getAllPoems(page)),
     }
 
 }

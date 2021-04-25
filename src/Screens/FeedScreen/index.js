@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, RefreshControl, TouchableOpacity, Image, } from 'react-native'
+import { View, Text, FlatList, RefreshControl, TouchableOpacity, Image, DeviceEventEmitter, } from 'react-native'
 import styles from './styles.js'
 
 import { vw, vh } from '../../Units/index.js'
@@ -28,12 +28,23 @@ class FeedScreen extends React.Component {
 
     componentDidMount() {
 
-        this.props.navigation.addListener('focus', this._getData);
+        // this.props.navigation.addListener('focus', this._getData);
 
+        DeviceEventEmitter.addListener('FeedPressed', (e) => {
+            this._getData();
+
+            if (this.flatListRef) {
+                this.flatListRef.scrollToOffset({ animated: true, offset: 0 })
+            }
+
+
+        });
+
+        this._getData();
     }
 
     componentWillUnmount() {
-        this.props.navigation.removeListener('focus');
+        // this.props.navigation.removeListener('focus');
     }
 
 
@@ -147,6 +158,7 @@ class FeedScreen extends React.Component {
             onEndReachedThreshold={0.16}
             ListFooterComponent={this.ListFooterComponent}
             ListFooterComponentStyle={{ marginBottom: 4 * vh }}
+            ref={_ref => this.flatListRef = _ref}
         />
     }
 
