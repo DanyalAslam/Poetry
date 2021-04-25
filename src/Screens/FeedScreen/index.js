@@ -22,7 +22,8 @@ class FeedScreen extends React.Component {
     state = {
         refreshing: true,
         page: 1,
-        is_last_page: false
+        is_last_page: false,
+        has_scrolled: false
     }
 
 
@@ -31,10 +32,20 @@ class FeedScreen extends React.Component {
         // this.props.navigation.addListener('focus', this._getData);
 
         DeviceEventEmitter.addListener('FeedPressed', (e) => {
-            this._getData();
+
+            if(!this.state.has_scrolled){
+                this._getData();
+            }
+           
 
             if (this.flatListRef) {
-                this.flatListRef.scrollToOffset({ animated: true, offset: 0 })
+
+                this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
+
+                this.setState({
+                    has_scrolled: false
+                });
+
             }
 
 
@@ -135,6 +146,16 @@ class FeedScreen extends React.Component {
 
     }
 
+    setScrolled = () => {
+
+        if (!this.state.has_scrolled) {
+            this.setState({
+                has_scrolled: true
+            });
+        }
+
+    }
+
     _renderFeed = () => {
 
         return <FlatList
@@ -159,6 +180,7 @@ class FeedScreen extends React.Component {
             ListFooterComponent={this.ListFooterComponent}
             ListFooterComponentStyle={{ marginBottom: 4 * vh }}
             ref={_ref => this.flatListRef = _ref}
+            onScrollEndDrag={this.setScrolled}
         />
     }
 
