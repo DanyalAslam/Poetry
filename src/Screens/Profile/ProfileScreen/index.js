@@ -30,8 +30,6 @@ class ProfileScreen extends React.Component {
             page: 1,
             is_last_page: false,
             active_poem: null,
-            other_user: null,
-            other_user_poems: []
         }
     }
 

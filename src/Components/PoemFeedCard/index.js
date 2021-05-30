@@ -48,8 +48,6 @@ class PoemFeedCard extends Component {
 
     }
 
-   
-
     showOptionSheet = () => {
 
         let data = {
@@ -105,7 +103,7 @@ class PoemFeedCard extends Component {
 
                 return <TouchableOpacity onPress={this.showLikers} activeOpacity={0.7}>
                     <TextPoppinsLight style={styles.likers}>
-                        {likers[0]?.name}
+                        Liked by {likers[0]?.name}
                     </TextPoppinsLight>
                 </TouchableOpacity>
 
@@ -114,7 +112,7 @@ class PoemFeedCard extends Component {
             else {
                 return <TouchableOpacity onPress={this.showLikers} activeOpacity={0.7}>
                     <TextPoppinsLight style={styles.likers}>
-                        {likers[0]?.name} and {likers.length - 1} others
+                        Liked by {likers[0]?.name} and {likers.length - 1} others
                     </TextPoppinsLight>
                 </TouchableOpacity>
 
@@ -136,6 +134,14 @@ class PoemFeedCard extends Component {
         }
 
         return <MoreText text={this.props.verses} />
+
+    }
+
+    showComments = () => {
+
+        if(this.props.showCommentSheet){
+            this.props.showCommentSheet([]);
+        }
 
     }
 
@@ -209,19 +215,18 @@ class PoemFeedCard extends Component {
                             />
                         </TouchableOpacity>
 
-                        {
-                            this.renderLikers()
-                        }
-
-
-                        {/* <TouchableOpacity onPress={this.toggleLike} activeOpacity={0.7}>
+                        <TouchableOpacity onPress={this.showComments} activeOpacity={0.7}>
                             <Image
-                                source={this.getActiveIcon()}
+                                source={allImages.generalIcons.comment}
                                 style={styles.image}
                             />
-                        </TouchableOpacity> */}
+                        </TouchableOpacity>
 
                     </View>
+
+                    {
+                        this.renderLikers()
+                    }
 
                 </View>
 

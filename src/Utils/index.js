@@ -13,7 +13,8 @@ export const appTheme = {
     blue: '#5663FF',
     black: '#000000',
     grayish: '#cccccc',
-    gray: '#ACACAC'
+    gray: '#ACACAC',
+    commentBackgroundColor: 'rgba(0,0,0,0.05)'
 }
 
 export const placeHolderMessages = {

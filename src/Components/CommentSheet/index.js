@@ -1,24 +1,28 @@
 import React from 'react'
-import Ripple from 'react-native-material-ripple';
+import { View } from 'react-native';
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { connect } from 'react-redux';
 import { showToast } from '../../Api/HelperFunctions';
 import { vh } from '../../Units';
-import { getProfileImage } from '../../Utils';
-import BottomSheetButtons from '../BottomSheetButtons';
+import CommentCard from '../CommentCard';
 import styles from './styles';
 
 
-class LikeSheet extends React.Component {
+class CommentSheet extends React.Component {
 
     state = {
-        likers: []
+        comments: []
     }
 
-    show = (likers) => {
+    componentDidMount() {
+        this.show();
+    }
+
+    show = (comments) => {
 
         this.setState({
-            likers: likers
+            comments: []
         },
             () => {
                 this.RBSheet.open();
@@ -33,7 +37,7 @@ class LikeSheet extends React.Component {
 
     navigateToProfile = (id) => {
 
-     
+
 
         if (!this.props.navigation) {
             return
@@ -52,13 +56,24 @@ class LikeSheet extends React.Component {
         }
 
         this.close();
-        
+
         setTimeout(() => {
-            this.props.navigation.push("ProfileScreen", params); 
+            this.props.navigation.push("ProfileScreen", params);
         }, 300);
 
     }
 
+    renderItem = () => {
+        return <CommentCard />;
+    }
+
+    renderFooterComponent = () => {
+
+        return <View style={{ width: 100, height: 100, backgroundColor: 'red' }}>
+
+        </View>
+
+    }
 
     _renderBottomSheet = () => {
 
@@ -66,25 +81,24 @@ class LikeSheet extends React.Component {
             ref={ref => {
                 this.RBSheet = ref;
             }}
-            height={80 * vh}
+            height={95 * vh}
             openDuration={200}
             // dragFromTopOnly
             closeOnDragDown
             animationType="slide"
 
         >
-            {
-                React.Children.toArray(
-                    this.state.likers.map(item => <BottomSheetButtons
-                        source={getProfileImage(item)}
-                        onPress={() => this.navigateToProfile(item.id)}
-                        text={item.name}
-                        style={styles.bottomSheetBtn}
-                        iconStyle={styles.image}
-                    />)
-                )
-            }
 
+            <KeyboardAwareFlatList
+                data={[0, 1, 2, 0, 1, 2, 0, 1, 2]}
+                renderItem={this.renderItem}
+                nestedScrollEnabled
+            
+            />
+
+            {
+                this.renderFooterComponent()
+            }
 
 
         </RBSheet>
@@ -108,4 +122,4 @@ const mapStateToProps = state => {
 
 }
 
-export default connect(mapStateToProps, null, null, { forwardRef: true })(LikeSheet);
+export default connect(mapStateToProps, null, null, { forwardRef: true })(CommentSheet);

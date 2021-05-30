@@ -14,6 +14,7 @@ import moment from 'moment'
 import TextSemiBold from '../../Components/TextSemiBold/index.js'
 import TextRegular from '../../Components/TextRegular/index.js'
 import LikeSheet from '../../Components/LikeSheet/index.js'
+import CommentSheet from '../../Components/CommentSheet/index.js'
 
 
 
@@ -166,12 +167,19 @@ class FeedScreen extends React.Component {
             navigation={this.props.navigation}
             likers={item?.likers}
             showLikeSheet={this.showLikeSheet}
+            showCommentSheet={this.showCommentSheet}
         />
     }
 
     showLikeSheet = (likers) => {
 
         this.likeSheetRef.show(likers);
+
+    }
+
+    showCommentSheet = (comments) => {
+
+        this.commentSheetRef.show(comments);
 
     }
 
@@ -261,6 +269,7 @@ class FeedScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <LikeSheet ref={_ref => this.likeSheetRef = _ref} navigation={this.props.navigation} />
+                <CommentSheet ref={_ref => this.commentSheetRef = _ref} navigation={this.props.navigation} />
                 {
                     this._renderFeed()
                 }

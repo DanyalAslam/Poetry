@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "cd Patch && ./startPatch.sh && cd .. && react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -42,7 +42,7 @@
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
-    "rn-image-picker": "git+https://salsoftmobile@bitbucket.org/salsoftmobileapphq/rn-image-picker.git"
+    "rn-image-picker": "git+https://github.com/hurali97/rn-image-picker.git"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",

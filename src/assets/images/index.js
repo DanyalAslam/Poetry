@@ -22,6 +22,7 @@ const allImages = {
         more: require('./generalIcons/more.png'),
         editPoem: require('./generalIcons/editPoem.png'),
         bell: require('./generalIcons/bell.png'),
+        comment: require('./generalIcons/comment.png'),
 
     },
     tabBarIcons:{

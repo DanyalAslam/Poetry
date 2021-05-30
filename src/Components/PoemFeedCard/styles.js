@@ -66,10 +66,11 @@ export default Styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     image: {
-        width: 8 * vw,
-        height: 8 * vw,
+        width: 6 * vw,
+        height: 6 * vw,
         marginRight: 2 * vw,
-        resizeMode: 'contain'
+        resizeMode: 'contain',
+        tintColor: appTheme.gray
     },
     likeImage: {
         width: 4 * vw,
@@ -97,7 +98,8 @@ export default Styles = StyleSheet.create({
     bottomRow: {
         flexDirection: 'row',
         alignItems: 'flex-end',
-        marginTop: 2 * vh
+        marginTop: 2 * vh,
+        marginBottom: 0.8 * vh
         // justifyContent: 'space-between'
     },
 
