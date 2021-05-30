@@ -23,6 +23,8 @@ const allImages = {
         editPoem: require('./generalIcons/editPoem.png'),
         bell: require('./generalIcons/bell.png'),
         comment: require('./generalIcons/comment.png'),
+        emoji: require('./generalIcons/emoji.png'),
+        send: require('./generalIcons/send.png'),
 
     },
     tabBarIcons:{

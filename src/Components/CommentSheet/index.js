@@ -1,6 +1,5 @@
 import React from 'react'
-import { Image, Text, TextInput, View } from 'react-native';
-import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
+import { Image, FlatList, TextInput, View, KeyboardAvoidingView,TouchableOpacity } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { connect } from 'react-redux';
 import { showToast } from '../../Api/HelperFunctions';
@@ -71,28 +70,30 @@ class CommentSheet extends React.Component {
 
     renderFooterComponent = () => {
 
-        return <View style={styles.footer}>
-            <TextInput
-                placeholder="Write comment"
-                placeholderTextColor={appTheme.gray}
-                style={styles.inputField}
-            />
-
-            <View styles={styles.iconView}>
-                <Text>
-                    a
-                </Text>
-                <Text>
-                    a
-                </Text>
-                {/* <Image
-                    source={allImages.generalIcons.like}
-                    style={styles.icon}
+        return <View style={styles.footerParent}>
+            <View style={styles.footer}>
+                <TextInput
+                    placeholder="Write comment"
+                    placeholderTextColor={appTheme.gray}
+                    style={styles.inputField}
+                    multiline
                 />
-                <Image
-                    source={allImages.generalIcons.like}
-                    style={styles.icon}
-                /> */}
+
+                <View style={styles.iconView}>
+                    <TouchableOpacity style={styles.iconContainer} activeOpacity={0.7}>
+                        <Image
+                            source={allImages.generalIcons.emoji}
+                            style={styles.icon}
+                        />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.iconContainer} activeOpacity={0.7}>
+                        <Image
+                            source={allImages.generalIcons.send}
+                            style={styles.icon}
+                        />
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
 
@@ -109,19 +110,20 @@ class CommentSheet extends React.Component {
             // dragFromTopOnly
             closeOnDragDown
             animationType="slide"
-
+        // keyboardAvoidingViewEnabled
         >
 
-            <KeyboardAwareFlatList
+            <FlatList
                 data={[0, 1, 2, 0, 1, 2, 0, 1, 2]}
                 renderItem={this.renderItem}
                 nestedScrollEnabled
-
             />
 
-            {
-                this.renderFooterComponent()
-            }
+            <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={4 * vh}>
+                {
+                    this.renderFooterComponent()
+                }
+            </KeyboardAvoidingView>
 
 
         </RBSheet>
