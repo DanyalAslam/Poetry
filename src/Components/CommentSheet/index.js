@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, FlatList, TextInput, View, KeyboardAvoidingView,TouchableOpacity } from 'react-native';
+import { Image, FlatList,  View, KeyboardAvoidingView, TouchableOpacity, TextInput } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { connect } from 'react-redux';
 import { showToast } from '../../Api/HelperFunctions';
@@ -13,7 +13,8 @@ import styles from './styles';
 class CommentSheet extends React.Component {
 
     state = {
-        comments: []
+        comments: [],
+        currentMessage: ''
     }
 
     componentDidMount() {
@@ -68,6 +69,19 @@ class CommentSheet extends React.Component {
         return <CommentCard />;
     }
 
+    getInputHeight = () => {
+
+        let height = null;
+
+        if (this.state.currentMessage?.length > 40 ||
+            this.state.currentMessage?.split('\n').length > 1) {
+
+            height = { height: 15 * vh };
+        }
+
+        return height;
+    }
+
     renderFooterComponent = () => {
 
         return <View style={styles.footerParent}>
@@ -75,8 +89,10 @@ class CommentSheet extends React.Component {
                 <TextInput
                     placeholder="Write comment"
                     placeholderTextColor={appTheme.gray}
-                    style={styles.inputField}
+                    style={[styles.inputField, this.getInputHeight()]}
                     multiline
+                    onChangeText={(t) => this.setState({ currentMessage: t })}
+
                 />
 
                 <View style={styles.iconView}>
@@ -110,16 +126,16 @@ class CommentSheet extends React.Component {
             // dragFromTopOnly
             closeOnDragDown
             animationType="slide"
-        // keyboardAvoidingViewEnabled
+            keyboardAvoidingViewEnabled
         >
 
             <FlatList
                 data={[0, 1, 2, 0, 1, 2, 0, 1, 2]}
                 renderItem={this.renderItem}
-                nestedScrollEnabled
+                // nestedScrollEnabled
             />
 
-            <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={4 * vh}>
+            <KeyboardAvoidingView enabled  behavior="position" keyboardVerticalOffset={4 * vh}>
                 {
                     this.renderFooterComponent()
                 }

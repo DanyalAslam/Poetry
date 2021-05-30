@@ -21,7 +21,7 @@ export default Styles = StyleSheet.create({
     },
     footer: {
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'space-between',
         marginHorizontal: 2 * vw,
         marginVertical: 0.5* vh,
@@ -37,7 +37,8 @@ export default Styles = StyleSheet.create({
     iconView:{
         flexDirection: 'row',
         alignItems: 'center',
-        marginRight: 1 * vw
+        marginRight: 1 * vw,
+        paddingVertical: 1 * vh
     },
     inputField: {
         width: 75 * vw,
@@ -46,7 +47,8 @@ export default Styles = StyleSheet.create({
         fontFamily: fonts.poppins.regular,
         fontSize: 1.6 * vh,
         color: appTheme.gray,
-        textAlignVertical: 'top'
+        textAlignVertical: 'top',
+        paddingVertical: 1 * vh
     }
 
 });
