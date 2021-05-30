@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, TextInput, View } from 'react-native';
+import { Image, Text, TextInput, View } from 'react-native';
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { connect } from 'react-redux';
@@ -79,14 +79,20 @@ class CommentSheet extends React.Component {
             />
 
             <View styles={styles.iconView}>
-                <Image
+                <Text>
+                    a
+                </Text>
+                <Text>
+                    a
+                </Text>
+                {/* <Image
                     source={allImages.generalIcons.like}
                     style={styles.icon}
                 />
                 <Image
                     source={allImages.generalIcons.like}
                     style={styles.icon}
-                />
+                /> */}
             </View>
         </View>
 

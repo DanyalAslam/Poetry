@@ -26,7 +26,6 @@ export default Styles = StyleSheet.create({
     },
     iconView:{
         flexDirection: 'row',
-       
         alignItems: 'center',
         width: 30 * vw,
         backgroundColor: 'red'
