@@ -1,10 +1,12 @@
 import React from 'react'
-import { View } from 'react-native';
+import { Image, TextInput, View } from 'react-native';
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { connect } from 'react-redux';
 import { showToast } from '../../Api/HelperFunctions';
+import allImages from '../../assets/images';
 import { vh } from '../../Units';
+import { appTheme } from '../../Utils';
 import CommentCard from '../CommentCard';
 import styles from './styles';
 
@@ -69,8 +71,23 @@ class CommentSheet extends React.Component {
 
     renderFooterComponent = () => {
 
-        return <View style={{ width: 100, height: 100, backgroundColor: 'red' }}>
+        return <View style={styles.footer}>
+            <TextInput
+                placeholder="Write comment"
+                placeholderTextColor={appTheme.gray}
+                style={styles.inputField}
+            />
 
+            <View styles={styles.iconView}>
+                <Image
+                    source={allImages.generalIcons.like}
+                    style={styles.icon}
+                />
+                <Image
+                    source={allImages.generalIcons.like}
+                    style={styles.icon}
+                />
+            </View>
         </View>
 
     }
@@ -93,7 +110,7 @@ class CommentSheet extends React.Component {
                 data={[0, 1, 2, 0, 1, 2, 0, 1, 2]}
                 renderItem={this.renderItem}
                 nestedScrollEnabled
-            
+
             />
 
             {
