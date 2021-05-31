@@ -140,7 +140,7 @@ class PoemFeedCard extends Component {
     showComments = () => {
 
         if(this.props.showCommentSheet){
-            this.props.showCommentSheet([]);
+            this.props.showCommentSheet(this.props.comments);
         }
 
     }

@@ -7,6 +7,7 @@ import allImages from '../../assets/images';
 import { vh } from '../../Units';
 import { appTheme } from '../../Utils';
 import CommentCard from '../CommentCard';
+import EmptyComponent from '../EmptyComponent';
 import styles from './styles';
 
 
@@ -18,18 +19,16 @@ class CommentSheet extends React.Component {
         isFocused: false
     }
 
-    componentDidMount() {
-        this.show();
-    }
 
     show = (comments) => {
 
         this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
         this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
 
-
         this.setState({
-            comments: []
+            comments: [
+                ...comments
+            ]
         },
             () => {
                 this.RBSheet.open();
@@ -45,9 +44,10 @@ class CommentSheet extends React.Component {
 
         this.setState({
             currentMessage: '',
-            isFocused: false
+            isFocused: false,
+            comments: []
         });
-        
+
         this.RBSheet.close();
 
     }
@@ -94,8 +94,8 @@ class CommentSheet extends React.Component {
 
     }
 
-    renderItem = () => {
-        return <CommentCard />;
+    renderItem = ({ item }) => {
+        return <CommentCard comment={item} />;
     }
 
     getInputHeight = () => {
@@ -146,6 +146,10 @@ class CommentSheet extends React.Component {
 
     }
 
+    ListEmptyComponent = () => {
+        return <EmptyComponent message="No comments" style={{ marginTop: 5 * vh }} />;
+    }
+
     _renderBottomSheet = () => {
         return <RBSheet
             ref={ref => {
@@ -160,8 +164,10 @@ class CommentSheet extends React.Component {
         >
 
             <FlatList
-                data={[0, 1, 2, 0, 1, 2, 0, 1, 2]}
+                data={this.state.comments}
                 renderItem={this.renderItem}
+                keyExtractor={(item) => String(item.id)}
+                ListEmptyComponent={this.ListEmptyComponent}
             // nestedScrollEnabled
             />
             {

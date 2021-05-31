@@ -16,7 +16,8 @@ export default Styles = StyleSheet.create({
     commentContainer: {
         flexDirection: 'row',
         marginLeft: 2 * vw,
-        marginTop: 2.5 * vh
+        marginTop: 2.5 * vh,
+        
     },
     commentView: {
         marginLeft: 2 * vw
@@ -25,6 +26,7 @@ export default Styles = StyleSheet.create({
         backgroundColor: appTheme.commentBackgroundColor,
         padding: 2 * vw,
         borderRadius: 4 * vw,
+        minWidth: 40 * vw
     },
     name: {
         fontFamily: fonts.poppins.medium,
@@ -34,20 +36,20 @@ export default Styles = StyleSheet.create({
 
     time: {
         fontFamily: fonts.poppins.light,
-        fontSize: 1.5 * vh,
+        fontSize: 1.3 * vh,
         color: appTheme.gray
     },
 
     edit: {
         fontFamily: fonts.poppins.light,
-        fontSize: 1.5 * vh,
+        fontSize: 1.3 * vh,
         color: appTheme.gray,
         marginRight: 2 * vw
     },
 
     delete: {
         fontFamily: fonts.poppins.light,
-        fontSize: 1.5 * vh,
+        fontSize: 1.3 * vh,
         color: appTheme.gray,
         marginRight: 2 * vw
     },

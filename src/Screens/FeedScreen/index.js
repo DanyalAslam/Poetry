@@ -155,6 +155,7 @@ class FeedScreen extends React.Component {
     }
 
     _renderFeedItem = ({ item, index }) => {
+      
         return <PoemFeedCard
             name={item?.user?.name}
             created_at={_calculateDate(item?.created_at)}
@@ -166,6 +167,7 @@ class FeedScreen extends React.Component {
             isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}
             navigation={this.props.navigation}
             likers={item?.likers}
+            comments={item?.comments ?? []}
             showLikeSheet={this.showLikeSheet}
             showCommentSheet={this.showCommentSheet}
         />
