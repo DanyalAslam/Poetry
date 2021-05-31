@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, FlatList,  View, KeyboardAvoidingView, TouchableOpacity, TextInput } from 'react-native';
+import { Image, FlatList, View, Keyboard, TouchableOpacity, TextInput, LayoutAnimation } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { connect } from 'react-redux';
 import { showToast } from '../../Api/HelperFunctions';
@@ -14,7 +14,8 @@ class CommentSheet extends React.Component {
 
     state = {
         comments: [],
-        currentMessage: ''
+        currentMessage: '',
+        isFocused: false
     }
 
     componentDidMount() {
@@ -22,6 +23,10 @@ class CommentSheet extends React.Component {
     }
 
     show = (comments) => {
+
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+
 
         this.setState({
             comments: []
@@ -34,7 +39,31 @@ class CommentSheet extends React.Component {
     }
 
     close = () => {
+
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
+
+        this.setState({
+            currentMessage: '',
+            isFocused: false
+        });
+        
         this.RBSheet.close();
+
+    }
+
+    _keyboardDidShow = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({
+            isFocused: true
+        }, () => this.RBSheet.updateHeight());
+    }
+
+    _keyboardDidHide = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({
+            isFocused: false
+        }, () => this.RBSheet.updateHeight());
     }
 
     navigateToProfile = (id) => {
@@ -92,6 +121,8 @@ class CommentSheet extends React.Component {
                     style={[styles.inputField, this.getInputHeight()]}
                     multiline
                     onChangeText={(t) => this.setState({ currentMessage: t })}
+                    value={this.state.currentMessage}
+                    autoFocus
 
                 />
 
@@ -116,30 +147,27 @@ class CommentSheet extends React.Component {
     }
 
     _renderBottomSheet = () => {
-
         return <RBSheet
             ref={ref => {
                 this.RBSheet = ref;
             }}
-            height={95 * vh}
+            height={this.state.isFocused ? 55 * vh : 95 * vh}
             openDuration={200}
             // dragFromTopOnly
             closeOnDragDown
             animationType="slide"
-            keyboardAvoidingViewEnabled
+
         >
 
             <FlatList
                 data={[0, 1, 2, 0, 1, 2, 0, 1, 2]}
                 renderItem={this.renderItem}
-                // nestedScrollEnabled
+            // nestedScrollEnabled
             />
+            {
+                this.renderFooterComponent()
+            }
 
-            <KeyboardAvoidingView enabled  behavior="position" keyboardVerticalOffset={4 * vh}>
-                {
-                    this.renderFooterComponent()
-                }
-            </KeyboardAvoidingView>
 
 
         </RBSheet>
@@ -151,6 +179,7 @@ class CommentSheet extends React.Component {
             this._renderBottomSheet()
         );
     }
+
 }
 
 

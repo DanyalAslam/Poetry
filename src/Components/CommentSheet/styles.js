@@ -38,7 +38,7 @@ export default Styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginRight: 1 * vw,
-        paddingVertical: 1 * vh
+        paddingVertical: 1.5 * vh
     },
     inputField: {
         width: 75 * vw,
@@ -48,7 +48,7 @@ export default Styles = StyleSheet.create({
         fontSize: 1.6 * vh,
         color: appTheme.gray,
         textAlignVertical: 'top',
-        paddingVertical: 1 * vh
+        paddingVertical: 1.5 * vh
     }
 
 });
