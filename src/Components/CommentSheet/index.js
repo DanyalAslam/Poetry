@@ -4,6 +4,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import { connect } from 'react-redux';
 import { showToast } from '../../Api/HelperFunctions';
 import allImages from '../../assets/images';
+import actions from '../../redux/actions';
 import { vh } from '../../Units';
 import { appTheme } from '../../Utils';
 import CommentCard from '../CommentCard';
@@ -16,11 +17,11 @@ class CommentSheet extends React.Component {
     state = {
         comments: [],
         currentMessage: '',
-        isFocused: false
+        isFocused: false,
+        poem_id: null
     }
 
-
-    show = (comments) => {
+    show = (comments, poem_id) => {
 
         this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
         this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
@@ -28,7 +29,8 @@ class CommentSheet extends React.Component {
         this.setState({
             comments: [
                 ...comments
-            ]
+            ],
+            poem_id
         },
             () => {
                 this.RBSheet.open();
@@ -45,7 +47,8 @@ class CommentSheet extends React.Component {
         this.setState({
             currentMessage: '',
             isFocused: false,
-            comments: []
+            comments: [],
+            poem_id
         });
 
         this.RBSheet.close();
@@ -82,7 +85,7 @@ class CommentSheet extends React.Component {
             id: id
         }
 
-        if (params.id != this.props.user_id) {
+        if (params.id != this.props.user._id) {
             params["type"] = "other";
         }
 
@@ -150,11 +153,42 @@ class CommentSheet extends React.Component {
         return <EmptyComponent message="No comments" style={{ marginTop: 5 * vh }} />;
     }
 
-    addComment = () => {
+    addComment = async () => {
         if (this.state.currentMessage?.trim() == "") {
             return;
         }
 
+        let data = {
+            comment: this.state.currentMessage,
+            poem_id: this.state.poem_id
+        };
+
+        let dataToStoreLocally = {
+            title: this.state.currentMessage,
+            created_at: new Date(),
+            gender: this.props.user.gender,
+            image: this.props.user.image,
+            name: this.props.user.name,
+            id: this.props.user._id + Math.random()
+        };
+
+        try {
+
+            this.setState({
+                comments: [
+                    ...this.state.comments,
+                    { ...dataToStoreLocally }
+                ],
+                currentMessage: ''
+            });
+
+            await this.props.createComment(data);
+
+        } catch (error) {
+
+            console.log('erro ', error);
+
+        }
 
 
     }
@@ -202,9 +236,17 @@ const mapStateToProps = state => {
 
     return {
         token: state.UserReducer.token,
-        user_id: state.UserReducer.profile?._id,
+        user: state.UserReducer.profile,
     }
 
 }
 
-export default connect(mapStateToProps, null, null, { forwardRef: true })(CommentSheet);
+const mapDispatchToProps = dispatch => {
+
+    return {
+        createComment: (data) => dispatch(actions.createComment(data)),
+    }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, null, { forwardRef: true })(CommentSheet);

@@ -686,6 +686,25 @@ const actions = {
 
         }
     },
+
+    createComment: (data) => {
+
+        return async dispatch => {
+
+            try {
+
+                const response = await Api.promise.post(endPoints.feed.addComment, data);
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
 }
 
 

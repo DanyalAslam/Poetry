@@ -67,6 +67,7 @@ const Api = {
             const url = config.baseUrl + endpoint + dataToQueryParameter(queryParams);
             const configs = getConfigs('POST', body, formData);
 
+            console.log('url ',url);
 
             try {
                 const networkResult = await performNetworkRequest(url, configs);

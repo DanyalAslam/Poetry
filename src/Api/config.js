@@ -21,7 +21,8 @@ export const endPoints = {
         toggleLike: '/feed/toggleLike',
         removePoem: '/feed/remove',
         editPoem: '/feed/edit',
-        notifications: '/feed/notifications'
+        notifications: '/feed/notifications',
+        addComment: '/feed/addComment'
     }
 };
 

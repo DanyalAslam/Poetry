@@ -139,8 +139,12 @@ class PoemFeedCard extends Component {
 
     showComments = () => {
 
-        if(this.props.showCommentSheet){
-            this.props.showCommentSheet(this.props.comments);
+        if (!this.props.token) {
+            return showToast("Please log in to view comments");
+        }
+
+        if (this.props.showCommentSheet) {
+            this.props.showCommentSheet(this.props.comments, this.props.id);
         }
 
     }

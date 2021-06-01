@@ -155,7 +155,7 @@ class FeedScreen extends React.Component {
     }
 
     _renderFeedItem = ({ item, index }) => {
-      
+
         return <PoemFeedCard
             name={item?.user?.name}
             created_at={_calculateDate(item?.created_at)}
@@ -179,9 +179,9 @@ class FeedScreen extends React.Component {
 
     }
 
-    showCommentSheet = (comments) => {
+    showCommentSheet = (comments, poem_id) => {
 
-        this.commentSheetRef.show(comments);
+        this.commentSheetRef.show(comments, poem_id);
 
     }
 
