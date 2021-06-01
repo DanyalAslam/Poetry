@@ -134,7 +134,7 @@ class CommentSheet extends React.Component {
                         />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.iconContainer} activeOpacity={0.7}>
+                    <TouchableOpacity onPress={this.addComment} style={styles.iconContainer} activeOpacity={0.7}>
                         <Image
                             source={allImages.generalIcons.send}
                             style={styles.icon}
@@ -148,6 +148,15 @@ class CommentSheet extends React.Component {
 
     ListEmptyComponent = () => {
         return <EmptyComponent message="No comments" style={{ marginTop: 5 * vh }} />;
+    }
+
+    addComment = () => {
+        if (this.state.currentMessage?.trim() == "") {
+            return;
+        }
+
+
+
     }
 
     _renderBottomSheet = () => {
