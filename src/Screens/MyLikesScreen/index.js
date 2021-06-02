@@ -16,6 +16,8 @@ import TextRegular from '../../Components/TextRegular/index.js'
 import LikeSheet from '../../Components/LikeSheet/index.js'
 import RippleTouch from '../../Components/RippleTouch/index.js'
 import allImages from '../../assets/images/index.js'
+import NotifCard from '../../Components/NotifCard/index.js'
+import MyLikesCard from '../../Components/MyLikesCard/index.js'
 
 
 
@@ -89,23 +91,27 @@ class MyLikesScreen extends React.Component {
         if (this.state.refreshing) {
             return null;
         }
-        
+
         return <EmptyComponent message="No poems to show" style={{ marginTop: 5 * vh }} />;
     }
 
     _renderFeedItem = ({ item, index }) => {
-        return <PoemFeedCard
-            name={item?.user?.name}
-            created_at={_calculateDate(item?.created_at)}
-            title={item?.title}
-            verses={item?.verses}
-            source={getProfileImage(item?.user)}
-            id={item._id}
-            owner_id={item?.user_id}
-            isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}
+        // return <PoemFeedCard
+        //     name={item?.user?.name}
+        //     created_at={_calculateDate(item?.created_at)}
+        //     title={item?.title}
+        //     verses={item?.verses}
+        //     source={getProfileImage(item?.user)}
+        //     id={item._id}
+        //     owner_id={item?.user_id}
+        //     isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}
+        //     navigation={this.props.navigation}
+        //     likers={item?.likers}
+        //     showLikeSheet={this.showLikeSheet}
+        // />
+        return <MyLikesCard
+            like={item}
             navigation={this.props.navigation}
-            likers={item?.likers}
-            showLikeSheet={this.showLikeSheet}
         />
     }
 
