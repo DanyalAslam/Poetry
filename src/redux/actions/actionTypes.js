@@ -21,7 +21,9 @@ const actionTypes = {
     NOTIFICATIONS: 'NOTIFICATIONS',
     TOGGLE_LIKE: 'TOGGLE_LIKE',
     REMOVE_POEM: 'REMOVE_POEM',
-    EDIT_POEM: 'EDIT_POEM'
+    EDIT_POEM: 'EDIT_POEM',
+
+    ADD_COMMENT: 'ADD_COMMENT'
 }
 
 export default actionTypes

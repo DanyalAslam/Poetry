@@ -169,7 +169,9 @@ class CommentSheet extends React.Component {
             gender: this.props.user.gender,
             image: this.props.user.image,
             name: this.props.user.name,
-            id: this.props.user._id + Math.random()
+            id: this.props.user._id + Math.random(),
+            user_id: this.props.user._id,
+            poem_id: this.state.poem_id
         };
 
         try {
@@ -182,7 +184,7 @@ class CommentSheet extends React.Component {
                 currentMessage: ''
             });
 
-            await this.props.createComment(data);
+            await this.props.createComment(data, dataToStoreLocally);
 
         } catch (error) {
 
@@ -244,7 +246,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 
     return {
-        createComment: (data) => dispatch(actions.createComment(data)),
+        createComment: (data, dataToStoreLocally) => dispatch(actions.createComment(data, dataToStoreLocally)),
     }
 
 }

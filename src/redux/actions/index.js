@@ -687,13 +687,44 @@ const actions = {
         }
     },
 
-    createComment: (data) => {
+    createComment: (data,dataToStoreLocally) => {
 
-        return async dispatch => {
+        return async (dispatch, getState) => {
 
             try {
 
                 const response = await Api.promise.post(endPoints.feed.addComment, data);
+
+                let poemStore = getState().PoemReducer;
+            
+
+                let myPoemIndex = poemStore?.myPoems?.findIndex(poem => poem._id == dataToStoreLocally.poem_id);
+
+                if (myPoemIndex != -1) {
+
+                    poemStore.myPoems[myPoemIndex].comments = [
+                        ...poemStore.myPoems[myPoemIndex].comments,
+                        {
+                            ...dataToStoreLocally
+                        }
+                    ];
+
+                }
+
+                let allPoemIndex = poemStore?.allPoems?.findIndex(poem => poem._id == dataToStoreLocally.poem_id);
+
+                if (allPoemIndex != -1) {
+
+                    poemStore.allPoems[allPoemIndex].comments = [
+                        ...poemStore.allPoems[allPoemIndex].comments,
+                        {
+                            ...dataToStoreLocally
+                        }
+                    ];
+
+                }
+
+                dispatch({ type: actionTypes.ADD_COMMENT, payload: { allPoems: poemStore?.allPoems, myPoems: poemStore?.myPoems } });
 
                 return Promise.resolve(response);
 
@@ -711,6 +742,33 @@ const actions = {
 const checkAndLike = (poem, user_id, user_name, image) => {
 
     let likeIndex = poem?.likers?.findIndex(like => like.id == user_id);
+
+    if (likeIndex != -1) {
+
+        poem?.likers?.splice(likeIndex, 1);
+
+    }
+    else {
+
+        poem.likers = [
+            ...poem?.likers,
+            {
+                id: user_id,
+                name: user_name,
+                image
+            }
+        ]
+
+    }
+
+    return poem;
+
+}
+
+
+const checkAndComment = (poem, user_id) => {
+
+    let commentIndex = poem?.comments?.findIndex(comment => comment.user_id == user_id);
 
     if (likeIndex != -1) {
 
