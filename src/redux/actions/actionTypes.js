@@ -23,7 +23,8 @@ const actionTypes = {
     REMOVE_POEM: 'REMOVE_POEM',
     EDIT_POEM: 'EDIT_POEM',
 
-    ADD_COMMENT: 'ADD_COMMENT'
+    ADD_COMMENT: 'ADD_COMMENT',
+    DELETE_COMMENT: 'DELETE_COMMENT'
 }
 
 export default actionTypes

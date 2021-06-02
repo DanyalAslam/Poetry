@@ -127,6 +127,18 @@ const PoemReducer = (state = initialState, action) => {
             };
         }
 
+        case actionTypes.DELETE_COMMENT: {
+
+        
+            return {
+                ...state,
+                allPoems: [...action.payload?.allPoems],
+                myPoems: [...action.payload?.myPoems],
+                // likedPoems: [...action.payload?.likedPoems],
+            };
+        }
+
+
         case actionTypes.REMOVE_POEM: {
 
             return {

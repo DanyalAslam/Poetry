@@ -23,12 +23,21 @@ class CommentCard extends React.Component {
         </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity activeOpacity={0.7}>
+            <TouchableOpacity onPress={this.onDelete} activeOpacity={0.7}>
                 <Text style={styles.delete}>
                     Delete
         </Text>
             </TouchableOpacity>
         </View>
+
+    }
+
+    onDelete = () => {
+
+        if (this.props.deleteComment) {
+            
+            this.props.deleteComment(this.props.comment?.id);
+        }
 
     }
 

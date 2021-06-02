@@ -98,7 +98,7 @@ class CommentSheet extends React.Component {
     }
 
     renderItem = ({ item }) => {
-        return <CommentCard comment={item} />;
+        return <CommentCard comment={item} deleteComment={this.deleteComment} />;
     }
 
     getInputHeight = () => {
@@ -195,6 +195,46 @@ class CommentSheet extends React.Component {
 
     }
 
+    deleteComment = async (comment_id) => {
+
+
+        let data = {
+            comment_id: comment_id,
+            poem_id: this.state.poem_id
+        };
+
+   
+
+        try {
+
+            let commentIndex = this.state.comments?.findIndex(_comment => _comment.id == comment_id);
+
+            let _comments = [
+                ...this.state.comments
+            ];
+
+            if (commentIndex != -1) {
+                _comments.splice(commentIndex, 1);
+            }
+
+            this.setState({
+                comments: [
+                    ..._comments,
+                ],
+
+            });
+
+            await this.props.deleteComment(data);
+
+        } catch (error) {
+
+            console.log('erro ', error);
+
+        }
+
+
+    }
+
     _renderBottomSheet = () => {
         return <RBSheet
             ref={ref => {
@@ -247,6 +287,8 @@ const mapDispatchToProps = dispatch => {
 
     return {
         createComment: (data, dataToStoreLocally) => dispatch(actions.createComment(data, dataToStoreLocally)),
+        deleteComment: (data) => dispatch(actions.deleteComment(data)),
+
     }
 
 }

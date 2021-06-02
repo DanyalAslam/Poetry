@@ -22,7 +22,9 @@ export const endPoints = {
         removePoem: '/feed/remove',
         editPoem: '/feed/edit',
         notifications: '/feed/notifications',
-        addComment: '/feed/addComment'
+        addComment: '/feed/addComment',
+        editComment: '/feed/editComment',
+        deleteComment: '/feed/deleteComment'
     }
 };
 
