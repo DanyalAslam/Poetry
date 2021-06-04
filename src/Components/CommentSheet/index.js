@@ -163,13 +163,15 @@ class CommentSheet extends React.Component {
             poem_id: this.state.poem_id
         };
 
+        let _id = this.props.user._id + Math.random();
+
         let dataToStoreLocally = {
             title: this.state.currentMessage,
             created_at: new Date(),
             gender: this.props.user.gender,
             image: this.props.user.image,
             name: this.props.user.name,
-            id: this.props.user._id + Math.random(),
+            id: _id,
             user_id: this.props.user._id,
             poem_id: this.state.poem_id
         };
@@ -184,7 +186,29 @@ class CommentSheet extends React.Component {
                 currentMessage: ''
             });
 
-            await this.props.createComment(data, dataToStoreLocally);
+            const response = await this.props.createComment(data, dataToStoreLocally);
+
+
+            let index = this.state.comments.findIndex(comment => comment?.id == _id);
+
+            console.log('response ',response,'  _id ',_id,'  index ',index);
+
+            if(index != -1){
+
+                let comments = [
+                    ...this.state.comments
+                ];
+
+                comments[index].id = response?.comment_id;
+
+                this.setState({
+                    comments: [
+                        ...comments,
+                    ],
+                });
+
+            }
+
 
         } catch (error) {
 
@@ -203,7 +227,7 @@ class CommentSheet extends React.Component {
             poem_id: this.state.poem_id
         };
 
-   
+
 
         try {
 
@@ -236,6 +260,7 @@ class CommentSheet extends React.Component {
     }
 
     _renderBottomSheet = () => {
+   
         return <RBSheet
             ref={ref => {
                 this.RBSheet = ref;

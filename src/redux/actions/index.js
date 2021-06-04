@@ -705,7 +705,8 @@ const actions = {
                     poemStore.myPoems[myPoemIndex].comments = [
                         ...poemStore.myPoems[myPoemIndex].comments,
                         {
-                            ...dataToStoreLocally
+                            ...dataToStoreLocally,
+                            id: response?.comment_id
                         }
                     ];
 
@@ -718,7 +719,8 @@ const actions = {
                     poemStore.allPoems[allPoemIndex].comments = [
                         ...poemStore.allPoems[allPoemIndex].comments,
                         {
-                            ...dataToStoreLocally
+                            ...dataToStoreLocally,
+                            id: response?.comment_id
                         }
                     ];
 
