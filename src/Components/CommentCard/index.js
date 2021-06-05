@@ -67,7 +67,11 @@ class CommentCard extends React.Component {
         if (this.props.onEdit) {
             this.setState({
                 currentMessage: this.props?.comment?.title
-            }, () => this.props.onEdit(this.props.comment))
+            }, () => {
+                this.props.onEdit(this.props.comment);
+
+               
+            })
         }
 
     }
@@ -115,6 +119,8 @@ class CommentCard extends React.Component {
             style={styles.inputField}
             multiline
             onFocus={this.onEdit}
+            ref={_ref => this.inputRef = _ref}
+            autoFocus
         />
 
     }

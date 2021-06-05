@@ -23,7 +23,7 @@ export default Styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-start',
         justifyContent: 'space-between',
-        marginHorizontal: 2 * vw,
+        // marginHorizontal: 2 * vw,
         marginVertical: 0.5* vh,
         backgroundColor: appTheme.commentBackgroundColor,
         borderRadius: 6 * vw,

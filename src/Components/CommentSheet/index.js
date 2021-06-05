@@ -10,6 +10,8 @@ import { appTheme } from '../../Utils';
 import CommentCard from '../CommentCard';
 import EmptyComponent from '../EmptyComponent';
 import styles from './styles';
+import EmojiBoard from 'react-native-emoji-board'
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 
 
 class CommentSheet extends React.Component {
@@ -19,7 +21,8 @@ class CommentSheet extends React.Component {
         currentMessage: '',
         isFocused: false,
         poem_id: null,
-        activeComment: null
+        activeComment: null,
+        showEmoji: false,
     }
 
     show = (comments, poem_id) => {
@@ -56,18 +59,20 @@ class CommentSheet extends React.Component {
 
     }
 
-    _keyboardDidShow = () => {
+    _keyboardDidShow = (event) => {
         if (this.state.activeComment != null) {
             return
         }
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+
+        // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({
-            isFocused: true
+            isFocused: true,
+            showEmoji: false,
         }, () => this.RBSheet.updateHeight());
     }
 
     _keyboardDidHide = () => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({
             isFocused: false,
             // activeComment: null
@@ -126,8 +131,32 @@ class CommentSheet extends React.Component {
         return height;
     }
 
-    renderFooterComponent = () => {
+    toggleEmojiBoard = () => {
 
+        if (this.inputRef) {
+            // this.inputRef?.blur();
+            Keyboard.dismiss();
+        }
+
+        // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({
+            showEmoji: !this.state.showEmoji,
+            isFocused: false
+        });
+    }
+
+    onEmojiPress = data => {
+        this.setState({
+            currentMessage: this.state.currentMessage + data?.code
+        })
+    }
+
+    onEmojiRemove = () => {
+        console.log('remove ');
+    }
+
+    renderFooterComponent = () => {
+        console.log('focuseddd ', this.state.isFocused, '  emoji ', this.state.showEmoji);
         return <View style={styles.footerParent}>
             <View style={styles.footer}>
                 <TextInput
@@ -143,7 +172,7 @@ class CommentSheet extends React.Component {
                 />
 
                 <View style={styles.iconView}>
-                    <TouchableOpacity style={styles.iconContainer} activeOpacity={0.7}>
+                    <TouchableOpacity onPress={this.toggleEmojiBoard} style={styles.iconContainer} activeOpacity={0.7}>
                         <Image
                             source={allImages.generalIcons.emoji}
                             style={styles.icon}
@@ -157,7 +186,16 @@ class CommentSheet extends React.Component {
                         />
                     </TouchableOpacity>
                 </View>
+
             </View>
+            <EmojiBoard
+                showBoard={this.state.showEmoji}
+                onClick={this.onEmojiPress}
+                onRemove={this.onEmojiRemove}
+                // height={32 * vh}
+                hideBackSpace
+            />
+
         </View>
 
     }
@@ -298,7 +336,7 @@ class CommentSheet extends React.Component {
 
     onUpdate = async (title) => {
 
-        
+
 
         if (title == "") {
             return this.setState({
@@ -309,7 +347,7 @@ class CommentSheet extends React.Component {
         try {
 
             let index = this.state.comments.findIndex(comment => comment?.id == this.state.activeComment?.id);
- 
+
             if (index != -1) {
 
                 let comments = [
@@ -366,12 +404,14 @@ class CommentSheet extends React.Component {
 
         >
 
-            <FlatList
+
+            <KeyboardAwareFlatList
+                enableOnAndroid
                 data={this.state.comments}
                 renderItem={this.renderItem}
                 keyExtractor={(item) => String(item.id)}
                 ListEmptyComponent={this.ListEmptyComponent}
-            // nestedScrollEnabled
+                nestedScrollEnabled
             />
             {
                 this.renderFooterComponent()
@@ -385,7 +425,9 @@ class CommentSheet extends React.Component {
     render() {
 
         return (
+
             this._renderBottomSheet()
+
         );
     }
 
