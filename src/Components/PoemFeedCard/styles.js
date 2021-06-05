@@ -108,4 +108,16 @@ export default Styles = StyleSheet.create({
         alignItems: 'center'
     },
 
+    bubble:{
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        // backgroundColor: appTheme.darkGray
+    },
+    bubbleText:{
+        fontSize: 1 * vh,
+        color: appTheme.darkGray,
+        fontFamily: fonts.poppins.light
+    }
+
 });

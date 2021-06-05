@@ -125,6 +125,16 @@ class CommentCard extends React.Component {
 
     }
 
+    navigateToProfile = () => {
+
+       
+
+        if(this.props.navigateToProfile){
+            this.props.navigateToProfile( this.props.comment?.user_id);
+        }
+    }
+   
+
 
     render() {
 
@@ -136,7 +146,7 @@ class CommentCard extends React.Component {
         return (
             <View style={styles.commentContainer}>
 
-                <TouchableOpacity activeOpacity={0.7}>
+                <TouchableOpacity onPress={this.navigateToProfile} activeOpacity={0.7}>
                     <Image
                         source={getProfileImage(this.props.comment)}
                         style={styles.image}
@@ -145,7 +155,7 @@ class CommentCard extends React.Component {
 
                 <View style={styles.commentView}>
                     <View style={styles.nameCommentView}>
-                        <TouchableOpacity activeOpacity={0.7}>
+                        <TouchableOpacity onPress={this.navigateToProfile} activeOpacity={0.7}>
                             <Text style={styles.name} numberOfLines={1}>
                                 {this.props.comment?.name}
                             </Text>

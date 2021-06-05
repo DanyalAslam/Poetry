@@ -149,6 +149,19 @@ class PoemFeedCard extends Component {
 
     }
 
+    renderCommentBubble = () => {
+
+        if(this.props?.comments?.length == 0){
+            return;
+        }
+
+        return <View style={styles.bubble}>
+            <Text style={styles.bubbleText}>
+                {this.props?.comments?.length}
+            </Text>
+        </View>
+    }
+
     render() {
         return (
             <View
@@ -224,6 +237,9 @@ class PoemFeedCard extends Component {
                                 source={allImages.generalIcons.comment}
                                 style={styles.image}
                             />
+                            {
+                                this.renderCommentBubble()
+                            }
                         </TouchableOpacity>
 
                     </View>

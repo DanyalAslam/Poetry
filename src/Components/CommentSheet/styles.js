@@ -54,7 +54,7 @@ export default Styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         backgroundColor: 'rgba(0,0,0,0.6)',
-
+ 
     },
     content: {
         height: 88 * vh,

@@ -10,6 +10,7 @@ import CommentCard from '../CommentCard';
 import EmptyComponent from '../EmptyComponent';
 import styles from './styles';
 import EmojiBoard from 'rn-emoji-keyboard'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 class CommentSheet extends React.Component {
@@ -64,34 +65,6 @@ class CommentSheet extends React.Component {
 
 
 
-    navigateToProfile = (id) => {
-
-
-
-        if (!this.props.navigation) {
-            return
-        }
-
-        if (!this.props.token) {
-            return showToast("Please log in to view profile");
-        }
-
-        let params = {
-            id: id
-        }
-
-        if (params.id != this.props.user._id) {
-            params["type"] = "other";
-        }
-
-        this.close();
-
-        setTimeout(() => {
-            this.props.navigation.push("ProfileScreen", params);
-        }, 300);
-
-    }
-
     renderItem = ({ item }) => {
         return <CommentCard
             comment={item}
@@ -100,6 +73,7 @@ class CommentSheet extends React.Component {
             activeComment={this.state.activeComment}
             onCancel={this.onCancel}
             onUpdate={this.onUpdate}
+            navigateToProfile={this.navigateToProfile}
         />;
     }
 
@@ -262,7 +236,6 @@ class CommentSheet extends React.Component {
 
     }
 
-
     onUpdate = async (title) => {
 
 
@@ -319,6 +292,27 @@ class CommentSheet extends React.Component {
 
     }
 
+    navigateToProfile = (owner_id) => {
+
+        if (!this.props.navigation) {
+            return
+        }
+
+        let params = {
+            id: owner_id
+        }
+
+        if (params.id != this.props.user_id) {
+            params["type"] = "other";
+        }
+
+
+        this.props.navigation.navigate("ProfileScreen", params);
+
+        this.close();
+
+    }
+
     renderFooterComponent = () => {
 
         if (this.state.activeComment) {
@@ -372,7 +366,7 @@ class CommentSheet extends React.Component {
     ListEmptyComponent = () => {
         return <EmptyComponent message="No comments" style={{ marginTop: 5 * vh }} />;
     }
-    
+
     _renderBottomSheet = () => {
 
         return <Modal
@@ -384,8 +378,8 @@ class CommentSheet extends React.Component {
         >
 
             <View style={styles.container}>
-            <TouchableOpacity style={styles.backDrop} onPress={this.close} />
-                <View style={styles.content}>
+                <TouchableOpacity style={styles.backDrop} onPress={this.close} />
+                <KeyboardAwareScrollView style={styles.content}>
                     <FlatList
                         data={this.state.comments}
                         renderItem={this.renderItem}
@@ -396,7 +390,8 @@ class CommentSheet extends React.Component {
                     {
                         this.renderFooterComponent()
                     }
-                </View>
+                </KeyboardAwareScrollView>
+
             </View>
 
         </Modal>

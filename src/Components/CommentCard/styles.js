@@ -30,7 +30,7 @@ export default Styles = StyleSheet.create({
     },
     name: {
         fontFamily: fonts.poppins.medium,
-        fontSize: 1.8 * vh,
+        fontSize: 1.5 * vh,
         color: appTheme.darkGray
     },
 
