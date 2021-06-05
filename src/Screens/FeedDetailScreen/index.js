@@ -1,18 +1,18 @@
 import React from 'react'
-import { View, Text, FlatList, RefreshControl, TouchableOpacity, Image, } from 'react-native'
+import { View, TouchableOpacity, Image, } from 'react-native'
 import styles from './styles.js'
 
 import { vw, vh } from '../../Units/index.js'
 
 import { connect } from 'react-redux'
-import actions from '../../redux/actions/index.js'
 import { appTheme, getProfileImage, _calculateDate } from '../../Utils/index.js'
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import PoemFeedCard from '../../Components/PoemFeedCard/index.js'
-import { LOG, showToast } from '../../Api/HelperFunctions.js'
-import TextRegular from '../../Components/TextRegular/index.js'
+
 import LikeSheet from '../../Components/LikeSheet/index.js'
 import allImages from '../../assets/images/index.js'
+import CommentSheet from '../../Components/CommentSheet/index.js'
+import actions from '../../redux/actions/index.js'
 
 
 
@@ -28,6 +28,19 @@ class FeedDetailScreen extends React.Component {
         return <EmptyComponent message="No poems to show" style={{ marginTop: 5 * vh }} />;
     }
 
+    onCommentsClosed = async () => {
+
+        try {
+            const response = await this.props.getPoemDetails(this.state.details?._id);
+            this.setState({
+                details: response?.poem
+            })
+   
+
+        } catch (error) {
+
+        }
+    }
 
     showLikeSheet = (likers) => {
 
@@ -35,6 +48,11 @@ class FeedDetailScreen extends React.Component {
 
     }
 
+    showCommentSheet = (comments, poem_id) => {
+
+        this.commentSheetRef.show(comments, poem_id);
+
+    }
 
     ListHeaderComponent = () => {
 
@@ -108,6 +126,8 @@ class FeedDetailScreen extends React.Component {
             likers={item?.likers}
             showLikeSheet={this.showLikeSheet}
             onLike={this.onToggleLike}
+            comments={item?.comments ?? []}
+            showCommentSheet={this.showCommentSheet}
         />
 
     }
@@ -116,6 +136,7 @@ class FeedDetailScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <LikeSheet ref={_ref => this.likeSheetRef = _ref} navigation={this.props.navigation} />
+                <CommentSheet ref={_ref => this.commentSheetRef = _ref} navigation={this.props.navigation} onCommentsClosed={this.onCommentsClosed} />
 
                 {
                     this.ListHeaderComponent()
@@ -140,7 +161,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 
     return {
-
+        getPoemDetails: poem_id => dispatch(actions.getPoemDetails(poem_id))
     }
 
 }

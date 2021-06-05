@@ -1,7 +1,7 @@
 import React from 'react'
-import { Image, FlatList, View, Keyboard, TouchableOpacity, TextInput, LayoutAnimation, Modal } from 'react-native';
+import { Image, FlatList, View, TouchableOpacity, TextInput, LayoutAnimation, Modal, } from 'react-native';
 import { connect } from 'react-redux';
-import { showToast } from '../../Api/HelperFunctions';
+import { BlurView } from '@react-native-community/blur';
 import allImages from '../../assets/images';
 import actions from '../../redux/actions';
 import { vh } from '../../Units';
@@ -10,8 +10,7 @@ import CommentCard from '../CommentCard';
 import EmptyComponent from '../EmptyComponent';
 import styles from './styles';
 import EmojiBoard from 'rn-emoji-keyboard'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+ 
 
 class CommentSheet extends React.Component {
 
@@ -48,6 +47,9 @@ class CommentSheet extends React.Component {
             activeComment: null
         });
 
+        if(this.props.onCommentsClosed){
+            this.props.onCommentsClosed();
+        }
 
     }
 
@@ -62,7 +64,6 @@ class CommentSheet extends React.Component {
             activeComment: this.state.activeComment != null ? null : this.state.activeComment
         });
     }
-
 
 
     renderItem = ({ item }) => {
@@ -111,7 +112,6 @@ class CommentSheet extends React.Component {
     onEmojiRemove = () => {
         console.log('remove ');
     }
-
 
 
     addComment = async () => {
@@ -338,7 +338,7 @@ class CommentSheet extends React.Component {
                     <TouchableOpacity onPress={this.toggleEmojiBoard} style={styles.iconContainer} activeOpacity={0.7}>
                         <Image
                             source={allImages.generalIcons.emoji}
-                            style={styles.icon}
+                            style={[styles.icon,{tintColor: this.state.showEmoji ? appTheme.darkGray : appTheme.gray}]}
                         />
                     </TouchableOpacity>
 
@@ -355,8 +355,9 @@ class CommentSheet extends React.Component {
                 showBoard={this.state.showEmoji}
                 onClick={this.onEmojiPress}
                 onRemove={this.onEmojiRemove}
-                height={34 * vh}
+                height={32 * vh}
                 hideBackSpace
+
             />
 
         </View>
@@ -378,8 +379,15 @@ class CommentSheet extends React.Component {
         >
 
             <View style={styles.container}>
-                <TouchableOpacity style={styles.backDrop} onPress={this.close} />
-                <KeyboardAwareScrollView style={styles.content}>
+                <TouchableOpacity activeOpacity={0.7} style={styles.backDrop} onPress={this.close} >
+                    <BlurView
+                        style={{ flex: 1 }}
+                        blurType="dark"
+                        blurAmount={4}
+                        reducedTransparencyFallbackColor="rgba(0,0,0,0.4)"
+                    />
+                </TouchableOpacity>
+                <View style={[styles.content, { height: this.state.showEmoji ? 65 * vh : 50 * vh }]}>
                     <FlatList
                         data={this.state.comments}
                         renderItem={this.renderItem}
@@ -387,10 +395,12 @@ class CommentSheet extends React.Component {
                         ListEmptyComponent={this.ListEmptyComponent}
                         showsVerticalScrollIndicator={false}
                     />
+
                     {
                         this.renderFooterComponent()
                     }
-                </KeyboardAwareScrollView>
+
+                </View>
 
             </View>
 

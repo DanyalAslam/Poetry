@@ -687,6 +687,27 @@ const actions = {
         }
     },
 
+
+    getPoemDetails: (poem_id) => {
+
+        return async dispatch => {
+
+            try {
+
+                const response = await Api.promise.get(endPoints.feed.poemDetail, { poem_id });
+                
+                return Promise.resolve(response);
+
+            } catch (error) {
+                console.log('error ', error);
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
+
     createComment: (data, dataToStoreLocally) => {
 
         return async (dispatch, getState) => {

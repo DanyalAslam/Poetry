@@ -19,6 +19,7 @@ import EmptyComponent from '../../../Components/EmptyComponent/index.js'
 import { vh } from '../../../Units/index.js'
 import RBSheet from 'react-native-raw-bottom-sheet'
 import LikeSheet from '../../../Components/LikeSheet/index.js'
+import CommentSheet from '../../../Components/CommentSheet/index.js'
 
 
 class ProfileScreen extends React.Component {
@@ -190,7 +191,9 @@ class ProfileScreen extends React.Component {
             showOptions={this.props.route?.params?.type != "other"}
             openOptions={this.openOptions}
             likers={item?.likers}
+            comments={item?.comments ?? []}
             showLikeSheet={this.showLikeSheet}
+            showCommentSheet={this.showCommentSheet}
         />
     }
 
@@ -207,6 +210,12 @@ class ProfileScreen extends React.Component {
     showLikeSheet = (likers) => {
 
         this.likeSheetRef.show(likers);
+
+    }
+
+    showCommentSheet = (comments, poem_id) => {
+
+        this.commentSheetRef.show(comments, poem_id);
 
     }
 
@@ -228,6 +237,7 @@ class ProfileScreen extends React.Component {
 
         return <View style={styles.feedView}>
             <LikeSheet ref={_ref => this.likeSheetRef = _ref} navigation={this.props.navigation} />
+            <CommentSheet ref={_ref => this.commentSheetRef = _ref} navigation={this.props.navigation} />
             <FlatList
                 data={this.getPoemData()}
                 contentContainerStyle={styles.feedContainer}

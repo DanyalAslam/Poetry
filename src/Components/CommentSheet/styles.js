@@ -57,7 +57,7 @@ export default Styles = StyleSheet.create({
  
     },
     content: {
-        height: 88 * vh,
+        height: 50 * vh,
         backgroundColor: appTheme.white,
         borderTopLeftRadius: 7 * vw,
         borderTopRightRadius: 7 * vw,

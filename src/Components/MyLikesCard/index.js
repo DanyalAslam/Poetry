@@ -40,9 +40,6 @@ class MyLikesCard extends Component {
 
     render() {
 
-        console.log('this.props.like ', this.props.like);
-
-
         return (
             <RippleTouch
                 style={styles.ripple}
