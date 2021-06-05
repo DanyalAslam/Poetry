@@ -10,7 +10,7 @@ echo ".....Patch completed......."
 
 
 echo ".....Patching for emoji board......."
-cp EmojiBoard/index.js ../node_modules/react-native-emoji-board/index.js
-cp EmojiBoard/CategoryView.js ../node_modules/react-native-emoji-board/component/CategoryView.js
-cp EmojiBoard/EmojiIcon.js ../node_modules/react-native-emoji-board/component/EmojiIcon.js
+# cp EmojiBoard/index.js ../node_modules/react-native-emoji-board/index.js
+# cp EmojiBoard/CategoryView.js ../node_modules/react-native-emoji-board/component/CategoryView.js
+# cp EmojiBoard/EmojiIcon.js ../node_modules/react-native-emoji-board/component/EmojiIcon.js
 echo ".....Patch completed......."

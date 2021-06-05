@@ -10,7 +10,7 @@ import { appTheme } from '../../Utils';
 import CommentCard from '../CommentCard';
 import EmptyComponent from '../EmptyComponent';
 import styles from './styles';
-import EmojiBoard from 'react-native-emoji-board'
+import EmojiBoard from 'rn-emoji-keyboard'
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 
 

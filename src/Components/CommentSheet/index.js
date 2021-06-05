@@ -9,7 +9,7 @@ import { appTheme } from '../../Utils';
 import CommentCard from '../CommentCard';
 import EmptyComponent from '../EmptyComponent';
 import styles from './styles';
-import EmojiBoard from 'react-native-emoji-board'
+import EmojiBoard from 'rn-emoji-keyboard'
 
 
 class CommentSheet extends React.Component {
@@ -130,7 +130,7 @@ class CommentSheet extends React.Component {
 
     onEmojiPress = data => {
         this.setState({
-            currentMessage: this.state.currentMessage + data?.code
+            currentMessage: `${this.state.currentMessage}${data?.code}`
         })
     }
 
@@ -138,59 +138,7 @@ class CommentSheet extends React.Component {
         console.log('remove ');
     }
 
-    renderFooterComponent = () => {
 
-        if (this.state.activeComment) {
-            return null;
-        }
-
-        return <View style={styles.footerParent}>
-            <View style={styles.footer}>
-                <TextInput
-                    placeholder="Write comment"
-                    placeholderTextColor={appTheme.gray}
-                    style={[styles.inputField, this.getInputHeight()]}
-                    multiline
-                    onChangeText={(t) => this.setState({ currentMessage: t })}
-                    value={this.state.currentMessage}
-                    autoFocus
-                    ref={_ref => this.inputRef = _ref}
-                    onFocus={this.onFocus}
-
-                />
-
-                <View style={styles.iconView}>
-                    <TouchableOpacity onPress={this.toggleEmojiBoard} style={styles.iconContainer} activeOpacity={0.7}>
-                        <Image
-                            source={allImages.generalIcons.emoji}
-                            style={styles.icon}
-                        />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={this.addComment} style={styles.iconContainer} activeOpacity={0.7}>
-                        <Image
-                            source={allImages.generalIcons.send}
-                            style={styles.icon}
-                        />
-                    </TouchableOpacity>
-                </View>
-
-            </View>
-            <EmojiBoard
-                showBoard={this.state.showEmoji}
-                onClick={this.onEmojiPress}
-                onRemove={this.onEmojiRemove}
-                height={34 * vh}
-                hideBackSpace
-            />
-
-        </View>
-
-    }
-
-    ListEmptyComponent = () => {
-        return <EmptyComponent message="No comments" style={{ marginTop: 5 * vh }} />;
-    }
 
     addComment = async () => {
         if (this.state.currentMessage?.trim() == "") {
@@ -371,6 +319,60 @@ class CommentSheet extends React.Component {
 
     }
 
+    renderFooterComponent = () => {
+
+        if (this.state.activeComment) {
+            return null;
+        }
+
+        return <View style={styles.footerParent}>
+            <View style={styles.footer}>
+                <TextInput
+                    placeholder="Write comment"
+                    placeholderTextColor={appTheme.gray}
+                    style={[styles.inputField, this.getInputHeight()]}
+                    multiline
+                    onChangeText={(t) => this.setState({ currentMessage: t })}
+                    value={this.state.currentMessage}
+                    autoFocus
+                    ref={_ref => this.inputRef = _ref}
+                    onFocus={this.onFocus}
+
+                />
+
+                <View style={styles.iconView}>
+                    <TouchableOpacity onPress={this.toggleEmojiBoard} style={styles.iconContainer} activeOpacity={0.7}>
+                        <Image
+                            source={allImages.generalIcons.emoji}
+                            style={styles.icon}
+                        />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={this.addComment} style={styles.iconContainer} activeOpacity={0.7}>
+                        <Image
+                            source={allImages.generalIcons.send}
+                            style={styles.icon}
+                        />
+                    </TouchableOpacity>
+                </View>
+
+            </View>
+            <EmojiBoard
+                showBoard={this.state.showEmoji}
+                onClick={this.onEmojiPress}
+                onRemove={this.onEmojiRemove}
+                height={34 * vh}
+                hideBackSpace
+            />
+
+        </View>
+
+    }
+
+    ListEmptyComponent = () => {
+        return <EmptyComponent message="No comments" style={{ marginTop: 5 * vh }} />;
+    }
+    
     _renderBottomSheet = () => {
 
         return <Modal

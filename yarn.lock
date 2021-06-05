@@ -5960,17 +5960,6 @@ react-native-admob@^2.0.0-beta.6:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-emoji-board@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-emoji-board/-/react-native-emoji-board-1.2.1.tgz#4302c874c6e7f80b80e6698ad6d642c48e8c1aaf"
-  integrity sha512-TKQHMqjWKIVDC3XbyvsU2NTT+5mj7Y/3NooIXSqqJlfOU1dhvr3DWgEvjUKoF0BsCsIRZmHY9J1qmyjnx/V5Xg==
-  dependencies:
-    emoji-datasource "^5.0.1"
-    lodash "^4.17.15"
-    prop-types "^15.7.2"
-    react-native-scrollable-tab-view "^1.0.0"
-    string.fromcodepoint "^0.2.1"
-
 react-native-fbsdk@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/react-native-fbsdk/-/react-native-fbsdk-2.0.0.tgz#eb041bdb8f9b9180a1696d3bd7d7accee6554262"
@@ -6414,6 +6403,16 @@ rimraf@~2.2.6:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
+
+"rn-emoji-keyboard@git+https://github.com/hurali97/rn-emoji-keyboard.git":
+  version "1.0.1"
+  resolved "git+https://github.com/hurali97/rn-emoji-keyboard.git#a71352666e976ea0357d639e892eb51c61bdafcb"
+  dependencies:
+    emoji-datasource "^5.0.1"
+    lodash "^4.17.15"
+    prop-types "^15.7.2"
+    react-native-scrollable-tab-view "^1.0.0"
+    string.fromcodepoint "^0.2.1"
 
 "rn-image-picker@git+https://github.com/hurali97/rn-image-picker.git":
   version "2.0.6"
