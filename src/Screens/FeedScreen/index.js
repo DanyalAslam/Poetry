@@ -1,17 +1,14 @@
 import React from 'react'
-import { View, Text, FlatList, RefreshControl, TouchableOpacity, Image, DeviceEventEmitter, } from 'react-native'
+import { View, Text, FlatList, RefreshControl, TouchableOpacity, Image, DeviceEventEmitter, ScrollView, } from 'react-native'
 import styles from './styles.js'
-
 import { vw, vh } from '../../Units/index.js'
-
 import { connect } from 'react-redux'
 import actions from '../../redux/actions/index.js'
-import { appTheme, getProfileImage, _calculateDate } from '../../Utils/index.js'
+import { appTheme, getProfileImage, skeleton_layouts, _calculateDate } from '../../Utils/index.js'
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import PoemFeedCard from '../../Components/PoemFeedCard/index.js'
 import { LOG, showToast } from '../../Api/HelperFunctions.js'
-import moment from 'moment'
-import TextSemiBold from '../../Components/TextSemiBold/index.js'
+import SkeletonContent from 'react-native-skeleton-content-nonexpo';
 import TextRegular from '../../Components/TextRegular/index.js'
 import LikeSheet from '../../Components/LikeSheet/index.js'
 import CommentSheet from '../../Components/CommentSheet/index.js'
@@ -95,6 +92,7 @@ class FeedScreen extends React.Component {
     onRefresh = () => {
         this.setState({
             page: 1,
+            refreshing: true
         }, this._getData)
     }
 
@@ -209,7 +207,7 @@ class FeedScreen extends React.Component {
     _renderFeed = () => {
 
         return <FlatList
-            data={this.props?.allPoems ?? []}
+            data={this.props?.allPoems ?? [0, 1, 2]}
             style={styles.scrollView}
             contentContainerStyle={{ alignItems: 'center', paddingTop: 0.8 * vh, paddingBottom: 1 * vh }}
             showsVerticalScrollIndicator={false}
@@ -272,9 +270,17 @@ class FeedScreen extends React.Component {
             <View style={styles.container}>
                 <LikeSheet ref={_ref => this.likeSheetRef = _ref} navigation={this.props.navigation} />
                 <CommentSheet ref={_ref => this.commentSheetRef = _ref} navigation={this.props.navigation} />
-                {
-                    this._renderFeed()
-                }
+            
+                    <SkeletonContent
+                        isLoading={this.state.refreshing}
+                        layout={skeleton_layouts.poemCard}
+                        containerStyle={null}
+                        >
+                        {
+                            this._renderFeed()
+                        }
+                    </SkeletonContent>
+   
             </View>
         )
     }

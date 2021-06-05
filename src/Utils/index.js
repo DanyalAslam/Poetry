@@ -1,6 +1,7 @@
 import moment from "moment";
 import allImages from "../assets/images";
 import Sound from 'react-native-sound';
+import { vh, vw } from "../Units";
 
 
 
@@ -119,4 +120,71 @@ export const playLikeSound = () => {
 
     });
 
-}
+};
+
+const skeleton_poem_card = {
+    alignItems: 'flex-start',
+    minHeight: 24 * vh,
+    width: 90 * vw,
+    marginVertical: 1 * vh,
+    marginHorizontal: 2 * vw,
+    elevation: 4,
+    backgroundColor: 'white',
+    borderRadius: 3 * vw,
+    shadowColor: 'black',
+    paddingHorizontal: 2 * vw,
+    paddingVertical: 1 * vh,
+    paddingLeft: 3 * vw,
+    children: [
+        {
+            key: 'icon',
+            width: 10 * vw,
+            height: 10 * vw,
+            borderRadius: 5 * vw,
+            marginTop: 0.5 * vh
+        },
+        {
+            key: 'title', width: 20 * vw, height: 1.4 * vh, marginTop: 3.5 * vh
+        },
+        {
+            key: 'title', width: 30 * vw, height: 1.8 * vh, marginTop: 1 * vh
+        },
+        {
+            key: 'title', width: 20 * vw, height: 1.4 * vh, marginTop: 3.5 * vh
+        },
+        {
+            key: 'title', width: 50 * vw, height: 1.8 * vh, marginTop: 1 * vh
+        },
+    ]
+};
+
+export const skeleton_layouts = {
+    poemCard: [
+        {
+            justifyContent: 'center',
+            alignItems: 'center',
+            children: [
+                {
+                    key: 'icon',
+                    width: 15 * vw,
+                    height: 15 * vw,
+                    borderRadius: 7.5 * vw,
+                    marginTop: 1.4 * vh
+                },
+                {
+                    key: 'title', width: 15 * vw, height: 1.2 * vh, marginTop: 1.5 * vh
+                },
+                {
+                    key: 'title', width: 20 * vw, height: 1.2 * vh, marginTop: 1 * vh, marginBottom: 1 * vh
+                },
+            ]
+        },
+        {
+            children: [
+                skeleton_poem_card,
+                skeleton_poem_card,
+                skeleton_poem_card,
+            ]
+        }
+    ]
+};

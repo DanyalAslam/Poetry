@@ -8,7 +8,8 @@ const styles = StyleSheet.create({
         backgroundColor: appTheme.white,
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        paddingTop: 2 * vh
+        // justifyContent: 'center'
     },
     topCard: {
 
@@ -100,6 +101,21 @@ const styles = StyleSheet.create({
         marginTop: 2 * vh,
         marginBottom: 2 * vh,
         backgroundColor: appTheme.white
+    },
+    skeletonContainer:{
+        alignItems: 'flex-start',
+        minHeight: 22 * vh,
+        width: 90 * vw,
+        marginVertical: 1 * vh,
+        marginHorizontal: 2 * vw,
+        elevation: 4,
+        backgroundColor: 'white',
+        borderRadius: 3 * vw,
+        shadowColor: 'black',
+        paddingHorizontal: 2 * vw,
+        // justifyContent: 'space-between',
+        paddingVertical: 1 * vh,
+        paddingLeft: 3 * vw
     }
 })
 
