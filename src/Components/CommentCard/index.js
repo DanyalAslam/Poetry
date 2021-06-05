@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Text, View, TouchableOpacity } from 'react-native';
+import { Image, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import allImages from '../../assets/images';
 import { getProfileImage, _calculateDate } from '../../Utils';
@@ -9,24 +9,45 @@ import styles from './styles';
 
 class CommentCard extends React.Component {
 
+    state = {
+        currentMessage: this.props.comment?.title ?? ""
+    };
+
     renderButtons = () => {
 
         if (this.props.comment?.user_id != this.props.user_id) {
             return null;
         }
 
+        if (this.props.activeComment?.id == this.props.comment?.id && this.props.activeComment) {
+            return <View style={styles.btnRow}>
+                <TouchableOpacity onPress={this.onCancel} activeOpacity={0.7}>
+                    <Text style={styles.edit}>
+                        Cancel
+            </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={this.onUpdate} activeOpacity={0.7}>
+                    <Text style={styles.delete}>
+                        Update
+            </Text>
+                </TouchableOpacity>
+            </View>
+        }
+
+
 
         return <View style={styles.btnRow}>
-            <TouchableOpacity activeOpacity={0.7}>
+            <TouchableOpacity onPress={this.onEdit} activeOpacity={0.7}>
                 <Text style={styles.edit}>
                     Edit
-        </Text>
+            </Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={this.onDelete} activeOpacity={0.7}>
                 <Text style={styles.delete}>
                     Delete
-        </Text>
+            </Text>
             </TouchableOpacity>
         </View>
 
@@ -35,9 +56,66 @@ class CommentCard extends React.Component {
     onDelete = () => {
 
         if (this.props.deleteComment) {
-            
+
             this.props.deleteComment(this.props.comment?.id);
         }
+
+    }
+
+    onEdit = () => {
+
+        if (this.props.onEdit) {
+            this.setState({
+                currentMessage: this.props?.comment?.title
+            }, () => this.props.onEdit(this.props.comment))
+        }
+
+    }
+
+    onCancel = () => {
+
+        if (this.props.onCancel) {
+            this.props.onCancel();
+        }
+
+    }
+
+    onUpdate = () => {
+
+        if (this.state.currentMessage?.trim() == "") {
+            return this.setState({ currentMessage: this.props.comment?.title });
+        }
+
+        let message = this.state.currentMessage;
+
+        if (this.props.onUpdate) {
+            this.setState({
+                currentMessage: ''
+            }, () => this.props.onUpdate(message));
+        }
+
+    }
+
+    onChangeText = (currentMessage) => {
+        this.setState({
+            currentMessage
+        });
+    }
+
+    renderComment = () => {
+
+        if (this.props.activeComment?.id != this.props.comment?.id) {
+            return <MoreText text={this.props.comment?.title} />;
+        }
+
+
+        return <TextInput
+            value={this.state.currentMessage}
+            onChangeText={this.onChangeText}
+            style={styles.inputField}
+            multiline
+            onFocus={this.onEdit}
+        />
 
     }
 
@@ -67,7 +145,9 @@ class CommentCard extends React.Component {
                             </Text>
                         </TouchableOpacity>
 
-                        <MoreText text={this.props.comment?.title} />
+                        {
+                            this.renderComment()
+                        }
                     </View>
 
 

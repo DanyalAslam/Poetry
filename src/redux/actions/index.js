@@ -810,6 +810,57 @@ const actions = {
         }
     },
 
+    editComment: (data) => {
+
+        return async (dispatch, getState) => {
+
+            try {
+
+                const response = await Api.promise.post(endPoints.feed.editComment, data);
+
+                // let poemStore = getState().PoemReducer;
+
+
+                // let myPoemIndex = poemStore?.myPoems?.findIndex(poem => poem._id == data.poem_id);
+
+                // if (myPoemIndex != -1) {
+
+                //     poemStore.myPoems[myPoemIndex].comments = [
+                //         ...poemStore.myPoems[myPoemIndex].comments,
+                //         {
+                //             ...dataToStoreLocally,
+                //             id: response?.comment_id
+                //         }
+                //     ];
+
+                // }
+
+                // let allPoemIndex = poemStore?.allPoems?.findIndex(poem => poem._id == data.poem_id);
+
+                // if (allPoemIndex != -1) {
+
+                //     poemStore.allPoems[allPoemIndex].comments = [
+                //         ...poemStore.allPoems[allPoemIndex].comments,
+                //         {
+                //             ...dataToStoreLocally,
+                //             id: response?.comment_id
+                //         }
+                //     ];
+
+                // }
+
+                // dispatch({ type: actionTypes.ADD_COMMENT, payload: { allPoems: poemStore?.allPoems, myPoems: poemStore?.myPoems } });
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
 }
 
 

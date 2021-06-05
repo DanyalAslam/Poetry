@@ -18,7 +18,8 @@ class CommentSheet extends React.Component {
         comments: [],
         currentMessage: '',
         isFocused: false,
-        poem_id: null
+        poem_id: null,
+        activeComment: null
     }
 
     show = (comments, poem_id) => {
@@ -56,6 +57,9 @@ class CommentSheet extends React.Component {
     }
 
     _keyboardDidShow = () => {
+        if (this.state.activeComment != null) {
+            return
+        }
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({
             isFocused: true
@@ -65,7 +69,8 @@ class CommentSheet extends React.Component {
     _keyboardDidHide = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({
-            isFocused: false
+            isFocused: false,
+            // activeComment: null
         }, () => this.RBSheet.updateHeight());
     }
 
@@ -98,7 +103,14 @@ class CommentSheet extends React.Component {
     }
 
     renderItem = ({ item }) => {
-        return <CommentCard comment={item} deleteComment={this.deleteComment} />;
+        return <CommentCard
+            comment={item}
+            deleteComment={this.deleteComment}
+            onEdit={this.onEdit}
+            activeComment={this.state.activeComment}
+            onCancel={this.onCancel}
+            onUpdate={this.onUpdate}
+        />;
     }
 
     getInputHeight = () => {
@@ -126,7 +138,8 @@ class CommentSheet extends React.Component {
                     onChangeText={(t) => this.setState({ currentMessage: t })}
                     value={this.state.currentMessage}
                     autoFocus
-
+                    ref={_ref => this.inputRef = _ref}
+                    onFocus={this.onFocus}
                 />
 
                 <View style={styles.iconView}>
@@ -191,9 +204,9 @@ class CommentSheet extends React.Component {
 
             let index = this.state.comments.findIndex(comment => comment?.id == _id);
 
-            console.log('response ',response,'  _id ',_id,'  index ',index);
+            console.log('response ', response, '  _id ', _id, '  index ', index);
 
-            if(index != -1){
+            if (index != -1) {
 
                 let comments = [
                     ...this.state.comments
@@ -259,8 +272,88 @@ class CommentSheet extends React.Component {
 
     }
 
+    onEdit = (data) => {
+
+        this.setState({
+            activeComment: data,
+        });
+
+    }
+
+    onCancel = () => {
+
+        this.setState({
+            activeComment: null,
+        });
+
+    }
+
+    onFocus = () => {
+        if (this.state.activeComment != null) {
+            this.setState({
+                activeComment: null
+            });
+        }
+    }
+
+    onUpdate = async (title) => {
+
+        
+
+        if (title == "") {
+            return this.setState({
+                activeComment: null,
+            });
+        }
+
+        try {
+
+            let index = this.state.comments.findIndex(comment => comment?.id == this.state.activeComment?.id);
+ 
+            if (index != -1) {
+
+                let comments = [
+                    ...this.state.comments
+                ];
+
+                comments[index].title = title;
+
+                this.setState({
+                    comments: [
+                        ...comments,
+                    ],
+                });
+
+            }
+
+            let data = {
+                comment: title,
+                poem_id: this.state.poem_id,
+                comment_id: this.state.activeComment?.id
+            };
+
+            this.setState({
+                comments: [
+                    ...this.state.comments,
+                ],
+                activeComment: null
+            });
+
+
+
+            const response = await this.props.editComment(data);
+
+
+        } catch (error) {
+
+            console.log('erro ', error);
+
+        }
+
+    }
+
     _renderBottomSheet = () => {
-   
+
         return <RBSheet
             ref={ref => {
                 this.RBSheet = ref;
@@ -313,6 +406,7 @@ const mapDispatchToProps = dispatch => {
     return {
         createComment: (data, dataToStoreLocally) => dispatch(actions.createComment(data, dataToStoreLocally)),
         deleteComment: (data) => dispatch(actions.deleteComment(data)),
+        editComment: (data) => dispatch(actions.editComment(data)),
 
     }
 

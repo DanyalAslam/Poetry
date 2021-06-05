@@ -60,5 +60,12 @@ export default Styles = StyleSheet.create({
     },
     btnRow: {
         flexDirection: 'row',
+    },
+    inputField:{
+        color: appTheme.darkGray,
+        fontFamily: fonts.poppins.light,
+        fontSize: vh * 1.5,
+        maxWidth: 71 * vw,
+        textAlignVertical: 'top'
     }
 });
