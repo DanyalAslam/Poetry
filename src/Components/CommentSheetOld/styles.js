@@ -10,11 +10,11 @@ export default Styles = StyleSheet.create({
         height: 6 * vw,
         borderRadius: 3 * vw,
         resizeMode: 'contain',
-
+     
         tintColor: appTheme.gray
     },
-    iconContainer: {
-        marginRight: 2 * vw,
+    iconContainer:{
+        marginRight: 2 *vw,
     },
     bottomSheetBtn: {
         paddingVertical: 2.5 * vh
@@ -24,17 +24,17 @@ export default Styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'space-between',
         // marginHorizontal: 2 * vw,
-        marginVertical: 0.5 * vh,
+        marginVertical: 0.5* vh,
         backgroundColor: appTheme.commentBackgroundColor,
         borderRadius: 6 * vw,
-
-
+        
+     
     },
-    footerParent: {
+    footerParent:{
         elevation: 10,
         backgroundColor: appTheme.white
     },
-    iconView: {
+    iconView:{
         flexDirection: 'row',
         alignItems: 'center',
         marginRight: 1 * vw,
@@ -49,27 +49,6 @@ export default Styles = StyleSheet.create({
         color: appTheme.gray,
         textAlignVertical: 'top',
         paddingVertical: 1.5 * vh
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        backgroundColor: 'rgba(0,0,0,0.6)',
-
-    },
-    content: {
-        height: 88 * vh,
-        backgroundColor: appTheme.white,
-        borderTopLeftRadius: 7 * vw,
-        borderTopRightRadius: 7 * vw,
-        elevation: 5
-    },
-    backDrop: {
-        height: 100 * vh,
-        width: 100 * vw,
-        position: 'absolute',
-        left: 0,
-        top: 0
-    },
- 
+    }
 
 });

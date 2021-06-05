@@ -1,5 +1,6 @@
 import React from 'react'
-import { Image, FlatList, View, Keyboard, TouchableOpacity, TextInput, LayoutAnimation, Modal } from 'react-native';
+import { Image, FlatList, View, Keyboard, TouchableOpacity, TextInput, LayoutAnimation } from 'react-native';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import { connect } from 'react-redux';
 import { showToast } from '../../Api/HelperFunctions';
 import allImages from '../../assets/images';
@@ -10,6 +11,7 @@ import CommentCard from '../CommentCard';
 import EmptyComponent from '../EmptyComponent';
 import styles from './styles';
 import EmojiBoard from 'react-native-emoji-board'
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 
 
 class CommentSheet extends React.Component {
@@ -17,52 +19,65 @@ class CommentSheet extends React.Component {
     state = {
         comments: [],
         currentMessage: '',
+        isFocused: false,
         poem_id: null,
         activeComment: null,
         showEmoji: false,
-        isVisible: false
     }
 
     show = (comments, poem_id) => {
+
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
 
         this.setState({
             comments: [
                 ...comments
             ],
-            poem_id,
-            isVisible: true
-        });
+            poem_id
+        },
+            () => {
+                this.RBSheet.open();
+            });
 
 
     }
 
     close = () => {
 
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
+
         this.setState({
             currentMessage: '',
+            isFocused: false,
             comments: [],
-            poem_id: null,
-            isVisible: false,
-            showEmoji: false,
-            activeComment: null
+            poem_id
         });
 
+        this.RBSheet.close();
 
     }
 
-    onFocus = () => {
+    _keyboardDidShow = (event) => {
         if (this.state.activeComment != null) {
             return
         }
 
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({
+            isFocused: true,
             showEmoji: false,
-            activeComment: this.state.activeComment != null ? null : this.state.activeComment
-        });
+        }, () => this.RBSheet.updateHeight());
     }
 
-
+    _keyboardDidHide = () => {
+        // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({
+            isFocused: false,
+            // activeComment: null
+        }, () => this.RBSheet.updateHeight());
+    }
 
     navigateToProfile = (id) => {
 
@@ -119,12 +134,14 @@ class CommentSheet extends React.Component {
     toggleEmojiBoard = () => {
 
         if (this.inputRef) {
-            this.inputRef?.blur();
+            // this.inputRef?.blur();
+            Keyboard.dismiss();
         }
 
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({
             showEmoji: !this.state.showEmoji,
+            isFocused: false
         });
     }
 
@@ -139,11 +156,7 @@ class CommentSheet extends React.Component {
     }
 
     renderFooterComponent = () => {
-
-        if (this.state.activeComment) {
-            return null;
-        }
-
+        console.log('focuseddd ', this.state.isFocused, '  emoji ', this.state.showEmoji);
         return <View style={styles.footerParent}>
             <View style={styles.footer}>
                 <TextInput
@@ -156,7 +169,6 @@ class CommentSheet extends React.Component {
                     autoFocus
                     ref={_ref => this.inputRef = _ref}
                     onFocus={this.onFocus}
-
                 />
 
                 <View style={styles.iconView}>
@@ -180,7 +192,7 @@ class CommentSheet extends React.Component {
                 showBoard={this.state.showEmoji}
                 onClick={this.onEmojiPress}
                 onRemove={this.onEmojiRemove}
-                height={34 * vh}
+                // height={32 * vh}
                 hideBackSpace
             />
 
@@ -314,6 +326,13 @@ class CommentSheet extends React.Component {
 
     }
 
+    onFocus = () => {
+        if (this.state.activeComment != null) {
+            this.setState({
+                activeComment: null
+            });
+        }
+    }
 
     onUpdate = async (title) => {
 
@@ -373,31 +392,34 @@ class CommentSheet extends React.Component {
 
     _renderBottomSheet = () => {
 
-        return <Modal
+        return <RBSheet
+            ref={ref => {
+                this.RBSheet = ref;
+            }}
+            height={this.state.isFocused ? 55 * vh : 95 * vh}
+            openDuration={200}
+            // dragFromTopOnly
+            closeOnDragDown
             animationType="slide"
-            visible={this.state.isVisible}
-            style={{ flex: 1 }}
-            transparent
-            onRequestClose={this.close}
+
         >
 
-            <View style={styles.container}>
-            <TouchableOpacity style={styles.backDrop} onPress={this.close} />
-                <View style={styles.content}>
-                    <FlatList
-                        data={this.state.comments}
-                        renderItem={this.renderItem}
-                        keyExtractor={(item) => String(item?.id)}
-                        ListEmptyComponent={this.ListEmptyComponent}
-                        showsVerticalScrollIndicator={false}
-                    />
-                    {
-                        this.renderFooterComponent()
-                    }
-                </View>
-            </View>
 
-        </Modal>
+            <KeyboardAwareFlatList
+                enableOnAndroid
+                data={this.state.comments}
+                renderItem={this.renderItem}
+                keyExtractor={(item) => String(item.id)}
+                ListEmptyComponent={this.ListEmptyComponent}
+                nestedScrollEnabled
+            />
+            {
+                this.renderFooterComponent()
+            }
+
+
+
+        </RBSheet>
     }
 
     render() {

@@ -452,7 +452,7 @@ class MainNavigator extends React.Component {
   RootStackNavigator = () => {
 
     return (
-      <RootStack.Navigator>
+      <RootStack.Navigator >
         <RootStack.Screen
           name="TabStack"
           component={this.TabNavigator}
@@ -598,10 +598,14 @@ class MainNavigator extends React.Component {
             return {
               ...TransitionPresets.ScaleFromCenterAndroid,
               headerShown: false
+
             }
           }
+
           }
+
         />
+
 
       </RootStack.Navigator>
     )
