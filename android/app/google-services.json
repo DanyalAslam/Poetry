@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "115698874260",
+    "project_id": "poetry-popular-english-poetry",
+    "storage_bucket": "poetry-popular-english-poetry.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115698874260:android:9a945e32e2dc6472b84181",
+        "android_client_info": {
+          "package_name": "com.techsphereapps.poetry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115698874260-q4b0lt62itdkqf274dfcbsi9ilhcihdt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQbLK6Ls_N1Sd1_892gKRowMuLCi9GiVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115698874260-q4b0lt62itdkqf274dfcbsi9ilhcihdt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-8059419171547646~8584083018"
+    }
+  ],
+  "configuration_version": "1"
+}
