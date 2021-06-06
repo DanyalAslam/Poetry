@@ -14,7 +14,7 @@ import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import Toast from 'react-native-simple-toast'
 import PoemFeedCard from '../../Components/PoemFeedCard/index.js'
 import SkeletonContent from 'react-native-skeleton-content-nonexpo'
-import { getToken } from '../../NativeModules/Firebase/PushNotifications.js'
+import { getToken, onNotificationReceived, onNotificationTap, removeNotificationTapListener, startReceivingTaps } from '../../NativeModules/Firebase/PushNotifications.js'
 
 
 
@@ -25,16 +25,33 @@ class HomeScreen extends React.Component {
     }
 
 
-    async componentDidMount() {
+    componentDidMount() {
 
         this._getHomeData();
 
+        startReceivingTaps();
 
-        const token = await getToken();
-
-        console.log('token ',token);
+        this.setUpListeners();
     }
 
+
+    componentWillUnmount() {
+        removeNotificationTapListener();
+    }
+
+    setUpListeners = () => {
+        onNotificationTap(this.handlePushTaps);
+
+    }
+
+    handlePushTaps = (data) => {
+
+        console.log('data ', data);
+        let params = {
+            ...data
+        };
+        this.props.navigation.navigate('FeedDetailScreen',params);
+    }
 
 
     _getHomeData = () => {

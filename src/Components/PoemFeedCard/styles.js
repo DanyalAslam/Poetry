@@ -110,8 +110,9 @@ export default Styles = StyleSheet.create({
 
     bubble:{
         position: 'absolute',
-        top: 0,
-        right: 0,
+        top: 0.7 * vh,
+        right: -2 * vw,
+        
         // backgroundColor: appTheme.darkGray
     },
     bubbleText:{

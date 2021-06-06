@@ -1,5 +1,6 @@
 package com.techsphereapps.poetry;
 
+import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
 import com.google.android.play.core.tasks.Task;
+import com.techsphereapps.poetry.nativeModules.firebase.cloudmessaging.Notifications;
 
 public class MainActivity extends ReactActivity {
 
@@ -26,6 +28,22 @@ public class MainActivity extends ReactActivity {
    * Returns the name of the main component registered from JavaScript. This is used to schedule
    * rendering of the component.
    */
+
+  @Override
+  public void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+    handleIntent(intent);
+  }
+
+  private void handleIntent(Intent intent) {
+    if (intent != null) {
+      Bundle extras = intent.getExtras();
+      if (extras != null) {
+        Notifications.saveTapEvent(extras);
+      }
+    }
+  }
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -33,6 +51,8 @@ public class MainActivity extends ReactActivity {
 
     super.onCreate(savedInstanceState);
 
+    handleIntent(getIntent());
+    
     checkForAppUpdate();
 
 //    showReviewPopup();

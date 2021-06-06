@@ -719,12 +719,12 @@ const actions = {
                 let poemStore = getState().PoemReducer;
 
 
-                let myPoemIndex = poemStore?.myPoems?.findIndex(poem => poem._id == dataToStoreLocally.poem_id);
+                let myPoemIndex = poemStore?.myPoems?.findIndex(poem => poem._id == dataToStoreLocally?.poem_id);
 
                 if (myPoemIndex != -1) {
 
                     poemStore.myPoems[myPoemIndex].comments = [
-                        ...poemStore.myPoems[myPoemIndex].comments,
+                        ...poemStore.myPoems[myPoemIndex]?.comments,
                         {
                             ...dataToStoreLocally,
                             id: response?.comment_id
@@ -733,12 +733,12 @@ const actions = {
 
                 }
 
-                let allPoemIndex = poemStore?.allPoems?.findIndex(poem => poem._id == dataToStoreLocally.poem_id);
+                let allPoemIndex = poemStore?.allPoems?.findIndex(poem => poem._id == dataToStoreLocally?.poem_id);
 
                 if (allPoemIndex != -1) {
 
                     poemStore.allPoems[allPoemIndex].comments = [
-                        ...poemStore.allPoems[allPoemIndex].comments,
+                        ...poemStore.allPoems[allPoemIndex]?.comments,
                         {
                             ...dataToStoreLocally,
                             id: response?.comment_id

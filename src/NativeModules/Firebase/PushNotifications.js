@@ -40,7 +40,10 @@ export const startReceivingTaps = () => {
     }
 }
 export const removeNotificationTapListener = () => {
-    tapEventSubscription.remove();
+    if(tapEventSubscription){
+        tapEventSubscription.remove();
+    }
+
 }
 export const onNotificationTap = (callback) => {
     tapEventSubscription = emitter.addListener(notificationsTapEvent, data => {
@@ -51,7 +54,10 @@ export const onNotificationTap = (callback) => {
 
 }
 export const removeNotificationListener = () => {
-    receivedEventSubscription.remove();
+
+    if(receivedEventSubscription){
+        receivedEventSubscription.remove();
+    }
 }
 export const onNotificationReceived = (callback) => {
     receivedEventSubscription =  emitter.addListener(notificationsReceivedEvent, data => {

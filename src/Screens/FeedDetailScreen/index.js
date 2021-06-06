@@ -19,27 +19,63 @@ import actions from '../../redux/actions/index.js'
 class FeedDetailScreen extends React.Component {
 
     state = {
-        details: this.props.route?.params?.poem ?? null
+        details: this.props.route?.params?.poem ?? null,
+        refreshing: this.props.route?.params?.poem ? false: true
     }
 
+    componentDidMount() {
+        this.props.navigation.addListener('focus', this.onScreenFocus);
+    }
+
+    componentWillUnmount() {
+        this.props.navigation.removeListener('focus');
+    }
+
+    onScreenFocus = () => {
+        console.log('this.props.route?.params ',this.props.route?.params);
+        if (this.props.route?.params?.type) {
+
+            this.getPoem(this.props.route?.params?.poem_id);
+
+        }
+    }
+
+    getPoem = async (poem_id) => {
+
+        if(!this.state.details){
+            this.setState({
+                refreshing: true
+            })
+        }
+
+
+        try {
+            const response = await this.props.getPoemDetails(poem_id);
+            this.setState({
+                details: response?.poem,
+                refreshing: false
+            })
+
+        } catch (error) {
+
+            this.setState({
+                refreshing: false
+            })
+
+        }
+    }
 
     ListEmptyComponent = () => {
+
+        if(this.state.refreshing){
+            return null;
+        }
 
         return <EmptyComponent message="No poems to show" style={{ marginTop: 5 * vh }} />;
     }
 
     onCommentsClosed = async () => {
-
-        try {
-            const response = await this.props.getPoemDetails(this.state.details?._id);
-            this.setState({
-                details: response?.poem
-            })
-   
-
-        } catch (error) {
-
-        }
+        this.getPoem(this.state.details?._id);
     }
 
     showLikeSheet = (likers) => {

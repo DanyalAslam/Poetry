@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, ImageBackground, Image, } from 'react-native'
+import { View, ImageBackground, Image, Platform, } from 'react-native'
 import styles from './styles.js'
 import allImages from '../../../assets/images/index';
 import RippleTouch from '../../../Components/RippleTouch/index.js';
@@ -13,6 +13,7 @@ import { LOG, showToast } from '../../../Api/HelperFunctions.js';
 import actions from '../../../redux/actions/index.js';
 import LottieView from 'lottie-react-native';
 import hello_anim from '../../../assets/animations/hello_anim.json';
+import { getToken } from '../../../NativeModules/Firebase/PushNotifications.js';
 
 
 const initial_state = {
@@ -48,9 +49,13 @@ class LoginScreen extends Component {
     _onContinue = async () => {
 
 
+        const token = await getToken();
+
+
         const userInfo = {
             ...this.state.userInfo,
-
+            device_token: token,
+            device_type: Platform.OS
         };
 
 
