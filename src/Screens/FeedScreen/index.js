@@ -132,12 +132,16 @@ class FeedScreen extends React.Component {
 
         if (!this.props.token) {
 
+            this.loginPopupRef.show();
+
             if (this.flatListRef) {
 
                 this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
 
             }
-            return this.loginPopupRef.show();
+
+
+            return
         }
 
 

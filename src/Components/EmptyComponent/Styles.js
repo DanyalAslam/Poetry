@@ -4,21 +4,21 @@ import fonts from '../../assets/fonts';
 
 
 const Styles = {
-    container:{
+    container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
-    emptyAnim:{
-        width: 50*vw,
-        height: 50*vw        
+    emptyAnim: {
+        width: 50 * vw,
+        height: 50 * vw
     },
-    text:{
-        color: appTheme.black, 
-        textAlign:'center',
-        fontSize: 2.5*vh,
-        fontFamily: fonts.SSR,
-        marginTop: 2*vh
+    text: {
+        color: appTheme.darkGray,
+        textAlign: 'center',
+        fontSize: 2.2 * vh,
+        fontFamily: fonts.poppins.regular,
+        marginTop: 2 * vh
     }
 }
 

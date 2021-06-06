@@ -3,7 +3,8 @@ import {
     Animated,
     View,
     Easing,
-    Text
+    Text,
+    Image
 } from 'react-native'
 
 import emptyAnimation from './empty.json';
@@ -20,6 +21,10 @@ export default class EmptyComponent extends Component {
     }
 
     componentDidMount() {
+        if (this.props.source) {
+            return;
+        }
+
         this._startAnimation()
     }
 
@@ -36,19 +41,33 @@ export default class EmptyComponent extends Component {
 
     }
 
+    renderSection = () => {
+
+        if (this.props.source) {
+            return <Image
+                source={this.props.source}
+                style={Styles.emptyAnim}
+            />
+        }
+
+        return <LottieView
+            ref={animation => {
+                this.animation = animation;
+            }}
+            source={emptyAnimation}
+            progress={this.progress}
+            style={Styles.emptyAnim}
+        />;
+    }
+
     render() {
 
         return (
             <View style={[Styles.container, this.props.style]}>
-                <LottieView
-                    ref={animation => {
-                        this.animation = animation;
-                    }}
-                    source={emptyAnimation}
-                    progress={this.progress}
-                    style={Styles.emptyAnim}
-                />
-                <Text style={Styles.text}>
+                {
+                    this.renderSection()
+                }
+                <Text style={[Styles.text, this.props.textStyle]}>
                     {this.props.message}
                 </Text>
             </View>

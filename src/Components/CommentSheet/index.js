@@ -10,7 +10,7 @@ import CommentCard from '../CommentCard';
 import EmptyComponent from '../EmptyComponent';
 import styles from './styles';
 import EmojiBoard from 'rn-emoji-keyboard'
- 
+
 
 class CommentSheet extends React.Component {
 
@@ -47,7 +47,7 @@ class CommentSheet extends React.Component {
             activeComment: null
         });
 
-        if(this.props.onCommentsClosed){
+        if (this.props.onCommentsClosed) {
             this.props.onCommentsClosed();
         }
 
@@ -338,7 +338,7 @@ class CommentSheet extends React.Component {
                     <TouchableOpacity onPress={this.toggleEmojiBoard} style={styles.iconContainer} activeOpacity={0.7}>
                         <Image
                             source={allImages.generalIcons.emoji}
-                            style={[styles.icon,{tintColor: this.state.showEmoji ? appTheme.darkGray : appTheme.gray}]}
+                            style={[styles.icon, { tintColor: this.state.showEmoji ? appTheme.darkGray : appTheme.gray }]}
                         />
                     </TouchableOpacity>
 
@@ -366,7 +366,12 @@ class CommentSheet extends React.Component {
     }
 
     ListEmptyComponent = () => {
-        return <EmptyComponent message="No comments" style={{ marginTop: 5 * vh }} />;
+        return <EmptyComponent
+            source={allImages.generalImages.noComment}
+            message="Be the first to comment"
+            style={{ marginTop: 5 * vh }}
+            textStyle={{marginTop: 0}}
+        />;
     }
 
     _renderBottomSheet = () => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, TouchableOpacity, RefreshControl, BackHandler, NativeModules } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, RefreshControl } from 'react-native'
 import styles from './styles.js'
 import CategoryCard from '../../../src/Components/CategoryCard'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -14,7 +14,8 @@ import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import Toast from 'react-native-simple-toast'
 import PoemFeedCard from '../../Components/PoemFeedCard/index.js'
 import SkeletonContent from 'react-native-skeleton-content-nonexpo'
-import { getToken, onNotificationReceived, onNotificationTap, removeNotificationTapListener, startReceivingTaps } from '../../NativeModules/Firebase/PushNotifications.js'
+import { onNotificationTap, removeNotificationTapListener, startReceivingTaps } from '../../NativeModules/Firebase/PushNotifications.js'
+import FeatureReleasedPopup from '../../Components/PopUps/FeatureReleasedPopup/index.js'
 
 
 
@@ -32,11 +33,25 @@ class HomeScreen extends React.Component {
         startReceivingTaps();
 
         this.setUpListeners();
+
+        requestAnimationFrame(this.showFeaturePopUp);
     }
 
 
     componentWillUnmount() {
         removeNotificationTapListener();
+    }
+
+    showFeaturePopUp = () => {
+
+        if (!this.props.token) {
+            return;
+        }
+
+        if (!this.props.profile?.device_token) {
+            return this.featurePopupRef.show();
+        }
+
     }
 
     setUpListeners = () => {
@@ -46,11 +61,10 @@ class HomeScreen extends React.Component {
 
     handlePushTaps = (data) => {
 
-        console.log('data ', data);
         let params = {
             ...data
         };
-        this.props.navigation.navigate('FeedDetailScreen',params);
+        this.props.navigation.navigate('FeedDetailScreen', params);
     }
 
 
@@ -383,11 +397,18 @@ class HomeScreen extends React.Component {
         }
     }
 
+    onLoginPress = () => {
+
+        this.featurePopupRef.hide();
+        this.props.navigation.navigate('LoginScreen');
+
+    }
 
     render() {
         return (
             <View style={styles.container}>
 
+                <FeatureReleasedPopup ref={_ref => this.featurePopupRef = _ref} onLoginPress={this.onLoginPress} />
 
                 <ScrollView
                     showsVerticalScrollIndicator={false}
@@ -423,8 +444,8 @@ const mapStateToProps = state => {
         categories: state.GeneralReducer.categories,
         homePoems: state.GeneralReducer.homePoems,
         searchModal: state.GeneralReducer.searchModal,
-
-
+        profile: state.UserReducer.profile,
+        token: state.UserReducer.token,
     }
 
 }

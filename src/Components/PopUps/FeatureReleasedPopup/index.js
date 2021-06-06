@@ -4,11 +4,12 @@ import allImages from "../../../assets/images";
 import PopupHOC from '../PopupHOC'
 import styles from "./styles";
 
-class LoginPopUp extends React.PureComponent {
+class FeatureReleasedPopup extends React.PureComponent {
     constructor(props) {
         super(props)
 
     }
+
 
     hide = () => {
         this.popup.hide()
@@ -39,7 +40,7 @@ class LoginPopUp extends React.PureComponent {
                     />
 
                     <Text style={styles.message}>
-                        Why not log in to the app and enjoy to the fullest?
+                        New features are released, but they require a new login!
                     </Text>
 
                     <TouchableOpacity
@@ -51,10 +52,18 @@ class LoginPopUp extends React.PureComponent {
                         </Text>
                     </TouchableOpacity>
 
-
+                    <TouchableOpacity
+                        activeOpacity={0.7}
+                        onPress={this.hide}
+                        style={styles.button}>
+                        <Text style={styles.buttonText}>
+                            Nah, I'm good
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </PopupHOC>
         )
     }
 }
-export default LoginPopUp;
+
+export default FeatureReleasedPopup;
