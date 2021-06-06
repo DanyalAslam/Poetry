@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native'
+import fonts from '../../assets/fonts';
 import { vw, vh } from '../../Units'; 
+import { appTheme } from '../../Utils';
 
 export default Styles = StyleSheet.create({
 
@@ -16,5 +18,10 @@ export default Styles = StyleSheet.create({
     topRow: {
         justifyContent: 'space-between',
         flexDirection: 'row'
-    }
+    },
+    headerTitle: {
+        color: appTheme.white,
+        fontSize: 3.0 * vh,
+        fontFamily: fonts.SSR,
+    },
 });

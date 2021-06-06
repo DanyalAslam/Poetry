@@ -9,13 +9,14 @@ export default Styles = StyleSheet.create({
         elevation: 5,
         // borderBottomWidth: 0.4 * vw,
         // borderBottomColor: appTheme.lightGray,
-        height: 10 * vh,
+        height: 12 * vh,
         backgroundColor: appTheme.black,
     },
     headerTitle: {
         color: appTheme.white,
-        fontSize: 3.0 * vh,
+        fontSize: 3.5 * vh,
         fontFamily: fonts.SSR,
+        marginLeft: 5 * vw
     },
     headerTitle_1: {
         color: appTheme.white,
@@ -54,6 +55,7 @@ export default Styles = StyleSheet.create({
         width: 6 * vw,
         height: 6 * vw,
         resizeMode: 'contain',
+        tintColor: appTheme.white
 
     },
     leftContainer: {

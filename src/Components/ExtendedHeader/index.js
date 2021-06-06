@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { Text, View } from 'react-native'
 import styles from './styles.js'
 import { Header } from '@react-navigation/stack'
 import SearchInput from '../SearchInput/index.js'
@@ -15,7 +15,17 @@ export default ExtendedHeader = (props) => {
 
         if (_routeName == 'HomeScreen') {
 
-            return <SearchInput mode="touchable" style={{ marginTop: 0.5 * vh }} navigation={props.navigation} />
+            // return <SearchInput mode="touchable" style={{ marginTop: 0.5 * vh }} navigation={props.navigation} />
+
+            return <View>
+                <Text style={styles.topRow}>
+                    Poetry
+                </Text>
+
+                <Text style={styles.topRow}>
+                    Poetry
+                </Text>
+            </View>
         }
 
         return null

@@ -15,7 +15,7 @@ import PoetPoemsScreen from '../Screens/PoetPoemsScreen';
 import WishListScreen from '../Screens/WishListScreen';
 
 import RippleTouch from '../Components/RippleTouch';
-import { DeviceEventEmitter, Image } from 'react-native';
+import { DeviceEventEmitter, Image, Text, TouchableOpacity } from 'react-native';
 import allImages from '../assets/images';
 import SearchModal from '../Components/SearchModal';
 import actions from '../redux/actions';
@@ -33,6 +33,7 @@ import MyLikesScreen from '../Screens/MyLikesScreen';
 import NotificationsScreen from '../Screens/NotificationsScreen';
 import FeedDetailScreen from '../Screens/FeedDetailScreen';
 import HeaderRight from '../Components/HeaderRight';
+import { vw } from '../Units';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -91,10 +92,15 @@ class MainNavigator extends React.Component {
 
   _renderHeaderLeft = (props) => {
 
-    const routeName = props.route.name
+    const routeName = props.route.name;
 
+    if (routeName == "HomeScreen") {
+      return <Text style={styles.headerTitle}>
+        Poetry
+      </Text>
+    }
 
-    if (routeName == 'CategoryDetailsScreen' || routeName == 'PoetPoemsScreen'
+    if (routeName == 'CategoryDetailsScreen' || routeName == 'CategoriesScreen' || routeName == 'PoetPoemsScreen'
       || routeName == "CategoryPoemDetailsScreen" || routeName == 'WishListDetailScreen'
       || routeName == 'WishListScreen' || routeName == 'PoemDetailScreen' || routeName == "NotificationsScreen"
 
@@ -102,6 +108,7 @@ class MainNavigator extends React.Component {
 
       return <RippleTouch
         onPress={() => this._onBackPress(props)}
+        style={{ marginLeft: 2 * vw }}
       >
         <Image style={styles.imageStyle} source={allImages.generalIcons.leftArrow} />
       </RippleTouch>
@@ -112,9 +119,19 @@ class MainNavigator extends React.Component {
 
   }
 
+  navigateToSearchScreen = (props) => {
+    props.navigation.navigate('SearchScreen')
+  }
+
   _renderHeaderRight = (props) => {
 
     const routeName = props.route.name;
+
+    if (routeName == "HomeScreen") {
+      return <TouchableOpacity onPress={() => this.navigateToSearchScreen(props)}>
+        <Image source={allImages.generalIcons.searchIcon} style={styles.imageStyle} />
+      </TouchableOpacity>
+    }
 
 
     if (routeName == 'FeedScreen' || routeName == 'FeedStack') {
@@ -131,7 +148,7 @@ class MainNavigator extends React.Component {
   _renderHeaderWithSearch = (props) => {
     return {
       ...this._DefaultHeaderOptions(props),
-      header: (props) => <ExtendedHeader {...props} />
+      // header: (props) => <ExtendedHeader {...props} />
     }
   }
 
@@ -144,7 +161,7 @@ class MainNavigator extends React.Component {
     switch (routeName) {
 
       case 'HomeScreen': {
-        return 'Poetry'
+        return null
       }
 
       case 'SearchScreen': {
@@ -466,6 +483,18 @@ class MainNavigator extends React.Component {
             return {
               ...TransitionPresets.ScaleFromCenterAndroid,
               ...this._renderHeaderWithSearch(props)
+            }
+          }
+          }
+        />
+
+        <RootStack.Screen
+          name="CategoryStack"
+          component={this.CategoryStackNavigator}
+          options={(props) => {
+            return {
+              ...TransitionPresets.ScaleFromCenterAndroid,
+              headerShown: false
             }
           }
           }
