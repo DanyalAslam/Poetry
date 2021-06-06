@@ -357,7 +357,8 @@ class CommentSheet extends React.Component {
                 onRemove={this.onEmojiRemove}
                 height={32 * vh}
                 hideBackSpace
-
+                numCols={8}
+                numRows={4}
             />
 
         </View>
