@@ -20,7 +20,7 @@ const GeneralReducer = (state = INITIAL_STATE, action) => {
         case actionTypes.POETS: {
 
             if (action.payload.length > 0 && action.page > 1) {
-                LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+                // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
             }
 
             if (action.page == 1) {
@@ -42,7 +42,7 @@ const GeneralReducer = (state = INITIAL_STATE, action) => {
         case actionTypes.CATEGORIES: {
 
             if (action.payload.length > 0) {
-                LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+                // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
             }
             return {
                 ...state,
@@ -55,7 +55,7 @@ const GeneralReducer = (state = INITIAL_STATE, action) => {
         case actionTypes.HOME_POEMS: {
 
             if (action.payload.length > 0) {
-                LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+                // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
             }
             return {
                 ...state,

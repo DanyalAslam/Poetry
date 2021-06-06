@@ -158,6 +158,52 @@ const skeleton_poem_card = {
     ]
 };
 
+const skeleton_poet_card = {
+    width: 30 * vw,
+    height: 25 * vh, 
+    borderRadius: 3 * vw,
+    marginRight: 2 * vw
+};
+
+const skeleton_category_card = {
+    height: 15 * vh,
+    width: 28 * vw,
+    marginVertical: 1 * vh,
+    borderRadius: 3 * vw,
+    marginRight: 2 * vw
+};
+
+const skeleton_home_poem_card = {
+    height: 25 * vh,
+    width: 43 * vw,
+    marginVertical: 1 * vh,
+    marginHorizontal: 2*vw,
+    elevation: 4,
+    backgroundColor: 'white',
+    borderRadius: 3 * vw,
+    paddingHorizontal: 2 * vw,
+    children: [
+        {
+            key: 'title', width: 15 * vw, height: 1.4 * vh, marginTop: 3.5 * vh
+        },
+        {
+            key: 'title', width: 30 * vw, height: 1.8 * vh, marginTop: 1 * vh
+        },
+        {
+            key: 'title', width: 15 * vw, height: 1.4 * vh, marginTop: 3.5 * vh
+        },
+        {
+            key: 'title', width: 30 * vw, height: 1.8 * vh, marginTop: 1 * vh
+        },
+        {
+            key: 'title', width: 15 * vw, height: 1.4 * vh, marginTop: 3.5 * vh
+        },
+        {
+            key: 'title', width: 30 * vw, height: 1.8 * vh, marginTop: 1 * vh
+        },
+    ]
+};
+
 export const skeleton_layouts = {
     poemCard: [
         {
@@ -186,5 +232,43 @@ export const skeleton_layouts = {
                 skeleton_poem_card,
             ]
         }
+    ],
+    poetCard: [
+        {
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            flexDirection: 'row',
+            children: [
+                skeleton_poet_card,
+                skeleton_poet_card,
+                skeleton_poet_card,
+            ]
+        },
+     
+    ],
+    homeCategoryCard: [
+        {
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+            children: [
+                skeleton_category_card,
+                skeleton_category_card,
+                skeleton_category_card,
+            ]
+        },
+     
+    ],
+    homePoemCard: [
+        {
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+            children: [
+                skeleton_home_poem_card,
+                skeleton_home_poem_card,
+            ]
+        },
+     
     ]
 };

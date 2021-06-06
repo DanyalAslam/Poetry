@@ -9,10 +9,11 @@ import PoemCard from '../../Components/PoemCard/index.js'
 import Carousel from 'react-native-snap-carousel';
 import { connect } from 'react-redux'
 import actions from '../../redux/actions/index.js'
-import { appTheme } from '../../Utils/index.js'
+import { appTheme, skeleton_layouts } from '../../Utils/index.js'
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import Toast from 'react-native-simple-toast'
 import PoemFeedCard from '../../Components/PoemFeedCard/index.js'
+import SkeletonContent from 'react-native-skeleton-content-nonexpo'
 
 
 
@@ -122,27 +123,31 @@ class HomeScreen extends React.Component {
                 >
                     Browse through the collection of historical poets.
                      </Text>
+                <SkeletonContent
+                    isLoading={this.state.refreshing}
+                    layout={skeleton_layouts.poetCard}
+                    containerStyle={null}
 
-                <Carousel
-                    ref={(c) => { this._carousel = c; }}
-                    data={this.props.poets}
-                    renderItem={this._renderPoetCard}
-                    sliderWidth={100 * vw}
-                    itemWidth={30 * vw}
-                    // autoplay={true}
-                    // loop={true}
-                    // autoplayInterval={2000}
-                    horizontal={true}
-                    inactiveSlideScale={1}
-                    activeSlideAlignment="start"
-                    slideStyle={{ marginHorizontal: 1 * vw }}
-                    inactiveSlideOpacity={1}
-                    contentContainerCustomStyle={{ marginLeft: 1 * vw }}
-                />
+                >
+                    <Carousel
+                        ref={(c) => { this._carousel = c; }}
+                        data={this.props.poets}
+                        renderItem={this._renderPoetCard}
+                        sliderWidth={100 * vw}
+                        itemWidth={30 * vw}
+                        horizontal={true}
+                        inactiveSlideScale={1}
+                        activeSlideAlignment="start"
+                        slideStyle={{ marginHorizontal: 1 * vw }}
+                        inactiveSlideOpacity={1}
+                        contentContainerCustomStyle={{ marginLeft: 1 * vw, }}
 
+                    />
+                </SkeletonContent>
             </View>
 
         </View>
+
     }
 
     _navigateToCategoryDetails = (title) => {
@@ -173,38 +178,44 @@ class HomeScreen extends React.Component {
                 </TouchableOpacity>
             </View>
 
-            <View
-                style={styles.categroyScroll}
+            <SkeletonContent
+                isLoading={this.state.refreshing}
+                layout={skeleton_layouts.homeCategoryCard}
+                containerStyle={null}
+
             >
+                <View
+                    style={styles.categroyScroll}
+                >
 
 
-                <CategoryCard
-                    source={{ uri: this.props.categories[0].image }}
-                    title={this.props.categories[0].title}
-                    style={styles.categoryCardStyle}
-                    textStyle={{ fontSize: 2.2 * vh }}
-                    onPress={() => this._navigateToCategoryDetails(this.props.categories[0].title)}
-                />
+                    <CategoryCard
+                        source={{ uri: this.props.categories[0].image }}
+                        title={this.props.categories[0].title}
+                        style={styles.categoryCardStyle}
+                        textStyle={{ fontSize: 2.2 * vh }}
+                        onPress={() => this._navigateToCategoryDetails(this.props.categories[0].title)}
+                    />
 
-                <CategoryCard
-                    source={{ uri: this.props.categories[1].image }}
-                    title={this.props.categories[1].title}
-                    style={styles.categoryCardStyle}
-                    textStyle={{ fontSize: 2.2 * vh }}
-                    onPress={() => this._navigateToCategoryDetails(this.props.categories[1].title)}
-                />
+                    <CategoryCard
+                        source={{ uri: this.props.categories[1].image }}
+                        title={this.props.categories[1].title}
+                        style={styles.categoryCardStyle}
+                        textStyle={{ fontSize: 2.2 * vh }}
+                        onPress={() => this._navigateToCategoryDetails(this.props.categories[1].title)}
+                    />
 
-                <CategoryCard
-                    source={{ uri: this.props.categories[2].image }}
-                    title={this.props.categories[2].title}
-                    style={styles.categoryCardStyle}
-                    textStyle={{ fontSize: 2.2 * vh }}
-                    onPress={() => this._navigateToCategoryDetails(this.props.categories[2].title)}
-                />
+                    <CategoryCard
+                        source={{ uri: this.props.categories[2].image }}
+                        title={this.props.categories[2].title}
+                        style={styles.categoryCardStyle}
+                        textStyle={{ fontSize: 2.2 * vh }}
+                        onPress={() => this._navigateToCategoryDetails(this.props.categories[2].title)}
+                    />
 
 
-            </View>
-
+                </View>
+            </SkeletonContent>
         </>
     }
 
@@ -260,16 +271,22 @@ class HomeScreen extends React.Component {
                 </Text>
 
             </View>
-            <FlatList
-                data={this.props.homePoems}
-                style={styles.scrollView}
-                contentContainerStyle={{ alignItems: 'center', paddingTop: 0.8 * vh, paddingBottom: 1 * vh }}
-                showsVerticalScrollIndicator={false}
-                renderItem={this._renderPoems}
-                numColumns={2}
-                keyExtractor={(item, ind) => String(ind)}
-            />
+            <SkeletonContent
+                isLoading={this.state.refreshing}
+                layout={skeleton_layouts.homePoemCard}
+                containerStyle={null}
 
+            >
+                <FlatList
+                    data={this.props.homePoems}
+                    style={styles.scrollView}
+                    contentContainerStyle={{ alignItems: 'center', paddingTop: 0.8 * vh, paddingBottom: 1 * vh }}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={this._renderPoems}
+                    numColumns={2}
+                    keyExtractor={(item, ind) => String(ind)}
+                />
+            </SkeletonContent>
         </View>
     }
 
@@ -328,11 +345,6 @@ class HomeScreen extends React.Component {
 
                 {
                     this._renderTrending()
-                }
-
-
-                {
-                    // this._renderFeed()
                 }
 
             </>

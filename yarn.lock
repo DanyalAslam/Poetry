@@ -6413,7 +6413,7 @@ rimraf@~2.2.6:
 
 "rn-emoji-keyboard@git+https://github.com/hurali97/rn-emoji-keyboard.git":
   version "1.0.1"
-  resolved "git+https://github.com/hurali97/rn-emoji-keyboard.git#f8d88b8a7b52d55d262ea0ba27fb70cb79543ab4"
+  resolved "git+https://github.com/hurali97/rn-emoji-keyboard.git#08376710a27ac23305fb307da64c6d9c4d8fcb0b"
   dependencies:
     emoji-datasource "^5.0.1"
     lodash "^4.17.15"
