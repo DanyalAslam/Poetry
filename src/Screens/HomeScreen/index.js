@@ -130,6 +130,19 @@ class HomeScreen extends React.Component {
         })
     }
 
+    getRandomPoets = () => {
+
+
+        let poets = [];
+
+        if (this.props.poets) {
+
+            poets = this.props.poets.sort(() => (Math.random() > .5) ? 1 : -1);
+        }
+
+        return poets;
+
+    }
 
     _renderTopCards = () => {
 
@@ -166,7 +179,7 @@ class HomeScreen extends React.Component {
                 >
                     <Carousel
                         ref={(c) => { this._carousel = c; }}
-                        data={this.props.poets}
+                        data={this.getRandomPoets()}
                         renderItem={this._renderPoetCard}
                         sliderWidth={100 * vw}
                         itemWidth={30 * vw}
@@ -296,7 +309,7 @@ class HomeScreen extends React.Component {
 
     _renderTrending = () => {
 
-        return <View style={{ width: 100 * vw }}>
+        return <View style={{ width: 100 * vw, marginTop: 3 * vh }}>
             <View style={{
                 flexDirection: 'row', justifyContent: 'space-between',
                 marginHorizontal: 5 * vw, alignItems: 'baseline'

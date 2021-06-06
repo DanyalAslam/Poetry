@@ -13,12 +13,12 @@ const styles = StyleSheet.create({
     topCard: {
         
         width: 100 * vw,
-        marginTop: 3 * vh,
+        marginTop: 1 * vh,
         // paddingLeft: 5 * vw,
     },
     categroyScroll: {
         paddingHorizontal: 5 * vw,
-        paddingBottom: 3 * vh,
+        paddingBottom: 1 * vh,
         marginTop: 0.5 * vh,
         flexDirection: 'row'
     },

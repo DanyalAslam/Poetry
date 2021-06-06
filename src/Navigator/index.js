@@ -387,7 +387,7 @@ class MainNavigator extends React.Component {
 
         }}
         swipeEnabled={true}
-
+        removeClippedSubviews
       >
         <Tabs.Screen
           name="HomeStack"
