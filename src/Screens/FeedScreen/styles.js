@@ -8,7 +8,8 @@ const styles = StyleSheet.create({
         backgroundColor: appTheme.white,
         flex: 1,
         alignItems: 'center',
-        paddingTop: 2 * vh
+
+   
         // justifyContent: 'center'
     },
     topCard: {
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         width: '100%',
+
     },
 
     profileImage: {

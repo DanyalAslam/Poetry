@@ -225,7 +225,7 @@ class FeedScreen extends React.Component {
         return <FlatList
             data={this.props?.allPoems ?? []}
             style={styles.scrollView}
-            contentContainerStyle={{ alignItems: 'center', paddingTop: 0.8 * vh, paddingBottom: 1 * vh }}
+            contentContainerStyle={{ alignItems: 'center', paddingTop: 0.8 * vh, paddingBottom: 1 * vh, paddingBottom: 7 * vh }}
             showsVerticalScrollIndicator={false}
             renderItem={this._renderFeedItem}
             numColumns={1}

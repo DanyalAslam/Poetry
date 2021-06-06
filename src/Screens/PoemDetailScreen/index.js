@@ -26,7 +26,7 @@ const LIMIT = 40
 class PoemDetailScreen extends React.Component {
 
     state = {
-        poemDetails: null,
+        poemDetails: this.props.route?.params?.makeApiCall ? null : this.props.route.params.poem,
         refreshing: false,
         newLines: [],
         ad_loaded: false
@@ -37,7 +37,7 @@ class PoemDetailScreen extends React.Component {
 
 
         this.props.navigation.addListener("focus", () => {
-            this.setState({ poemDetails: null })
+         
 
 
             if (this.props.route?.params?.makeApiCall) {
@@ -82,9 +82,9 @@ class PoemDetailScreen extends React.Component {
 
             }
             else {
-                this.setState({ poemDetails: this.props.route.params.poem }, () => {
+                // this.setState({ poemDetails: this.props.route.params?.poem }, () => {
                     setTimeout(this.showReviewPopUp, 2000)
-                })
+                // })
             }
         });
 
@@ -97,7 +97,10 @@ class PoemDetailScreen extends React.Component {
 
                 AdMobInterstitial.removeAllListeners();
 
-                Tts.removeAllListeners()
+                Tts.removeAllListeners();
+
+                this.setState({ poemDetails: null });
+
             } catch (error) {
 
             }

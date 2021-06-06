@@ -56,7 +56,7 @@ class WishListScreen extends React.Component {
                 <FlatList
                     data={this.props.wishList}
                     style={styles.scrollView}
-                    contentContainerStyle={{ paddingTop: 3.5 * vh, paddingBottom: 1 * vh, paddingHorizontal: 4*vw }}
+                    contentContainerStyle={{ paddingTop: 3.5 * vh, paddingBottom: 7 * vh, paddingHorizontal: 4 * vw }}
                     showsVerticalScrollIndicator={false}
                     renderItem={this._renderPoems}
                     numColumns={2}

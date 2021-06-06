@@ -34,6 +34,7 @@ import NotificationsScreen from '../Screens/NotificationsScreen';
 import FeedDetailScreen from '../Screens/FeedDetailScreen';
 import HeaderRight from '../Components/HeaderRight';
 import { vw } from '../Units';
+import CustomTabBar from '../Components/CustomTabBar';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -366,6 +367,104 @@ class MainNavigator extends React.Component {
     )
   }
 
+  // TabNavigator = (props) => {
+
+
+  //   return (
+  //     <Tabs.Navigator
+  //       tabBarPosition="bottom"
+  //       lazy={true}
+  //       tabBarOptions={{
+  //         activeTintColor: appTheme.black,
+  //         inactiveTintColor: appTheme.lightGray,
+  //         showIcon: true,
+  //         pressColor: appTheme.lightGray,
+  //         showLabel: false,
+  //         tabStyle: styles.tabStyle,
+  //         style: styles.tabBarStyle,
+  //         iconStyle: styles.iconStyle,
+  //         bounces: true,
+  //         indicatorStyle: styles.indicatorStyle,
+
+  //       }}
+  //       swipeEnabled={true}
+  //       removeClippedSubviews
+  //     >
+  //       <Tabs.Screen
+  //         name="HomeStack"
+  //         component={this.HomeStackNavigator}
+  //         options={{
+  //           tabBarIcon: (params) => {
+  //             return (
+  //               <TabBarItem params={params} name='HomeStack' />
+  //             )
+  //           },
+
+  //         }}
+  //       />
+
+
+  //       {/* <Tabs.Screen
+  //         name="CategoryStack"
+  //         component={this.CategoryStackNavigator}
+  //         options={{
+  //           tabBarIcon: (params) => {
+  //             return (
+  //               <TabBarItem params={params} name='CategoryStack' />
+  //             )
+  //           },
+
+  //         }}
+  //       /> */}
+
+  //       <Tabs.Screen
+  //         name="FeedStack"
+  //         component={this.FeedStackNavigator}
+  //         options={{
+  //           tabBarIcon: (params) => {
+  //             return (
+  //               <TabBarItem params={params} name='FeedStack' />
+  //             )
+  //           },
+  //         }}
+  //         listeners={{
+  //           tabPress: e => {
+  //             DeviceEventEmitter.emit("FeedPressed")
+  //           },
+  //         }}
+  //       />
+
+
+  //       <Tabs.Screen
+  //         name="PoetStack"
+  //         component={this.PoetStackNavigator}
+  //         options={{
+  //           tabBarIcon: (params) => {
+
+  //             return (
+  //               <TabBarItem params={params} name='PoetStack' />
+  //             )
+  //           },
+
+  //         }}
+  //       />
+
+  //       <Tabs.Screen
+  //         name="MoreStack"
+  //         component={this.MoreStackNavigator}
+  //         options={{
+  //           tabBarIcon: (params) => {
+  //             return (
+  //               <TabBarItem params={params} name='MoreStack' />
+  //             )
+  //           },
+
+  //         }}
+  //       />
+  //     </Tabs.Navigator>
+
+  //   );
+  // }
   TabNavigator = (props) => {
 
 
@@ -373,59 +472,28 @@ class MainNavigator extends React.Component {
       <Tabs.Navigator
         tabBarPosition="bottom"
         lazy={true}
+        tabBar={tabProps => <CustomTabBar {...tabProps} {...props} />}
         tabBarOptions={{
-          activeTintColor: appTheme.black,
-          inactiveTintColor: appTheme.lightGray,
-          showIcon: true,
-          pressColor: appTheme.lightGray,
-          showLabel: false,
+
           tabStyle: styles.tabStyle,
           style: styles.tabBarStyle,
-          iconStyle: styles.iconStyle,
-          bounces: true,
-          indicatorStyle: styles.indicatorStyle,
-
+        
         }}
+      
         swipeEnabled={true}
         removeClippedSubviews
       >
+
         <Tabs.Screen
           name="HomeStack"
           component={this.HomeStackNavigator}
-          options={{
-            tabBarIcon: (params) => {
-              return (
-                <TabBarItem params={params} name='HomeStack' />
-              )
-            },
 
-          }}
         />
-
-
-        {/* <Tabs.Screen
-          name="CategoryStack"
-          component={this.CategoryStackNavigator}
-          options={{
-            tabBarIcon: (params) => {
-              return (
-                <TabBarItem params={params} name='CategoryStack' />
-              )
-            },
-
-          }}
-        /> */}
 
         <Tabs.Screen
           name="FeedStack"
           component={this.FeedStackNavigator}
-          options={{
-            tabBarIcon: (params) => {
-              return (
-                <TabBarItem params={params} name='FeedStack' />
-              )
-            },
-          }}
+
           listeners={{
             tabPress: e => {
               DeviceEventEmitter.emit("FeedPressed")
@@ -437,28 +505,13 @@ class MainNavigator extends React.Component {
         <Tabs.Screen
           name="PoetStack"
           component={this.PoetStackNavigator}
-          options={{
-            tabBarIcon: (params) => {
 
-              return (
-                <TabBarItem params={params} name='PoetStack' />
-              )
-            },
-
-          }}
         />
 
         <Tabs.Screen
           name="MoreStack"
           component={this.MoreStackNavigator}
-          options={{
-            tabBarIcon: (params) => {
-              return (
-                <TabBarItem params={params} name='MoreStack' />
-              )
-            },
 
-          }}
         />
       </Tabs.Navigator>
 

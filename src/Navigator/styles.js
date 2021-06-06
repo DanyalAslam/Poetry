@@ -11,6 +11,7 @@ export default Styles = StyleSheet.create({
         // borderBottomColor: appTheme.lightGray,
         height: 12 * vh,
         backgroundColor: appTheme.black,
+        
     },
     headerTitle: {
         color: appTheme.white,

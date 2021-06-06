@@ -15,7 +15,7 @@ class PoetsScreen extends React.Component {
 
 
     state = {
-       
+
         refreshing: true,
         page: 1
     }
@@ -108,7 +108,7 @@ class PoetsScreen extends React.Component {
                 <FlatList
                     data={this.props.poets}
                     style={styles.scrollView}
-                    contentContainerStyle={{ alignItems: 'center', paddingVertical: 1 * vh, }}
+                    contentContainerStyle={{ alignItems: 'center', paddingVertical: 1 * vh, paddingBottom: 9 * vh }}
                     showsVerticalScrollIndicator={false}
                     renderItem={this._renderPoets}
                     numColumns={2}

@@ -425,7 +425,7 @@ class HomeScreen extends React.Component {
 
                 <ScrollView
                     showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ paddingTop: 2 * vh, }}
+                    contentContainerStyle={{ paddingTop: 2 * vh, paddingBottom: 8 * vh }}
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.refreshing}
