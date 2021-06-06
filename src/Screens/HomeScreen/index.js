@@ -14,6 +14,7 @@ import EmptyComponent from '../../Components/EmptyComponent/index.js'
 import Toast from 'react-native-simple-toast'
 import PoemFeedCard from '../../Components/PoemFeedCard/index.js'
 import SkeletonContent from 'react-native-skeleton-content-nonexpo'
+import { getToken } from '../../NativeModules/Firebase/PushNotifications.js'
 
 
 
@@ -24,11 +25,14 @@ class HomeScreen extends React.Component {
     }
 
 
-    componentDidMount() {
+    async componentDidMount() {
 
         this._getHomeData();
 
 
+        const token = await getToken();
+
+        console.log('token ',token);
     }
 
 

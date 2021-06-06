@@ -10,6 +10,8 @@ import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.techsphereapps.poetry.nativeModules.ModulePackages;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -30,6 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
             packages.add(new SplashPackage());
             packages.add(new PoetryReviewPackage());
+            packages.add(new ModulePackages());
+
           return packages;
         }
 
