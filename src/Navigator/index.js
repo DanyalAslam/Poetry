@@ -386,7 +386,7 @@ class MainNavigator extends React.Component {
         />
 
 
-        <Tabs.Screen
+        {/* <Tabs.Screen
           name="CategoryStack"
           component={this.CategoryStackNavigator}
           options={{
@@ -397,7 +397,7 @@ class MainNavigator extends React.Component {
             },
 
           }}
-        />
+        /> */}
 
         <Tabs.Screen
           name="FeedStack"

@@ -65,4 +65,4 @@ const mapStateToProps = state => {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoriesScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesScreen);
