@@ -16,6 +16,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from "./src/redux";
 import { appTheme } from './src/Utils';
 import { setEmojiData } from 'rn-emoji-keyboard';
+import ErrorBoundary from './src/Components/ErrorBoundary';
 
 
 //         android:largeHeap="true"
@@ -36,7 +37,9 @@ const App = () => {
           animated={true}
           barStyle='light-content'
         />
-        <MainNavigator />
+        <ErrorBoundary>
+          <MainNavigator />
+        </ErrorBoundary>
       </PersistGate>
     </Provider>
   );

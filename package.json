@@ -32,6 +32,7 @@
     "react-native-material-ripple": "^0.9.1",
     "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "^2.2.0",
+    "react-native-restart": "^0.0.22",
     "react-native-safe-area-context": "^3.0.2",
     "react-native-screens": "^2.8.0",
     "react-native-share": "^3.7.1",

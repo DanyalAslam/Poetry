@@ -12,6 +12,7 @@ import SkeletonContent from 'react-native-skeleton-content-nonexpo';
 import TextRegular from '../../Components/TextRegular/index.js'
 import LikeSheet from '../../Components/LikeSheet/index.js'
 import CommentSheet from '../../Components/CommentSheet/index.js'
+import LoginPopUp from '../../Components/PopUps/LoginPopUp/index.js'
 
 
 
@@ -128,6 +129,17 @@ class FeedScreen extends React.Component {
 
 
     onEndReached = () => {
+
+        if (!this.props.token) {
+
+            if (this.flatListRef) {
+
+                this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
+
+            }
+            return this.loginPopupRef.show();
+        }
+
 
         if ((this.props.allPoems?.length >= 10)) {
             if (this.state.is_last_page) {
@@ -265,22 +277,30 @@ class FeedScreen extends React.Component {
 
     }
 
+    onLoginPress = () => {
+
+        this.loginPopupRef.hide();
+        this.props.navigation.navigate('LoginScreen');
+
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <LikeSheet ref={_ref => this.likeSheetRef = _ref} navigation={this.props.navigation} />
                 <CommentSheet ref={_ref => this.commentSheetRef = _ref} navigation={this.props.navigation} />
-            
-                    <SkeletonContent
-                        isLoading={this.state.refreshing}
-                        layout={skeleton_layouts.poemCard}
-                        containerStyle={null}
-                        >
-                        {
-                            this._renderFeed()
-                        }
-                    </SkeletonContent>
-   
+                <LoginPopUp ref={_ref => this.loginPopupRef = _ref} onLoginPress={this.onLoginPress} />
+
+                <SkeletonContent
+                    isLoading={this.state.refreshing}
+                    layout={skeleton_layouts.poemCard}
+                    containerStyle={null}
+                >
+                    {
+                        this._renderFeed()
+                    }
+                </SkeletonContent>
+
             </View>
         )
     }
