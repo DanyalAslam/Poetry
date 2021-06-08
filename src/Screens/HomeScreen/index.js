@@ -60,12 +60,14 @@ class HomeScreen extends React.Component {
     }
 
     handlePushTaps = (data) => {
-
         if (data) {
-            let params = {
-                ...data
-            };
-            this.props.navigation.navigate('FeedDetailScreen', params);
+            if (Object.keys(data).length > 0) {
+                let params = {
+                    ...data
+                };
+                this.props.navigation.navigate('FeedDetailScreen', params);
+            }
+
         }
 
     }

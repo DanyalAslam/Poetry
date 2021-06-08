@@ -302,10 +302,9 @@ class CommentSheet extends React.Component {
             id: owner_id
         }
 
-        if (params.id != this.props.user_id) {
+        if (params.id != this.props.user?._id) {
             params["type"] = "other";
         }
-
 
         this.props.navigation.navigate("ProfileScreen", params);
 
