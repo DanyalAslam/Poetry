@@ -262,6 +262,10 @@ class ProfileScreen extends React.Component {
         </View>
     }
 
+    navigateToAllFriends = () => {
+        this.props.navigation.navigate("AllFriendsScreen");
+    }
+
     renderFriends = () => {
 
         return <View style={styles.friendsContainer}>
@@ -271,7 +275,7 @@ class ProfileScreen extends React.Component {
                     Friends
                 </TextPoppinsMedium>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={this.navigateToAllFriends}>
                     <TextPoppinsLight style={styles.aboutInfo}>
                         View All
                     </TextPoppinsLight>

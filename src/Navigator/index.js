@@ -1,25 +1,21 @@
 import React from 'react'
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import HomeScreen from '../Screens/HomeScreen';
+import { DeviceEventEmitter, Image, Text, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
-import styles from './styles';
-import ExtendedHeader from '../Components/ExtendedHeader';
-import { appTheme } from '../Utils';
-import TabBarItem from '../Components/TabBarItem'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { connect } from 'react-redux';
+
+import HomeScreen from '../Screens/HomeScreen';
+
 import MoreScreen from '../Screens/MoreScreen';
 import PoetsScreen from '../Screens/PoetsScreen';
 import CategoriesScreen from '../Screens/CategoriesScreen';
 import CategoryDetailsScreen from '../Screens/CategoryDetailsScreen';
 import PoetPoemsScreen from '../Screens/PoetPoemsScreen';
 import WishListScreen from '../Screens/WishListScreen';
-
 import RippleTouch from '../Components/RippleTouch';
-import { DeviceEventEmitter, Image, Text, TouchableOpacity } from 'react-native';
 import allImages from '../assets/images';
 import SearchModal from '../Components/SearchModal';
-import actions from '../redux/actions';
-import { connect } from 'react-redux';
 import PoemDetailScreen from '../Screens/PoemDetailScreen';
 import SearchScreen from '../Screens/SearchScreen';
 import SignupScreen from '../Screens/Authentication/SignupScreen';
@@ -33,8 +29,12 @@ import MyLikesScreen from '../Screens/MyLikesScreen';
 import NotificationsScreen from '../Screens/NotificationsScreen';
 import FeedDetailScreen from '../Screens/FeedDetailScreen';
 import HeaderRight from '../Components/HeaderRight';
-import { vw } from '../Units';
 import CustomTabBar from '../Components/CustomTabBar';
+import AllFriendsScreen from '../Screens/Profile/AllFriendsScreen';
+
+
+import { vw } from '../Units';
+import styles from './styles';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -367,104 +367,6 @@ class MainNavigator extends React.Component {
     )
   }
 
-  // TabNavigator = (props) => {
-
-
-  //   return (
-  //     <Tabs.Navigator
-  //       tabBarPosition="bottom"
-  //       lazy={true}
-  //       tabBarOptions={{
-  //         activeTintColor: appTheme.black,
-  //         inactiveTintColor: appTheme.lightGray,
-  //         showIcon: true,
-  //         pressColor: appTheme.lightGray,
-  //         showLabel: false,
-  //         tabStyle: styles.tabStyle,
-  //         style: styles.tabBarStyle,
-  //         iconStyle: styles.iconStyle,
-  //         bounces: true,
-  //         indicatorStyle: styles.indicatorStyle,
-
-  //       }}
-  //       swipeEnabled={true}
-  //       removeClippedSubviews
-  //     >
-  //       <Tabs.Screen
-  //         name="HomeStack"
-  //         component={this.HomeStackNavigator}
-  //         options={{
-  //           tabBarIcon: (params) => {
-  //             return (
-  //               <TabBarItem params={params} name='HomeStack' />
-  //             )
-  //           },
-
-  //         }}
-  //       />
-
-
-  //       {/* <Tabs.Screen
-  //         name="CategoryStack"
-  //         component={this.CategoryStackNavigator}
-  //         options={{
-  //           tabBarIcon: (params) => {
-  //             return (
-  //               <TabBarItem params={params} name='CategoryStack' />
-  //             )
-  //           },
-
-  //         }}
-  //       /> */}
-
-  //       <Tabs.Screen
-  //         name="FeedStack"
-  //         component={this.FeedStackNavigator}
-  //         options={{
-  //           tabBarIcon: (params) => {
-  //             return (
-  //               <TabBarItem params={params} name='FeedStack' />
-  //             )
-  //           },
-  //         }}
-  //         listeners={{
-  //           tabPress: e => {
-  //             DeviceEventEmitter.emit("FeedPressed")
-  //           },
-  //         }}
-  //       />
-
-
-  //       <Tabs.Screen
-  //         name="PoetStack"
-  //         component={this.PoetStackNavigator}
-  //         options={{
-  //           tabBarIcon: (params) => {
-
-  //             return (
-  //               <TabBarItem params={params} name='PoetStack' />
-  //             )
-  //           },
-
-  //         }}
-  //       />
-
-  //       <Tabs.Screen
-  //         name="MoreStack"
-  //         component={this.MoreStackNavigator}
-  //         options={{
-  //           tabBarIcon: (params) => {
-  //             return (
-  //               <TabBarItem params={params} name='MoreStack' />
-  //             )
-  //           },
-
-  //         }}
-  //       />
-  //     </Tabs.Navigator>
-
-  //   );
-  // }
   TabNavigator = (props) => {
 
 
@@ -477,9 +379,9 @@ class MainNavigator extends React.Component {
 
           tabStyle: styles.tabStyle,
           style: styles.tabBarStyle,
-        
+
         }}
-      
+
         swipeEnabled={true}
         removeClippedSubviews
       >
@@ -522,7 +424,7 @@ class MainNavigator extends React.Component {
   RootStackNavigator = () => {
 
     return (
-      <RootStack.Navigator >
+      <RootStack.Navigator>
         <RootStack.Screen
           name="TabStack"
           component={this.TabNavigator}
@@ -683,11 +585,21 @@ class MainNavigator extends React.Component {
 
             }
           }
-
           }
-
         />
 
+
+        <RootStack.Screen
+          name="AllFriendsScreen"
+          component={AllFriendsScreen}
+          options={(props) => {
+            return {
+              ...TransitionPresets.SlideFromRightIOS,
+              headerShown: false
+            }
+          }
+          }
+        />
 
       </RootStack.Navigator>
     )

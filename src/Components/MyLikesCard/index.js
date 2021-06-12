@@ -1,20 +1,12 @@
-import React, { Component, useState } from 'react'
-import { Image, Text, TouchableOpacity, View } from 'react-native'
+import React, { Component, } from 'react'
+import { Image, Text, View } from 'react-native'
 import styles from './styles.js'
-import RippleTouch from '../RippleTouch/index.js'
-import { vh } from '../../Units/index.js'
-import allImages from '../../assets/images'
 import { connect } from 'react-redux'
 import actions from '../../redux/actions/index.js'
-import { LOG, showToast } from '../../Api/HelperFunctions.js'
-import MoreText from '../MoreText/index.js'
-import TextPoppinsLight from '../TextPoppinsLight/index.js'
 import { getProfileImage, _calculateDate } from '../../Utils/index.js'
 
 
 class MyLikesCard extends Component {
-
-
 
     onPress = () => {
 
@@ -23,15 +15,15 @@ class MyLikesCard extends Component {
         }
 
 
-        let params = {
-            poem: null
-        };
+        // let params = {
+        //     poem: null
+        // };
 
 
-        params["poem"] = this.props.like;
+        // params["poem"] = this.props.friend;
 
 
-        this.props.navigation.navigate("FeedDetailScreen", params);
+        // this.props.navigation.navigate("FeedDetailScreen", params);
 
     }
 
