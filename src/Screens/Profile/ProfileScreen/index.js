@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, FlatList, RefreshControl, ActivityIndicator } from 'react-native'
+import { View, Text, Image, FlatList, RefreshControl, ActivityIndicator, TouchableOpacity } from 'react-native'
 import styles from './styles.js'
 import allImages from '../../../assets/images'
 import RippleTouch from '../../../Components/RippleTouch'
@@ -35,6 +35,10 @@ class ProfileScreen extends React.Component {
     }
 
     componentDidMount() {
+
+        if (__DEV__) {
+            this.getData();
+        }
 
         this.props.navigation.addListener('focus', this.getData);
         this.props.navigation.addListener('blur', () => this.getPoems(this.props.profile?._id));
@@ -159,7 +163,7 @@ class ProfileScreen extends React.Component {
         return <View style={styles.aboutContainer}>
             <TextPoppinsMedium style={styles.username}>
                 About
-        </TextPoppinsMedium>
+            </TextPoppinsMedium>
 
             <TextPoppinsLight style={styles.aboutInfo}>
                 {bio}
@@ -179,7 +183,7 @@ class ProfileScreen extends React.Component {
 
     _renderFeedItem = ({ item, index }) => {
 
-       
+
         return <PoemFeedCard
             name={item?.user?.name}
             created_at={_calculateDate(item?.created_at)}
@@ -258,6 +262,90 @@ class ProfileScreen extends React.Component {
         </View>
     }
 
+    renderFriends = () => {
+
+        return <View style={styles.friendsContainer}>
+
+            <View style={styles.friendsTopRow}>
+                <TextPoppinsMedium style={styles.friendTitle}>
+                    Friends
+                </TextPoppinsMedium>
+
+                <TouchableOpacity>
+                    <TextPoppinsLight style={styles.aboutInfo}>
+                        View All
+                    </TextPoppinsLight>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.friendsImageRow}>
+
+                <TouchableOpacity style={styles.friendImageContainer}>
+
+                    <View style={styles.friendImageView}>
+                        <Image
+                            source={getProfileImage(this.getUserData())}
+                            style={styles.friendImage}
+                        />
+                    </View>
+
+                    <TextPoppinsRegular numberOfLines={2} style={styles.friendName}>
+                        {this.getUserData()?.name}
+                    </TextPoppinsRegular>
+
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.friendImageContainer}>
+
+                    <View style={styles.friendImageView}>
+                        <Image
+                            source={getProfileImage(this.getUserData())}
+                            style={styles.friendImage}
+                        />
+                    </View>
+
+                    <TextPoppinsRegular numberOfLines={2} style={styles.friendName}>
+                        {this.getUserData()?.name}
+                    </TextPoppinsRegular>
+
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.friendImageContainer}>
+
+                    <View style={styles.friendImageView}>
+                        <Image
+                            source={getProfileImage(this.getUserData())}
+                            style={styles.friendImage}
+                        />
+                    </View>
+
+                    <TextPoppinsRegular numberOfLines={2} style={styles.friendName}>
+                        {this.getUserData()?.name}
+                    </TextPoppinsRegular>
+
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.friendImageContainer}>
+
+                    <View style={styles.friendImageView}>
+                        <Image
+                            source={getProfileImage(this.getUserData())}
+                            style={styles.friendImage}
+                        />
+                    </View>
+
+                    <TextPoppinsRegular numberOfLines={2} style={styles.friendName}>
+                        {this.getUserData()?.name}
+                    </TextPoppinsRegular>
+
+                </TouchableOpacity>
+
+            </View>
+        </View>
+
+    }
+
+
     ListHeaderComponent = () => {
 
         return <>
@@ -310,7 +398,7 @@ class ProfileScreen extends React.Component {
 
                         <TextPoppinsMedium style={styles.poemTitle}>
                             Poems
-                            </TextPoppinsMedium>
+                        </TextPoppinsMedium>
 
                         <TextPoppinsRegular style={styles.poemCount}>
                             {this.getUserData()?.poems}
@@ -322,7 +410,7 @@ class ProfileScreen extends React.Component {
 
                         <TextPoppinsMedium style={styles.poemTitle}>
                             Joined
-                            </TextPoppinsMedium>
+                        </TextPoppinsMedium>
 
                         <TextPoppinsRegular style={styles.poemCount}>
                             {moment(this.getUserData()?.joined).format("DD MMMM YYYY")}
@@ -336,7 +424,7 @@ class ProfileScreen extends React.Component {
 
                         <TextPoppinsMedium style={styles.likeTitle}>
                             Likes
-                            </TextPoppinsMedium>
+                        </TextPoppinsMedium>
 
                         <TextPoppinsRegular style={styles.likeCount}>
                             {this.getUserData()?.likes}
@@ -351,6 +439,12 @@ class ProfileScreen extends React.Component {
 
                 {
                     this.renderAbout()
+                }
+
+                <View style={styles.border} />
+
+                {
+                    this.renderFriends()
                 }
 
                 <View style={styles.border} />

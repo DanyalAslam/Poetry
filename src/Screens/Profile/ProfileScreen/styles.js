@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     aboutContainer: {
         width: '100%',
         marginBottom: 2 * vh,
-        paddingHorizontal: 4 * vw,
+        paddingHorizontal: 1 * vw,
     },
 
     aboutInfo: {
@@ -175,6 +175,57 @@ const styles = StyleSheet.create({
     iconStyle: {
         width: 4 * vw,
         height: 4 * vw
+    },
+
+    friendsContainer: {
+        width: '100%',
+        marginBottom: 2 * vh,
+        paddingHorizontal: 1 * vw,
+    },
+
+
+    friendsTopRow:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 2 * vh
+    },
+
+    friendTitle:{
+        color: appTheme.black,
+        fontSize: 2.3 * vh
+    },
+
+    friendsImageRow:{
+       flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 1 * vh
+    },
+
+    friendImageContainer:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 2 * vw,
+        backgroundColor: appTheme.white,
+        overflow: 'hidden'
+    },
+
+    friendImageView:{
+
+    },
+
+    friendImage: {
+        width: 20 * vw,
+        height: 20 * vw,
+        borderRadius: 10 * vw,
+    },
+
+    friendName:{
+        color: appTheme.gray,
+        fontSize: 1.8 * vh,
+        width: 20 * vw,
+        textAlign: 'center',
+        marginTop: 0.5 * vh
     }
 })
 

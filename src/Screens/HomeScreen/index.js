@@ -165,7 +165,7 @@ class HomeScreen extends React.Component {
                     <TouchableOpacity onPress={this._navigateToPoets}>
                         <Text style={styles.HeadingSeeAll}>
                             See All
-                     </Text>
+                        </Text>
                     </TouchableOpacity>
                 </View>
 
@@ -175,7 +175,7 @@ class HomeScreen extends React.Component {
                 // numberOfLines={1}
                 >
                     Browse through the collection of historical poets.
-                     </Text>
+                </Text>
                 <SkeletonContent
                     isLoading={this.state.refreshing}
                     layout={skeleton_layouts.poetCard}
@@ -227,7 +227,7 @@ class HomeScreen extends React.Component {
                 <TouchableOpacity onPress={this._navigateToCategories}>
                     <Text style={styles.HeadingSeeAll}>
                         See All
-                     </Text>
+                    </Text>
                 </TouchableOpacity>
             </View>
 
@@ -363,7 +363,7 @@ class HomeScreen extends React.Component {
             }}>
                 <Text style={styles.Heading}>
                     Poems Feed
-            </Text>
+                </Text>
 
             </View>
             <FlatList
@@ -382,7 +382,7 @@ class HomeScreen extends React.Component {
 
 
     _renderSection = () => {
-
+ 
         if (this.props.poets.length > 0) {
 
             return <>
@@ -405,7 +405,7 @@ class HomeScreen extends React.Component {
 
         else {
 
-            if (!this.state.refreshing) {
+            if (!this.state.refreshing && this.props.poets.length == 0) {
                 // empty component
                 return <EmptyComponent message="No data found" style={{ marginTop: 5 * vh }} />
             }

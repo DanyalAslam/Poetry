@@ -1,11 +1,13 @@
 import config from './config'
-import { dataToQueryParameter, getConfigs, getMessage, handleResponse, LOG, performNetworkRequest } from './HelperFunctions'
+import {  dataToQueryParameter, getConfigs, getMessage, handleResponse, LOG, performNetworkRequest } from './HelperFunctions'
 
 
 const Api = {
     get: (endPoint, success, error) => {
 
-        let url = config.baseUrl + endPoint
+      
+        let url = config.baseUrl + endPoint;
+
 
         fetch(url, {
             method: "GET",

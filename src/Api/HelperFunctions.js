@@ -1,6 +1,7 @@
 import { store } from "../redux";
 import Toast from 'react-native-simple-toast';
 
+
 const TAG = '__API__';
 export const showToast = (msg) => {
     return Toast.show(msg);
@@ -157,4 +158,4 @@ export const dataToQueryParameter = (data) => {
         return data;
     }
     return ''
-}
+};
