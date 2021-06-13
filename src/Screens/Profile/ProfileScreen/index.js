@@ -63,8 +63,6 @@ class ProfileScreen extends React.Component {
 
             const response = await this.props.getProfile(id);
 
-            console.log('response ', response);
-
             if (id != this.props.profile?._id) {
 
                 this.setState({

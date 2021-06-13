@@ -416,6 +416,8 @@ const actions = {
         }
     },
 
+
+    // ******************** Feed ****************
     getMyPoems: (page = 1, user_id) => {
 
         return async (dispatch, getState) => {
@@ -695,7 +697,7 @@ const actions = {
             try {
 
                 const response = await Api.promise.get(endPoints.feed.poemDetail, { poem_id });
-                
+
                 return Promise.resolve(response);
 
             } catch (error) {
@@ -782,7 +784,7 @@ const actions = {
 
                     let commentIndex = _comments?.findIndex(comment => comment.id == data.comment_id);
 
-                    if(commentIndex != -1){
+                    if (commentIndex != -1) {
 
                         _comments?.splice(commentIndex, 1);
 
@@ -805,7 +807,7 @@ const actions = {
 
                     let commentIndex = _comments?.findIndex(comment => comment.id == data.comment_id);
 
-                    if(commentIndex != -1){
+                    if (commentIndex != -1) {
 
                         _comments?.splice(commentIndex, 1);
 
@@ -871,6 +873,46 @@ const actions = {
                 // }
 
                 // dispatch({ type: actionTypes.ADD_COMMENT, payload: { allPoems: poemStore?.allPoems, myPoems: poemStore?.myPoems } });
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
+
+    // ******************** Friendship ****************
+    getReceivedRequests: () => {
+
+        return async dispatch => {
+
+            try {
+
+                const response = await Api.promise.get(endPoints.friendShip.received);
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
+    getSentRequests: () => {
+
+        return async dispatch => {
+
+            try {
+
+                const response = await Api.promise.get(endPoints.friendShip.sent);
 
                 return Promise.resolve(response);
 

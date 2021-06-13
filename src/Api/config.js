@@ -26,6 +26,11 @@ export const endPoints = {
         addComment: '/feed/addComment',
         editComment: '/feed/editComment',
         deleteComment: '/feed/deleteComment'
+    },
+
+    friendShip: {
+        received: '/auth/receivedRequests',
+        sent: '/auth/sentRequests',
     }
 };
 

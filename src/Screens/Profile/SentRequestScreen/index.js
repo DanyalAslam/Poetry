@@ -1,7 +1,6 @@
 import React from 'react'
-import { View, Text, FlatList, RefreshControl, } from 'react-native'
+import { View, FlatList, RefreshControl, } from 'react-native'
 import styles from './styles.js'
-
 import { connect } from 'react-redux'
 import EmptyComponent from '../../../Components/EmptyComponent/index.js'
 import FriendListCard from '../../../Components/FriendListCard/index.js'
@@ -9,7 +8,7 @@ import { vh, vw } from '../../../Units/index.js'
 import actions from '../../../redux/actions/index.js'
 
 
-class ReceivedRequestScreen extends React.Component {
+class SentRequestScreen extends React.Component {
 
     state = {
         friends: [],
@@ -18,11 +17,11 @@ class ReceivedRequestScreen extends React.Component {
 
     componentDidMount() {
 
-        this.getReceivedRequest();
+        this.getSentRequest();
 
     }
 
-    getReceivedRequest = async () => {
+    getSentRequest = async () => {
 
         this.setState({
             refreshing: true
@@ -30,7 +29,7 @@ class ReceivedRequestScreen extends React.Component {
 
         try {
 
-            const response = await this.props.getReceived();
+            const response = await this.props.getSent();
 
             this.setState({
                 friends: response?.friends,
@@ -53,7 +52,7 @@ class ReceivedRequestScreen extends React.Component {
             return null;
         }
 
-        return <EmptyComponent message="No received friend requests" style={{ marginTop: 5 * vh }} />;
+        return <EmptyComponent message="No sent friend requests" style={{ marginTop: 5 * vh }} />;
     }
 
     _renderFeedItem = ({ item, index }) => {
@@ -82,7 +81,7 @@ class ReceivedRequestScreen extends React.Component {
             keyExtractor={(item) => item._id}
             ListEmptyComponent={this.ListEmptyComponent}
             ListFooterComponentStyle={{ marginBottom: 4 * vh }}
-            refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.getReceivedRequest} />}
+            refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.getSentRequest} />}
         />
     }
 
@@ -109,10 +108,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 
     return {
-        getReceived: () => dispatch(actions.getReceivedRequests())
+        getSent: () => dispatch(actions.getSentRequests())
     }
 
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReceivedRequestScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(SentRequestScreen)

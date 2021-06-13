@@ -6,6 +6,7 @@ import { appTheme } from '../../Utils';
 import ReceivedRequestScreen from '../../Screens/Profile/ReceivedRequestScreen';
 import fonts from '../../assets/fonts';
 import { vh } from '../../Units';
+import SentRequestScreen from '../../Screens/Profile/SentRequestScreen';
 
 const Tabs = createMaterialTopTabNavigator();
 
@@ -16,16 +17,15 @@ const ViewRequestTabNavigator = (props) => {
         <Tabs.Navigator
             lazy={true}
             tabBarOptions={{
-                //   activeTintColor: appTheme.black,
-                //   inactiveTintColor: appTheme.gray,
+                  activeTintColor: appTheme.black,
+                  inactiveTintColor: appTheme.gray,
                 labelStyle: {
                     fontSize: 1.8 * vh,
                     fontFamily: fonts.poppins.medium,
                     textTransform: 'capitalize',
                 },
                 style: {
-                    paddingTop: 4 * vh,
-                    // backgroundColor: appTheme.lightGray,
+                    paddingTop: 1 * vh,
                 },
 
                 indicatorStyle: {
@@ -34,7 +34,7 @@ const ViewRequestTabNavigator = (props) => {
             }}>
             <Tabs.Screen
                 name="SentRequestScreen"
-                component={ReceivedRequestScreen}
+                component={SentRequestScreen}
                 options={{
                     tabBarLabel: 'Request Sent',
                 }}
@@ -51,8 +51,17 @@ const ViewRequestTabNavigator = (props) => {
     );
 };
 
+const screenOptions = {
+    headerTitle: "Friend Requests",
+    headerTitleAlign: 'center',
+    headerTitleStyle: {
+        fontFamily: fonts.poppins.medium,
+        fontSize: 2 * vh
+    }
+};
+
 const RequestStackNavigator = () => {
-    return <ViewRequestStack.Navigator>
+    return <ViewRequestStack.Navigator screenOptions={screenOptions}>
         <ViewRequestStack.Screen name="ViewRequestTab" component={ViewRequestTabNavigator} />
     </ViewRequestStack.Navigator>
 };
