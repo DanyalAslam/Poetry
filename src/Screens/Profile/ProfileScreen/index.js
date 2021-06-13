@@ -63,6 +63,8 @@ class ProfileScreen extends React.Component {
 
             const response = await this.props.getProfile(id);
 
+            console.log('response ', response);
+
             if (id != this.props.profile?._id) {
 
                 this.setState({
@@ -223,6 +225,21 @@ class ProfileScreen extends React.Component {
 
     }
 
+    onFriendPress = (friend_id) => {
+
+
+        let params = {
+            id: friend_id,
+        };
+
+        if (params.id != this.props.profile?._id) {
+            params["type"] = "other";
+        }
+
+
+        this.props.navigation.push("ProfileScreen", params);
+
+    }
 
     _renderFeed = () => {
 
@@ -263,10 +280,11 @@ class ProfileScreen extends React.Component {
     }
 
     navigateToAllFriends = () => {
-        this.props.navigation.navigate("AllFriendsScreen");
+        this.props.navigation.navigate("AllFriendsScreen", { friends: [...this.getUserData()?.friends] });
     }
 
     renderFriends = () => {
+
 
         return <View style={styles.friendsContainer}>
 
@@ -275,78 +293,67 @@ class ProfileScreen extends React.Component {
                     Friends
                 </TextPoppinsMedium>
 
-                <TouchableOpacity onPress={this.navigateToAllFriends}>
+                {
+                    this.getUserData()?.friends?.length > 0 && <TouchableOpacity onPress={this.navigateToAllFriends}>
+                        <TextPoppinsLight style={styles.aboutInfo}>
+                            View All
+                        </TextPoppinsLight>
+                    </TouchableOpacity>
+                }
+            </View>
+
+            {
+                this.getUserData()?.friends?.length > 0 && <View style={styles.friendsImageRow}>
+
+                    {
+                        this.getFriends().map(_friend => this.FriendComponent(_friend?.user))
+                    }
+
+                </View>
+            }
+
+            {
+                this.getUserData()?.friends?.length == 0 && <View style={styles.noFriends}>
+
                     <TextPoppinsLight style={styles.aboutInfo}>
-                        View All
+                        No Friends
                     </TextPoppinsLight>
-                </TouchableOpacity>
-            </View>
+                </View>
+            }
 
-            <View style={styles.friendsImageRow}>
 
-                <TouchableOpacity style={styles.friendImageContainer}>
-
-                    <View style={styles.friendImageView}>
-                        <Image
-                            source={getProfileImage(this.getUserData())}
-                            style={styles.friendImage}
-                        />
-                    </View>
-
-                    <TextPoppinsRegular numberOfLines={2} style={styles.friendName}>
-                        {this.getUserData()?.name}
-                    </TextPoppinsRegular>
-
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.friendImageContainer}>
-
-                    <View style={styles.friendImageView}>
-                        <Image
-                            source={getProfileImage(this.getUserData())}
-                            style={styles.friendImage}
-                        />
-                    </View>
-
-                    <TextPoppinsRegular numberOfLines={2} style={styles.friendName}>
-                        {this.getUserData()?.name}
-                    </TextPoppinsRegular>
-
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.friendImageContainer}>
-
-                    <View style={styles.friendImageView}>
-                        <Image
-                            source={getProfileImage(this.getUserData())}
-                            style={styles.friendImage}
-                        />
-                    </View>
-
-                    <TextPoppinsRegular numberOfLines={2} style={styles.friendName}>
-                        {this.getUserData()?.name}
-                    </TextPoppinsRegular>
-
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.friendImageContainer}>
-
-                    <View style={styles.friendImageView}>
-                        <Image
-                            source={getProfileImage(this.getUserData())}
-                            style={styles.friendImage}
-                        />
-                    </View>
-
-                    <TextPoppinsRegular numberOfLines={2} style={styles.friendName}>
-                        {this.getUserData()?.name}
-                    </TextPoppinsRegular>
-
-                </TouchableOpacity>
-
-            </View>
         </View>
 
+    }
+
+    getFriends = () => {
+
+        let friends = [...this.getUserData()?.friends];
+
+
+        if (friends?.length >= 4) {
+            friends = friends?.slice(0, 4);
+        }
+
+        return friends;
+    }
+
+    FriendComponent = (_friend) => {
+
+        return <TouchableOpacity onPress={()=>this.onFriendPress(_friend?._id)} style={styles.friendImageContainer}>
+
+            <View style={styles.friendImageView}>
+                <Image
+                    source={getProfileImage(_friend)}
+                    style={styles.friendImage}
+                />
+            </View>
+
+            <TextPoppinsRegular numberOfLines={2} style={styles.friendName}>
+                {_friend.name}
+            </TextPoppinsRegular>
+
+        </TouchableOpacity>
     }
 
 

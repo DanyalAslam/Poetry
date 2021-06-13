@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         // flex: 1,
         backgroundColor: appTheme.white,
         paddingHorizontal: 2 * vw,
-     
+
         // paddingVertical: 2 * vh
     },
     ActivityIndicator: {
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     },
 
     aboutContainer: {
-        width: '100%',
+        width: '95%',
         marginBottom: 2 * vh,
         paddingHorizontal: 1 * vw,
     },
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     },
 
     border: {
-        width: '100%',
+        width: '95%',
         backgroundColor: appTheme.skyWhite,
         alignSelf: 'center',
         height: 0.7 * vw
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     feedView: {
         // paddingTop: 1 * vh,
         backgroundColor: appTheme.white,
-        flex:1
+        flex: 1
     },
 
     dots: {
@@ -178,52 +178,58 @@ const styles = StyleSheet.create({
     },
 
     friendsContainer: {
-        width: '100%',
+        width: '95%',
         marginBottom: 2 * vh,
         paddingHorizontal: 1 * vw,
     },
 
 
-    friendsTopRow:{
+    friendsTopRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: 2 * vh
     },
 
-    friendTitle:{
+    friendTitle: {
         color: appTheme.black,
         fontSize: 2.3 * vh
     },
 
-    friendsImageRow:{
-       flexDirection: 'row',
+    friendsImageRow: {
+        flexDirection: 'row',
         alignItems: 'center',
         marginTop: 1 * vh
     },
 
-    friendImageContainer:{
+    noFriends: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: 2 * vw,
+        marginTop: 1 * vh
+    },
+
+    friendImageContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 3 * vw,
         backgroundColor: appTheme.white,
         overflow: 'hidden'
     },
 
-    friendImageView:{
+    friendImageView: {
 
     },
 
     friendImage: {
-        width: 20 * vw,
-        height: 20 * vw,
-        borderRadius: 10 * vw,
+        width: 18 * vw,
+        height: 18 * vw,
+        borderRadius: 9 * vw,
     },
 
-    friendName:{
+    friendName: {
         color: appTheme.gray,
         fontSize: 1.8 * vh,
-        width: 20 * vw,
+        width: 18 * vw,
         textAlign: 'center',
         marginTop: 0.5 * vh
     }

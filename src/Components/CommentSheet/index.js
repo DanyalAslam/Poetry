@@ -306,7 +306,7 @@ class CommentSheet extends React.Component {
             params["type"] = "other";
         }
 
-        this.props.navigation.navigate("ProfileScreen", params);
+        this.props.navigation.push("ProfileScreen", params);
 
         this.close();
 

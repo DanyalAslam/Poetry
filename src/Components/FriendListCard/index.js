@@ -40,17 +40,15 @@ class FriendListCard extends Component {
 
                 <View style={styles.row}>
                     <Image
-                        // source={getProfileImage(this.props.like?.user)}
-                        source={allImages.generalImages.female}
+                        source={getProfileImage(this.props.friend?.user)}
                         style={styles.profileImage}
                     />
                     <View style={styles.container}>
                         <Text style={[styles.text]} numberOfLines={1}>
-                            Watson mark
+                            {this.props.friend?.user?.name}
                         </Text>
                         <Text style={[styles.poemTitle]} numberOfLines={1}>
-                            {/* {this.props?.like?.verses} */}
-                            12 friends 
+                            {this.props.friend?.user?.friends?.length} friend{this.props.friend?.user?.friends?.length > 1 && 's'}
                         </Text>
                     </View>
                 </View>
@@ -60,6 +58,6 @@ class FriendListCard extends Component {
     }
 
 }
- 
+
 
 export default FriendListCard;

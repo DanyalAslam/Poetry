@@ -1,15 +1,11 @@
 import React from 'react'
-import { View, Text, FlatList, RefreshControl, TouchableOpacity, Image, } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, Image, } from 'react-native'
 import styles from './styles.js'
 
 import { connect } from 'react-redux'
-import { appTheme, getProfileImage, _calculateDate } from '../../../Utils'
+import { getProfileImage } from '../../../Utils'
 import EmptyComponent from '../../../Components/EmptyComponent/index.js'
-import { LOG, showToast } from '../../../Api/HelperFunctions.js'
-import moment from 'moment'
-import TextSemiBold from '../../../Components/TextSemiBold/index.js'
 import TextRegular from '../../../Components/TextRegular/index.js'
-import RippleTouch from '../../../Components/RippleTouch/index.js'
 import FriendListCard from '../../../Components/FriendListCard/index.js'
 import { vh, vw } from '../../../Units/index.js'
 import allImages from '../../../assets/images/index.js'
@@ -18,7 +14,7 @@ import allImages from '../../../assets/images/index.js'
 class AllFriendsScreen extends React.Component {
 
     state = {
-        friends: []
+        friends: this.props.route?.params?.friends
     }
 
 
@@ -55,7 +51,7 @@ class AllFriendsScreen extends React.Component {
     _renderFriends = () => {
 
         return <FlatList
-            data={this.props?.likedPoems ?? [1, 2, 3,  ]}
+            data={this.state?.friends}
             style={styles.scrollView}
             contentContainerStyle={{ alignItems: 'center', paddingTop: 0.8 * vh, paddingBottom: 1 * vh }}
             showsVerticalScrollIndicator={false}
