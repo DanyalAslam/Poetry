@@ -48,11 +48,23 @@ const styles = StyleSheet.create({
         tintColor: appTheme.black
     },
 
+    requestIcon: {
+        width: 5.5 * vw,
+        height: 5.5 * vw,
+        resizeMode: 'contain',
+        tintColor: appTheme.black
+    },
+
     headerRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginTop: 4 * vh,
         paddingHorizontal: 2 * vw
+    },
+
+    iconsRow:{
+        flexDirection: 'row',
+        alignItems: 'baseline'
     },
 
     poemTitle: {

@@ -25,6 +25,7 @@ const allImages = {
         comment: require('./generalIcons/comment.png'),
         emoji: require('./generalIcons/emoji.png'),
         send: require('./generalIcons/send.png'),
+        addFriend: require('./generalIcons/add-friend.png'),
 
     },
     tabBarIcons:{

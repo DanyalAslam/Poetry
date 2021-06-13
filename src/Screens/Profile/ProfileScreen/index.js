@@ -16,7 +16,7 @@ import PoemFeedCard from '../../../Components/PoemFeedCard/index.js'
 import { appTheme, genders, getProfileImage, _calculateDate } from '../../../Utils/index.js'
 import moment from 'moment'
 import EmptyComponent from '../../../Components/EmptyComponent/index.js'
-import { vh } from '../../../Units/index.js'
+import { vh, vw } from '../../../Units/index.js'
 import RBSheet from 'react-native-raw-bottom-sheet'
 import LikeSheet from '../../../Components/LikeSheet/index.js'
 import CommentSheet from '../../../Components/CommentSheet/index.js'
@@ -142,12 +142,24 @@ class ProfileScreen extends React.Component {
                 <Image style={styles.headerIcon} source={allImages.generalIcons.leftArrow} />
             </RippleTouch>
 
-            {
-                this.props.route?.params?.type != "other" && <RippleTouch
-                    onPress={() => this.props.navigation.navigate('EditProfileScreen')}>
-                    <Image style={styles.headerIcon} source={allImages.generalIcons.edit} />
-                </RippleTouch>
-            }
+
+            <View style={styles.iconsRow}>
+                {
+                    this.props.route?.params?.type != "other" && <RippleTouch
+                        style={{ marginRight: 2 * vw }}
+                        onPress={() => this.props.navigation.navigate('RequestStackNavigator')}
+                    >
+                        <Image style={styles.requestIcon} source={allImages.generalIcons.addFriend} />
+                    </RippleTouch>
+                }
+
+                {
+                    this.props.route?.params?.type != "other" && <RippleTouch
+                        onPress={() => this.props.navigation.navigate('EditProfileScreen')}>
+                        <Image style={styles.headerIcon} source={allImages.generalIcons.edit} />
+                    </RippleTouch>
+                }
+            </View>
         </View>
 
     }
@@ -340,7 +352,7 @@ class ProfileScreen extends React.Component {
 
     FriendComponent = (_friend) => {
 
-        return <TouchableOpacity onPress={()=>this.onFriendPress(_friend?._id)} style={styles.friendImageContainer}>
+        return <TouchableOpacity onPress={() => this.onFriendPress(_friend?._id)} style={styles.friendImageContainer}>
 
             <View style={styles.friendImageView}>
                 <Image

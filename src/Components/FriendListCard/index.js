@@ -16,14 +16,15 @@ class FriendListCard extends Component {
 
 
         let params = {
-            poem: null
+            id: this.props.friend?.user?._id,
         };
 
+        if (params.id != this.props.userId) {
+            params["type"] = "other";
+        }
 
-        params["poem"] = this.props?.like;
 
-
-        this.props.navigation.navigate("FeedDetailScreen", params);
+        this.props.navigation.push("ProfileScreen", params);
 
     }
 

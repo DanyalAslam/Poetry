@@ -11,7 +11,7 @@ import { vh, vw } from '../../../Units/index.js'
 import allImages from '../../../assets/images/index.js'
 
 
-class AllFriendsScreen extends React.Component {
+class ReceivedRequestScreen extends React.Component {
 
     state = {
         friends: this.props.route?.params?.friends
@@ -33,22 +33,6 @@ class AllFriendsScreen extends React.Component {
     }
 
 
-    ListHeaderComponent = () => {
-
-        return <View style={{ width: 90 * vw, marginTop: 1 * vh, marginBottom: 2 * vh }}>
-            <TouchableOpacity style={styles.backView} onPress={this.props.navigation.goBack}>
-                <Image style={styles.headerIcon} source={allImages.generalIcons.leftArrow} />
-            </TouchableOpacity>
-
-
-            <TextRegular style={styles.message}>
-                Friends
-            </TextRegular>
-
-        </View>
-
-    }
-
     _renderFriends = () => {
 
         return <FlatList
@@ -61,7 +45,6 @@ class AllFriendsScreen extends React.Component {
             // keyExtractor={(item) => item._id}
             ListEmptyComponent={this.ListEmptyComponent}
             ListFooterComponentStyle={{ marginBottom: 4 * vh }}
-            ListHeaderComponent={this.ListHeaderComponent}
         />
     }
 
@@ -95,4 +78,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export default connect(mapStateToProps, null)(AllFriendsScreen)
+export default connect(mapStateToProps, null)(ReceivedRequestScreen)
