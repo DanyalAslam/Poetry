@@ -13,7 +13,7 @@ import BottomSheetButtons from '../../../Components/BottomSheetButtons/index.js'
 import TextPoppinsLight from '../../../Components/TextPoppinsLight/index.js'
 import { LOG } from '../../../Api/HelperFunctions.js'
 import PoemFeedCard from '../../../Components/PoemFeedCard/index.js'
-import { appTheme, genders, getProfileImage, _calculateDate } from '../../../Utils/index.js'
+import { appTheme, friend_status, genders, getFriendStatus, getProfileImage, _calculateDate } from '../../../Utils/index.js'
 import moment from 'moment'
 import EmptyComponent from '../../../Components/EmptyComponent/index.js'
 import { vh, vw } from '../../../Units/index.js'
@@ -366,6 +366,33 @@ class ProfileScreen extends React.Component {
         </TouchableOpacity>
     }
 
+    renderRequestButton = () => {
+
+        let _status = getFriendStatus(this.props?.route?.params?.id, this.props.profile);
+
+
+        if (_status == friend_status.friend) {
+            return null;
+        }
+
+        if (_status == friend_status.received) {
+            return <TouchableOpacity activeOpacity={0.7} style={styles.requestBtn}>
+                <TextPoppinsMedium style={styles.requestText}>
+                    Accept
+                </TextPoppinsMedium>
+            </TouchableOpacity>
+        }
+
+        if (_status == friend_status.sent) {
+            return <TouchableOpacity activeOpacity={0.7} style={styles.requestBtn}>
+                <TextPoppinsMedium style={styles.requestText}>
+                    Cancel
+                </TextPoppinsMedium>
+            </TouchableOpacity>
+        }
+
+    }
+
 
     ListHeaderComponent = () => {
 
@@ -410,6 +437,11 @@ class ProfileScreen extends React.Component {
                         {`${this.getUserData()?.age} yrs`}
                     </TextPoppinsRegular>
                 </View>
+
+
+                {
+                    this.renderRequestButton()
+                }
 
 
                 <View style={styles.statsContainer}>

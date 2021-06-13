@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 2 * vw
     },
 
-    iconsRow:{
+    iconsRow: {
         flexDirection: 'row',
         alignItems: 'baseline'
     },
@@ -244,6 +244,22 @@ const styles = StyleSheet.create({
         width: 18 * vw,
         textAlign: 'center',
         marginTop: 0.5 * vh
+    },
+
+    requestBtn: {
+        width: 27 * vw,
+        height: 4.5 * vh,
+        backgroundColor: appTheme.black,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5 * vw,
+        marginTop: 1.5 * vh,
+
+    },
+
+    requestText: {
+        color: appTheme.white,
+        fontSize: 1.8 * vh
     }
 })
 

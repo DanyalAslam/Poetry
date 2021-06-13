@@ -160,7 +160,7 @@ const skeleton_poem_card = {
 
 const skeleton_poet_card = {
     width: 30 * vw,
-    height: 25 * vh, 
+    height: 25 * vh,
     borderRadius: 3 * vw,
     marginRight: 2 * vw
 };
@@ -177,7 +177,7 @@ const skeleton_home_poem_card = {
     height: 25 * vh,
     width: 43 * vw,
     marginVertical: 1 * vh,
-    marginHorizontal: 2*vw,
+    marginHorizontal: 2 * vw,
     elevation: 4,
     backgroundColor: 'white',
     borderRadius: 3 * vw,
@@ -244,7 +244,7 @@ export const skeleton_layouts = {
                 skeleton_poet_card,
             ]
         },
-     
+
     ],
     homeCategoryCard: [
         {
@@ -257,7 +257,7 @@ export const skeleton_layouts = {
                 skeleton_category_card,
             ]
         },
-     
+
     ],
     homePoemCard: [
         {
@@ -269,6 +269,29 @@ export const skeleton_layouts = {
                 skeleton_home_poem_card,
             ]
         },
-     
+
     ]
+};
+
+export const friend_status = {
+    friend: 1,
+    received: 2,
+    sent: 3
+};
+
+export const getFriendStatus = (friend_id, profile) => {
+
+    if (profile?.friends?.find(friend => friend?.user?._id == friend_id)) {
+        return friend_status.friend;
+    }
+
+    if (profile?.request_received?.find(friend => friend.id == friend_id)) {
+        return friend_status.received;
+    }
+
+    if (profile?.request_sent?.find(friend => friend.id == friend_id)) {
+        return friend_status.sent;
+    }
+
+
 };
