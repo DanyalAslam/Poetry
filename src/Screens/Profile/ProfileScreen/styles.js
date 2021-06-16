@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
 
     friendsImageRow: {
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         marginTop: 1 * vh
     },
 
@@ -254,12 +254,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 5 * vw,
         marginTop: 1.5 * vh,
+        elevation: 3
 
     },
 
     requestText: {
         color: appTheme.white,
         fontSize: 1.8 * vh
+    },
+
+    requestBtnRow:{
+        flexDirection:'row',
+        alignItems: 'center'
     }
 })
 

@@ -31,6 +31,9 @@ export const endPoints = {
     friendShip: {
         received: '/auth/receivedRequests',
         sent: '/auth/sentRequests',
+        accept: '/auth/acceptRequest',
+        reject: '/auth/rejectRequest',
+        cancel: '/auth/cancelRequest'
     }
 };
 

@@ -18,8 +18,12 @@ class ReceivedRequestScreen extends React.Component {
 
     componentDidMount() {
 
-        this.getReceivedRequest();
+        this.props.navigation.addListener('focus', this.getReceivedRequest);
 
+    }
+
+    componentWillUnmount(){
+        this.props.navigation.removeListener('focus');
     }
 
     getReceivedRequest = async () => {
@@ -49,7 +53,7 @@ class ReceivedRequestScreen extends React.Component {
 
     ListEmptyComponent = () => {
 
-        if(this.state.refreshing){
+        if (this.state.refreshing) {
             return null;
         }
 

@@ -924,6 +924,29 @@ const actions = {
 
         }
     },
+
+    acceptRequest: (user_id) => {
+
+        return async dispatch => {
+
+            try {
+
+                const response = await Api.promise.post(endPoints.friendShip.accept, {id: user_id});
+
+                console.log('response ',response);
+           
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                console.log('error ',error);
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
 }
 
 

@@ -360,7 +360,7 @@ class ProfileScreen extends React.Component {
             </View>
 
             <TextPoppinsRegular numberOfLines={2} style={styles.friendName}>
-                {_friend.name}
+                {_friend?.name}
             </TextPoppinsRegular>
 
         </TouchableOpacity>
@@ -376,11 +376,19 @@ class ProfileScreen extends React.Component {
         }
 
         if (_status == friend_status.received) {
-            return <TouchableOpacity activeOpacity={0.7} style={styles.requestBtn}>
-                <TextPoppinsMedium style={styles.requestText}>
-                    Accept
+            return <View style={styles.requestBtnRow}>
+                <TouchableOpacity onPress={this.acceptRequest} activeOpacity={0.7} style={[styles.requestBtn,{marginRight: 1 * vw}]}>
+                    <TextPoppinsMedium style={styles.requestText}>
+                        Accept
                 </TextPoppinsMedium>
-            </TouchableOpacity>
+                </TouchableOpacity>
+
+                <TouchableOpacity activeOpacity={0.7} style={[styles.requestBtn,{ marginLeft: 1 * vw}]}>
+                    <TextPoppinsMedium style={styles.requestText}>
+                        Reject
+                </TextPoppinsMedium>
+                </TouchableOpacity>
+            </View>
         }
 
         if (_status == friend_status.sent) {
@@ -642,6 +650,20 @@ class ProfileScreen extends React.Component {
 
     }
 
+    acceptRequest = async () => {
+
+        try {
+            
+            const response = await this.props.acceptRequest(this.props.route?.params?.id);
+
+            this.getData();
+
+        } catch (error) {
+            
+        }
+
+    }
+
 
     render() {
 
@@ -664,7 +686,8 @@ const mapDispatchToProps = dispatch => {
         getProfile: (user_id) => dispatch(actions.getProfile(user_id)),
         getMyPoems: (page, user_id) => dispatch(actions.getMyPoems(page, user_id)),
         removePoem: (poem_id) => dispatch(actions.removePoem(poem_id)),
-        editPoem: (data) => dispatch(actions.editPoem(data))
+        editPoem: (data) => dispatch(actions.editPoem(data)),
+        acceptRequest: (data) => dispatch(actions.acceptRequest(data))
     }
 
 }
