@@ -135,6 +135,13 @@ class ProfileScreen extends React.Component {
 
     renderHeader = () => {
 
+        const requestCount = this.props.profile?.request_received?.length;
+        const requestText = requestCount;
+
+        if (requestCount > 9) {
+            requestText = '9+';
+        }
+
         return <View style={styles.headerRow}>
             <RippleTouch
                 onPress={this.props.navigation.goBack}>
@@ -149,6 +156,11 @@ class ProfileScreen extends React.Component {
                         onPress={() => this.props.navigation.navigate('RequestStackNavigator')}
                     >
                         <Image style={styles.requestIcon} source={allImages.generalIcons.addFriend} />
+                        {
+                            requestCount > 0 && <View style={styles.bubble}>
+                                <Text style={styles.bubbleText}>{requestText}</Text>
+                            </View>
+                        }
                     </RippleTouch>
                 }
 
@@ -369,7 +381,7 @@ class ProfileScreen extends React.Component {
 
     renderRequestButton = () => {
 
-        if(this.props.loading){
+        if (this.props.loading) {
             return <ActivityIndicator size="small" color={appTheme.black} />
         }
 
@@ -677,7 +689,7 @@ class ProfileScreen extends React.Component {
 
             const response = await this.props.rejectRequest(this.props.route?.params?.id);
 
-             await this.props.getProfile(this.props.profile?._id);
+            await this.props.getProfile(this.props.profile?._id);
 
             showToast(response?.message);
 
@@ -693,7 +705,7 @@ class ProfileScreen extends React.Component {
 
             const response = await this.props.cancelRequest(this.props.route?.params?.id);
 
-             await this.props.getProfile(this.props.profile?._id);
+            await this.props.getProfile(this.props.profile?._id);
 
             showToast(response?.message);
 

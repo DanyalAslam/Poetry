@@ -266,6 +266,28 @@ const styles = StyleSheet.create({
     requestBtnRow:{
         flexDirection:'row',
         alignItems: 'center'
+    },
+
+    bubble:{
+        position: 'absolute',
+        top: -1 * vh,
+        right: -1 * vw,
+        backgroundColor: appTheme.grayish,
+        width: 4 * vw,
+        height: 4 * vw,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 2 * vw,
+     
+        
+    },
+
+    bubbleText:{
+        fontSize: 1.0 * vh,
+        fontFamily: fonts.poppins.light,
+        textAlignVertical: 'center',
+        textAlign: 'center',
+        marginTop: 0.2 * vh
     }
 })
 
