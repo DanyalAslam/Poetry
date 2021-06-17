@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, FlatList, RefreshControl, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { View, Text, Image, FlatList, RefreshControl, ActivityIndicator, TouchableOpacity, LayoutAnimation } from 'react-native'
 import styles from './styles.js'
 import allImages from '../../../assets/images'
 import RippleTouch from '../../../Components/RippleTouch'
@@ -11,7 +11,7 @@ import TextPoppinsRegular from '../../../Components/TextPoppinsRegular'
 import TextPoppinsMedium from '../../../Components/TextPoppinsMedium/index.js'
 import BottomSheetButtons from '../../../Components/BottomSheetButtons/index.js'
 import TextPoppinsLight from '../../../Components/TextPoppinsLight/index.js'
-import { LOG } from '../../../Api/HelperFunctions.js'
+import { LOG, showToast } from '../../../Api/HelperFunctions.js'
 import PoemFeedCard from '../../../Components/PoemFeedCard/index.js'
 import { appTheme, friend_status, genders, getFriendStatus, getProfileImage, _calculateDate } from '../../../Utils/index.js'
 import moment from 'moment'
@@ -74,7 +74,8 @@ class ProfileScreen extends React.Component {
                 this.getPoems(id);
             }
 
-
+            LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+            await this.props.getProfile(this.props.profile?._id);
 
 
         } catch (error) {
@@ -368,6 +369,10 @@ class ProfileScreen extends React.Component {
 
     renderRequestButton = () => {
 
+        if(this.props.loading){
+            return <ActivityIndicator size="small" color={appTheme.black} />
+        }
+
         let _status = getFriendStatus(this.props?.route?.params?.id, this.props.profile);
 
 
@@ -377,13 +382,13 @@ class ProfileScreen extends React.Component {
 
         if (_status == friend_status.received) {
             return <View style={styles.requestBtnRow}>
-                <TouchableOpacity onPress={this.acceptRequest} activeOpacity={0.7} style={[styles.requestBtn,{marginRight: 1 * vw}]}>
+                <TouchableOpacity onPress={this.acceptRequest} activeOpacity={0.7} style={[styles.requestBtn, { marginRight: 1 * vw }]}>
                     <TextPoppinsMedium style={styles.requestText}>
                         Accept
                 </TextPoppinsMedium>
                 </TouchableOpacity>
 
-                <TouchableOpacity activeOpacity={0.7} style={[styles.requestBtn,{ marginLeft: 1 * vw}]}>
+                <TouchableOpacity onPress={this.rejectRequest} activeOpacity={0.7} style={[styles.requestBtn, { marginLeft: 1 * vw }]}>
                     <TextPoppinsMedium style={styles.requestText}>
                         Reject
                 </TextPoppinsMedium>
@@ -392,7 +397,7 @@ class ProfileScreen extends React.Component {
         }
 
         if (_status == friend_status.sent) {
-            return <TouchableOpacity activeOpacity={0.7} style={styles.requestBtn}>
+            return <TouchableOpacity onPress={this.cancelRequest} activeOpacity={0.7} style={styles.requestBtn}>
                 <TextPoppinsMedium style={styles.requestText}>
                     Cancel
                 </TextPoppinsMedium>
@@ -653,13 +658,47 @@ class ProfileScreen extends React.Component {
     acceptRequest = async () => {
 
         try {
-            
+
             const response = await this.props.acceptRequest(this.props.route?.params?.id);
 
-            this.getData();
+            await this.props.getProfile(this.props.profile?._id);
+
+            showToast(response?.message);
 
         } catch (error) {
-            
+
+        }
+
+    }
+
+    rejectRequest = async () => {
+
+        try {
+
+            const response = await this.props.rejectRequest(this.props.route?.params?.id);
+
+             await this.props.getProfile(this.props.profile?._id);
+
+            showToast(response?.message);
+
+        } catch (error) {
+
+        }
+
+    }
+
+    cancelRequest = async () => {
+
+        try {
+
+            const response = await this.props.cancelRequest(this.props.route?.params?.id);
+
+             await this.props.getProfile(this.props.profile?._id);
+
+            showToast(response?.message);
+
+        } catch (error) {
+
         }
 
     }
@@ -675,7 +714,8 @@ const mapStateToProps = state => {
 
     return {
         profile: state.UserReducer.profile,
-        myPoems: state.PoemReducer.myPoems
+        myPoems: state.PoemReducer.myPoems,
+        loading: state.LoadingReducer.loading
     }
 
 }
@@ -687,7 +727,9 @@ const mapDispatchToProps = dispatch => {
         getMyPoems: (page, user_id) => dispatch(actions.getMyPoems(page, user_id)),
         removePoem: (poem_id) => dispatch(actions.removePoem(poem_id)),
         editPoem: (data) => dispatch(actions.editPoem(data)),
-        acceptRequest: (data) => dispatch(actions.acceptRequest(data))
+        acceptRequest: (data) => dispatch(actions.acceptRequest(data)),
+        rejectRequest: (data) => dispatch(actions.rejectRequest(data)),
+        cancelRequest: (data) => dispatch(actions.cancelRequest(data))
     }
 
 }

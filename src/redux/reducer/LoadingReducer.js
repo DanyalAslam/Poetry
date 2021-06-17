@@ -24,6 +24,12 @@ const LoadingReducer = (state = initialState, action) => {
             };
         }
 
+        case actionTypes.GET_PROFILE:{
+            return {
+                ...initialStates.LoadingReducer
+            };
+        }
+
 
         default: {
             return state;

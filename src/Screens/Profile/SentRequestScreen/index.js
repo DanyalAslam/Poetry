@@ -14,12 +14,18 @@ class SentRequestScreen extends React.Component {
         friends: [],
         refreshing: true
     }
+ 
 
     componentDidMount() {
 
-        this.getSentRequest();
+        this.props.navigation.addListener('focus', this.getSentRequest);
 
     }
+
+    componentWillUnmount(){
+        this.props.navigation.removeListener('focus');
+    }
+
 
     getSentRequest = async () => {
 

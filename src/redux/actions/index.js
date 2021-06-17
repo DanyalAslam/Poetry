@@ -931,16 +931,66 @@ const actions = {
 
             try {
 
-                const response = await Api.promise.post(endPoints.friendShip.accept, {id: user_id});
+                dispatch({ type: actionTypes.LOADING_ON });
 
-                console.log('response ',response);
-           
+                const response = await Api.promise.post(endPoints.friendShip.accept, { id: user_id });
+
                 return Promise.resolve(response);
 
             } catch (error) {
 
-                console.log('error ',error);
+                dispatch({ type: actionTypes.LOADING_OFF });
 
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
+    rejectRequest: (user_id) => {
+
+        return async (dispatch) => {
+
+            try {
+
+                dispatch({ type: actionTypes.LOADING_ON });
+
+                const response = await Api.promise.post(endPoints.friendShip.reject, { id: user_id });
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                dispatch({ type: actionTypes.LOADING_OFF });
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
+    cancelRequest: (user_id) => {
+
+        return async dispatch => {
+
+            try {
+
+                dispatch({ type: actionTypes.LOADING_ON });
+
+                const response = await Api.promise.post(endPoints.friendShip.cancel, { id: user_id });
+
+                console.log('response ', response);
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
+                console.log('error ', error);
+
+                dispatch({ type: actionTypes.LOADING_OFF });
+                
                 return Promise.reject(error);
 
             }
