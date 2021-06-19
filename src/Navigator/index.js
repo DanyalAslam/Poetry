@@ -36,6 +36,7 @@ import AllFriendsScreen from '../Screens/Profile/AllFriendsScreen';
 import { vw } from '../Units';
 import styles from './styles';
 import RequestStackNavigator from './RequestStackNavigator';
+import AllUserScreen from '../Screens/Profile/AllUserScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -593,6 +594,18 @@ class MainNavigator extends React.Component {
         <RootStack.Screen
           name="AllFriendsScreen"
           component={AllFriendsScreen}
+          options={(props) => {
+            return {
+              ...TransitionPresets.SlideFromRightIOS,
+              headerShown: false
+            }
+          }
+          }
+        />
+
+        <RootStack.Screen
+          name="AllUserScreen"
+          component={AllUserScreen}
           options={(props) => {
             return {
               ...TransitionPresets.SlideFromRightIOS,

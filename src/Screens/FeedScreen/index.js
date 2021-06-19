@@ -13,6 +13,9 @@ import TextRegular from '../../Components/TextRegular/index.js'
 import LikeSheet from '../../Components/LikeSheet/index.js'
 import CommentSheet from '../../Components/CommentSheet/index.js'
 import LoginPopUp from '../../Components/PopUps/LoginPopUp/index.js'
+import TextPoppinsRegular from '../../Components/TextPoppinsRegular/index.js'
+import TextPoppinsMedium from '../../Components/TextPoppinsMedium/index.js'
+import TextPoppinsLight from '../../Components/TextPoppinsLight/index.js'
 
 
 
@@ -23,7 +26,8 @@ class FeedScreen extends React.Component {
         page: 1,
         is_last_page: false,
         has_scrolled: false,
-        footerLoading: false
+        footerLoading: false,
+        allusers: []
     }
 
 
@@ -53,11 +57,29 @@ class FeedScreen extends React.Component {
 
         });
 
+        this.getUsers();
+
         this._getData();
+
     }
 
     componentWillUnmount() {
         // this.props.navigation.removeListener('focus');
+    }
+
+    getUsers = async () => {
+
+        try {
+
+            const response = await this.props.getAllUsers();
+            this.setState({
+                allusers: response?.users
+            });
+ 
+
+        } catch (error) {
+    
+        }
     }
 
 
@@ -168,7 +190,112 @@ class FeedScreen extends React.Component {
         return <EmptyComponent message="No poems to show" style={{ marginTop: 5 * vh }} />;
     }
 
+    FriendComponent = (_friend) => {
+        if (_friend._id == this.props.profile?._id) {
+            return;
+        }
+
+        return <TouchableOpacity onPress={() => this.onFriendPress(_friend?._id)} style={styles.friendImageContainer}>
+
+            <View style={styles.friendImageView}>
+                <Image
+                    source={getProfileImage(_friend)}
+                    style={styles.friendImage}
+                />
+            </View>
+
+            <TextPoppinsRegular numberOfLines={2} style={styles.friendName}>
+                {_friend?.name}
+            </TextPoppinsRegular>
+
+        </TouchableOpacity>
+    }
+
+    getFriends = () => {
+
+        let friends = [...this.state.allusers];
+
+        const index = friends?.findIndex(friend => friend?._id == this.props.profile?._id);
+        if (index != -1) {
+            friends.splice(index, 1);
+        }
+
+        if (friends?.length >= 4) {
+            friends = friends?.slice(0, 4);
+        }
+
+        return friends;
+    }
+
+    navigateToAllUsers = () => {
+
+        if(!this.props.token){
+            return showToast("Please login to view all members")
+        }
+
+        this.props.navigation.navigate('AllUserScreen');
+    }
+
+    renderFriendsArea = () => {
+        return <View style={styles.friendsContainer}>
+
+            <View style={styles.friendsTopRow}>
+                <TextPoppinsMedium style={styles.friendTitle}>
+                    Members
+                </TextPoppinsMedium>
+
+                {
+                    <TouchableOpacity onPress={this.navigateToAllUsers}>
+                        <TextPoppinsLight style={styles.aboutInfo}>
+                            View All
+                        </TextPoppinsLight>
+                    </TouchableOpacity>
+                }
+            </View>
+
+            {
+                <View style={styles.friendsImageRow}>
+
+                    {
+                        this.getFriends().map(_friend => this.FriendComponent(_friend))
+                    }
+
+                </View>
+            }
+
+
+        </View>
+
+    }
+
     _renderFeedItem = ({ item, index }) => {
+
+        if (index == 2) {
+            return <View>
+
+                {
+
+                    this.renderFriendsArea()
+                }
+
+
+                <PoemFeedCard
+                    name={item?.user?.name}
+                    created_at={_calculateDate(item?.created_at)}
+                    title={item?.title}
+                    verses={item?.verses}
+                    source={getProfileImage(item?.user)}
+                    id={item._id}
+                    owner_id={item?.user_id}
+                    isLiked={item?.likers?.find(like => like.id == this.props.profile?._id) ? true : false}
+                    navigation={this.props.navigation}
+                    likers={item?.likers}
+                    comments={item?.comments ?? []}
+                    showLikeSheet={this.showLikeSheet}
+                    showCommentSheet={this.showCommentSheet}
+                />
+            </View>
+        }
 
         return <PoemFeedCard
             name={item?.user?.name}
@@ -245,6 +372,7 @@ class FeedScreen extends React.Component {
             ListFooterComponentStyle={{ marginBottom: 4 * vh }}
             ref={_ref => this.flatListRef = _ref}
             onScrollEndDrag={this.setScrolled}
+
         />
     }
 
@@ -325,6 +453,7 @@ const mapDispatchToProps = dispatch => {
 
     return {
         getAllPoems: (page) => dispatch(actions.getAllPoems(page)),
+        getAllUsers: (page) => dispatch(actions.getAllUsers(page)),
     }
 
 }

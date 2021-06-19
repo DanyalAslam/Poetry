@@ -1,22 +1,30 @@
 import { StyleSheet } from 'react-native'
-import { vh, vw } from '../../Units'
-import { appTheme } from '../../Utils'
-import fonts from '../../assets/fonts'
+import { vh, vw } from '../../../Units'
+import { appTheme } from '../../../Utils'
+import fonts from '../../../assets/fonts'
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: appTheme.white,
         flex: 1,
         alignItems: 'center',
-
-   
-        // justifyContent: 'center'
+        justifyContent: 'center'
     },
     topCard: {
 
         width: 100 * vw,
         marginTop: 3 * vh,
         // paddingLeft: 5 * vw,
+    },
+    headerIcon: {
+        width: 6 * vw,
+        height: 6 * vw,
+        resizeMode: 'contain',
+        tintColor: appTheme.black,
+
+    },
+    backView:{
+        marginRight: 4 * vw
     },
     categroyScroll: {
         paddingHorizontal: 5 * vw,
@@ -64,7 +72,6 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         width: '100%',
-
     },
 
     profileImage: {
@@ -87,7 +94,7 @@ const styles = StyleSheet.create({
 
     message: {
         color: appTheme.black,
-        fontSize: 1.7 * vh,
+        fontSize: 2.4 * vh,
         textAlign: 'center'
     },
 
@@ -103,83 +110,7 @@ const styles = StyleSheet.create({
         marginTop: 2 * vh,
         marginBottom: 2 * vh,
         backgroundColor: appTheme.white
-    },
-    skeletonContainer:{
-        alignItems: 'flex-start',
-        minHeight: 22 * vh,
-        width: 90 * vw,
-        marginVertical: 1 * vh,
-        marginHorizontal: 2 * vw,
-        elevation: 4,
-        backgroundColor: 'white',
-        borderRadius: 3 * vw,
-        shadowColor: 'black',
-        paddingHorizontal: 2 * vw,
-        // justifyContent: 'space-between',
-        paddingVertical: 1 * vh,
-        paddingLeft: 3 * vw
-    },
-
-    friendsContainer: {
-        width: '95%',
-        marginBottom: 2 * vh,
-        paddingHorizontal: 1 * vw,
- 
-    },
-
-
-    friendsTopRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 2 * vh,
-        paddingLeft: 3 * vw
-    },
-
-    friendTitle: {
-        color: appTheme.black,
-        fontSize: 2.3 * vh
-    },
-
-    friendsImageRow: {
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        marginTop: 1 * vh,
-        paddingLeft: 3 * vw
-    },
-
-
-    friendImageContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginRight: 3 * vw,
-        backgroundColor: appTheme.white,
-        overflow: 'hidden'
-    },
-
-    friendImageView: {
-
-    },
-
-    friendImage: {
-        width: 18 * vw,
-        height: 18 * vw,
-        borderRadius: 9 * vw,
-    },
-
-    friendName: {
-        color: appTheme.gray,
-        fontSize: 1.8 * vh,
-        width: 18 * vw,
-        textAlign: 'center',
-        marginTop: 0.5 * vh
-    },
-
-
-    aboutInfo: {
-        fontSize: 1.6 * vh
-    },
-
+    }
 })
 
 export default styles

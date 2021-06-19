@@ -23,12 +23,27 @@ class FriendListCard extends Component {
             params["type"] = "other";
         }
 
+        console.log('params ',params);
+
 
         this.props.navigation.push("ProfileScreen", params);
 
     }
 
 
+    getFriendCount = () => {
+
+        if (!this.props.friend?.user?.friends || this.props.friend?.user?.friends?.length == 0) {
+            return "No Friends"
+        }
+
+        if (this.props.friend?.user?.friends?.length == 1) {
+            return "1 Friend"
+        }
+
+        return `${this.props.friend?.user?.friends?.length} friend${this.props.friend?.user?.friends?.length > 1 && 's'}`
+
+    }
 
 
     render() {
@@ -49,7 +64,7 @@ class FriendListCard extends Component {
                             {this.props.friend?.user?.name}
                         </Text>
                         <Text style={[styles.poemTitle]} numberOfLines={1}>
-                            {this.props.friend?.user?.friends?.length} friend{this.props.friend?.user?.friends?.length > 1 && 's'}
+                            {this.getFriendCount()}
                         </Text>
                     </View>
                 </View>

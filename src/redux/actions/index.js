@@ -990,7 +990,26 @@ const actions = {
                 console.log('error ', error);
 
                 dispatch({ type: actionTypes.LOADING_OFF });
-                
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
+    getAllUsers: (page = 1) => {
+
+        return async dispatch => {
+
+            try {
+
+                const response = await Api.promise.get(endPoints.auth.allUsers, { page });
+
+                return Promise.resolve(response);
+
+            } catch (error) {
+
                 return Promise.reject(error);
 
             }

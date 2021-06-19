@@ -10,7 +10,8 @@ export const endPoints = {
         profile: '/auth/profile',
         forgot: '/auth/forgot',
         verify: '/auth/verify',
-        reset: '/auth/reset'
+        reset: '/auth/reset',
+        allUsers: '/auth/Allusers'
     },
 
     feed: {
