@@ -19,7 +19,9 @@ import Button from '../../../Components/Button/index.js'
 import RBSheet from 'react-native-raw-bottom-sheet'
 import BottomSheetButtons from '../../../Components/BottomSheetButtons/index.js'
 import { vh } from '../../../Units/index.js'
-import imagePicker from 'rn-image-picker';
+// import imagePicker from 'rn-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
+
 
 const gendersArray = ["Male", "Female"];
 
@@ -269,28 +271,46 @@ class EditProfileScreen extends React.Component {
             this.RBSheet.close()
         }
 
-        imagePicker.open(success => {
-            // do something with image 
-
-            let data = success.data;
-
-            // if (!data.includes('base64')) {
-            //     let base = `data:image/png;base64,${data}`;
-
-            //     data = base;
-            // }
-
-            let userInfo = {
-                image: data
+        launchImageLibrary({
+            includeBase64: true
+        }, success => {
+         
+            if(success.assets){
+                let data = success.assets[0].base64;
+ 
+                let userInfo = {
+                    image: data
+                }
+    
+                this.updateProfile(userInfo);
             }
 
-            this.updateProfile(userInfo);
 
 
-        }, error => {
-            // error handling
-            console.log('image pick error ', error)
-        })
+        });
+
+        // imagePicker.open(success => {
+        //     // do something with image 
+
+            // let data = success.data;
+
+            // // if (!data.includes('base64')) {
+            // //     let base = `data:image/png;base64,${data}`;
+
+            // //     data = base;
+            // // }
+
+            // let userInfo = {
+            //     image: data
+            // }
+
+            // this.updateProfile(userInfo);
+
+
+        // }, error => {
+        //     // error handling
+        //     console.log('image pick error ', error)
+        // })
     }
 
 

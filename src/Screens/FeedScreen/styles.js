@@ -138,14 +138,14 @@ const styles = StyleSheet.create({
 
     friendTitle: {
         color: appTheme.black,
-        fontSize: 2.3 * vh
+        fontSize: 2.0 * vh
     },
 
     friendsImageRow: {
         flexDirection: 'row',
         alignItems: 'flex-start',
         marginTop: 1 * vh,
-        paddingLeft: 3 * vw
+        paddingLeft: 5 * vw
     },
 
 
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
 
     friendName: {
         color: appTheme.gray,
-        fontSize: 1.8 * vh,
+        fontSize: 1.5 * vh,
         width: 18 * vw,
         textAlign: 'center',
         marginTop: 0.5 * vh

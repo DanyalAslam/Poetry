@@ -13,6 +13,7 @@ import RadioButton from '../../../Components/RadioButton/index.js';
 import { LOG, showToast } from '../../../Api/HelperFunctions.js';
 import actions from '../../../redux/actions/index.js';
 import imagePicker from 'rn-image-picker'
+import { launchImageLibrary } from 'react-native-image-picker';
 
 const initial_state = {
     name: '',
@@ -152,23 +153,50 @@ class SignupScreen extends Component {
             return null;
         }
 
-
-        imagePicker.open(success => {
-            // do something with image 
-
-            this.setState(prevState => ({
-                userInfo: {
-                    ...prevState.userInfo,
-                    image: {
-                        data: success.data,
-                        uri: success.uri
+        launchImageLibrary({
+            includeBase64: true
+        }, success => {
+         
+            if(success.assets){
+                let data = success.assets[0];
+ 
+              
+                // let userInfo = {
+                //     image: data
+                // }
+                this.setState(prevState => ({
+                    userInfo: {
+                        ...prevState.userInfo,
+                        image: {
+                            data: data.base64,
+                            uri: data.uri
+                        },
                     },
-                },
-            }))
-        }, error => {
-            // error handling
-            console.log('image pick error ', error)
-        })
+                }))
+            }
+
+
+
+        });
+
+
+
+        // imagePicker.open(success => {
+        //     // do something with image 
+
+            // this.setState(prevState => ({
+            //     userInfo: {
+            //         ...prevState.userInfo,
+            //         image: {
+            //             data: success.data,
+            //             uri: success.uri
+            //         },
+            //     },
+            // }))
+        // }, error => {
+        //     // error handling
+        //     console.log('image pick error ', error)
+        // })
     }
 
     onRadioChange = (data) => {
