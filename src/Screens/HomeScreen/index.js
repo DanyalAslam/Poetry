@@ -62,10 +62,30 @@ class HomeScreen extends React.Component {
     handlePushTaps = (data) => {
         if (data) {
             if (Object.keys(data).length > 0) {
-                let params = {
-                    ...data
-                };
-                this.props.navigation.navigate('FeedDetailScreen', params);
+ 
+                if (data.type == "comment") {
+
+                    let params = {
+                        ...data
+                    };
+
+                    this.props.navigation.navigate('FeedDetailScreen', params);
+
+                }
+                else if (data.type == "request") {
+
+                    let params = {
+                        id: data?.user_id
+                    };
+
+                    if (params.id != this.props.profile._id) {
+                        params["type"] = "other";
+                    }
+
+                    this.props.navigation.navigate('ProfileScreen', params);
+
+                }
+
             }
 
         }
@@ -382,7 +402,7 @@ class HomeScreen extends React.Component {
 
 
     _renderSection = () => {
- 
+
         if (this.props.poets.length > 0) {
 
             return <>

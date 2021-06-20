@@ -20,7 +20,7 @@ import { vh, vw } from '../../../Units/index.js'
 import RBSheet from 'react-native-raw-bottom-sheet'
 import LikeSheet from '../../../Components/LikeSheet/index.js'
 import CommentSheet from '../../../Components/CommentSheet/index.js'
-
+import { getToken } from '../../../NativeModules/Firebase/PushNotifications.js';
 
 class ProfileScreen extends React.Component {
 
@@ -31,6 +31,7 @@ class ProfileScreen extends React.Component {
             page: 1,
             is_last_page: false,
             active_poem: null,
+            other_user: null
         }
     }
 
@@ -53,6 +54,7 @@ class ProfileScreen extends React.Component {
 
     getData = async () => {
 
+      
         try {
 
             this.setState({
@@ -381,15 +383,25 @@ class ProfileScreen extends React.Component {
 
     renderRequestButton = () => {
 
+        if(this.props.profile?._id == this.props?.route?.params?.id){
+            return null;
+        }
+
         if (this.props.loading) {
             return <ActivityIndicator size="small" color={appTheme.black} />
         }
+
+
 
         let _status = getFriendStatus(this.props?.route?.params?.id, this.props.profile);
 
 
         if (_status == friend_status.friend) {
-            return null;
+            return <TouchableOpacity onPress={this.unFriend} activeOpacity={0.7} style={styles.requestBtn}>
+                <TextPoppinsMedium style={styles.requestText}>
+                    Unfriend
+                </TextPoppinsMedium>
+            </TouchableOpacity>
         }
 
         if (_status == friend_status.received) {
@@ -397,13 +409,13 @@ class ProfileScreen extends React.Component {
                 <TouchableOpacity onPress={this.acceptRequest} activeOpacity={0.7} style={[styles.requestBtn, { marginRight: 1 * vw }]}>
                     <TextPoppinsMedium style={styles.requestText}>
                         Accept
-                </TextPoppinsMedium>
+                    </TextPoppinsMedium>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={this.rejectRequest} activeOpacity={0.7} style={[styles.requestBtn, { marginLeft: 1 * vw }]}>
                     <TextPoppinsMedium style={styles.requestText}>
                         Reject
-                </TextPoppinsMedium>
+                    </TextPoppinsMedium>
                 </TouchableOpacity>
             </View>
         }
@@ -415,6 +427,14 @@ class ProfileScreen extends React.Component {
                 </TextPoppinsMedium>
             </TouchableOpacity>
         }
+
+
+        return <TouchableOpacity onPress={this.sendRequest} activeOpacity={0.7} style={styles.requestBtn}>
+            <TextPoppinsMedium style={styles.requestText}>
+                Add Friend
+            </TextPoppinsMedium>
+        </TouchableOpacity>
+
 
     }
 
@@ -715,6 +735,38 @@ class ProfileScreen extends React.Component {
 
     }
 
+    sendRequest = async () => {
+
+        try {
+
+            const response = await this.props.sendRequest(this.props.route?.params?.id);
+
+            await this.props.getProfile(this.props.profile?._id);
+
+            showToast(response?.message);
+
+        } catch (error) {
+         
+        }
+
+    }
+
+    unFriend = async () => {
+
+        try {
+
+            const response = await this.props.unFriend(this.props.route?.params?.id);
+
+            await this.props.getProfile(this.props.profile?._id);
+
+            showToast(response?.message);
+
+        } catch (error) {
+
+        }
+
+    }
+
 
     render() {
 
@@ -741,7 +793,9 @@ const mapDispatchToProps = dispatch => {
         editPoem: (data) => dispatch(actions.editPoem(data)),
         acceptRequest: (data) => dispatch(actions.acceptRequest(data)),
         rejectRequest: (data) => dispatch(actions.rejectRequest(data)),
-        cancelRequest: (data) => dispatch(actions.cancelRequest(data))
+        cancelRequest: (data) => dispatch(actions.cancelRequest(data)),
+        sendRequest: (data) => dispatch(actions.sendRequest(data)),
+        unFriend: (data) => dispatch(actions.unFriend(data))
     }
 
 }

@@ -190,6 +190,23 @@ class FeedScreen extends React.Component {
         return <EmptyComponent message="No poems to show" style={{ marginTop: 5 * vh }} />;
     }
 
+    onFriendPress = friendId => {
+
+        if(!this.props.token){
+            return showToast("Please login to view all members")
+        }
+
+        let params = {
+            id: friendId,
+        };
+
+        if (params.id != this.props.profile._id) {
+            params["type"] = "other";
+        }
+ 
+        this.props.navigation.push("ProfileScreen", params);
+    }
+
     FriendComponent = (_friend) => {
         if (_friend._id == this.props.profile?._id) {
             return;

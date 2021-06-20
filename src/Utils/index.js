@@ -280,7 +280,8 @@ export const friend_status = {
 };
 
 export const getFriendStatus = (friend_id, profile) => {
-
+ 
+    
     if (profile?.friends?.find(friend => friend?.user?._id == friend_id)) {
         return friend_status.friend;
     }

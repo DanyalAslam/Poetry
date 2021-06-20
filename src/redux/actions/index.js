@@ -998,6 +998,54 @@ const actions = {
         }
     },
 
+    sendRequest: (user_id) => {
+
+        return async dispatch => {
+
+            try {
+
+                dispatch({ type: actionTypes.LOADING_ON });
+
+                const response = await Api.promise.post(endPoints.friendShip.send, { to: user_id });
+
+              
+                return Promise.resolve(response);
+
+            } catch (error) {
+ 
+                dispatch({ type: actionTypes.LOADING_OFF });
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
+    unFriend: (user_id) => {
+
+        return async dispatch => {
+
+            try {
+
+                dispatch({ type: actionTypes.LOADING_ON });
+
+                const response = await Api.promise.post(endPoints.friendShip.unfriend, { id: user_id });
+
+              
+                return Promise.resolve(response);
+
+            } catch (error) {
+ 
+                dispatch({ type: actionTypes.LOADING_OFF });
+
+                return Promise.reject(error);
+
+            }
+
+        }
+    },
+
     getAllUsers: (page = 1) => {
 
         return async dispatch => {

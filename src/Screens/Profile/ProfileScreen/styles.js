@@ -247,8 +247,8 @@ const styles = StyleSheet.create({
     },
 
     requestBtn: {
-        width: 27 * vw,
-        height: 4.5 * vh,
+        width: 25 * vw,
+        height: 3.7 * vh,
         backgroundColor: appTheme.black,
         justifyContent: 'center',
         alignItems: 'center',
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
 
     requestText: {
         color: appTheme.white,
-        fontSize: 1.8 * vh
+        fontSize: 1.4 * vh
     },
 
     requestBtnRow:{
