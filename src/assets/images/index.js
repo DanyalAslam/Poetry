@@ -46,7 +46,7 @@ const allImages = {
         background: require('./generalImages/background.png'), 
         profileImage: require('./generalImages/profileImage.jpeg'),  
         male: require('./generalImages/male.png'), 
-        female: require('./generalImages/female.png'),
+        female: require('./generalImages/female.jpeg'),
         login: require('./generalImages/login.png'), 
         noComment: require('./generalImages/no-comment.png'), 
     },

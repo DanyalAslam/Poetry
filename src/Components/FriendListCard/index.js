@@ -65,6 +65,7 @@ class FriendListCard extends Component {
                         </Text>
                         <Text style={[styles.poemTitle]} numberOfLines={1}>
                             {this.getFriendCount()}
+                            {/* {this.props.friend?.user?.country} */}
                         </Text>
                     </View>
                 </View>

@@ -1008,11 +1008,11 @@ const actions = {
 
                 const response = await Api.promise.post(endPoints.friendShip.send, { to: user_id });
 
-              
+
                 return Promise.resolve(response);
 
             } catch (error) {
- 
+
                 dispatch({ type: actionTypes.LOADING_OFF });
 
                 return Promise.reject(error);
@@ -1032,11 +1032,11 @@ const actions = {
 
                 const response = await Api.promise.post(endPoints.friendShip.unfriend, { id: user_id });
 
-              
+
                 return Promise.resolve(response);
 
             } catch (error) {
- 
+
                 dispatch({ type: actionTypes.LOADING_OFF });
 
                 return Promise.reject(error);
@@ -1046,13 +1046,19 @@ const actions = {
         }
     },
 
-    getAllUsers: (page = 1) => {
+    getAllUsers: (page) => {
 
         return async dispatch => {
 
             try {
+ 
+                if (page) {
+                    response = await Api.promise.get(endPoints.auth.allUsers, { page });
+                }
+                else {
+                    response = await Api.promise.get(endPoints.auth.allUsers);
+                }
 
-                const response = await Api.promise.get(endPoints.auth.allUsers, { page });
 
                 return Promise.resolve(response);
 

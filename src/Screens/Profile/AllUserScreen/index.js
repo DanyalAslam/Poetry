@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { appTheme, getProfileImage } from '../../../Utils'
 import EmptyComponent from '../../../Components/EmptyComponent/index.js'
 import TextRegular from '../../../Components/TextRegular/index.js'
+import TextPoppinsRegular from '../../../Components/TextPoppinsRegular'
 import FriendListCard from '../../../Components/FriendListCard/index.js'
 import { vh, vw } from '../../../Units/index.js'
 import allImages from '../../../assets/images/index.js'
@@ -39,10 +40,10 @@ class AllUserScreen extends React.Component {
                 allusers: response?.users,
                 refreshing: false
             });
-        
+
 
         } catch (error) {
-            
+
             this.setState({
                 refreshing: false
             });
@@ -71,8 +72,9 @@ class AllUserScreen extends React.Component {
             navigation={this.props.navigation}
             userId={this.props.profile?._id}
         />
+ 
     }
-
+ 
 
     ListHeaderComponent = () => {
 
@@ -132,7 +134,7 @@ class AllUserScreen extends React.Component {
 
 
     onEndReached = () => {
- 
+
 
         if ((this.state.allusers?.length >= 10)) {
             if (this.state.is_last_page) {
@@ -161,7 +163,7 @@ class AllUserScreen extends React.Component {
 
         return <FlatList
             data={this.state.allusers}
-            style={styles.scrollView}
+            // style={styles.scrollView}
             contentContainerStyle={{ alignItems: 'center', paddingTop: 0.8 * vh, paddingBottom: 1 * vh }}
             refreshControl={
                 <RefreshControl

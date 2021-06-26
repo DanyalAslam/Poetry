@@ -110,7 +110,9 @@ const styles = StyleSheet.create({
         marginTop: 2 * vh,
         marginBottom: 2 * vh,
         backgroundColor: appTheme.white
-    }
+    },
+   
+
 })
 
 export default styles
