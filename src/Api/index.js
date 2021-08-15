@@ -35,8 +35,7 @@ const Api = {
     getPoetDB: (endPoint, success, error) => {
 
         let url = config.poetDBurl + endPoint
-
-        console.log(url);
+ 
 
         fetch(url, {
             method: "GET",

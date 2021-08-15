@@ -4,22 +4,16 @@ import styles from './styles.js'
 import allImages from '../../../assets/images'
 import RippleTouch from '../../../Components/RippleTouch'
 import { connect } from 'react-redux'
-import actions from '../../../redux/actions/index.js'
-import TextRegular from '../../../Components/TextRegular';
-import TextSemiBold from '../../../Components/TextSemiBold';
+import actions from '../../../redux/actions/index.js' 
 import TextPoppinsRegular from '../../../Components/TextPoppinsRegular'
-import TextPoppinsMedium from '../../../Components/TextPoppinsMedium/index.js'
-import TextPoppinsSemi from '../../../Components/TextPoppinsSemi/index.js'
-import TextPoppinsLight from '../../../Components/TextPoppinsLight/index.js'
+import TextPoppinsMedium from '../../../Components/TextPoppinsMedium/index.js' 
 import { LOG, showToast } from '../../../Api/HelperFunctions.js'
-import PoemFeedCard from '../../../Components/PoemFeedCard/index.js'
 import { appTheme, genders, getProfileImage } from '../../../Utils/index.js'
 import RadioButton from '../../../Components/RadioButton/index.js'
 import Button from '../../../Components/Button/index.js'
 import RBSheet from 'react-native-raw-bottom-sheet'
 import BottomSheetButtons from '../../../Components/BottomSheetButtons/index.js'
 import { vh } from '../../../Units/index.js'
-// import imagePicker from 'rn-image-picker';
 import { launchImageLibrary } from 'react-native-image-picker';
 
 

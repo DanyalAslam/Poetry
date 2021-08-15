@@ -1070,6 +1070,36 @@ const actions = {
 
         }
     },
+
+
+    getRandomPoems: (success, error) => {
+
+        return  () => {
+
+
+            Api.getPoetDB('/random/4', apiSuccess => {
+
+                let _transformedResponse = apiSuccess.map(_item => {
+
+                    return {
+                        author: _item.author,
+                        title: _item.title,
+                        lines: _item.lines.splice(0, 2)
+                    }
+                })
+
+                
+                return success(_transformedResponse)
+
+            }, apiError => {
+
+                return error(apiError)
+
+            })
+
+
+        }
+    },
 }
 
 

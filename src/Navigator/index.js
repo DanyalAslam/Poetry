@@ -1,5 +1,5 @@
 import React from 'react'
-import { DeviceEventEmitter, Image, Text, TouchableOpacity } from 'react-native';
+import { Animated, DeviceEventEmitter, Image, LayoutAnimation, PanResponder, Text, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -37,6 +37,7 @@ import { vw } from '../Units';
 import styles from './styles';
 import RequestStackNavigator from './RequestStackNavigator';
 import AllUserScreen from '../Screens/Profile/AllUserScreen';
+import SpinScreen from '../Screens/SpinScreen';
 
 
 const Tabs = createMaterialTopTabNavigator();
@@ -51,6 +52,46 @@ const FeedStack = createStackNavigator();
 
 
 class MainNavigator extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      pan: new Animated.ValueXY(),
+    }
+
+    this._panResponder = PanResponder.create({
+      onMoveShouldSetResponderCapture: () => true, //Tell iOS that we are allowing the movement
+      onMoveShouldSetPanResponderCapture: () => true, // Same here, tell iOS that we allow dragging
+      onPanResponderGrant: (e, gestureState) => {
+        this.state.pan.setOffset({ x: this._animatedValueX, y: this._animatedValueY });
+        this.state.pan.setValue({ x: 0, y: 0 }); //Initial value
+      },
+      onPanResponderMove: Animated.event([
+        null, { dx: this.state.pan.x, dy: this.state.pan.y }
+      ]), // Creates a function to handle the movement and set offsets
+      onPanResponderRelease: () => {
+
+        this.state.pan.flattenOffset(); // Flatten the offset so it resets the default positioning
+
+      }
+    });
+
+    this._animatedValueX = 0;
+    this._animatedValueY = 0;
+
+  }
+
+  componentDidMount() {
+
+    this.state.pan.x.addListener((value) => this._animatedValueX = value.value);
+    this.state.pan.y.addListener((value) => this._animatedValueY = value.value);
+
+  }
+
+  componentWillUnmount() {
+    this.state.pan.x.removeAllListeners();
+    this.state.pan.y.removeAllListeners();
+  }
 
 
   _DefaultHeaderOptions = (props) => {
@@ -373,266 +414,303 @@ class MainNavigator extends React.Component {
 
 
     return (
-      <Tabs.Navigator
-        tabBarPosition="bottom"
-        lazy={true}
-        tabBar={tabProps => <CustomTabBar {...tabProps} {...props} />}
-        tabBarOptions={{
+      <>
+        <Tabs.Navigator
+          tabBarPosition="bottom"
+          lazy={true}
+          tabBar={tabProps => <CustomTabBar {...tabProps} {...props} />}
+          tabBarOptions={{
 
-          tabStyle: styles.tabStyle,
-          style: styles.tabBarStyle,
+            tabStyle: styles.tabStyle,
+            style: styles.tabBarStyle,
 
-        }}
-
-        swipeEnabled={true}
-        removeClippedSubviews
-      >
-
-        <Tabs.Screen
-          name="HomeStack"
-          component={this.HomeStackNavigator}
-
-        />
-
-        <Tabs.Screen
-          name="FeedStack"
-          component={this.FeedStackNavigator}
-
-          listeners={{
-            tabPress: e => {
-              DeviceEventEmitter.emit("FeedPressed")
-            },
           }}
-        />
+
+          swipeEnabled={true}
+          removeClippedSubviews
+        >
+
+          <Tabs.Screen
+            name="HomeStack"
+            component={this.HomeStackNavigator}
+
+          />
+
+          <Tabs.Screen
+            name="FeedStack"
+            component={this.FeedStackNavigator}
+
+            listeners={{
+              tabPress: e => {
+                DeviceEventEmitter.emit("FeedPressed")
+              },
+            }}
+          />
 
 
-        <Tabs.Screen
-          name="PoetStack"
-          component={this.PoetStackNavigator}
+          <Tabs.Screen
+            name="PoetStack"
+            component={this.PoetStackNavigator}
 
-        />
+          />
 
-        <Tabs.Screen
-          name="MoreStack"
-          component={this.MoreStackNavigator}
+          <Tabs.Screen
+            name="MoreStack"
+            component={this.MoreStackNavigator}
 
-        />
-      </Tabs.Navigator>
-
+          />
+        </Tabs.Navigator>
+        {this.spinButton(props)}
+      </>
     );
   }
 
 
-  RootStackNavigator = () => {
-
-    return (
-      <RootStack.Navigator>
-        <RootStack.Screen
-          name="TabStack"
-          component={this.TabNavigator}
-          options={{ headerShown: false }}
-        />
-
-        <RootStack.Screen
-          name="PoetPoemsScreen"
-          component={PoetPoemsScreen}
-          options={(props) => {
-            return {
-              ...TransitionPresets.ScaleFromCenterAndroid,
-              ...this._renderHeaderWithSearch(props)
-            }
-          }
-          }
-        />
-
-        <RootStack.Screen
-          name="CategoryStack"
-          component={this.CategoryStackNavigator}
-          options={(props) => {
-            return {
-              ...TransitionPresets.ScaleFromCenterAndroid,
-              headerShown: false
-            }
-          }
-          }
-        />
-
-        <RootStack.Screen
-          name="PoemDetailScreen"
-          component={PoemDetailScreen}
-          options={(props) => {
-            return {
-              ...TransitionPresets.ScaleFromCenterAndroid,
-              ...this._renderHeaderWithSearch(props)
-            }
-          }
-          }
-        />
-
-        <RootStack.Screen
-          name="SearchScreen"
-          component={SearchScreen}
-          options={(props) => {
-            return {
-              ...TransitionPresets.ScaleFromCenterAndroid,
-              headerShown: false
-            }
-          }
-          }
-        />
-
-        <RootStack.Screen
-          name="SignupScreen"
-          component={SignupScreen}
-          options={(props) => {
-            return {
-              ...TransitionPresets.SlideFromRightIOS,
-              headerShown: false
-            }
-          }
-          }
-        />
-
-        <RootStack.Screen
-          name="LoginScreen"
-          component={LoginScreen}
-          options={(props) => {
-            return {
-              ...TransitionPresets.SlideFromRightIOS,
-              headerShown: false
-            }
-          }
-          }
-        />
-
-        <RootStack.Screen
-          name="ForgotPasswordScreen"
-          component={ForgotPasswordScreen}
-          options={(props) => {
-            return {
-              ...TransitionPresets.SlideFromRightIOS,
-              headerShown: false
-            }
-          }
-          }
-        />
-
-        <RootStack.Screen
-          name="ProfileScreen"
-          component={ProfileScreen}
-          options={(props) => {
-            return {
-              ...TransitionPresets.ScaleFromCenterAndroid,
-              headerShown: false
-            }
-          }
-          }
-        />
-
-        <RootStack.Screen
-          name="EditProfileScreen"
-          component={EditProfileScreen}
-          options={(props) => {
-            return {
-              ...TransitionPresets.SlideFromRightIOS,
-              headerShown: false
-            }
-          }
-          }
-        />
-
-        <RootStack.Screen
-          name="CreatePoemScreen"
-          component={CreatePoemScreen}
-          options={(props) => {
-            return {
-              ...TransitionPresets.ScaleFromCenterAndroid,
-              headerShown: false
-            }
-          }
-          }
-        />
-
-        <RootStack.Screen
-          name="MyLikesScreen"
-          component={MyLikesScreen}
-          options={(props) => {
-            return {
-              ...TransitionPresets.ScaleFromCenterAndroid,
-              headerShown: false
-            }
-          }
-          }
-        />
-
-        <RootStack.Screen
-          name="NotificationsScreen"
-          component={NotificationsScreen}
-          options={(props) => {
-            return {
-              ...TransitionPresets.ScaleFromCenterAndroid,
-              headerShown: false
-            }
-          }
-          }
-        />
-
-        <RootStack.Screen
-          name="FeedDetailScreen"
-          component={FeedDetailScreen}
-          options={(props) => {
-            return {
-              ...TransitionPresets.ScaleFromCenterAndroid,
-              headerShown: false
-
-            }
-          }
-          }
-        />
+  RootStackNavigator = (props) => {
 
 
-        <RootStack.Screen
-          name="AllFriendsScreen"
-          component={AllFriendsScreen}
-          options={(props) => {
-            return {
-              ...TransitionPresets.SlideFromRightIOS,
-              headerShown: false
-            }
-          }
-          }
-        />
+    return (<RootStack.Navigator>
+      <RootStack.Screen
+        name="TabStack"
+        component={this.TabNavigator}
+        options={{ headerShown: false }}
+      />
 
-        <RootStack.Screen
-          name="AllUserScreen"
-          component={AllUserScreen}
-          options={(props) => {
-            return {
-              ...TransitionPresets.SlideFromRightIOS,
-              headerShown: false
-            }
+      <RootStack.Screen
+        name="PoetPoemsScreen"
+        component={PoetPoemsScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.ScaleFromCenterAndroid,
+            ...this._renderHeaderWithSearch(props)
           }
+        }
+        }
+      />
+
+      <RootStack.Screen
+        name="SpinScreen"
+        component={SpinScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.ScaleFromCenterAndroid,
+            headerShown: false
           }
-        />
+        }
+        }
+      />
+
+      <RootStack.Screen
+        name="CategoryStack"
+        component={this.CategoryStackNavigator}
+        options={(props) => {
+          return {
+            ...TransitionPresets.ScaleFromCenterAndroid,
+            headerShown: false
+          }
+        }
+        }
+      />
+
+      <RootStack.Screen
+        name="PoemDetailScreen"
+        component={PoemDetailScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.ScaleFromCenterAndroid,
+            ...this._renderHeaderWithSearch(props)
+          }
+        }
+        }
+      />
+
+      <RootStack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.ScaleFromCenterAndroid,
+            headerShown: false
+          }
+        }
+        }
+      />
+
+      <RootStack.Screen
+        name="SignupScreen"
+        component={SignupScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.SlideFromRightIOS,
+            headerShown: false
+          }
+        }
+        }
+      />
+
+      <RootStack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.SlideFromRightIOS,
+            headerShown: false
+          }
+        }
+        }
+      />
+
+      <RootStack.Screen
+        name="ForgotPasswordScreen"
+        component={ForgotPasswordScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.SlideFromRightIOS,
+            headerShown: false
+          }
+        }
+        }
+      />
+
+      <RootStack.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.ScaleFromCenterAndroid,
+            headerShown: false
+          }
+        }
+        }
+      />
+
+      <RootStack.Screen
+        name="EditProfileScreen"
+        component={EditProfileScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.SlideFromRightIOS,
+            headerShown: false
+          }
+        }
+        }
+      />
+
+      <RootStack.Screen
+        name="CreatePoemScreen"
+        component={CreatePoemScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.ScaleFromCenterAndroid,
+            headerShown: false
+          }
+        }
+        }
+      />
+
+      <RootStack.Screen
+        name="MyLikesScreen"
+        component={MyLikesScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.ScaleFromCenterAndroid,
+            headerShown: false
+          }
+        }
+        }
+      />
+
+      <RootStack.Screen
+        name="NotificationsScreen"
+        component={NotificationsScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.ScaleFromCenterAndroid,
+            headerShown: false
+          }
+        }
+        }
+      />
+
+      <RootStack.Screen
+        name="FeedDetailScreen"
+        component={FeedDetailScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.ScaleFromCenterAndroid,
+            headerShown: false
+
+          }
+        }
+        }
+      />
 
 
-        <RootStack.Screen
-          name="RequestStackNavigator"
-          component={RequestStackNavigator}
-          options={(props) => {
-            return {
-              ...TransitionPresets.SlideFromRightIOS,
-              headerShown: false
-            }
+      <RootStack.Screen
+        name="AllFriendsScreen"
+        component={AllFriendsScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.SlideFromRightIOS,
+            headerShown: false
           }
-          }
-        />
+        }
+        }
+      />
 
-      </RootStack.Navigator>
+      <RootStack.Screen
+        name="AllUserScreen"
+        component={AllUserScreen}
+        options={(props) => {
+          return {
+            ...TransitionPresets.SlideFromRightIOS,
+            headerShown: false
+          }
+        }
+        }
+      />
+
+
+      <RootStack.Screen
+        name="RequestStackNavigator"
+        component={RequestStackNavigator}
+        options={(props) => {
+          return {
+            ...TransitionPresets.SlideFromRightIOS,
+            headerShown: false
+          }
+        }
+        }
+      />
+
+    </RootStack.Navigator>
     )
   }
 
 
+  spinButton = (props) => {
+
+    if (!this._panResponder) {
+      return null;
+    }
+
+    const transform = [
+      { translateX: this.state.pan.x },
+      { translateY: this.state.pan.y }
+    ]
+
+    return <Animated.View style={[styles.spinParent, { transform: transform }]}
+      {...this._panResponder?.panHandlers}>
+      <TouchableOpacity onPress={() => props.navigation.navigate('SpinScreen')} activeOpacity={0.7} style={styles.spinButton}>
+        <Image
+          source={allImages.generalIcons.spinner}
+          style={styles.spinImage}
+        />
+      </TouchableOpacity>
+    </Animated.View>
+  }
+
+ 
   render() {
 
     return (
@@ -640,6 +718,7 @@ class MainNavigator extends React.Component {
       <NavigationContainer>
         {/* <this.TabNavigator {...this.props} /> */}
         <this.RootStackNavigator {...this.props} />
+
       </NavigationContainer>
 
     )

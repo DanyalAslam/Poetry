@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 import RadioButton from '../../../Components/RadioButton/index.js';
 import { LOG, showToast } from '../../../Api/HelperFunctions.js';
 import actions from '../../../redux/actions/index.js';
-import imagePicker from 'rn-image-picker'
 import { launchImageLibrary } from 'react-native-image-picker';
 
 const initial_state = {
