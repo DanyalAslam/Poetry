@@ -30,7 +30,7 @@ export default Styles = StyleSheet.create({
         color: appTheme.darkGray,
         fontSize: 1.8 * vh,
         fontFamily: fonts.poppins.light,
-   
+        width: 80 * vw
     },
     poemTitle: {
         color: appTheme.darkGray,

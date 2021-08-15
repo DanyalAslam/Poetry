@@ -296,3 +296,10 @@ export const getFriendStatus = (friend_id, profile) => {
 
 
 };
+
+export const ad_ids = {
+    banner_poem_details: "ca-app-pub-8059419171547646/7352367170",
+    google_banner: "ca-app-pub-3940256099942544/6300978111",
+    inter_poem_details: "ca-app-pub-8059419171547646/5607523744",
+    google_inter: "ca-app-pub-3940256099942544/8691691433"
+}

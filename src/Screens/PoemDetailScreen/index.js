@@ -10,7 +10,7 @@ import {
     AdMobBanner
 } from 'react-native-admob';
 import EmptyComponent from '../../Components/EmptyComponent/index.js'
-import { appTheme, playStoreUrl } from '../../Utils/index.js'
+import { ad_ids, appTheme, playStoreUrl } from '../../Utils/index.js'
 import { vh, vw } from '../../Units/index.js'
 import Tts from 'react-native-tts';
 import AnimatedButton from '../../Components/AnimatedButton/index.js'
@@ -42,10 +42,14 @@ class PoemDetailScreen extends React.Component {
 
             if (this.props.route?.params?.makeApiCall) {
 
-                // AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-                // AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433'); //google test ad
-
-                AdMobInterstitial.setAdUnitID('ca-app-pub-8059419171547646/5607523744');
+                if(__DEV__){
+                    AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+                    AdMobInterstitial.setAdUnitID(ad_ids.google_inter); //google test ad    
+                }
+                else{
+                    AdMobInterstitial.setAdUnitID(ad_ids.inter_poem_details);
+                }
+           
                 
                 setTimeout(() => {
                     
@@ -615,9 +619,9 @@ class PoemDetailScreen extends React.Component {
                     adSize="banner"
                     onAdFailedToLoad={(e) => console.log(e)
                     }
-                    // adUnitID="ca-app-pub-3940256099942544/6300978111" //google testad
-                    // testDeviceID="EMULATOR"
-                    adUnitID="ca-app-pub-8059419171547646/7352367170"
+
+                    {...(__DEV__) && {testDeviceID: "EMULATOR"}}
+                    adUnitID={__DEV__ ? ad_ids.google_banner : ad_ids.banner_poem_details}
                 />
 
 

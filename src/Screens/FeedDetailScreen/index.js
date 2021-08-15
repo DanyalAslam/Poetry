@@ -32,7 +32,6 @@ class FeedDetailScreen extends React.Component {
     }
 
     onScreenFocus = () => {
-        console.log('this.props.route?.params ',this.props.route?.params);
         if (this.props.route?.params?.type) {
 
             this.getPoem(this.props.route?.params?.poem_id);

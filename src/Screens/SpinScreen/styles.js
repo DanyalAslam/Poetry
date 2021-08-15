@@ -26,10 +26,16 @@ const styles = StyleSheet.create({
         borderRadius: 5 * vw,
         width: 30 * vw,
         height: 4.5 * vh,
-        marginTop: 6 * vh,
+        marginTop: 4 * vh,
         marginBottom: 3 * vh
         
-    }
+    },
+    headerIcon: {
+        width: 6 * vw,
+        height: 6 * vw,
+        resizeMode: 'contain',
+        tintColor: appTheme.black
+    },
 })
 
 export default styles

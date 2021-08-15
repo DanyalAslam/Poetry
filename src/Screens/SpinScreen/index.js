@@ -11,6 +11,7 @@ import allImages from '../../assets/images/index.js'
 import Button from '../../Components/Button/index.js'
 import TextPoppinsRegular from '../../Components/TextPoppinsRegular/index.js'
 import { LOG } from '../../Api/HelperFunctions.js'
+import RippleTouch from '../../Components/RippleTouch/index.js'
 
 
 class SpinScreen extends React.Component {
@@ -33,7 +34,7 @@ class SpinScreen extends React.Component {
         this.setState({ refreshing: true }, this._AnimateRotation);
 
         this.props.getRandomPoems(response => {
- 
+
             this.setState({ refreshing: false, poems: response, first: false });
 
         }, error => {
@@ -130,7 +131,7 @@ class SpinScreen extends React.Component {
 
         return <View style={styles.header}>
             <Animated.Image
-                source={allImages.generalIcons.spinner}
+                source={allImages.generalIcons.spinWheel}
                 style={[styles.spinner, { transform: [{ rotate: spin }] }]}
             />
             <Button onPress={this.getPoems} style={styles.button}>
@@ -156,6 +157,12 @@ class SpinScreen extends React.Component {
                     ListHeaderComponent={this.header}
                     numColumns={2}
                 />
+
+                <RippleTouch
+                    style={{ position: 'absolute', top: 2 * vh, left: 5 * vw }}
+                    onPress={this.props.navigation.goBack}>
+                    <Image style={styles.headerIcon} source={allImages.generalIcons.leftArrow} />
+                </RippleTouch>
 
             </View>
         )

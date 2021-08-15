@@ -1,5 +1,5 @@
 import React from 'react'
-import { Animated, DeviceEventEmitter, Image, LayoutAnimation, PanResponder, Text, TouchableOpacity } from 'react-native';
+import { Animated, DeviceEventEmitter, Image, PanResponder, Text, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
