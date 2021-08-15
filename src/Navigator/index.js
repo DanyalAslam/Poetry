@@ -1,5 +1,8 @@
 import React from 'react'
-import { Animated, DeviceEventEmitter, Image, PanResponder, Text, TouchableOpacity } from 'react-native';
+import {
+  Animated, DeviceEventEmitter, Image, PanResponder, Text,
+  TouchableOpacity
+} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -60,8 +63,17 @@ class MainNavigator extends React.Component {
     }
 
     this._panResponder = PanResponder.create({
-      onMoveShouldSetResponderCapture: () => true, //Tell iOS that we are allowing the movement
-      onMoveShouldSetPanResponderCapture: () => true, // Same here, tell iOS that we allow dragging
+      // onMoveShouldSetResponderCapture: () => true, //Tell iOS that we are allowing the movement
+      // onMoveShouldSetPanResponderCapture: () => true, // Same here, tell iOS that we allow dragging
+      // onMoveShouldSetPanResponder: () => true,
+      // Fix, because touchable opacity on press won;t work
+      onMoveShouldSetPanResponder: (evt, {dx, dy}) => {
+        if (dx > 0 || dy > 0) {
+          return true;
+        }
+
+        return false;
+      },
       onPanResponderGrant: (e, gestureState) => {
         this.state.pan.setOffset({ x: this._animatedValueX, y: this._animatedValueY });
         this.state.pan.setValue({ x: 0, y: 0 }); //Initial value
@@ -73,7 +85,7 @@ class MainNavigator extends React.Component {
 
         this.state.pan.flattenOffset(); // Flatten the offset so it resets the default positioning
 
-      }
+      },
     });
 
     this._animatedValueX = 0;
@@ -700,7 +712,8 @@ class MainNavigator extends React.Component {
     ]
 
     return <Animated.View style={[styles.spinParent, { transform: transform }]}
-      {...this._panResponder?.panHandlers}>
+      {...this._panResponder?.panHandlers}
+      >
       <TouchableOpacity onPress={() => props.navigation.navigate('SpinScreen')} activeOpacity={0.7} style={styles.spinButton}>
         <Image
           source={allImages.generalIcons.spinner}
@@ -710,7 +723,7 @@ class MainNavigator extends React.Component {
     </Animated.View>
   }
 
- 
+
   render() {
 
     return (
