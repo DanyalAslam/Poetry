@@ -18,10 +18,6 @@ import { appTheme } from './src/Utils';
 import { setEmojiData } from 'rn-emoji-keyboard';
 import ErrorBoundary from './src/Components/ErrorBoundary';
 
-
-//         android:largeHeap="true"
-// android:hardwareAccelerated="false"
-
 console.log('HEREEEEE 1 ');
 setEmojiData();
 console.log('HEREEEEE 2 ');
