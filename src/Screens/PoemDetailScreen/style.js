@@ -72,7 +72,7 @@ export default Styles = StyleSheet.create({
     marginLeft: 3 * vw,
   },
   wish: {
-    paddingBottom: 20,
+    paddingBottom: 50,
   },
   wishBtn: {
     right: 3 * vw,
