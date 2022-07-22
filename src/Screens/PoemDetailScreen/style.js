@@ -71,4 +71,10 @@ export default Styles = StyleSheet.create({
     marginTop: 2 * vh,
     marginLeft: 3 * vw,
   },
+  wish: {
+    paddingBottom: 20,
+  },
+  wishBtn: {
+    right: 3 * vw,
+  },
 });

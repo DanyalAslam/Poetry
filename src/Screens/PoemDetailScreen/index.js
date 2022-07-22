@@ -15,6 +15,7 @@ import Tts from 'react-native-tts';
 import Share from 'react-native-share';
 import {ShareDialog, MessageDialog} from 'react-native-fbsdk';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import SkeletonContent from 'react-native-skeleton-content-nonexpo';
 import EmptyComponent from '../../Components/EmptyComponent/index.js';
 import {
   ad_ids,
@@ -29,11 +30,22 @@ import AnimatedWish from '../../Components/AnimatedWish/index.js';
 import BottomSheetButtons from '../../Components/BottomSheetButtons/index.js';
 import allImages from '../../assets/images/index.js';
 import styles from './style.js';
-import SkeletonContent from 'react-native-skeleton-content-nonexpo';
 
 const LIMIT = 40;
 
-class PoemDetailScreen extends React.Component {
+const keyExtractor = (item, index) => String(index);
+const ListFooterComponent = () => {
+  return (
+    <AdMobBanner
+      style={styles.admobBanner}
+      adSize="banner"
+      {...(__DEV__ && {testDeviceID: 'EMULATOR'})}
+      adUnitID={__DEV__ ? ad_ids.google_banner : ad_ids.banner_poem_details}
+    />
+  );
+};
+
+class PoemDetailScreen extends React.PureComponent {
   state = {
     poemDetails: this.props.route?.params?.makeApiCall
       ? null
@@ -41,7 +53,8 @@ class PoemDetailScreen extends React.Component {
     refreshing: true,
     newLines: [],
     ad_loaded: false,
-    convertedLines: '',
+    convertedLines: [],
+    page: 1,
   };
 
   componentDidMount() {
@@ -62,7 +75,7 @@ class PoemDetailScreen extends React.Component {
               ad_loaded: true,
             }),
           );
-          AdMobInterstitial.addEventListener('adFailedToLoad', error =>
+          AdMobInterstitial.addEventListener('adFailedToLoad', () =>
             this.setState({
               ad_loaded: false,
             }),
@@ -75,12 +88,12 @@ class PoemDetailScreen extends React.Component {
               this._onPlay,
             );
           });
-          AdMobInterstitial.requestAd().catch(error =>
+          AdMobInterstitial.requestAd().catch(() =>
             this.setState({refreshing: false}),
           );
         }, 500);
 
-        this._getPoem(success => {
+        this._getPoem(() => {
           this.showReviewPopUp();
         });
       } else {
@@ -95,7 +108,8 @@ class PoemDetailScreen extends React.Component {
         this.setState({poemDetails: null});
       } catch (error) {}
     });
-    Tts.addEventListener('tts-finish', event => {
+
+    Tts.addEventListener('tts-finish', () => {
       if (this.state.newLines.length > 0) {
         if (this.state.newLines.length < LIMIT) {
           if (this.playPauseRef) {
@@ -119,7 +133,7 @@ class PoemDetailScreen extends React.Component {
           }
         }
       } else {
-        let _lines = this.state.poemDetails.lines.map((line, index) => {
+        let _lines = this.state.poemDetails.lines.map(line => {
           return line + ' ';
         });
         let splittedLines = [..._lines.slice(LIMIT, _lines.length)];
@@ -159,18 +173,6 @@ class PoemDetailScreen extends React.Component {
     this.props.navigation.removeListener('blur');
   }
 
-  generateLines = lines => {
-    'worklet';
-
-    let _lines = lines.map(line => {
-      return line + '\n';
-    });
-
-    this.setState({
-      convertedLines: _lines,
-    });
-  };
-
   _getPoem = completed => {
     let _poemName = this.props.route?.params?.poem?.title;
 
@@ -182,11 +184,11 @@ class PoemDetailScreen extends React.Component {
         if (completed) {
           completed();
         }
-        // runOnJS(this.generateLines)(success[0]?.lines);
 
         this.setState({
           refreshing: false,
           poemDetails: success[0],
+          convertedLines: success[0].lines?.slice(0, LIMIT),
         });
       },
       error => {
@@ -270,8 +272,8 @@ class PoemDetailScreen extends React.Component {
     MessageDialog.show(shareLinkContent);
   };
 
-  _onPressWish = poem => {
-    this.props.addToWishList(poem, success => {
+  _onPressWish = () => {
+    this.props.addToWishList(this.state.poemDetails, success => {
       Toast.show(success);
     });
   };
@@ -330,16 +332,19 @@ class PoemDetailScreen extends React.Component {
 
       return (
         <View>
-          <AnimatedWish
-            onWishPress={() => this._onPressWish(_details)}
-            wish={
-              this.props.wishList.findIndex(
-                _element => _element.title == _details.title,
-              ) == -1
-                ? 'unwish'
-                : 'wish'
-            }
-          />
+          <View style={styles.wish}>
+            <AnimatedWish
+              onWishPress={this._onPressWish}
+              wish={
+                this.props.wishList.findIndex(
+                  _element => _element.title == _details.title,
+                ) == -1
+                  ? 'unwish'
+                  : 'wish'
+              }
+              style={styles.wishBtn}
+            />
+          </View>
 
           <View style={styles.row}>
             <View>
@@ -375,8 +380,6 @@ class PoemDetailScreen extends React.Component {
           <View style={styles.textContainer}>
             <Text style={styles.title}>Lines:</Text>
           </View>
-
-          {/* <Text style={styles.lines}>{_details.lines}</Text> */}
         </View>
       );
     }
@@ -426,15 +429,21 @@ class PoemDetailScreen extends React.Component {
     return <Text style={styles.lines}>{item + '\n'}</Text>;
   };
 
-  ListFooterComponent = () => {
-    return (
-      <AdMobBanner
-        style={styles.admobBanner}
-        adSize="banner"
-        {...(__DEV__ && {testDeviceID: 'EMULATOR'})}
-        adUnitID={__DEV__ ? ad_ids.google_banner : ad_ids.banner_poem_details}
-      />
-    );
+  onEndReached = () => {
+    if (
+      this.state.page < Math.ceil(this.state.poemDetails?.linecount / LIMIT)
+    ) {
+      this.setState({
+        convertedLines: [
+          ...this.state.convertedLines,
+          ...this.state.poemDetails?.lines?.slice(
+            this.state.page * LIMIT,
+            (this.state.page + 1) * LIMIT,
+          ),
+        ],
+        page: this.state.page + 1,
+      });
+    }
   };
 
   render() {
@@ -446,7 +455,7 @@ class PoemDetailScreen extends React.Component {
           containerStyle={null}
         >
           <FlatList
-            data={this.state.poemDetails?.lines}
+            data={this.state.convertedLines}
             renderItem={this.renderItem}
             refreshControl={
               <RefreshControl
@@ -457,8 +466,11 @@ class PoemDetailScreen extends React.Component {
             }
             ListHeaderComponent={this._renderSection}
             ListEmptyComponent={this.renderEmpty}
-            ListFooterComponent={this.ListFooterComponent}
+            ListFooterComponent={ListFooterComponent}
+            keyExtractor={keyExtractor}
             style={styles.firstChildContainer}
+            onEndReached={this.onEndReached}
+            onEndReachedThreshold={0.16}
           />
         </SkeletonContent>
       </View>
