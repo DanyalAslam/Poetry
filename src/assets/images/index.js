@@ -26,7 +26,8 @@ const allImages = {
         emoji: require('./generalIcons/emoji.png'),
         send: require('./generalIcons/send.png'),
         addFriend: require('./generalIcons/add-friend.png'),
-
+        spinner: require('./generalIcons/spinner.png'),
+        spinWheel: require('./generalIcons/spinning-wheel.png'),
     },
     tabBarIcons:{
         homeActive: require('./tabBarIcons/homeActive.png'),

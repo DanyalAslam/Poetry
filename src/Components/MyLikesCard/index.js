@@ -4,6 +4,7 @@ import styles from './styles.js'
 import { connect } from 'react-redux'
 import actions from '../../redux/actions/index.js'
 import { getProfileImage, _calculateDate } from '../../Utils/index.js'
+import RippleTouch from '../RippleTouch/index.js'
 
 
 class MyLikesCard extends Component {
@@ -15,15 +16,15 @@ class MyLikesCard extends Component {
         }
 
 
-        // let params = {
-        //     poem: null
-        // };
+        let params = {
+            poem: null
+        };
 
 
-        // params["poem"] = this.props.friend;
+        params["poem"] = this.props.like;
 
 
-        // this.props.navigation.navigate("FeedDetailScreen", params);
+        this.props.navigation.navigate("FeedDetailScreen", params);
 
     }
 

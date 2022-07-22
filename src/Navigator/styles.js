@@ -11,7 +11,7 @@ export default Styles = StyleSheet.create({
         // borderBottomColor: appTheme.lightGray,
         height: 12 * vh,
         backgroundColor: appTheme.black,
-        
+
     },
     headerTitle: {
         color: appTheme.white,
@@ -67,4 +67,24 @@ export default Styles = StyleSheet.create({
         marginRight: 5 * vw,
         marginTop: 2 * vh
     },
+    spinImage: {
+        height: 5 * vw,
+        width: 5 * vw,
+        resizeMode: 'contain'
+    },
+    spinButton: {
+        height: 12 * vw,
+        width: 12 * vw,
+        borderRadius: 6 *vw,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: appTheme.skyWhite,
+       
+    },
+    spinParent: {
+        position: 'absolute',
+        bottom: 20 * vh,
+        right: 5 * vw,
+        elevation: 3
+    }
 });
